@@ -51,7 +51,7 @@
 </head>
 <body>
 	<div>
-		<a href="main.net">뒤로 이동하기</a>
+		<a href="main.mem">뒤로 이동하기</a>
 		<a href="javascript:history.back();">이전 페이지로 이동하기</a>
 	</div>
 	
