@@ -31,6 +31,14 @@
 				float: left;
 			}
 		</style>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('button').click(function(){
+					location.href='BoardDetail.sell';
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<form id = "sell_view" action = "" method = "post">
@@ -68,9 +76,9 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<button>수정</button>
-						<button>삭제</button>
-						<button>목록</button>
+						<button id="modify">수정</button>
+						<button id="delete">삭제</button>
+						<button id="list">목록</button>
 					</td>
 				</tr>
 			</table>

@@ -21,7 +21,7 @@ public class SellBoardAddAction implements Action{
 		ActionForward forward=new ActionForward();
 		SellBoardBean sellboard=new SellBoardBean();
 		
-		String realFolder="";
+		/*String realFolder="";
 		String saveFolder="boardupload";
 		
 		int fileSize=10*1024*1024;
@@ -56,7 +56,7 @@ public class SellBoardAddAction implements Action{
 			
 		}catch(Exception e){
 			System.out.println(e.getMessage());
-		}
+		}*/
 		
 		return null;
 	}

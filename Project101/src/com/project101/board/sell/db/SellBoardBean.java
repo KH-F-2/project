@@ -13,7 +13,6 @@ public class SellBoardBean {
 	private int SB_LATITUDE;
 	private int SB_LOGITUDE;
 	private String SB_PICTURE;
-	private int SB_COMMENT;
 	private Date SB_DATE;
 	private int SB_READCOUNT;
 	
@@ -99,14 +98,6 @@ public class SellBoardBean {
 
 	public void setSB_PICTURE(String sB_PICTURE) {
 		SB_PICTURE = sB_PICTURE;
-	}
-
-	public int getSB_COMMENT() {
-		return SB_COMMENT;
-	}
-
-	public void setSB_COMMENT(int sB_COMMENT) {
-		SB_COMMENT = sB_COMMENT;
 	}
 
 	public Date getSB_DATE() {

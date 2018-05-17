@@ -60,10 +60,10 @@ public class SellBoardListAction implements Action {
 		forward.setRedirect(false);
 		
 		if(request.getParameter("state") != null) {
-			forward.setPath("board/qna_board_list2.jsp");
+			forward.setPath("sellboard/sell_board_list2.jsp");
 			System.out.println("Ajax 실행중");
 		}else {
-			forward.setPath("./member/template.jsp?page=/board/qna_board_list");
+			forward.setPath("sellboard/sell_board_list.jsp");
 		}
 		
 		return forward;

@@ -26,7 +26,31 @@ public class SellBoardDAO {
 			System.out.println("DB 연결 실패 : " + e);
 			return;
 		}
-	}
+	}	// SellBoardDAO() --------
+	
+	
+	public int getListCount() {
+		try {
+			conn=ds.getConnection();
+			String sql="SELECT COUNT(*) FROM SELL_BOARD";
+			pstmt=conn.prepareStatement(sql);
+			
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) 
+				result=rset.getInt(1);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}	// getListCount() -------
 	
 	
 }
