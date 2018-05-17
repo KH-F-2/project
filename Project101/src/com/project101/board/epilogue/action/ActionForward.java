@@ -1,4 +1,4 @@
-package net.board.action;
+package com.project101.board.epilogue.action;
 
 //	ActionForward 클래스는 Action 인터페이스에서 명령을 수행하고 결과 값을 가지고 포워딩
 //	할 때 사용되는 클래스 입니다. 이 클래스는 Redirect 여부 값과 포워딩 할 페이지의 위치를

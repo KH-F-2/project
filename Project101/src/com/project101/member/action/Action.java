@@ -3,7 +3,7 @@
 //	Action : 인터페이스 명
 //	ActionForward : 반환형
 
-package net.board.action;
+package com.project101.member.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
