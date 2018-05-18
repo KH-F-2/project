@@ -23,7 +23,7 @@ public class SellBoardDeleteAction implements Action{
 		if (result == 1) {
 			out.println("<script>alert('삭제가 실패되었습니다.');history.back();</script>");
 		}
-		response.setContentType("text/html;charset=euc-kr");
+		response.setContentType("text/html;charset=utf-8");
 		out.println("<script>alert('삭제되었습니다.');location = '.BoardList.sell';</script>");
 		out.close();
 		forward.setRedirect(false);

@@ -1,71 +1,118 @@
 package com.project101.board.sell.db;
 
+import java.util.Date;
+
 public class SellBoardBean {
-	private String id;
-	private String password;
-	private String name;
-	private int age;
-	private String gender;
-	private String email;
-	
-	public SellBoardBean() {
-		
-	}
-	
-	public SellBoardBean(String id, String password, String name, int age, String gender, String email) {
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.age = age;
-		this.gender = gender;
-		this.email = email;
-	}
+   private int SB_NO;
+   private String SB_WRITER;
+   private Date SB_REDITDATE;
+   private String SB_TITLE;
+   private int SB_CATEGORY;
+   private String SB_CONTENT;
+   private int SB_PRICE;
+   private int SB_LATITUDE;
+   private int SB_LOGITUDE;
+   private String SB_PICTURE;
+   private Date SB_DATE;
+   private int SB_READCOUNT;
+   
+   public SellBoardBean() {
+      super();
+   }
 
-	public String getId() {
-		return id;
-	}
+   public int getSB_NO() {
+      return SB_NO;
+   }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+   public void setSB_NO(int sB_NO) {
+      SB_NO = sB_NO;
+   }
 
-	public String getPassword() {
-		return password;
-	}
+   public String getSB_WRITER() {
+      return SB_WRITER;
+   }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+   public void setSB_WRITER(String sB_WRITER) {
+      SB_WRITER = sB_WRITER;
+   }
 
-	public String getName() {
-		return name;
-	}
+   public Date getSB_REDITDATE() {
+      return SB_REDITDATE;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public void setSB_REDITDATE(Date sB_REDITDATE) {
+      SB_REDITDATE = sB_REDITDATE;
+   }
 
-	public int getAge() {
-		return age;
-	}
+   public String getSB_TITLE() {
+      return SB_TITLE;
+   }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+   public void setSB_TITLE(String sB_TITLE) {
+      SB_TITLE = sB_TITLE;
+   }
 
-	public String getGender() {
-		return gender;
-	}
+   public int getSB_CATEGORY() {
+      return SB_CATEGORY;
+   }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+   public void setSB_CATEGORY(int sB_CATEGORY) {
+      SB_CATEGORY = sB_CATEGORY;
+   }
 
-	public String getEmail() {
-		return email;
-	}
+   public String getSB_CONTENT() {
+      return SB_CONTENT;
+   }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+   public void setSB_CONTENT(String sB_CONTENT) {
+      SB_CONTENT = sB_CONTENT;
+   }
+
+   public int getSB_PRICE() {
+      return SB_PRICE;
+   }
+
+   public void setSB_PRICE(int sB_PRICE) {
+      SB_PRICE = sB_PRICE;
+   }
+
+   public int getSB_LATITUDE() {
+      return SB_LATITUDE;
+   }
+
+   public void setSB_LATITUDE(int sB_LATITUDE) {
+      SB_LATITUDE = sB_LATITUDE;
+   }
+
+   public int getSB_LOGITUDE() {
+      return SB_LOGITUDE;
+   }
+
+   public void setSB_LOGITUDE(int sB_LOGITUDE) {
+      SB_LOGITUDE = sB_LOGITUDE;
+   }
+
+   public String getSB_PICTURE() {
+      return SB_PICTURE;
+   }
+
+   public void setSB_PICTURE(String sB_PICTURE) {
+      SB_PICTURE = sB_PICTURE;
+   }
+
+   public Date getSB_DATE() {
+      return SB_DATE;
+   }
+
+   public void setSB_DATE(Date sB_DATE) {
+      SB_DATE = sB_DATE;
+   }
+
+   public int getSB_READCOUNT() {
+      return SB_READCOUNT;
+   }
+
+   public void setSB_READCOUNT(int sB_READCOUNT) {
+      SB_READCOUNT = sB_READCOUNT;
+   }
 }
