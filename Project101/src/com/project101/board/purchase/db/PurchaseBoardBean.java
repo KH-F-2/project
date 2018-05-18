@@ -1,5 +1,7 @@
 package com.project101.board.purchase.db;
 
+import java.util.Date;
+
 public class PurchaseBoardBean {
 	private String id;
 	private String password;
@@ -12,15 +14,15 @@ public class PurchaseBoardBean {
 	private int num;
 	private String subject;
 	private String file;
-	private int date;
-	private int pb_readcount;
+	private Date date;
+	private int readcount;
 	public PurchaseBoardBean() {
 		
 	}
 	
 	public PurchaseBoardBean(String id, String password, String writer, int age, String gender,
 			String email, String content, String title, int num, String subject, String file,
-				int date, int pb_readcount) {
+				Date date, int readcount) {
 		this.id = id;
 		this.password = password;
 		this.writer = writer;
@@ -33,7 +35,7 @@ public class PurchaseBoardBean {
 		this.subject = subject;
 		this.file = file;
 		this.date = date;
-		this.pb_readcount = pb_readcount;
+		this.readcount = readcount;
 	}
 
 	public String getId() {
@@ -122,19 +124,19 @@ public class PurchaseBoardBean {
 		this.file = file;
 	}
 
-	public int getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(int date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
-	public int getPb_readcount() {
-		return pb_readcount;
+	public int getreadcount() {
+		return readcount;
 	}
 
-	public void setPb_readcount(int pb_readcount) {
-		this.pb_readcount = pb_readcount;
+	public void setreadcount(int readcount) {
+		this.readcount = readcount;
 	}
 }
