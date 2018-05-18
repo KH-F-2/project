@@ -35,6 +35,10 @@ public class SellBoardFrontController extends HttpServlet {
 				forward.setRedirect(false);
 				forward.setPath("/sellboard/sell_board_write.jsp");
 			}
+			else if(command.equals("/BoardAddAction.sell")) {
+				action=new SellBoardAddAction();
+				forward=action.execute(request, response);
+			}
 			else if(command.equals("/BoardDetail.sell")) {
 				action=new SellBoardDetailAction();
 				forward=action.execute(request, response);

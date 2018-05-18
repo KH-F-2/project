@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.project101.board.sell.db.SellBoardBean;
 import com.project101.board.sell.db.SellBoardDAO;
@@ -14,8 +13,8 @@ public class SellBoardListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=euc-kr");
-		request.setCharacterEncoding("euc-kr");
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		SellBoardDAO selldao=new SellBoardDAO();
 		List<SellBoardBean> boardlist=new ArrayList<SellBoardBean>();
 		ActionForward forward=new ActionForward();
@@ -28,21 +27,10 @@ public class SellBoardListAction implements Action {
 		}
 		System.out.println("넘어온 페이지 : "+page);
 		
-		HttpSession session=request.getSession();
-		if(session.getAttribute("limit")!=null) {
-			limit=Integer.parseInt(session.getAttribute("limit").toString());
-		}
-		if(request.getParameter("limit")!=null) {
-			limit=Integer.parseInt(request.getParameter("limit"));
-			session.setAttribute("limit", limit);
-			System.out.println("limit : "+limit);
-		}
-		
-		/*
 		int listcount=selldao.getListCount();
 		System.out.println("listcount : "+listcount);
 		
-		boardlist=sellbdao.getBoardList(page, limit);
+		boardlist=selldao.getBoardList(page, limit);
 		
 		int maxpage=(listcount+limit-1)/limit;
 		int startpage=((page-1)/limit)*limit+1;
@@ -56,15 +44,9 @@ public class SellBoardListAction implements Action {
 		request.setAttribute("endpage", endpage);
 		request.setAttribute("listcount", listcount);
 		
-		*/
+		//forward.setPath("./board/qna_board_list.jsp");
 		forward.setRedirect(false);
-		
-		if(request.getParameter("state") != null) {
-			forward.setPath("sellboard/sell_board_list2.jsp");
-			System.out.println("Ajax 실행중");
-		}else {
-			forward.setPath("sellboard/sell_board_list.jsp");
-		}
+		forward.setPath("sellboard/sell_board_list.jsp");
 		
 		return forward;
 	}

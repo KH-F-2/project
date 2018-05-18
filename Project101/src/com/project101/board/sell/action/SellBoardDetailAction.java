@@ -16,7 +16,7 @@ public class SellBoardDetailAction implements Action {
 		ActionForward forward=new ActionForward();
 		SellBoardBean sellboard=new SellBoardBean();
 		
-		/*
+		
 		int num=Integer.parseInt(request.getParameter("num"));
 		
 		selldao.setReadCountUpdate(num);
@@ -30,9 +30,9 @@ public class SellBoardDetailAction implements Action {
 		}else {
 			System.out.println("상세보기 성공!");
 			forward.setRedirect(false);
-			forward.setPath("./member/template.jsp?page=/board/qna_board_view");
+			forward.setPath("sellboard/sell_board_view.jsp");
 		}
-		*/
+		
 		forward.setRedirect(false);
 		forward.setPath("/sellboard/sell_board_view.jsp");
 		return forward;

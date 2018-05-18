@@ -5,14 +5,10 @@ import java.util.Date;
 public class SellBoardBean {
 	private int SB_NO;
 	private String SB_WRITER;
-	private Date SB_REDITDATE;
+	private Date SB_BDATE;
 	private String SB_TITLE;
-	private int SB_CATEGORY;
 	private String SB_CONTENT;
 	private int SB_PRICE;
-	private int SB_LATITUDE;
-	private int SB_LOGITUDE;
-	private String SB_PICTURE;
 	private Date SB_DATE;
 	private int SB_READCOUNT;
 	
@@ -36,12 +32,12 @@ public class SellBoardBean {
 		SB_WRITER = sB_WRITER;
 	}
 
-	public Date getSB_REDITDATE() {
-		return SB_REDITDATE;
+	public Date getSB_BDATE() {
+		return SB_BDATE;
 	}
 
-	public void setSB_REDITDATE(Date sB_REDITDATE) {
-		SB_REDITDATE = sB_REDITDATE;
+	public void setSB_BDATE(Date sB_BDATE) {
+		SB_BDATE = sB_BDATE;
 	}
 
 	public String getSB_TITLE() {
@@ -50,14 +46,6 @@ public class SellBoardBean {
 
 	public void setSB_TITLE(String sB_TITLE) {
 		SB_TITLE = sB_TITLE;
-	}
-
-	public int getSB_CATEGORY() {
-		return SB_CATEGORY;
-	}
-
-	public void setSB_CATEGORY(int sB_CATEGORY) {
-		SB_CATEGORY = sB_CATEGORY;
 	}
 
 	public String getSB_CONTENT() {
@@ -74,30 +62,6 @@ public class SellBoardBean {
 
 	public void setSB_PRICE(int sB_PRICE) {
 		SB_PRICE = sB_PRICE;
-	}
-
-	public int getSB_LATITUDE() {
-		return SB_LATITUDE;
-	}
-
-	public void setSB_LATITUDE(int sB_LATITUDE) {
-		SB_LATITUDE = sB_LATITUDE;
-	}
-
-	public int getSB_LOGITUDE() {
-		return SB_LOGITUDE;
-	}
-
-	public void setSB_LOGITUDE(int sB_LOGITUDE) {
-		SB_LOGITUDE = sB_LOGITUDE;
-	}
-
-	public String getSB_PICTURE() {
-		return SB_PICTURE;
-	}
-
-	public void setSB_PICTURE(String sB_PICTURE) {
-		SB_PICTURE = sB_PICTURE;
 	}
 
 	public Date getSB_DATE() {

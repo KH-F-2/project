@@ -1,80 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
-		<style>
-			table {
-				width : 80%;
-				border : 1px black solid;
-				height : 500px;
-				text-align: center;
-			}
-			table>tr:first-child>td {
-				background-color: #88c399;
-			}
-			#div_1{
-				width : 30%;
-				height : 350px;
-			}
-			#div_2{
-				width : 70%;
-				height : 350px;
-			}
-			#content_img{
-				width : 95%;
-				height : 80%;
-				display: inline-block;
-			}
-			#sell_icon{
-				float: left;
-			}
-		</style>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="/test/js/sellboard.js"></script>
 	</head>
-	<body>
-		<form id = "sell_view" action = "" method = "post">
-			<table border="1">
-				<tr>
-					<td width = "10%">글번호</td>
-					<td width = "15%">[카테고리]</td>
-					<td>제목</td>
-					<td width = "15%">날짜</td>
-				</tr>
-				<tr height = "350px">
-					<td colspan="4">
-						<div id = "div_1">
-							<img id = "content_img" src = "/test/image/File1.jpg">
-							<button id = "buy_btn">구매신청</button>
-						</div>
-						<div id = "div_2">
-							<img id = "sell_icon" src = "/test/image/sellicon.PNG"><br>
-							가격 : 백마누언
-							~~~~~~ 내용 ~~~~~
-							~~~~~~ 내용 ~~~~~
-							~~~~~~ 내용 ~~~~~
-							~~~~~~ 내용 ~~~~~
-							~~~~~~ 내용 ~~~~~
-						</div>
-					</td>
+			<table>
+				<tr class="center">
+					<th colspan="2">판매 게시판 - view 페이지</th>
 				</tr>
 				<tr>
+					<td><div>글쓴이</div></td>
 					<td>
-						댓글
-					</td>
-					<td colspan="3">
-						~~댓글~~
+						<div>${sellboard.SB_WRITER}</div>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="4">
-						<button id="view_modify">수정</button>
-						<button id="view_delete">삭제</button>
-						<button id="view_list">목록</button>
-					</td>
+					<td><div>제목</div></td>
+					<td><div>${sellboard.SB_TITLE}</div>	</td>
+				</tr>
+				<tr>
+					<td><div>내용</div></td>
+					<td><div>${sellboard.SB_CONTENT }</div></td>
+				</tr>
+				
+				<tr class="center">
+					<td colspan="2">
+					    <c:if test="${id=='admin'||id==sellboard.SB_WRITER}">
+					    	<a href="<c:url value='/ModifyView.sell?num=${sellboard.SB_NO}'/>">
+								<img src="/test/image/update.png">
+							</a>&nbsp;
+							<a href="<c:url value='/BoardDelete.sell?num=${sellboard.SB_NO}'/>">
+								<img src="/test/image/delete.png">
+							</a>&nbsp;
+						</c:if>
+						<a href="<c:url value='/BoardList.sell'/>">
+							<img src="/test/image/list.png">
+						</a>&nbsp;
 				</tr>
 			</table>
-		</form>
 	</body>
 </html>
