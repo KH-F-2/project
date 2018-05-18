@@ -28,15 +28,27 @@ public class PurchaseFrontContrioller extends HttpServlet {
 
 		Action action = null;
 		ActionForward forward = null;
-	
 
-		if (command.equals("/BoardWrite.buy")) {
+		if (command.equals("/BoardWrite.buy")) { // 작성페이지
 			forward = new ActionForward();
 			forward.setRedirect(false);
 			forward.setPath("/buy/buy_board_write.jsp");
 			System.out.println("on Boardwrite aaa");
+		} else if (command.equals("/BoardModifyView.buy")) { // 수정페이지
+			action = new PurchaseModifyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("/BoardDelete.buy")) { // 삭제페이지
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("./buy/buy_board_delete.jsp");
+			System.out.println("on delete ddd");
 		}
-		
+		// 그때 그때 추가
+
 		if (forward != null) {
 			if (forward.isRedirect()) { // 리다이렉트 됩니다.
 				response.sendRedirect(forward.getPath());
@@ -45,6 +57,13 @@ public class PurchaseFrontContrioller extends HttpServlet {
 				dispathcher.forward(request, response);
 			}
 
+		} else if (command.equals("/PurchaseListAction.buy")) {
+			action = new PurchaseListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
