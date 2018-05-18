@@ -115,4 +115,5 @@ public class SellBoardBean {
 	public void setSB_READCOUNT(int sB_READCOUNT) {
 		SB_READCOUNT = sB_READCOUNT;
 	}
+	
 }
