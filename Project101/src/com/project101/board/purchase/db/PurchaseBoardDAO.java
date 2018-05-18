@@ -116,7 +116,7 @@ public class PurchaseBoardDAO {
 	//조회수 readcount 추가
 	public void setReadCountUpdate(int num) {
 		String sql = "update purchase_board "
-				+	"set readcount = readcount+1 "
+				+	"set pb_readcount = pb_readcount+1 "
 				+	"where PB_NO = ?";
 		try {
 			conn = ds.getConnection();			
@@ -166,7 +166,7 @@ public class PurchaseBoardDAO {
 				buydata.setContent(rset.getString("PB_CONTENT"));
 				buydata.setFile(rset.getString("PB_FILE"));	
 				buydata.setreadcount(rset.getInt("PB_READCOUN"));
-				buydata.setDate(rset.getInt("PB_DATE"));
+				buydata.setDate(rset.getDate("PB_DATE"));
 			}
 			return buydata;
 		}catch (Exception e ) {
@@ -247,7 +247,7 @@ public class PurchaseBoardDAO {
 						"select * from " 
 						+ "(select rownum rnum,pb_no ,pb_writer, "
 						+ "pb_title, pb_content, pb_file, "
-						+ "board_readcount,board_date from "
+						+ "pb_readcount,pb_date from "
 						+		"(select * from PURCHASE_BOARD "
 						+	"where rnum>=? and rnum<=? ";
 				
