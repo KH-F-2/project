@@ -16,13 +16,13 @@ public class PurchaseBoardBean {
 	private String file;
 	private Date date;
 	private int readcount;
+
 	public PurchaseBoardBean() {
 		
 	}
 	
-	public PurchaseBoardBean(String id, String password, String writer, int age, String gender,
-			String email, String content, String title, int num, String subject, String file,
-				Date date, int readcount) {
+	public PurchaseBoardBean(String id, String password, String writer, int age, String gender, 
+      String email, String content, String title, int num, String subject, String file, Date date, int readcount) {
 		this.id = id;
 		this.password = password;
 		this.writer = writer;
@@ -140,3 +140,4 @@ public class PurchaseBoardBean {
 		this.readcount = readcount;
 	}
 }
+
