@@ -23,7 +23,7 @@ public class EpilogueBoardDAO {
 			ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		} catch (Exception e) {
 
-			System.out.println("DB ì—°ê²° ì‹¤íŒ¨ : " + e);
+			System.out.println("DB ¿¬µ¿¿¡·¯ : " + e);
 			return;
 		}
 	}
