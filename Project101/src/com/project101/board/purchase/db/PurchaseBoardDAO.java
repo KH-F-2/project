@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -26,11 +27,11 @@ public class PurchaseBoardDAO {
 			ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		} catch (Exception e) {
 
-			System.out.println("DB ¿¬µ¿ ¿¡·¯ : " + e);
+			System.out.println("DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : " + e);
 			return;
 		}
 	}
-	
+
 	public int getListCount() {
 		int x = 0;
 		try {
@@ -73,10 +74,10 @@ public class PurchaseBoardDAO {
 	}
 
 	public List<PurchaseBoardBean> getBuyList(int page, int limit) {
-		//page:ÆäÀÌÁö
-						//limit : ÆäÀÌÁö ´ç ¸ñ·ÏÀÇ ¼ö
-						//board_re_ref desc, board_re_seq asc¿¡ ÀÇÇØ Á¤·ÄÇÑ °ÍÀ»
-						//Á¶°ÇÀı¿¡ ¸Â´Â rnumÀÇ ¹üÀ§¸¸Å­ °¡Á®¿À´Â Äõ¸®¹® ÀÔ´Ï´Ù.
+		//page:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						//limit : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+						//board_re_ref desc, board_re_seq ascï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+						//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ rnumï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô´Ï´ï¿½.
 						
 						String Purchase_list_sql = 
 								"select * from " 
@@ -87,9 +88,9 @@ public class PurchaseBoardDAO {
 								+	"where rnum>=? and rnum<=? ";
 						
 						List<PurchaseBoardBean> list = new ArrayList<PurchaseBoardBean>();
-											//ÇÑ ÆäÀÌÁö´ç 10°³¾¿ ¸ñ·ÏÀÎ °æ¿ì			1page,2page,3page,...
-						int startrow=(page-1) * limit + 1; //ÀĞ±â ½ÃÀÛÇÒ row ¹øÈ£ (1,11,21,31,...)
-						int endrow=startrow + limit -1;    //ÀĞÀ» ¸¶Áö¸· row ¹øÈ£(10,20,30,40,...)
+											//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½			1page,2page,3page,...
+						int startrow=(page-1) * limit + 1; //ï¿½Ğ±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ row ï¿½ï¿½È£ (1,11,21,31,...)
+						int endrow=startrow + limit -1;    //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ row ï¿½ï¿½È£(10,20,30,40,...)
 						try {
 							conn = ds.getConnection();
 							pstmt = conn.prepareStatement(Purchase_list_sql);
@@ -97,7 +98,7 @@ public class PurchaseBoardDAO {
 							pstmt.setInt(2, endrow);
 							rset = pstmt.executeQuery();
 							
-							//DB¿¡¼­ °¡Á®¿Â µ¥ÀÌÅÍ¸¦ VO°´Ã¼¿¡ ´ã½À´Ï´Ù.
+							//DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ VOï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½.
 							while(rset.next()) {
 								PurchaseBoardBean buyList = new PurchaseBoardBean();
 								buyList.setNum(rset.getInt("pb_no"));
@@ -107,11 +108,11 @@ public class PurchaseBoardDAO {
 								buyList.setFile(rset.getString("pb_file"));
 								buyList.setreadcount(rset.getInt("pb_readcount"));
 								buyList.setDate(rset.getDate("pb_date"));
-								list.add(buyList);//°ªÀ» ´ãÀº °´Ã¼¸¦ ¸®½ºÆ®¿¡ ÀúÀåÇÕ´Ï´Ù.				
+								list.add(buyList);//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.				
 							}
-							return list;//°ªÀ» ´ãÀº °´Ã¼¸¦ ÀúÀåÇÑ ¸®½ºÆ®¸¦ È£ÃâÇÑ °÷À¸·Î 
+							return list;//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 
 						}catch(Exception ex) {
-							System.out.println("getBoardList() ¿¡·¯ : " + ex);
+							System.out.println("getBoardList() ï¿½ï¿½ï¿½ï¿½ : " + ex);
 						}finally {
 							if(rset!=null) {
 								try {
@@ -140,6 +141,174 @@ public class PurchaseBoardDAO {
 	}
 	
 	
-	
-	
+
+	//ìˆ˜ì •
+	public boolean isBuyWriter(int num, String id) {
+		String buy_sql = "select * from PURCHASE_BOARD where PB_NO=?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(buy_sql);
+			pstmt.setInt(1, num);
+			rset = pstmt.executeQuery();
+			rset.next();
+			if(id.equals(rset.getString("PB_WRITER"))) {
+				return true;				
+			}
+		}catch (Exception e) {
+			System.out.println("isBuyWriter ì—ëŸ¬ : " + e);
+		}finally {
+			if(rset!=null) {
+				try {
+					rset.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;	
+	}
+
+	//ìˆ˜ì •
+	public boolean buyModify(PurchaseBoardBean buydata) {
+		String sql = 
+				"update purchase_board set PB_TITLE =?, "
+			+	"PB_CONTENT = ? "
+			+	"where PB_NO = ? ";
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, buydata.getTitle());
+			pstmt.setString(2, buydata.getContent());
+			pstmt.setInt(3, buydata.getNum());
+			pstmt.executeUpdate();
+		
+		return true;
+	}catch (Exception e) {
+		System.out.println("buyModify ì—ëŸ¬ : " + e);
+	}finally {
+		if(rset!=null) {
+			try {
+				rset.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if(pstmt != null) {
+			try {
+				pstmt.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if(conn != null) {
+			try {
+				conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	return false;
+	}
+
+	//ë””í…Œì¼
+	//ì¡°íšŒìˆ˜ PB_READCOUNT ì¶”ê°€
+	public void setReadCountUpdate(int num) {
+		String sql = "update purchase_board "
+				+	"set PB_READCOUNT = PB_READCOUNT+1 "
+				+	"where PB_NO = ?";
+		try {
+			conn = ds.getConnection();			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeQuery();
+		}catch(Exception e) {
+			System.out.println("setReadCountUpdate() ì—ëŸ¬ : " + e);
+		}finally {
+			if(rset!=null) {
+				try {
+					rset.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}		
+	}
+	public PurchaseBoardBean getDetail(int num) {
+		PurchaseBoardBean buydata = null;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(
+					"select * from purchase_board where PB_NO = ?");
+			pstmt.setInt(1, num);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				buydata = new PurchaseBoardBean();
+				buydata.setNum(rset.getInt("PB_NUM"));
+				buydata.setWriter(rset.getString("PB_WRITER"));
+				buydata.setTitle(rset.getString("PB_TITLE"));
+				buydata.setContent(rset.getString("PB_CONTENT"));
+				buydata.setFile(rset.getString("PB_FILE"));	
+				buydata.setPb_readcount(rset.getInt("PB_READCOUN"));
+				buydata.setDate(rset.getInt("PB_DATE"));
+			}
+			return buydata;
+		}catch (Exception e ) {
+			System.out.println("getDetailAction ì—ëŸ¬ :" + e);
+		}finally {
+			if(rset!=null) {
+				try {
+					rset.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}		
+		return null;
+	}
+}
 
