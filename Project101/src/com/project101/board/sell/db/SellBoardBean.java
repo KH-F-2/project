@@ -3,6 +3,7 @@ package com.project101.board.sell.db;
 import java.util.Date;
 
 public class SellBoardBean {
+
    private int SB_NO;
    private String SB_WRITER;
    private Date SB_REDITDATE;
