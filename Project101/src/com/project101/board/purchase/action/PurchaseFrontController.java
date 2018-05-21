@@ -35,11 +35,22 @@ public class PurchaseFrontController extends javax.servlet.http.HttpServlet {
 			}catch(Exception e) {
 				e.printStackTrace();
 				}
+			
+			//상세보기
 			}else if(command.equals("/PurchaseDetailAction.buy")) {
 				action = new PurchaseDetailAction();
 				try {
 					forward=action.execute(request, response);
 				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			//리스트목록
+			}else if(command.equals("/PurchaseListAction.buy")) {
+				action = new PurchaseListAction();
+				try {
+					forward = action.execute(request, response);
+				}catch(Exception e) {
 					e.printStackTrace();
 				}
 			}
