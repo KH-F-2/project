@@ -7,9 +7,9 @@ import com.project101.board.purchase.db.PurchaseBoardBean;
 import com.project101.board.purchase.db.PurchaseBoardDAO;
 
 public class PurchaseDetailAction implements Action{
-	@Override
-	public ActionForward execute(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	
+  @Override
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		PurchaseBoardDAO buydao = new PurchaseBoardDAO();
 		PurchaseBoardBean buydata = new PurchaseBoardBean();
 		

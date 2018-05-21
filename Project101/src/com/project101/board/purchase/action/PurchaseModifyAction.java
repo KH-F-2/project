@@ -10,8 +10,7 @@ import com.project101.board.purchase.db.PurchaseBoardDAO;
 
 public class PurchaseModifyAction implements Action {
 	@Override
-	public ActionForward execute(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("euc-kr");
 		ActionForward forward = new ActionForward();
 		
@@ -25,8 +24,7 @@ public class PurchaseModifyAction implements Action {
 		PurchaseBoardBean buydata = new PurchaseBoardBean();
 		
 		//글쓴이 인지 확인하기 위해 저장된 번호와 작성자를 확인합니다.
-		boolean idcheck =
-				buydao.isBuyWriter(num, id);
+		boolean idcheck = buydao.isBuyWriter(num, id);
 		
 		//수정 내용을 설정합니다.
 		buydata.setNum(num);

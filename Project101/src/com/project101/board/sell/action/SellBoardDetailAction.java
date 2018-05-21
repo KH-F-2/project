@@ -16,7 +16,6 @@ public class SellBoardDetailAction implements Action {
 		ActionForward forward=new ActionForward();
 		SellBoardBean sellboard=new SellBoardBean();
 		
-		
 		int num=Integer.parseInt(request.getParameter("num"));
 		
 		selldao.setReadCountUpdate(num);

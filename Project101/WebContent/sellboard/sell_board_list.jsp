@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>ÆÇ¸Å °Ô½ÃÆÇ</title>
+		<title>íŒë§¤ ê²Œì‹œíŒ</title>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="/test/js/sellboard.js"></script>
 		<link href="/test/css/board_list.css" rel="stylesheet" type="text/css">
@@ -13,15 +13,15 @@
 		<table>
 			<c:if test="${listcount>=1}">
 				<tr>
-					<th colspan="3">ÆÇ¸Å °Ô½ÃÆÇ - list</th>
-					<th colspan="2">±Û °³¼ö : ${listcount }</th>
+					<th colspan="3">íŒë§¤ ê²Œì‹œíŒ - list</th>
+					<th colspan="2">ê¸€ ê°œìˆ˜ : ${listcount }</th>
 				</tr>
 				<tr>
-					<th width="8%"><div>¹øÈ£</div></th>
-					<th width="50%"><div>Á¦¸ñ</div></th>
-					<th width="14%"><div>ÀÛ¼ºÀÚ</div></th>
-					<th width="17%"><div>³¯Â¥</div></th>
-					<th width="11%"><div>Á¶È¸¼ö</div></th>
+					<th width="8%"><div>ë²ˆí˜¸</div></th>
+					<th width="50%"><div>ì œëª©</div></th>
+					<th width="14%"><div>ìž‘ì„±ìž</div></th>
+					<th width="17%"><div>ë‚ ì§œ</div></th>
+					<th width="11%"><div>ì¡°íšŒìˆ˜</div></th>
 				</tr>
 				
 				
@@ -48,10 +48,10 @@
 				<tr class="h30 lime center btn">
 					<td colspan="5">
 						<c:if test="${page<=1 }">
-							ÀÌÀü&nbsp;
+							ì´ì „&nbsp;
 						</c:if>
 						<c:if test="${page>1 }">
-							<a href="./BoardList.sell?page=${page-1 }">ÀÌÀü</a>&nbsp;
+							<a href="./BoardList.sell?page=${page-1 }">ì´ì „</a>&nbsp;
 						</c:if>
 						
 						<c:forEach var="a" begin="${startpage }" end="${endpage }">
@@ -64,10 +64,10 @@
 						</c:forEach>
 						
 						<c:if test="${page>=maxpage }">
-							&nbsp;´ÙÀ½
+							&nbsp;ë‹¤ìŒ
 						</c:if>
 						<c:if test="${page<maxpage }">
-							&nbsp;<a href="./BoardList.sell?page=${page+1 }">´ÙÀ½</a>
+							&nbsp;<a href="./BoardList.sell?page=${page+1 }">ë‹¤ìŒ</a>
 						</c:if>
 						
 					</td>
@@ -78,12 +78,12 @@
 			
 			<c:if test="${listcount==0}">
 				<tr>
-					<td colspan="4">ÆÇ¸Å °Ô½ÃÆÇ</td>
-					<td style="text-align:right;"><font style="margin-right:15px;" size=2>µî·ÏµÈ ±ÛÀÌ ¾ø½À´Ï´Ù.</font></td>
+					<td colspan="4">íŒë§¤ ê²Œì‹œíŒ</td>
+					<td style="text-align:right;"><font style="margin-right:15px;" size=2>ë“±ë¡ëœ ê¸€ì´ ì—†ìŠµë‹ˆë‹¤.</font></td>
 				</tr>
 			</c:if>
 				<tr>
-					<td colspan="5" style="text-align:right; font-size: 14pt;"><a style="margin-right:10px;" href="./BoardWrite.sell">[±Û¾²±â]</a></td>
+					<td colspan="5" style="text-align:right; font-size: 14pt;"><a style="margin-right:10px;" href="./BoardWrite.sell">[ê¸€ì“°ê¸°]</a></td>
 				</tr>
 		</table>
 	</body>
