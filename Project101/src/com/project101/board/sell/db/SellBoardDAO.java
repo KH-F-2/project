@@ -3,6 +3,9 @@ package com.project101.board.sell.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -26,7 +29,201 @@ public class SellBoardDAO {
 			System.out.println("DB 연결 실패 : " + e);
 			return;
 		}
-	}
+	}	// SellBoardDAO() --------
 	
+	
+	public int getListCount() {
+		try {
+			conn=ds.getConnection();
+			String sql="SELECT COUNT(*) FROM SELL_BOARD";
+			pstmt=conn.prepareStatement(sql);
+			
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) 
+				result=rset.getInt(1);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}	// getListCount() -------
+	
+	public int boardInsert(SellBoardBean sellboard) {
+		int num=0;
+		String sql="";
+		try {
+			conn=ds.getConnection();
+			sql="select max(SB_NO) from SELL_BOARD";
+			pstmt=conn.prepareStatement(sql);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next())
+				num=rset.getInt(1)+1;
+			else
+				num=1;
+			
+			rset.close();
+			pstmt.close();
+			
+			sql="insert into SELL_BOARD "
+					+ "(SB_NO, SB_WRITER, SB_BDATE, SB_TITLE, "
+					+ "SB_CONTENT, SB_PRICE, SB_DATE, SB_READCOUNT) "
+					+ "values(?, ?, sysdate, ?, ?, ?, sysdate, ?)";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, sellboard.getSB_WRITER());
+			pstmt.setString(3, sellboard.getSB_TITLE());
+			pstmt.setString(4, sellboard.getSB_CONTENT());
+			pstmt.setInt(5, sellboard.getSB_PRICE());
+			pstmt.setInt(6, 0);
+			
+			result=pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return result;
+	}	 // boardInsert() ----------
+	
+	
+	public List<SellBoardBean> getBoardList(int page, int limit) {
+		// page : 페이지
+		// limit : 페이지 당 게시글 수
+		List<SellBoardBean> list=new ArrayList<SellBoardBean>();
+		int startrow=(page-1)*limit+1;
+		int endrow=startrow+limit-1;
+		try {
+			conn=ds.getConnection();
+			String sql="select * from "
+					+ "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
+					+ "SB_READCOUNT, SB_DATE from "
+					+ "(select * from SELL_BOARD order by SB_NO desc)) "
+					+ "where rnum>=? and rnum<=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				SellBoardBean sellboard=new SellBoardBean();
+				sellboard.setSB_NO(rset.getInt("SB_NO"));
+				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
+				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
+				sellboard.setSB_DATE(rset.getDate("SB_DATE"));
+				sellboard.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
+				list.add(sellboard);
+			}
+			return list;
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				try {
+					if(pstmt!=null)	pstmt.close();
+					if(conn!=null)		conn.close();
+					if(rset!=null)		rset.close();
+				}catch(Exception e) {e.printStackTrace();}
+			}
+		
+		return null;
+	}	// getBoardList() ----------
+
+
+	public void setReadCountUpdate(int num) {
+		String sql="";
+		try {
+			conn=ds.getConnection();
+			sql="update SELL_BOARD set SB_READCOUNT=SB_READCOUNT+1 where SB_NO=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+	}	// setReadCountUpdate() ---------
+	
+	
+	public SellBoardBean getDetail(int num) {
+		SellBoardBean sellboard=new SellBoardBean();
+		try {
+			conn=ds.getConnection();
+			String sql="select * from SELL_BOARD where SB_NO=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				sellboard.setSB_NO(rset.getInt("SB_NO"));
+				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
+				sellboard.setSB_BDATE(rset.getDate("SB_BDATE"));
+				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
+				sellboard.setSB_CONTENT(rset.getString("SB_CONTENT"));
+				sellboard.setSB_PRICE(rset.getInt("SB_PRICE"));
+				sellboard.setSB_DATE(rset.getDate("SB_DATE"));
+				
+				return sellboard;
+			}else {
+				return null;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return null;
+	}	// getDetail() -----------
+	
+	
+	
+	public int boardDelete(int num) {
+		String sql="delete from SELL_BOARD where SB_NO=?";
+		try {
+	         conn = ds.getConnection();
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setInt(1, num);
+	               
+	         int result=pstmt.executeUpdate();
+	         
+	         if(result==1) {
+	        	 System.out.println("boardDelete 성공");
+	        	 return result;
+	         }
+	      }catch(Exception e) {
+	         System.out.println("SellBoardDAO - boardDelete() 에러 :" + e);
+	         e.printStackTrace();
+	      }finally {
+	         if(rset != null) try {rset.close();}catch(SQLException ex) {ex.printStackTrace();}
+	         if(pstmt != null) try {pstmt.close();}catch(SQLException ex) {ex.printStackTrace();}
+	         if(conn != null) try {conn.close();}catch(SQLException ex) {ex.printStackTrace();}
+	      }
+		return 0;
+	}	// boardDelete() ---------
 	
 }

@@ -14,8 +14,8 @@ public class SellBoardListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=euc-kr");
-		request.setCharacterEncoding("euc-kr");
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		SellBoardDAO selldao=new SellBoardDAO();
 		List<SellBoardBean> boardlist=new ArrayList<SellBoardBean>();
 		ActionForward forward=new ActionForward();
@@ -55,8 +55,8 @@ public class SellBoardListAction implements Action {
 		request.setAttribute("startpage", startpage);
 		request.setAttribute("endpage", endpage);
 		request.setAttribute("listcount", listcount);
-		
 		*/
+    
 		forward.setRedirect(false);
 		
 		if(request.getParameter("state") != null) {
@@ -65,6 +65,9 @@ public class SellBoardListAction implements Action {
 		}else {
 			forward.setPath("./member/template.jsp?page=/board/qna_board_list");
 		}
+		//forward.setPath("./board/qna_board_list.jsp");
+		forward.setRedirect(false);
+		forward.setPath("sellboard/sell_board_list.jsp");
 		
 		return forward;
 	}

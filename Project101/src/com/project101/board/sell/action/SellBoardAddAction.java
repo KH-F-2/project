@@ -2,10 +2,13 @@ package com.project101.board.sell.action;
 
 import java.io.PrintWriter;
 
-import javax.servlet.http.*;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.project101.board.sell.db.SellBoardBean;
 import com.project101.board.sell.db.SellBoardDAO;
 
