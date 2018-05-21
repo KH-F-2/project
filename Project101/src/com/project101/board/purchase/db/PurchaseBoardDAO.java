@@ -139,8 +139,6 @@ public class PurchaseBoardDAO {
 			}
 	}
 	
-	
-
 	//수정
 	public boolean isBuyWriter(int num, String id) {
 		String buy_sql = "select * from PURCHASE_BOARD where PB_NO=?";
@@ -181,7 +179,7 @@ public class PurchaseBoardDAO {
 		return false;	
 	}
 
-	//수정
+//수정
 	public boolean buyModify(PurchaseBoardBean buydata) {
 		String sql = 
 				"update purchase_board set PB_TITLE =?, "
@@ -224,12 +222,11 @@ public class PurchaseBoardDAO {
 	}
 	return false;
 	}
-
 	//디테일
-	//조회수 readcount 추가
+	//조회수 PB_READCOUNT 추가
 	public void setReadCountUpdate(int num) {
 		String sql = "update purchase_board "
-				+	"set pb_readcount = pb_readcount+1 "
+				+	"set PB_READCOUNT = PB_READCOUNT+1 "
 				+	"where PB_NO = ?";
 		try {
 			conn = ds.getConnection();			
