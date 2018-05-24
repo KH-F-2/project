@@ -28,7 +28,8 @@ $(document).ready(function() {
 		}
 	}).trigger('scroll');
 
-
+	
+	
 });
 
 function initMap() {

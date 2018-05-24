@@ -66,7 +66,7 @@ body {
 	text-align: center;
 }
 
-#content {
+.content {
 	display: inline-block;
 	width: 300px;
 	height: 370px;
@@ -75,14 +75,14 @@ body {
 	padding: 10px;
 }
 
-#content img {
+.content img {
 	display: block;
 	margin: 0 auto;
 	width: 250px;
 	height: 200px;
 }
 
-#content p {
+.content p {
 	font-weight: bold;
 	font-size: 20px;
 }
