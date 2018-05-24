@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 500px;
+	font-family: "fontello";
+}
+
+#map {
+	width: 100%;
+	z-index: -1;
+	margin-bottom: 50px;
+}
+
+#header {
+	width: 100%;
+}
+
+#header span {
+	display: block;
+	margin: 0 auto;
+	font-size: 40px;
+	text-align: center;
+	margin-top: 130px;
+}
+
+#header a {
+	display: inline-block;
+	text-decoration: none;
+	font-size: 20px;
+	float: right;
+	margin: 20px 20px;
+	color: black;
+}
+
+#header h3 {
+	font-size: 15px;
+	display: block;
+	font-weight: normal;
+	width: 500px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.pusher #header #menuBtn2 {
+	display: inline-block;
+	font-size: 50px;
+	border: 0;
+	margin: 20px 20px;
+}
+
+.pusher #hiddenHeader #menuBtn1 {
+	display: inline-block;
+	font-size: 50px;
+	border: 0;
+	margin: 20px 20px;
+	color: white;
+	background-color: rgba(255, 255, 255, 0);
+}
+
+#container {
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#content {
+	display: inline-block;
+	width: 300px;
+	height: 370px;
+	border: 1px solid black;
+	margin: 0 30px 50px 30px;
+	padding: 10px;
+}
+
+#content img {
+	display: block;
+	margin: 0 auto;
+	width: 250px;
+	height: 200px;
+}
+
+#content p {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#navTitle {
+	margin: 20px;
+}
+
+#hiddenHeader {
+	width: 100%;
+	height: 70px;
+	background-color: black;
+	box-shadow: 0 3px 5px gray;
+}
+
+#hiddenHeader span {
+	display: inline-block;
+	font-size: 30px;
+	color: orange;
+}
+
+#hiddenHeader a {
+	display: inline-block;
+	text-decoration: none;
+	font-size: 20px;
+	float: right;
+	margin: 20px 20px;
+	color: white;
+}
+
+#navTitle i {
+	font-family: "fontello";
+	font-size: 30px;
+	font-style: normal;
+}
