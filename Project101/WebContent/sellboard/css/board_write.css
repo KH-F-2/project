@@ -1,0 +1,29 @@
+table {margin:0 auto; width: 90%; text-align: center; margin-top: 20px; font-family: koverwatch; overflow: auto;}
+nav{height: 40px; background: #e5ffff} 
+tr:first-child{background-color:#A566FF; height: 50px; color: white; letter-spacing: 3px; font-size: 16pt;}
+tr{height: 30px;}
+tr>td:first-child{width:150px; margin-left: 10px; background-color: rgba(205,185,202,0.4);}
+tr>td:nth-child(2n){background-color: rgba(185,245,202,0.4); text-align: left;}
+textarea{resize: none; }
+.ui-datepicker-calendar>thead tr{
+	height: 40px;
+}
+.ui-datepicker-calendar>thead tr th{
+	background-color: #4791dc;
+	color: white;
+	height: 25px;
+	padding: 0px;
+	border: 1px solid white;
+	border-radius: 5px;
+	font-size: 15pt;
+}
+.ui-datepicker-week-end{
+	width: 14.2%
+}
+.ui-datepicker-calendar>tbody tr{
+	background-color: white;
+	height:20%
+}
+.ui-datepicker-calendar>tbody tr>td{
+	font-size: 12pt;
+}
