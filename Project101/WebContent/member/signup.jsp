@@ -39,7 +39,7 @@
 							data : {
 								"id" : id
 							},
-							url : "idcheck.mem",
+							url : "idcheck.me",
 							success : function(result) {
 								data_check = result;
 								if (result == 1) {
@@ -77,7 +77,7 @@
 <body>
    <h1>회원가입 </h1>
    <div class ="sticky">
-   <form name="joinform" action="joinProcess.mem" method="post">
+   <form name="joinform" action="joinProcess.me" method="post">
       <div class="first">
       <h1>기본정보</h1>
       <hr>

@@ -35,22 +35,19 @@ public class SellBoardModifyAction implements Action{
 		sellboard.setSB_PRICE(Integer.parseInt(request.getParameter("SB_PRICE").toString()));
 		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date=format.parse(request.getParameter("SB_PDATE"));
-		//long date2=date.getTime();
 		Date pdate=new Date(date.getTime());
 		sellboard.setSB_PDATE(pdate);
 		
 		int result=selldao.boardModify(sellboard);
 		PrintWriter out=response.getWriter();
 		
+		imagedao.imageDelete(num);
 		if(!request.getParameter("img_hidden").equals("")) {
 			String[] url=request.getParameter("img_hidden").split(" ");
-			//image.setBOARD_NO(BOARD_NO);
+			image.setBOARD_NO(num);
 			for(String imageurl : url) {
 				image.setIMAGE_URL(imageurl);
-				int result2=imagedao.imageInsert(image);
-				if(result2==0) {
-					System.out.println("image insert fail!");
-				}
+				imagedao.imageInsert(image);
 			}
 		}
 		if(result==1) {

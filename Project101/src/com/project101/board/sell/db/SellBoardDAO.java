@@ -179,7 +179,7 @@ public class SellBoardDAO {
 	}	// setReadCountUpdate() ---------
 	
 	
-	public SellBoardBean getDetail(int num) {
+  public SellBoardBean getDetail(int num) {
 		SellBoardBean sellboard=new SellBoardBean();
 		try {
 			conn=ds.getConnection();
@@ -216,7 +216,6 @@ public class SellBoardDAO {
 	}	// getDetail() -----------
 	
 	
-	
 	public int boardDelete(int num) {
 		String sql="delete from SELL_BOARD where SB_NO=?";
 		try {
@@ -241,8 +240,7 @@ public class SellBoardDAO {
 		return 0;
 	}	// boardDelete() ---------
 
-
-	public int boardModify(SellBoardBean sellboard) {
+  public int boardModify(SellBoardBean sellboard) {
 		String sql = "update SELL_BOARD "
 	            + "set SB_TITLE=?, SB_PRICE=?, SB_CONTENT=?, SB_PDATE=?, SB_MDATE=sysdate "
 	            + "where SB_NO=?";
