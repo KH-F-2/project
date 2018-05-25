@@ -47,15 +47,41 @@ public class FrontController extends HttpServlet {
 				forward.setRedirect(false);
 				forward.setPath("/member/signup.jsp");
 			}
-			
 
-			if (forward != null) {
-				if (forward.isRedirect()) {
-					response.sendRedirect(forward.getPath());
-				} else {
-					RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
-					dispatcher.forward(request, response);
-				}
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/member/login.jsp");
+		}else if(command.equals("/joinProcess.mem")) {
+			action = new joinProcessAction();
+			try {
+				forward=action.execute(request, response);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/idcheck.mem")) {
+			action = new IdCheckAction();
+			try {
+				forward=action.execute(request, response);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/joinform.mem")) {
+			
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("/member/joinform.jsp");
+		}
+		
+		
+		if (forward != null) {
+			if (forward.isRedirect()) {
+				response.sendRedirect(forward.getPath());
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+				dispatcher.forward(request, response);
+
 			}
 
 		} catch (Exception e) {
