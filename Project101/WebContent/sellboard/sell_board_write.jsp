@@ -1,27 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
+		
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="/test/js/sellboard.js"></script>
-        <style>
-        	nav{height: 40px; background: #e5ffff} 
-			a{text-decoration: none; }
-			.right{margin-top: 10px; margin-right: 30px; float: right; color: #fb8c00; display: inline-block; font-weight: bold;}
-			.right>a{margin-left: 15px;} 	
-			table{margin:0 auto; width: 90%; text-align: center; margin-top: 20px; font-family: koverwatch; }
-			tr:first-child{background-color:#A566FF; height: 50px; color: white; letter-spacing: 3px; font-size: 16pt;}
-			tr{height: 30px;}
-			tr>td:first-child{width:150px; margin-left: 10px; background-color: rgba(205,185,202,0.4);}
-			tr>td:nth-child(2n){background-color: rgba(185,245,202,0.4); text-align: left;}
-			textarea{resize: none; }
-        </style>
+
+		<!-- 달력 API -->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		
+		<!-- 이미지 업로드 API -->
+        <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
+
+        <script src="/Project101/sellboard/js/sellboard_write.js"></script>
+        <link href="/Project101/sellboard/css/board_write.css" rel="stylesheet" type="text/css">
+
 	</head>
 	<body>	
-		<form action="./BoardAddAction.sell" method="post">
+		<form action="./BoardAddAction.sell" method="post" id="write_submit">
 			<table>
 				<tr>
 					<th colspan="2">판매게시판</th>
@@ -33,8 +32,14 @@
 					</td>
 				</tr>
 				<tr>
+					<td>구매 날짜</td>
+					<td>
+						<input type="text" id="datepicker" name="SB_PDATE" readonly="readonly">
+					</td>
+				</tr>
+				<tr>
 					<td>제목</td>
-					<td><input name="SB_TITLE"  type="text" size="50" maxlength="100"></td>
+					<td><input name="SB_TITLE" type="text" size="50" maxlength="100"></td>
 				</tr>
 				<tr>
 					<td>가격</td>
@@ -43,22 +48,29 @@
 					</td>
 				</tr>
 				<tr>
-					<td>구매날짜</td>
-					<td>
-						<input name = "SB_BDATE" type="text" size="50" maxlength="100">
-					</td>
-				</tr>
-				<tr>
 					<td>
 						<div>내용</div>
 					</td>
 					<td>
-						<textarea name="SB_CONTENT" id="board_content" cols="65" rows="15"></textarea>
+						<textarea name="SB_CONTENT" cols="65" rows="15"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div>
+							<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
+						</div>
+					</td>
+					<td>
+						<div id="showImage"></div>
+						<input type="hidden" id="img_hidden" name="img_hidden" value="">
 					</td>
 				</tr>
 				<tr class="center">
-					<td colspan="2"><input type=submit value="등록">
+					<td colspan="2">
+						<input type=submit value="등록">
 						<input type=reset value="취소" onclick = "history.go(-1)">
+					</td>
 				</tr>
 			</table>
 		</form>	
