@@ -39,5 +39,4 @@ public class PurchaseDetailAction implements Action{
 		
 		return forward;
 	}
-
 }

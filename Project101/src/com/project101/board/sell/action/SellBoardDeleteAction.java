@@ -10,23 +10,25 @@ public class SellBoardDeleteAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		ActionForward forward = new ActionForward();
-		String id = request.getParameter("Board_ID");
-		SellBoardDAO boarddao = new SellBoardDAO();
-		SellBoardBean boarddata = new SellBoardBean();
-		
-		int result = 1;
-		
-		result = boarddao.SellBoardDelete(); 
-		PrintWriter out = response.getWriter();
-		if (result == 1) {
-			out.println("<script>alert('삭제가 실패되었습니다.');history.back();</script>");
-		}
+		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
-		out.println("<script>alert('삭제되었습니다.');location = '.BoardList.sell';</script>");
+		ActionForward forward = new ActionForward();
+		int num=Integer.parseInt(request.getParameter("num"));
+		SellBoardDAO boarddao = new SellBoardDAO();
+		PrintWriter out = response.getWriter();
+		
+		int result = 0;
+		
+		result = boarddao.boardDelete(num); 
+		
+		if (result == 1) {
+			out.println("<script>alert('삭제되었습니다.');location = './BoardList.sell';</script>");
+		}
+		else {
+			out.println("<script>alert('삭제 실패!');history.back();</script>");
+		}
+		
 		out.close();
-		forward.setRedirect(false);
 		
 		return null;
 	}

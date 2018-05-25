@@ -14,12 +14,12 @@ public class SellBoardDetailAction implements Action {
 		request.setCharacterEncoding("euc-kr");
 		SellBoardDAO selldao=new SellBoardDAO();
 		ActionForward forward=new ActionForward();
-		
-		int num=Integer.parseInt(request.getParameter("num"));
 		SellBoardBean sellboard=new SellBoardBean();
 		
-		//selldao.setReadCountUpdate(num);
-		//sellboard=selldao.getDetail(num);
+		int num=Integer.parseInt(request.getParameter("num"));
+		
+		selldao.setReadCountUpdate(num);
+		sellboard=selldao.getDetail(num);
 		
 		request.setAttribute("sellboard", sellboard);
 		
@@ -29,9 +29,11 @@ public class SellBoardDetailAction implements Action {
 		}else {
 			System.out.println("상세보기 성공!");
 			forward.setRedirect(false);
-			forward.setPath("./member/template.jsp?page=/board/qna_board_view");
+			forward.setPath("sellboard/sell_board_view.jsp");
 		}
 		
+		forward.setRedirect(false);
+		forward.setPath("/sellboard/sell_board_view.jsp");
 		return forward;
 	}
 

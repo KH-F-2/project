@@ -44,11 +44,10 @@ public class PurchaseModifyAction implements Action {
 		System.out.println("게시판 수정 완료");
 		}
 		forward.setRedirect(true);
-		
+	
 		//수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정함		
 		forward.setPath("./PurchaseDetailAction.buy?num=" + buydata.getNum()); //경로설정 변경 해야됨.
-		
+    
 		return forward;
 	}
-
 }
