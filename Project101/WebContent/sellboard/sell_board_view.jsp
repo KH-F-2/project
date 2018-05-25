@@ -6,40 +6,91 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="/test/js/sellboard.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <script src="/test/sellboard/js/sellboard.js"></script>
+        <style>
+        	a{text-decoration: none;}
+        	table{
+        		margin: 0 auto;
+        		width: 80%;
+        	}
+        	div{
+        		height: 100%;
+        		margin: 0px 20px 0px 20px;
+        	}
+        	.main_table{
+        		height: 600px;
+        		border: 0.5px solid #2aa1ff;
+        		border-radius: 5px;
+        		background-color: #e8e8e880;
+        	}
+        	.title{
+        		font-weight: bold;
+        		font-size: 18pt;
+        		text-align: left;
+        	}
+        	.date{
+        		text-align: right;
+        		color: gray;
+        		font-size: 10pt;
+        	}
+        	.price{
+        		color: #008effad;
+        	}
+        	tr:last-child{
+        		height: 60%;
+			}
+			.second_table tr{
+				text-align: right;
+			}
+        </style>
 	</head>
-			<table>
-				<tr class="center">
-					<th colspan="2">판매 게시판 - view 페이지</th>
-				</tr>
+			<table class="main_table">
 				<tr>
-					<td><div>글쓴이</div></td>
-					<td>
-						<div>${sellboard.SB_WRITER}</div>
+					<td width="75%"><div class="title">${sellboard.SB_TITLE}</div></td>
+					<td width="25%">
+						<div class="date">
+							등록 ${sellboard.SB_DATE}<br>
+							수정 ${sellboard.SB_MDATE }
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<td><div>제목</div></td>
-					<td><div>${sellboard.SB_TITLE}</div>	</td>
+					<td colspan="2">
+						<div class="writer">${sellboard.SB_WRITER}</div>
+					</td>
 				</tr>
 				<tr>
-					<td><div>내용</div></td>
-					<td><div>${sellboard.SB_CONTENT }</div></td>
-				</tr>
-				
-				<tr class="center">
 					<td colspan="2">
+						<div class="pdate">
+							구입일 ${sellboard.SB_PDATE }
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="price">${sellboard.SB_PRICE } 원</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><div class="content">${sellboard.SB_CONTENT }</div></td>
+				</tr>
+			</table>
+			<table class="second_table">
+				<tr>
+					<td>
 					    <c:if test="${id=='admin'||id==sellboard.SB_WRITER}">
-					    	<a href="<c:url value='/ModifyView.sell?num=${sellboard.SB_NO}'/>">
-								<img src="/test/image/update.png">
-							</a>&nbsp;
+					    	<a href="<c:url value='/BoardModifyView.sell?num=${sellboard.SB_NO}'/>">
+								<img src="/test/sellboard/image/update.png">
+							</a> &nbsp;
 							<a href="<c:url value='/BoardDelete.sell?num=${sellboard.SB_NO}'/>">
-								<img src="/test/image/delete.png">
-							</a>&nbsp;
+								<img src="/test/sellboard/image/delete.png">
+							</a> &nbsp;
 						</c:if>
 						<a href="<c:url value='/BoardList.sell'/>">
-							<img src="/test/image/list.png">
-						</a>&nbsp;
+							<img src="/test/sellboard/image/list.png">
+						</a>
+					</td>
 				</tr>
 			</table>
 	</body>

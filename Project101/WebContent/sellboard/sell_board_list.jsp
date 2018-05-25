@@ -4,87 +4,128 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>íŒë§¤ ê²Œì‹œíŒ</title>
+		<title>ÆÇ¸Å °Ô½ÃÆÇ</title>
+        <script src="/test/sellboard/js/sellboard.js"></script>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="/test/js/sellboard.js"></script>
-		<link href="/test/css/board_list.css" rel="stylesheet" type="text/css">
+        <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+	        $(document).ready(function(){
+	        	$('#a_write').click(function(){
+	        		var id=<%=session.getAttribute("id")%>
+	        		if(id==null){
+	        			alert('·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.');
+	        			return false;
+	        		}
+	        	});
+	        	$('#search_btn').click(function(){
+	        		var word=$('input[name=search_input').val();
+	        		var item=$('#search_sel').val();
+	        		location.href='./BoardList.sell?word='+word+'&item='+item;
+	        	});
+	        });
+        </script>
+		<link href="/test/sellboard/css/board_list.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		<table>
-			<c:if test="${listcount>=1}">
+		<c:set var="b_p" value="${boardpage }"/>
+		<table class="sellboard_table">
+			<c:if test="${b_p.listcount>=1}">
+			<thead>
 				<tr>
-					<th colspan="3">íŒë§¤ ê²Œì‹œíŒ - list</th>
-					<th colspan="2">ê¸€ ê°œìˆ˜ : ${listcount }</th>
+					<th colspan="3">ÆÇ¸Å °Ô½ÃÆÇ - list</th>
+					<th colspan="2">±Û °³¼ö : ${b_p.listcount }</th>
 				</tr>
 				<tr>
-					<th width="8%"><div>ë²ˆí˜¸</div></th>
-					<th width="50%"><div>ì œëª©</div></th>
-					<th width="14%"><div>ì‘ì„±ì</div></th>
-					<th width="17%"><div>ë‚ ì§œ</div></th>
-					<th width="11%"><div>ì¡°íšŒìˆ˜</div></th>
+					<th width="8%">¹øÈ£</th>
+					<th width="50%">Á¦¸ñ</th>
+					<th width="14%">ÀÛ¼ºÀÚ</th>
+					<th width="17%">³¯Â¥</th>
+					<th width="11%">Á¶È¸¼ö</th>
 				</tr>
+			</thead>	
 				
-				
-				<c:set var="num" value="${listcount-(page-1)*limit }"/>
-				<c:forEach var="board" items="${boardlist }">
-					<tr>
-						<td>
-							<c:out value="${num }"/>
-							<c:set var="num" value="${num-1 }"/>
-						</td>
-						<td style="text-align: left;">
-							<div>
-								<a href="./BoardDetail.sell?num=${board.SB_NO }">
+				<c:set var="num" value="${b_p.listcount-(b_p.page-1)*b_p.limit }"/>
+				<tbody>
+					<c:forEach var="board" items="${b_p.boardList }">
+						<tr>
+							<td width="8%">
+								<c:out value="${num }"/>
+								<c:set var="num" value="${num-1 }"/>
+							</td>
+							<td width="50%" align="left">
+								&nbsp;<a href="./BoardDetail.sell?num=${board.SB_NO }">
 									${board.SB_TITLE }
 								</a>
-							</div>
-						</td>
-						<td><div>${board.SB_WRITER }</div></td>
-						<td><div>${board.SB_DATE }</div></td>
-						<td><div>${board.SB_READCOUNT }</div></td>
-					</tr>
-				</c:forEach>
+							</td>
+							<td width="14%">${board.SB_WRITER }</td>
+							<td width="17%">${board.SB_DATE }</td>
+							<td width="11%">${board.SB_READCOUNT }</td>
+						</tr>
+					</c:forEach>
 				
-				<tr class="h30 lime center btn">
+				
+				<tr>
 					<td colspan="5">
-						<c:if test="${page<=1 }">
-							ì´ì „&nbsp;
+						<c:if test="${b_p.page<=1 }">
+							ÀÌÀü&nbsp;
 						</c:if>
-						<c:if test="${page>1 }">
-							<a href="./BoardList.sell?page=${page-1 }">ì´ì „</a>&nbsp;
+						<c:if test="${b_p.page>1 }">
+							<a href="./BoardList.sell?page=${b_p.page-1 }">ÀÌÀü</a>&nbsp;
 						</c:if>
 						
-						<c:forEach var="a" begin="${startpage }" end="${endpage }">
-							<c:if test="${a==page }">
+						<c:forEach var="a" begin="${b_p.startpage }" end="${b_p.endpage }">
+							<c:if test="${a==b_p.page }">
 								${a }
 							</c:if>
-							<c:if test="${a!=page }">
-								<a href="./BoardList.sell?page=${a }">${a }</a>
+							<c:if test="${a!=b_p.page }">
+								<a href="./BoardList.sell?page=${a }&word=${b_p.searchWord}&item=${b_p.searchItem}">${a }</a>
 							</c:if>
 						</c:forEach>
 						
 						<c:if test="${page>=maxpage }">
-							&nbsp;ë‹¤ìŒ
+							&nbsp;´ÙÀ½
 						</c:if>
 						<c:if test="${page<maxpage }">
-							&nbsp;<a href="./BoardList.sell?page=${page+1 }">ë‹¤ìŒ</a>
+							&nbsp;<a href="./BoardList.sell?page=${page+1}&word=${b_p.searchWord}&item=${b_p.searchItem}">´ÙÀ½</a>
 						</c:if>
 						
 					</td>
 				</tr>
+				</tbody>
 				
 			</c:if>
 			
 			
 			<c:if test="${listcount==0}">
+			<thead>
 				<tr>
-					<td colspan="4">íŒë§¤ ê²Œì‹œíŒ</td>
-					<td style="text-align:right;"><font style="margin-right:15px;" size=2>ë“±ë¡ëœ ê¸€ì´ ì—†ìŠµë‹ˆë‹¤.</font></td>
+					<td colspan="5">ÆÇ¸Å °Ô½ÃÆÇ</td>
 				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="5">
+						<font style="margin-right:15px;" size=2>µî·ÏµÈ ±ÛÀÌ ¾ø½À´Ï´Ù.</font>
+					</td>
+				</tr>
+			</tbody>
 			</c:if>
+			<tfoot>
 				<tr>
-					<td colspan="5" style="text-align:right; font-size: 14pt;"><a style="margin-right:10px;" href="./BoardWrite.sell">[ê¸€ì“°ê¸°]</a></td>
+					<td colspan="5" style="text-align:right; font-size: 14pt;">
+						<a style="margin-right:10px;" href="./BoardWrite.sell" id="a_write">±Û¾²±â</a>
+					</td>
 				</tr>
+			</tfoot>
 		</table>
+		<div class="search">
+			<select id="search_sel">
+			    <option value="title" selected="selected">Á¦¸ñ</option>
+			    <option value="content">³»¿ë</option>
+			    <option value="title_content">Á¦¸ñ+³»¿ë</option>
+			</select>
+			<input type="text" name="search_input" placeholder="Search..">
+			<button id="search_btn">°Ë»ö</button>
+		</div>
 	</body>
 </html>

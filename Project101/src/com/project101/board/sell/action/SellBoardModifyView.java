@@ -25,7 +25,7 @@ public class SellBoardModifyView implements Action{
 		
 		request.setAttribute("sellboard", sellboard);
 		
-		forward.setPath("./sellboard/qna_board_modify.jsp");
+		forward.setPath("/sellboard/sell_board_modify.jsp");
 		forward.setRedirect(false);
 		
 	    return forward;
