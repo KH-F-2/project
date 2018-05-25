@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>     	
 
 <html>
 <head>
@@ -52,7 +53,8 @@ height: 100%;
 		</select>
 	</aside>
 	<section>
-	<form>
+	<form action="./PurchaseModifyAction.buy" method="post" name="Modifyform">
+	<input type = "hidden" name="PB_NO" value="${buydata.num }">
 		<table>
 			<tr>
 				<td>작성자</td>
@@ -60,14 +62,14 @@ height: 100%;
 			</tr>
 			<tr>
 				<td>제목</td>
-				<td><input type="text" name='subject' id='subject' placeholder="제목을 입력해주세요"></td>
+				<td><input type="text" name='PB_TITLE' id='subject' value="${buydata.title}"></td>
 			</tr>
 			<tr>
 				<td>내용</td>
 				<td></td>
 			</tr>
 			<tr>
-				<td colspan='2'><textarea name='content' id='content'></textarea></td>	
+				<td colspan='2'><textarea name='PB_CONTENT' id='content'>${buydata.content}</textarea></td>	
 			</tr>
 			<tr>
 				<td>위치</td>
@@ -75,7 +77,7 @@ height: 100%;
 			</tr>
 			<tr>
 				<td>첨부파일</td>
-				<td><input type="text" placeholder="파일명"></td>
+				<td><input type="text" value="${buydata.file }"></td>
 			</tr>
 			<tr>
 				<td>태그달기</td>
@@ -84,7 +86,7 @@ height: 100%;
 			<tr>
 				<td colspan='2'>
 					<input type="submit" name='submit' id='submit' value="수정">
-					<input type="button" name='cancel' id='cancel' value="취소">
+					<input type="button" name='cancel' id='cancel' value="취소" onClick="history.go(-1)">
 				</td>
 			</tr>		
 		</table>

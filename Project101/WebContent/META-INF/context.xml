@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="euc-kr"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Context>
 	<Resource name="jdbc/OracleDB"
 	auth="Container"
@@ -13,40 +13,40 @@
 </Context>
 
 <!-- 
-	JNDI¿¡ ¼³Á¤ÇØ ³õ¾Ò´Ù´Â °ÍÀº context.xml¿¡ ¸®¼Ò½º¸¦ »ý¼ºÇØ³õÀº °ÍÀ» ¸»ÇÕ´Ï´Ù.
+	JNDIì— ì„¤ì •í•´ ë†“ì•˜ë‹¤ëŠ” ê²ƒì€ context.xmlì— ë¦¬ì†ŒìŠ¤ë¥¼ ìƒì„±í•´ë†“ì€ ê²ƒì„ ë§í•©ë‹ˆë‹¤.
 	
 	1. name="jdbc/OracleDB"
-		JNDI·Î È£ÃâµÉ ÀÌ¸§À» ¼³Á¤ÇÏ´Â °÷À¸·Î ÀÓÀÇ·Î ÀÌ¸§ ¼³Á¤ °¡´ÉÇÕ´Ï´Ù.
-		dbcpAPITest.jspÀÇ init.lookup("java:comp/env/jdbc/OracleDB"
-		lookup ÇÔ¼ö·Î ¿©±â¼­ ¼³Á¤ÇÑ ÀÌ¸§À» Ã£½À´Ï´Ù.
+		JNDIë¡œ í˜¸ì¶œë  ì´ë¦„ì„ ì„¤ì •í•˜ëŠ” ê³³ìœ¼ë¡œ ìž„ì˜ë¡œ ì´ë¦„ ì„¤ì • ê°€ëŠ¥í•©ë‹ˆë‹¤.
+		dbcpAPITest.jspì˜ init.lookup("java:comp/env/jdbc/OracleDB"
+		lookup í•¨ìˆ˜ë¡œ ì—¬ê¸°ì„œ ì„¤ì •í•œ ì´ë¦„ì„ ì°¾ìŠµë‹ˆë‹¤.
 		
 	2. auth="Container"
-		DBCP¸¦ °ü¸®ÇÒ °ü¸®ÀÚ(Container or Application)·Î ÄÁÅ×ÀÌ³ÊÀÎ ÅèÄ¹ÀÌ °ü¸®ÇÕ´Ï´Ù.
+		DBCPë¥¼ ê´€ë¦¬í•  ê´€ë¦¬ìž(Container or Application)ë¡œ ì»¨í…Œì´ë„ˆì¸ í†°ìº£ì´ ê´€ë¦¬í•©ë‹ˆë‹¤.
 		
 	3. type="javax.sql.DataSource"
-		1¹ø resourceÀÇ return typeÀÌ DataSource¶ó´Â ÀÇ¹ÌÀÌ¸ç Connection °´Ã¼¸¦
-		¹ÝÈ¯ÇÒ ¼ö ÀÖ½À´Ï´Ù.
-		¿¹) DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
+		1ë²ˆ resourceì˜ return typeì´ DataSourceë¼ëŠ” ì˜ë¯¸ì´ë©° Connection ê°ì²´ë¥¼
+		ë°˜í™˜í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+		ì˜ˆ) DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
 		
-		DataSource°¡ ¾Æ·¡ º¯¼öµéÀ» ´Ù °¡Áö°í ÀÖ½À´Ï´Ù.
+		DataSourceê°€ ì•„ëž˜ ë³€ìˆ˜ë“¤ì„ ë‹¤ ê°€ì§€ê³  ìžˆìŠµë‹ˆë‹¤.
 		
-	4. username="scott" (DBÀÇ °èÁ¤¸í)
+	4. username="scott" (DBì˜ ê³„ì •ëª…)
 	
-	5. password="tiger" (°èÁ¤¿¡ ´ëÇÑ ºñ¹Ð¹øÈ£)
+	5. password="tiger" (ê³„ì •ì— ëŒ€í•œ ë¹„ë°€ë²ˆí˜¸)
 	
 	6. driverClassName="oracle.jdbc.driver.OracleDriver"
-		¿À¶óÅ¬ µå¶óÀÌ¹ö ÀÌ¸§(JDBC¸¦ ÀÌ¿ëÇÏ±â À§ÇÑ µå¶óÀÌ¹ö Å¬·¡½º ÀÔ´Ï´Ù.)
+		ì˜¤ë¼í´ ë“œë¼ì´ë²„ ì´ë¦„(JDBCë¥¼ ì´ìš©í•˜ê¸° ìœ„í•œ ë“œë¼ì´ë²„ í´ëž˜ìŠ¤ ìž…ë‹ˆë‹¤.)
 		
-	7. factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory" (8¹öÀü)
-		dbcp¸¦ °ü¸®ÇÏ´Â Å¬·¡½º·Î Factory Å¬·¡½º¸¦ ÀÌ¿ëÇÏ¸é Á» ´õ ¾ÈÁ¤ÀûÀ¸·Î °ü¸®ÇÒ ¼ö ÀÖ½À´Ï´Ù.
-		factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory" (7¹öÀü)
+	7. factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory" (8ë²„ì „)
+		dbcpë¥¼ ê´€ë¦¬í•˜ëŠ” í´ëž˜ìŠ¤ë¡œ Factory í´ëž˜ìŠ¤ë¥¼ ì´ìš©í•˜ë©´ ì¢€ ë” ì•ˆì •ì ìœ¼ë¡œ ê´€ë¦¬í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+		factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory" (7ë²„ì „)
 		
 	8. url="jdbc:oracle:thin:@127.0.0.1:1521:xe"
-		DBÀÇ Á¢¼Ó URLÀÔ´Ï´Ù.
+		DBì˜ ì ‘ì† URLìž…ë‹ˆë‹¤.
 		
-	9. maxTotal="500" (ÃÖ´ë »ç¿ëÇÒ Connection °¹¼öÀÔ´Ï´Ù.)
+	9. maxTotal="500" (ìµœëŒ€ ì‚¬ìš©í•  Connection ê°¯ìˆ˜ìž…ë‹ˆë‹¤.)
 	
-	10. maxIdle="100" (DB Pool¿¡ ¿©ºÐÀ¸·Î ³²°ÜÁú ÃÖ´ë Connection °¹¼öÀÔ´Ï´Ù.)	
+	10. maxIdle="100" (DB Poolì— ì—¬ë¶„ìœ¼ë¡œ ë‚¨ê²¨ì§ˆ ìµœëŒ€ Connection ê°¯ìˆ˜ìž…ë‹ˆë‹¤.)	
 
 -->
 
