@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project101.board.sell.db.CommentBean;
 import com.project101.board.sell.db.ImageBean;
 import com.project101.board.sell.db.ImageDAO;
 import com.project101.board.sell.db.SellBoardBean;
@@ -18,7 +17,7 @@ public class SellBoardAddAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
+		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out=response.getWriter();
 			
@@ -31,7 +30,6 @@ public class SellBoardAddAction implements Action{
 		java.util.Date date=format.parse(request.getParameter("SB_PDATE"));
 		long date2=date.getTime();
 		Date pdate=new Date(date2);
-		
 		
 		int BOARD_NO=selldao.getNextBoardNo();
 

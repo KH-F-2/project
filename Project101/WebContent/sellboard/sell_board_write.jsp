@@ -4,14 +4,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+		<!-- 달력 API -->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		
+		<!-- 이미지 업로드 API -->
         <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
-        <script src="/test/sellboard/js/sellboard.js"></script>
-        <link href="/test/sellboard/css/board_write.css" rel="stylesheet" type="text/css">
+
+        <script src="/Project101/sellboard/js/sellboard_write.js"></script>
+        <link href="/Project101/sellboard/css/board_write.css" rel="stylesheet" type="text/css">
+
 	</head>
 	<body>	
 		<form action="./BoardAddAction.sell" method="post" id="write_submit">
@@ -28,7 +34,7 @@
 				<tr>
 					<td>구매 날짜</td>
 					<td>
-						<input type="text" id="datepicker" name="SB_PDATE">
+						<input type="text" id="datepicker" name="SB_PDATE" readonly="readonly">
 					</td>
 				</tr>
 				<tr>

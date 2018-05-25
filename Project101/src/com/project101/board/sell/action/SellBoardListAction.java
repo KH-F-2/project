@@ -37,8 +37,6 @@ public class SellBoardListAction implements Action {
 			search_item=request.getParameter("item");
 		}
 		
-		
-		System.out.println(search_word);
 		if(!search_word.equals("")) {
 			Map<String, Object> map=new HashMap<String, Object>();
 			map=selldao.getSearchList(page, limit, search_word, search_item);

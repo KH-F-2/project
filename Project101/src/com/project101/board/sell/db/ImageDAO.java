@@ -92,4 +92,36 @@ public class ImageDAO {
 		
 		return result;
 	}
+	
+	public List<ImageBean> getImage(int num) {
+		List<ImageBean> imagelist=new ArrayList<ImageBean>();
+		try {
+			conn=ds.getConnection();
+			String sql="select * from IMAGE where BOARD_NO=? and BOARD_NAME='SELL_BOARD'";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				ImageBean image=new ImageBean();
+				image.setBOARD_NO(rset.getInt("BOARD_NO"));
+				image.setBOARD_NAME(rset.getString("BOARD_NAME"));
+				image.setIMAGE_URL(rset.getString("IMAGE_URL"));
+				imagelist.add(image);
+				System.out.println("getImage rsnext ");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return imagelist;
+	}
 }

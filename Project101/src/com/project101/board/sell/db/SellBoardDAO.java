@@ -200,8 +200,6 @@ public class SellBoardDAO {
 				sellboard.setSB_DATE(rset.getDate("SB_DATE"));
 				sellboard.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
 				return sellboard;
-			}else {
-				return null;
 			}
 			
 		}catch(Exception e) {

@@ -7,7 +7,16 @@
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-        <script src="/test/sellboard/js/sellboard.js"></script>
+        <script type="text/javascript">
+        function deleteConfirm(){
+        	ans=confirm("삭제하시겠습니까?");
+        	if(ans){
+        		location.href="<c:url value='/BoardDelete.sell?num=${sellboard.SB_NO}'/>";
+		     	return;
+        	}
+        	alert("삭제가 취소됨!!");
+        }
+        </script>
         <style>
         	a{text-decoration: none;}
         	table{
@@ -50,6 +59,7 @@
 					<td width="75%"><div class="title">${sellboard.SB_TITLE}</div></td>
 					<td width="25%">
 						<div class="date">
+							글번호 ${sellboard.SB_NO}<br>
 							등록 ${sellboard.SB_DATE}<br>
 							수정 ${sellboard.SB_MDATE }
 						</div>
@@ -81,14 +91,14 @@
 					<td>
 					    <c:if test="${id=='admin'||id==sellboard.SB_WRITER}">
 					    	<a href="<c:url value='/BoardModifyView.sell?num=${sellboard.SB_NO}'/>">
-								<img src="/test/sellboard/image/update.png">
+								<img src="/Project101/sellboard/image/update.png">
 							</a> &nbsp;
-							<a href="<c:url value='/BoardDelete.sell?num=${sellboard.SB_NO}'/>">
-								<img src="/test/sellboard/image/delete.png">
+							<a href="javascript:deleteConfirm()">
+								<img src="/Project101/sellboard/image/delete.png">
 							</a> &nbsp;
 						</c:if>
 						<a href="<c:url value='/BoardList.sell'/>">
-							<img src="/test/sellboard/image/list.png">
+							<img src="/Project101/sellboard/image/list.png">
 						</a>
 					</td>
 				</tr>

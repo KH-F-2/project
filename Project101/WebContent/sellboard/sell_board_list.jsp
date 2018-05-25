@@ -5,7 +5,6 @@
 <html>
 	<head>
 		<title>판매 게시판</title>
-        <script src="/test/sellboard/js/sellboard.js"></script>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
         <script type="text/javascript">
@@ -24,7 +23,7 @@
 	        	});
 	        });
         </script>
-		<link href="/test/sellboard/css/board_list.css" rel="stylesheet" type="text/css">
+		<link href="/Project101/sellboard/css/board_list.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<c:set var="b_p" value="${boardpage }"/>
@@ -82,11 +81,11 @@
 							</c:if>
 						</c:forEach>
 						
-						<c:if test="${page>=maxpage }">
+						<c:if test="${b_p.page>=b_p.maxpage }">
 							&nbsp;다음
 						</c:if>
-						<c:if test="${page<maxpage }">
-							&nbsp;<a href="./BoardList.sell?page=${page+1}&word=${b_p.searchWord}&item=${b_p.searchItem}">다음</a>
+						<c:if test="${b_p.page<b_p.maxpage }">
+							&nbsp;<a href="./BoardList.sell?page=${b_p.page+1}&word=${b_p.searchWord}&item=${b_p.searchItem}">다음</a>
 						</c:if>
 						
 					</td>

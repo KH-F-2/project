@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.project101.board.sell.db.ImageBean;
+import com.project101.board.sell.db.ImageDAO;
 import com.project101.board.sell.db.SellBoardBean;
 import com.project101.board.sell.db.SellBoardDAO;
 
@@ -22,6 +24,8 @@ public class SellBoardModifyAction implements Action{
 		
 		SellBoardDAO selldao=new SellBoardDAO();
 		SellBoardBean sellboard=new SellBoardBean();
+		ImageBean image=new ImageBean();
+		ImageDAO imagedao=new ImageDAO();
 		HttpSession session=request.getSession();
 		
 		sellboard.setSB_NO(num);
@@ -37,6 +41,18 @@ public class SellBoardModifyAction implements Action{
 		
 		int result=selldao.boardModify(sellboard);
 		PrintWriter out=response.getWriter();
+		
+		if(!request.getParameter("img_hidden").equals("")) {
+			String[] url=request.getParameter("img_hidden").split(" ");
+			//image.setBOARD_NO(BOARD_NO);
+			for(String imageurl : url) {
+				image.setIMAGE_URL(imageurl);
+				int result2=imagedao.imageInsert(image);
+				if(result2==0) {
+					System.out.println("image insert fail!");
+				}
+			}
+		}
 		if(result==1) {
 			out.println("<script> alert('게시판 수정 성공!'); location.href='./BoardDetail.sell?num="+num+"';</script>");
 		}else {
