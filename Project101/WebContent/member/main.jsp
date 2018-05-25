@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
@@ -11,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="css/fontello.css">
 	<link rel="stylesheet" type="text/css" href="css/fontello-codes.css">
 	<link rel="stylesheet" type="text/css" href="css/animation.css">
-	<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+	
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	
 	<!-- Semantic UI Library -->
