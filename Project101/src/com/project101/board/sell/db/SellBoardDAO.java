@@ -176,7 +176,7 @@ public class SellBoardDAO {
 			if(rset.next()) {
 				sellboard.setSB_NO(rset.getInt("SB_NO"));
 				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
-				sellboard.setSB_BDATE(rset.getDate("SB_BDATE"));
+				sellboard.setSB_DATE(rset.getDate("SB_DATE"));
 				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
 				sellboard.setSB_CONTENT(rset.getString("SB_CONTENT"));
 				sellboard.setSB_PRICE(rset.getInt("SB_PRICE"));
@@ -225,5 +225,11 @@ public class SellBoardDAO {
 	      }
 		return 0;
 	}	// boardDelete() ---------
+
+
+	public boolean sellModify(SellBoardBean selldata) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
