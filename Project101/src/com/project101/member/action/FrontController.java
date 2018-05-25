@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("*.mem")
+@WebServlet("*.me")
 public class FrontController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
@@ -28,21 +28,21 @@ public class FrontController extends HttpServlet {
 		
 		try {
 			
-			if (command.equals("/main.mem")) {
+			if (command.equals("/main.me")) {
 				 forward = new ActionForward();
 				 forward.setRedirect(false);
-				 forward.setPath("/member/main.jsp");
-			} else if (command.equals("/signin.mem")) {
+				 forward.setPath("template.jsp");
+			} else if (command.equals("/signin.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("/member/signin.jsp");
-			} else if (command.equals("/signinprocess.mem")) {
+			} else if (command.equals("/signinprocess.me")) {
 				action = new SignInProcessAction();
 				forward = action.execute(request, response);
-			} else if (command.equals("/signout.mem")) {
+			} else if (command.equals("/signout.me")) {
 				action = new SignOutProcessAction();
 				forward = action.execute(request, response);
-			} else if (command.equals("/signup.mem")) {
+			} else if (command.equals("/signup.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("/member/signup.jsp");
