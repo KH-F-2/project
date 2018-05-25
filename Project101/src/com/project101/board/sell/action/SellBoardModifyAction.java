@@ -1,6 +1,7 @@
 package com.project101.board.sell.action;
 
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -43,17 +44,17 @@ public class SellBoardModifyAction implements Action{
 		
 		try {
 			MultipartRequest multi = null;
-			multi = new MultipartRequest(request,realFolder, fileSize, "utf-8", new DefaultFileRenamePolicy());
+			multi = new MultipartRequest(request,realFolder, filesize, "utf-8", new DefaultFileRenamePolicy());
 			SellBoardBean boarddata = new SellBoardBean();
 			
 			selldata.setSB_NO(num);
 			selldata.setSB_CONTENT(request.getParameter("SB_CONTENT"));
 			selldata.setSB_TITLE(request.getParameter("SB_TITLE"));
-			selldata.setSB_CATEGORY(request.getParameter("SB_CATEGORY"));
-			selldata.setSB_LATITUDE(request.getParameter("SB_LATITUDE"));
-			selldata.setSB_LOGITUDE(request.getParameter("SB_LOGITUDE"));
-			selldata.setSB_DATE(request.getParameter("SB_DATA"));
-			selldata.setSB_PRICE(request.getParameter("SB_PRICE"));	
+			selldata.setSB_CATEGORY(Integer.parseInt(request.getParameter("SB_CATEGORY")));
+			selldata.setSB_LATITUDE(Integer.parseInt(request.getParameter("SB_LATITUDE")));
+			selldata.setSB_LOGITUDE(Integer.parseInt(request.getParameter("SB_LOGITUDE")));
+			selldata.setSB_DATE(new Date(request.getParameter("SB_DATA")));
+			selldata.setSB_PRICE(Integer.parseInt(request.getParameter("SB_PRICE")));	
 			result = selldao.sellModify(selldata);
 			
 			PrintWriter out = response.getWriter();
