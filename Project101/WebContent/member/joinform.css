@@ -1,0 +1,49 @@
+@charset "UTF-8";
+h1{text-align: center;}
+input {
+    border-radius: 25px;
+    border: 2px solid lightgray;
+ }
+/* @font-face {
+   font-family: sansation;
+   src: url(sansation_light.woff);
+} */
+
+body {
+   font-family: sansation;
+}
+input:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+button {
+    background-color: lightgray; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 12px;
+}
+select {
+	background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+	border-radius: 12px;
+	cursor: pointer;
+}
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 40px;
+  margin: 0px auto;
+   width: 300px;
+  border-radius: 12px;
+  border: 2px solid lightgray;
+  background-color: white;
+}
+
+
+	
+}
