@@ -124,4 +124,30 @@ public class ImageDAO {
 		
 		return imagelist;
 	}
+
+	public int imageDelete(int board_no) {
+		String sql="";
+		try {
+			conn=ds.getConnection();
+			
+			sql="delete from IMAGE where BOARD_NO=? and BOARD_NAME='SELL_BOARD'";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, board_no);
+			
+			result=pstmt.executeUpdate();
+			if(result==0) {
+				System.out.println("imageDelete() fail");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return result;
+	}
 }

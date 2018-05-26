@@ -15,8 +15,8 @@
 		<!-- 이미지 업로드 API -->
         <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
 
-        <script src="/Project101/sellboard/js/sellboard_write.js"></script>
-        <link href="/Project101/sellboard/css/board_write.css" rel="stylesheet" type="text/css">
+        <script src="/test/sellboard/js/sellboard_write.js"></script>
+        <link href="/test/sellboard/css/board_write.css" rel="stylesheet" type="text/css">
 
 	</head>
 	<body>	

@@ -23,7 +23,7 @@
 	        	});
 	        });
         </script>
-		<link href="/Project101/sellboard/css/board_list.css" rel="stylesheet" type="text/css">
+		<link href="/test/sellboard/css/board_list.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<c:set var="b_p" value="${boardpage }"/>
