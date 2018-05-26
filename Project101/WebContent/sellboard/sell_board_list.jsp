@@ -95,7 +95,7 @@
 			</c:if>
 			
 			
-			<c:if test="${listcount==0}">
+			<c:if test="${b_p.listcount==0}">
 			<thead>
 				<tr>
 					<td colspan="5">판매 게시판</td>
