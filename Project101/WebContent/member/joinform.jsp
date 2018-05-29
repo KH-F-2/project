@@ -61,14 +61,58 @@
 				alert('id중복검사를 해주세요');
 				return false;
 			}
+			var emailconfirm_value;
+			emailconfirm_value =$("input[name=emailconfirm_value]").val();
+			if(emailconfirm_value != 1){
+				alert('email 인증을 해주세요.');
+				return false;
+			}
 		});
 		
 		$(function() { $("#postcodify_search_button").postcodifyPopUp(); });
 		
+		var email;
 		
+		$("#emailcheck").click(function(){
+			email = $("input[name=email]").val() + "@" +$("input[name=domain]").val(); 	
+			
+			if(email == ''){
+				alert("이메일을 입력하세요.");
+				return false;
+			}
+			
+		});
 	})	;
 	
-	
+	function emailcheck(email, domain){
+	    // 유효성 검사
+		if(!joinform.email.value || !joinform.domain.value){ 
+			alert(emailerror);
+			joinform.email.focus();
+			return;
+		}else{
+			if(joinform.email.value){
+				if(joinform.domain.value==0){
+					// 직접입력
+					if(joinform.email.value.indexOf("@")==-1){
+						alert(emailerror);
+						joinform.domain.focus();
+						return false;
+					}
+				}else{
+					// 선택입력
+					if(joinform.email.value.indexOf("@")!=-1){
+						alert(emailerror);
+						joinform.email.focus();
+						return false;
+					}
+				}
+			}
+		}
+	    // 인증을 위해 새창으로 이동
+		var url="emailCheck.mem?email="+email+"&domain="+domain;
+		open(url,"emailwindow", "statusbar=no, scrollbar=no, menubar=no,  width=400, height=200" );
+	}
 		
 </script>
 
@@ -112,9 +156,11 @@
 			<option value="gmail.com">gmail.com</option>
 		</select> 
 		<br>
-		<label>인증번호</label>
-		<input type="text" name="emailchecknum" placeholder="인증번호를 입력하세요">
-		<input type ="button" id ="emailcheck" value="인증하기" >
+		
+		
+		<input type="button" name="emailconfirm_btn" value="인증하기" 
+         			onclick="emailcheck(joinform.email.value,joinform.domain.value)">
+		<input type="hidden" name="emailconfirm_value">
 		
 		
 		<br><br>	<br> 

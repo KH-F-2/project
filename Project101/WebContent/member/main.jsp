@@ -8,7 +8,7 @@
 	<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
 	
 	<script src="js/main.js"></script>
-	<script src="js/jsonObj.js"></script>
+	<!-- <script src="js/jsonObj.js"></script> -->
 	
 
 

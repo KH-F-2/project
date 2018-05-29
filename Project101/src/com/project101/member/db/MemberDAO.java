@@ -156,9 +156,48 @@ public class MemberDAO {
 	      return result;
 	   }
 
-	public int insert(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+public int insert(Member m) {
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "insert into member12 values(?,?,?,?,?,?,?,?,? ) ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getId());
+			pstmt.setString(2, m.getPassword());
+			pstmt.setString(3,  m.getName());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getTel());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getSchool());
+			pstmt.setString(8, m.getMajor());
+			pstmt.setString(9, m.getCollege());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(java.sql.SQLIntegrityConstraintViolationException e) {
+			result = -1;
+			System.out.println( "insert 에러" );
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null)
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			if(conn != null)
+				try {
+					conn.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return result;
 	}
+
+
 	
 }
