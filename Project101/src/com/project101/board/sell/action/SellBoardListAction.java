@@ -1,15 +1,18 @@
 package com.project101.board.sell.action;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.project101.board.sell.db.SellBoardBean;
 import com.project101.board.sell.db.SellBoardDAO;
+import com.project101.board.sell.db.SellBoardPageBean;
 
 public class SellBoardListAction implements Action {
+
 
    @Override
    public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -50,5 +53,6 @@ public class SellBoardListAction implements Action {
       
       return forward;
    }
+
 
 }

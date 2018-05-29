@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+#map {
+	width: 100%;
+	margin-bottom: 50px;
+}
+
+#main_head span {
+	display: block;
+	margin: 0 auto;
+	font-size: 40px;
+	text-align: center;
+	line-height: 200px;
+}
+
+#main_head h3 {
+	font-size: 15px;
+	display: block;
+	font-weight: normal;
+	width: 500px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+#container {
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.content {
+	display: inline-block;
+	width: 300px;
+	height: 370px;
+	margin: 0 30px 50px 30px;
+	border-radius: 5px;
+	box-shadow: 1px 2px 4px gray;
+}
+
+.content img {
+	display: block;
+	width: 100%;
+	height: 200px;
+	border-radius: 5px 5px 0 0;
+}
+
+.content p {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#navTitle {
+	margin: 20px;
+}
+
+#hiddenHeader {
+	width: 100%;
+	height: 70px;
+	background-color: white;
+	box-shadow: 0 3px 5px gray;
+	z-index: 10;
+}
+
+#hiddenHeader #sec1 {
+	height: 100%;
+	width: 20%;
+	display: inline-block;
+	font-size: 50px;
+	border: 0;
+	padding: 20px 20px;
+	color: black;
+	
+}
+
+#hiddenHeader #sec2 {
+	height: 100%;
+	width: 59%;
+	margin: 0 auto;
+	display: inline-block;
+	font-size: 30px;
+	text-align: center;
+	letter-spacing: 10px;
+}
+
+#hiddenHeader #sec3 {
+	height: 100%;
+	width: 20%;
+	display: inline-block;
+	text-decoration: none;
+	font-size: 20px;
+	float: right;
+	padding: 25px 20px;
+}
+
+#sec3 a{
+	color: black;
+	float: right;
+}
+
+#navTitle i {
+	font-family: "fontello";
+	font-size: 30px;
+	font-style: normal;
+}
+
+#locationField {
+	position: absolute;
+	display: inline-block;
+	height: 30px;
+	width: 400px;
+	font-size: 25px;
+	z-index: 1;
+}

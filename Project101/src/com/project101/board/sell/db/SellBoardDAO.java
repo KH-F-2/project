@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -25,6 +27,7 @@ public class SellBoardDAO {
          Context init = new InitialContext();
          ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
       } catch (Exception e) {
+
 
          System.out.println("DB 연결 실패 : " + e);
          return;
@@ -252,3 +255,4 @@ public class SellBoardDAO {
       } // boardModify -------------
    
 }
+

@@ -1,15 +1,19 @@
 package com.project101.board.sell.action;
 
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import com.project101.board.sell.db.SellBoardBean;
 import com.project101.board.sell.db.SellBoardDAO;
 
 public class SellBoardModifyAction implements Action{
+
 
    @Override
    public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -43,5 +47,6 @@ public class SellBoardModifyAction implements Action{
       
       return null;
    }
+
 
 }
