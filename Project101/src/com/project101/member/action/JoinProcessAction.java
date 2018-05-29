@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.project101.member.db.Member;
 import com.project101.member.db.MemberDAO;
 
-public class joinProcessAction implements Action {
+public class JoinProcessAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

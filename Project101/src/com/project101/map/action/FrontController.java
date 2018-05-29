@@ -1,4 +1,4 @@
-package com.project101.member.action;
+package com.project101.map.action;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("*.me")
+@WebServlet("*.map")
 public class FrontController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
@@ -28,24 +28,13 @@ public class FrontController extends HttpServlet {
 
 		try {
 
-			if (command.equals("/main.me")) {
-				forward = new ActionForward();
-				forward.setRedirect(false);
-				forward.setPath("template.jsp");
-			} else if (command.equals("/signin.me")) {
-				forward = new ActionForward();
-				forward.setRedirect(false);
-				forward.setPath("template.jsp?page=member/signin.jsp");
-			} else if (command.equals("/signinprocess.me")) {
-				action = new SignInProcessAction();
-				forward = action.execute(request, response);
-			} else if (command.equals("/signout.me")) {
-				action = new SignOutProcessAction();
-				forward = action.execute(request, response);
-			} else if (command.equals("/signup.me")) {
-				forward = new ActionForward();
-				forward.setRedirect(false);
-				forward.setPath("/member/signup.jsp");
+			if (command.equals("/getmarkers.map")) {
+				action = new GetMarkerProcessAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 
 			if (forward != null) {
