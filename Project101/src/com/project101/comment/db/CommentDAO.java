@@ -37,8 +37,12 @@ public class CommentDAO {
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement("select comment_seq.nextval from dual");
+			
 			rset = pstmt.executeQuery();
-
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
 		} catch (Exception e) {
 			System.out.println("댓글 시퀸스오류 : " + e);
 		} finally {
@@ -55,7 +59,6 @@ public class CommentDAO {
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
-
 			}
 			if (conn != null) {
 				try {
@@ -63,20 +66,18 @@ public class CommentDAO {
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
-
 			}
-
 		}
 		return result;
-
 	}
 
-	public boolean CommentInsert(CommentBean cmtdata) {
-
+	public boolean cmtInsert(CommentBean cmtBean) {
 		int num = 0;
+		
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement("select max(CMT_NO) from COMMENTS");
+			
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -91,18 +92,16 @@ public class CommentDAO {
 					+ "values(?,?,?,sysdate,?,?,?,?)");
 
 			pstmt.setInt(1, num);
-			pstmt.setInt(2, cmtdata.getCMT_SUBJECT_NO());
-			pstmt.setString(3, cmtdata.getCMT_WRITER());
-			pstmt.setString(4, cmtdata.getCMT_CONTENT());
-			pstmt.setInt(5, cmtdata.getCMT_NO());
+			pstmt.setInt(2, cmtBean.getCMT_SUBJECT_NO());
+			pstmt.setString(3, cmtBean.getCMT_WRITER());
+			pstmt.setString(4, cmtBean.getCMT_CONTENT());
+			pstmt.setInt(5, cmtBean.getCMT_NO());
 			pstmt.setInt(6, 0);
 			pstmt.setInt(7, 0);
 
 			result = pstmt.executeUpdate();
 
-			if (result == 0) {
-				return false;
-			} else {
+			if (result == 1) {
 				return true;
 			}
 
@@ -135,7 +134,7 @@ public class CommentDAO {
 
 		}
 
-		return true;
+		return false;
 	}
 
 	public List<CommentBean> getCmtList(int num, int page, int limit) {
@@ -204,7 +203,7 @@ public class CommentDAO {
 
 	public CommentBean getDetail(int num) {
 		
-		CommentBean cmtdata = null;
+		CommentBean cmtBean = null;
 		
 		try {
 			conn = ds.getConnection();
@@ -214,19 +213,16 @@ public class CommentDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				cmtdata = new CommentBean();
-				cmtdata.setCMT_NO(rset.getInt(1));
-				cmtdata.setCMT_SUBJECT_NO(rset.getInt(2));
-				cmtdata.setCMT_WRITER(rset.getString(3));
-				cmtdata.setCMT_DATE(rset.getDate(4));
-				cmtdata.setCMT_CONTENT(rset.getString(5));
-				cmtdata.setCMT_RE_REF(rset.getInt(6));
-				cmtdata.setCMT_RE_LEV(rset.getInt(7));
-				cmtdata.setCMT_SEQ(rset.getInt(8));
-				
-			}
-			return cmtdata;
-			
+				cmtBean = new CommentBean();
+				cmtBean.setCMT_NO(rset.getInt(1));
+				cmtBean.setCMT_SUBJECT_NO(rset.getInt(2));
+				cmtBean.setCMT_WRITER(rset.getString(3));
+				cmtBean.setCMT_DATE(rset.getDate(4));
+				cmtBean.setCMT_CONTENT(rset.getString(5));
+				cmtBean.setCMT_RE_REF(rset.getInt(6));
+				cmtBean.setCMT_RE_LEV(rset.getInt(7));
+				cmtBean.setCMT_SEQ(rset.getInt(8));	
+			}		
 		}catch(Exception e) {
 			System.out.println("reply getDetailAction 에러 :" + e);
 		}finally {
@@ -252,12 +248,12 @@ public class CommentDAO {
 				}
 			}
 		}
-		return null;
-		
+
+		return cmtBean;
 	}
 
 	public int getListCount(int num) {
-		int x = 0;
+		int result = 0;
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement("select count(*) from COMMENTS where CMT_SUBJECT_NO = ?");
@@ -266,7 +262,7 @@ public class CommentDAO {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				x = rset.getInt(1);
+				result = rset.getInt(1);
 			}
 		} catch (Exception e) {
 			System.out.println("getListCount() 에러 : " + e);
@@ -293,7 +289,7 @@ public class CommentDAO {
 				}
 			}
 		}
-		return x;
+		return result;
 	}
 
 }

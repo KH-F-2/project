@@ -12,61 +12,54 @@ public class PurchaseListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		PurchaseBoardDAO buydao = new PurchaseBoardDAO();
-		List<PurchaseBoardBean> buylist = new ArrayList<PurchaseBoardBean>();
+		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
+		List<PurchaseBoardBean> boardBeanList = new ArrayList<PurchaseBoardBean>();
 
 		int page = 1;
 		int limit = 10;
-		String search = "";
-		String searchotp = "";
-	
-		String opt = request.getParameter("searchotp");  //선택 옵션 가져오기
-		System.out.println("action opt=" + opt);		//선택 옵션 출력해보기				
-		
-		String condition = request.getParameter("search");	//선택 텍스트 가져오기
+		String keyword = "";
+		String searchOption = "";
+		String option = request.getParameter("searchOption");  //선택 옵션 가져오기
+		System.out.println("action opt=" + option);		//선택 옵션 출력해보기				
+		String condition = request.getParameter("keyword");	//선택 텍스트 가져오기
 		System.out.println("action con=" + condition);		//선택 텍스트 출력해솝기
 
 		if (request.getParameter("page") != null) {		
+			
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		System.out.println("넘어온 페이지 = " + page);
 
 		/////////////////  선언
 		if (condition != null) {
-			search = request.getParameter("search");
+			keyword = request.getParameter("keyword");
 		}
-		System.out.println("검색창에 = " + search);
+		System.out.println("검색창에 = " + keyword);
 
-		if (opt != null) {
-			searchotp =  request.getParameter("searchotp");
+		if (option != null) {
+			searchOption =  request.getParameter("searchOption");
 		}
 			
-		//////////////////////  
-
-		HashMap<String, Object> listOpt = new HashMap<String, Object>();
-		listOpt.put("opt", opt);
-		listOpt.put("condition", condition);
-		listOpt.put("start", page * 10 - 9);
+		HashMap<String, Object> listOption = new HashMap<String, Object>();
+		listOption.put("option", option);
+		listOption.put("condition", condition);
+		listOption.put("start", page * 10 - 9);
 
 		// 총 리스트 수를 받아옵니다.
-		int listcount = buydao.getListCount();
-		
-		
-		///////////////////////
-		int valuecount = buydao.getValueCount(listOpt, search, searchotp);  //  검색 결과값의 수를 구하는 메소드
-		//////////////////////////////
-		
-		int valuepage = (valuecount + limit - 1) / limit;
+		int listCount = purchaseDAO.getListCount();
+		//  검색 결과값의 수를 구하는 메소드
+		int searchResultCount = purchaseDAO.getSearchResultCount(listOption, keyword, searchOption);  
 		//결과값의 페이지 수
+		int searchResultPage = (searchResultCount + limit - 1) / limit;
 		
 		// 리스트를 받아옵니다.
-		buylist = buydao.getBuyList(listOpt, page, limit, search, searchotp);
+		boardBeanList = purchaseDAO.getBoardBeandList(listOption, page, limit, keyword, searchOption);
 		
 		// 총 페이지 수
 		// db에 저장된 총 리스트의 수가 0이면 총 페이지수 0페이지
 		// 총 리스트의 수가 (1~10)이면 1페이지 (11~20) 이면 2페이지 (21~30)이면 3페이지
-		int maxpage = (listcount + limit - 1) / limit;
-		System.out.println("총 페이지수 =" + maxpage);
+		int maxPage = (listCount + limit - 1) / limit;
+		System.out.println("총 페이지수 =" + maxPage);
 
 		/*
 		 * startpage : 현재 페이지 그룹에서 맨 처음에 표시될 페이지 수를 의미합니다. ([1], [11], [21] 등...) 보여줄
@@ -77,48 +70,46 @@ public class PurchaseListAction implements Action {
 		 * 예로 1~10페이지의 내용을 나타낼때는 페이지 그룹은 [1][2][3]..[10]로 표시되고 11~20페이지의 내용을 나타낼때는 페이지
 		 * 그룹은 [11][12][13]..[20]까지 표시됩니다.
 		 */
-		int startpage = ((page - 1) / 10) * 10 + 1;
-		System.out.println("현재 페이지에 보여줄 시작 페이지 수 =" + startpage);
+		int startPage = ((page - 1) / 10) * 10 + 1;
+		System.out.println("현재 페이지에 보여줄 시작 페이지 수 =" + startPage);
 		
 		// endpage : 현재 페이지 그룹에서 보여줄 마지막 페이지 수 ([10],[20],[30],...)
-		int endpage = startpage + 10 - 1;
-		System.out.println("현재 페이지에 보여줄 마지막 페이지 수 =" + endpage);
+		int endPage = startPage + 10 - 1;
+		System.out.println("현재 페이지에 보여줄 마지막 페이지 수 =" + endPage);
 
 		/*
 		 * 마지막 그룹의 마지막 페이지 값은 최대 페이지 값입니다. 예로 마지막 페이지 그룹이 [21]~[30]인 경우
 		 * 시작페이지(startpage=21)와 마지막페이지(endpage=30) 이지만 최대 페이지(maxpage)가 25라면
 		 * [21]~[25]까지만 표시되도록 합니다.
 		 */
-		if (endpage > maxpage) {
-			endpage = maxpage;
+		if (endPage > maxPage) {
+			
+			endPage = maxPage;
 		}
+		
 		request.setAttribute("page", page);// 현재 페이지 수
-		request.setAttribute("maxpage", maxpage);// 최대 페이지 수
+		request.setAttribute("maxPage", maxPage);// 최대 페이지 수
 		// 현재 페이지에 표시할 첫 페이지 수
-		request.setAttribute("startpage", startpage);
-
+		request.setAttribute("startPage", startPage);
 		// 현재 페이지에 표시할 끝 페이지 수
-		request.setAttribute("endpage", endpage);
-
-		request.setAttribute("listcount", listcount);// 총 글의 수
-
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("listCount", listCount);// 총 글의 수
 		// 해당 페이지의 글 목록을 갖고 있는 리스트
-		request.setAttribute("buylist", buylist);
-
+		request.setAttribute("boardBeanList", boardBeanList);
 		/////////////////// 위에서 선언한 값 가져가기
-		request.setAttribute("search", search);
-		request.setAttribute("searchotp", searchotp);
-		request.setAttribute("valuecount", valuecount);
-		request.setAttribute("valuepage", valuepage);
-		System.out.println("valuecount="+valuecount);
-		System.out.println("valuepage="+valuepage);
-		//////////////////
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("searchOption", searchOption);
+		request.setAttribute("searchResultCount", searchResultCount);
+		request.setAttribute("searchResultPage", searchResultPage);
+		System.out.println("searchResultCount="+searchResultCount);
+		System.out.println("searchResultPage="+searchResultPage);
 
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
 		
 		// 글 목록 페이지로 이동하기 위해 경로를 설정합니다.
-		forward.setPath("./buy/buy_board_main.jsp"); // 수정 해야됨
+		forward.setPath("template.jsp?page=./purchaseboard/pblist.jsp"); // 수정 해야됨
+		
 		return forward;// BoardForntController.java로 리턴됩니다.
 	}
 }
