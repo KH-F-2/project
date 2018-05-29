@@ -1,14 +1,12 @@
 package com.project101.board.sell.db;
 
-import java.sql.Date;
-
 public class CommentBean {
 	private int COMMENT_NO;
 	private int BOARD_NO;
 	private String BOARD_NAME="SELL_BOARD";
 	private String COMMENT_WRITER;
 	private String COMMENT_CONTENT;
-	private Date COMMENT_DATE;
+	private String COMMENT_DATE;
 	
 	public CommentBean() {
 		super();
@@ -54,11 +52,11 @@ public class CommentBean {
 		COMMENT_WRITER = cOMMENT_WRITER;
 	}
 
-	public Date getCOMMENT_DATE() {
+	public String getCOMMENT_DATE() {
 		return COMMENT_DATE;
 	}
 
-	public void setCOMMENT_DATE(Date cOMMENT_DATE) {
+	public void setCOMMENT_DATE(String cOMMENT_DATE) {
 		COMMENT_DATE = cOMMENT_DATE;
 	}
 	

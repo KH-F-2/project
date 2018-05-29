@@ -56,6 +56,10 @@ public class SellBoardFrontController extends HttpServlet {
 				action=new SellBoardModifyAction();
 				forward=action.execute(request, response);
 			}
+			else if(command.equals("/SellBoardCommentAddAction.sell")) {
+				action=new SellBoardCommentAddAction();
+				forward=action.execute(request, response);
+			}
 				
 			
 			

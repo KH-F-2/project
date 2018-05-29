@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.project101.board.sell.db.CommentBean;
+import com.project101.board.sell.db.CommentDAO;
 import com.project101.board.sell.db.ImageBean;
 import com.project101.board.sell.db.ImageDAO;
 import com.project101.board.sell.db.SellBoardBean;
@@ -22,16 +24,19 @@ public class SellBoardDetailAction implements Action {
 		SellBoardBean sellboard=new SellBoardBean();
 		List<ImageBean> imagelist=new ArrayList<ImageBean>();
 		ImageDAO imagedao=new ImageDAO();
+		List<CommentBean> commentlist=new ArrayList<CommentBean>();
+		CommentDAO commentdao=new CommentDAO();
 		
 		int num=Integer.parseInt(request.getParameter("num"));
 		
 		imagelist=imagedao.getImage(num);
-		
+		commentlist=commentdao.getCommentList(num);
 		selldao.setReadCountUpdate(num);
 		sellboard=selldao.getDetail(num);
 		
 		request.setAttribute("sellboard", sellboard);
 		request.setAttribute("imagelist", imagelist);
+		request.setAttribute("commentlist", commentlist);
 		
 		if(sellboard==null) {
 			System.out.println("상세보기 실패!");
