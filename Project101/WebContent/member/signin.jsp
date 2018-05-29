@@ -22,9 +22,6 @@
 <html>
 <head>
 	<title>Insert title here</title>
-	<link rel="stylesheet" href="./member/aa.css" type="text/css">
-
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 	<script>
 		$(document).ready(function() {

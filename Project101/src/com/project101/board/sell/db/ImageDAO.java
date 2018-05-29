@@ -86,6 +86,7 @@ public class ImageDAO {
 		return imagelist;
 	}
 
+
 	public int imageDelete(int board_no) {
 		String sql="";
 		try {

@@ -25,17 +25,17 @@ public class FrontController extends HttpServlet {
 
 		ActionForward forward = null;
 		Action action = null;
-		
+
 		try {
-			
+
 			if (command.equals("/main.me")) {
-				 forward = new ActionForward();
-				 forward.setRedirect(false);
-				 forward.setPath("template.jsp");
+				forward = new ActionForward();
+				forward.setRedirect(false);
+				forward.setPath("template.jsp");
 			} else if (command.equals("/signin.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
-				forward.setPath("/member/signin.jsp");
+				forward.setPath("template.jsp?page=member/signin.jsp");
 			} else if (command.equals("/signinprocess.me")) {
 				action = new SignInProcessAction();
 				forward = action.execute(request, response);
@@ -47,7 +47,6 @@ public class FrontController extends HttpServlet {
 				forward.setRedirect(false);
 				forward.setPath("/member/signup.jsp");
 			}
-			
 
 			if (forward != null) {
 				if (forward.isRedirect()) {
@@ -55,6 +54,7 @@ public class FrontController extends HttpServlet {
 				} else {
 					RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
 					dispatcher.forward(request, response);
+
 				}
 			}
 
