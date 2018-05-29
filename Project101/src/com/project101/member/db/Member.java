@@ -5,32 +5,30 @@ public class Member {
 	private String password;
 	private String name;
 	private int age;
-	private String gender;
 	private String email;
-	private int phonenum;
+	private String tel;
+	private String address;
 	private String school;
-	private String department; //학과
-	private String studentid;		//학번
-	private String address;		//집주소
-	
-	
+	private String major;
+	private String college;
+
 	public Member() {
-		
+
 	}
-	
-	public Member(String id, String password, String name, int age, String gender, String email, int phonenum, String school, String department,
-							String studentid, String address) {
+
+	public Member(String id, String password, String name, int age, String email, String tel, String address,
+			String school, String major, String college) {
+		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.age = age;
-		this.gender = gender;
 		this.email = email;
-		this.phonenum = phonenum;
-		this.school = school;
-		this.department = department;
-		this.studentid = studentid;
+		this.tel = tel;
 		this.address = address;
+		this.school = school;
+		this.major = major;
+		this.college = college;
 	}
 
 	public String getId() {
@@ -65,14 +63,6 @@ public class Member {
 		this.age = age;
 	}
 
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -81,12 +71,20 @@ public class Member {
 		this.email = email;
 	}
 
-	public int getPhonenum() {
-		return phonenum;
+	public String getTel() {
+		return tel;
 	}
 
-	public void setPhonenum(int phonenum) {
-		this.phonenum = phonenum;
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getSchool() {
@@ -97,27 +95,21 @@ public class Member {
 		this.school = school;
 	}
 
-	public String getDepartment() {
-		return department;
+	public String getMajor() {
+		return major;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setMajor(String major) {
+		this.major = major;
 	}
 
-	public String getStudentid() {
-		return studentid;
+	public String getCollege() {
+		return college;
 	}
 
-	public void setStudentid(String studentid) {
-		this.studentid = studentid;
+	public void setCollege(String college) {
+		this.college = college;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
+	
 }

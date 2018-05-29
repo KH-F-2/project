@@ -12,7 +12,6 @@ public class SellBoardDeleteAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
-		ActionForward forward = new ActionForward();
 		int num=Integer.parseInt(request.getParameter("num"));
 		SellBoardDAO boarddao = new SellBoardDAO();
 		PrintWriter out = response.getWriter();

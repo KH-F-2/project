@@ -22,9 +22,6 @@
 <html>
 <head>
 	<title>Insert title here</title>
-	<link rel="stylesheet" href="./member/aa.css" type="text/css">
-
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 	<script>
 		$(document).ready(function() {
@@ -57,7 +54,7 @@
 					$.ajax({
 						type: 'post',
 						data: $(this).serialize(),
-						url: 'signinprocess.mem',
+						url: 'signinprocess.me',
 						success: function (result) {
 							
 							if (result == -1) {
@@ -73,7 +70,7 @@
 								});
 								$('#password').focus();
 							} else {
-								location.href = "./main.mem";
+								location.href = "./main.me";
 							}
 						}
 					});
@@ -106,7 +103,7 @@
 <body>
 	<div id="signInDiv">
 		<h1>Sign In</h1>
-		<form action="loginprocess.mem" name="joinForm" method="post" id="signInForm">
+		<form action="loginprocess.me" name="joinForm" method="post" id="signInForm">
 			
 			<div class="ff">
 				<div id="alertId">We cannot find an account with that ID.</div>
@@ -126,7 +123,7 @@
 		</form>
 		
 		<hr>
-		<input type="button" value="Create Your Account" onclick="location.href='signup.mem'">
+		<input type="button" value="Create Your Account" onclick="location.href='signup.me'">
 	</div>
 </body>
 </html>
