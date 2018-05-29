@@ -20,39 +20,35 @@
         </style>
 	</head>
 	<body>	
-		<form action="./BoardModifyAction.sell" method="post">
+		<form action="./BoardModifyAction.report" method="post">
+		<input type="hidden" name="RB_NO" value="${reportboard.RB_NO}">
 			<table>
 				<tr>
-					<th colspan="2">판매게시판 - 수정</th>
+					<th colspan="2">신고게시판 - 수정</th>
 				</tr>
 				<tr>
 					<td>작성자</td>
 					<td>
-						${sellboard.SB_WRITER}
+						${reportboard.RB_WRITER}
 					</td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td><input name="SB_TITLE"  type="text" size="50" maxlength="100" value="${sellboard.SB_TITLE}"></td>
+					<td><input name="RB_TITLE"  type="text" size="50" maxlength="100" value="${reportboard.RB_TITLE}"></td>
 				</tr>
 				<tr>
 					<td>가격</td>
 					<td>
-						<input name = "SB_PRICE" type="text" size="50" maxlength="100" value="${sellboard.SB_PRICE}">
+						<input name = "RB_PRICE" type="text" size="50" maxlength="100" value="${reportboard.RB_PRICE}">
 					</td>
 				</tr>
-				<tr>
-					<td>구매날짜</td>
-					<td>
-						<input name = "SB_BDATE" type="text" size="50" maxlength="100" value="${sellboard.SB_BDATE}">
-					</td>
-				</tr>
+
 				<tr>
 					<td>
 						<div>내용</div>
 					</td>
 					<td>
-						<textarea name="SB_CONTENT" id="board_content" cols="65" rows="15">${sellboard.SB_CONTENT}</textarea>
+						<textarea name="RB_CONTENT" id="board_content" cols="65" rows="15">${reportboard.RB_CONTENT}</textarea>
 					</td>
 				</tr>
 				<tr class="center">
