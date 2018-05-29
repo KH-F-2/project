@@ -1,79 +1,107 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
-		<style>
-			table {
-				width : 80%;
-				border : 1px black solid;
-				height : 500px;
-				text-align: center;
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+        function deleteConfirm(){
+        	ans=confirm("삭제하시겠습니까?");
+        	if(ans){
+        		location.href="<c:url value='/BoardDelete.sell?num=${sellboard.SB_NO}'/>";
+		     	return;
+        	}
+        	alert("삭제가 취소됨!!");
+        }
+        </script>
+        <style>
+        	a{text-decoration: none;}
+        	table{
+        		margin: 0 auto;
+        		width: 80%;
+        	}
+        	div{
+        		height: 100%;
+        		margin: 0px 20px 0px 20px;
+        	}
+        	.main_table{
+        		height: 600px;
+        		border: 0.5px solid #2aa1ff;
+        		border-radius: 5px;
+        		background-color: #e8e8e880;
+        	}
+        	.title{
+        		font-weight: bold;
+        		font-size: 18pt;
+        		text-align: left;
+        	}
+        	.date{
+        		text-align: right;
+        		color: gray;
+        		font-size: 10pt;
+        	}
+        	.price{
+        		color: #008effad;
+        	}
+        	tr:last-child{
+        		height: 60%;
 			}
-			table>tr:first-child>td {
-				background-color: #88c399;
+			.second_table tr{
+				text-align: right;
 			}
-			#div_1{
-				width : 30%;
-				height : 350px;
-			}
-			#div_2{
-				width : 70%;
-				height : 350px;
-			}
-			#content_img{
-				width : 95%;
-				height : 80%;
-				display: inline-block;
-			}
-			#sell_icon{
-				float: left;
-			}
-		</style>
+        </style>
 	</head>
-	<body>
-		<form id = "sell_view" action = "" method = "post">
-			<table border="1">
+			<table class="main_table">
 				<tr>
-					<td width = "10%">글번호</td>
-					<td width = "15%">[카테고리]</td>
-					<td>제목</td>
-					<td width = "15%">날짜</td>
-				</tr>
-				<tr height = "350px">
-					<td colspan="4">
-						<div id = "div_1">
-							<img id = "content_img" src = "/test/image/File1.jpg">
-							<button id = "buy_btn">구매신청</button>
-						</div>
-						<div id = "div_2">
-							<img id = "sell_icon" src = "/test/image/sellicon.PNG"><br>
-							가격 : 백마누언
-							~~~~~~ 내용 ~~~~~
-							~~~~~~ 내용 ~~~~~
-							~~~~~~ 내용 ~~~~~
-							~~~~~~ 내용 ~~~~~
-							~~~~~~ 내용 ~~~~~
+					<td width="75%"><div class="title">${sellboard.SB_TITLE}</div></td>
+					<td width="25%">
+						<div class="date">
+							글번호 ${sellboard.SB_NO}<br>
+							등록 ${sellboard.SB_DATE}<br>
+							수정 ${sellboard.SB_MDATE }
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="writer">${sellboard.SB_WRITER}</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="pdate">
+							구입일 ${sellboard.SB_PDATE }
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="price">${sellboard.SB_PRICE } 원</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><div class="content">${sellboard.SB_CONTENT }</div></td>
+				</tr>
+			</table>
+			<table class="second_table">
 				<tr>
 					<td>
-						댓글
-					</td>
-					<td colspan="3">
-						~~댓글~~
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4">
-						<button>수정</button>
-						<button>삭제</button>
-						<button>목록</button>
+					    <c:if test="${id=='admin'||id==sellboard.SB_WRITER}">
+					    	<a href="<c:url value='/BoardModifyView.sell?num=${sellboard.SB_NO}'/>">
+								<img src="/Project101/sellboard/image/update.png">
+							</a> &nbsp;
+							<a href="javascript:deleteConfirm()">
+								<img src="/Project101/sellboard/image/delete.png">
+							</a> &nbsp;
+						</c:if>
+						<a href="<c:url value='/BoardList.sell'/>">
+							<img src="/Project101/sellboard/image/list.png">
+						</a>
 					</td>
 				</tr>
 			</table>
-		</form>
 	</body>
 </html>

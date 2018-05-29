@@ -1,19 +1,15 @@
 package com.project101.board.sell.db;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class SellBoardBean {
 	private int SB_NO;
 	private String SB_WRITER;
-	private Date SB_REDITDATE;
+	private Date SB_PDATE;
+	private Date SB_MDATE;
 	private String SB_TITLE;
-	private int SB_CATEGORY;
 	private String SB_CONTENT;
 	private int SB_PRICE;
-	private int SB_LATITUDE;
-	private int SB_LOGITUDE;
-	private String SB_PICTURE;
-	private int SB_COMMENT;
 	private Date SB_DATE;
 	private int SB_READCOUNT;
 	
@@ -37,12 +33,20 @@ public class SellBoardBean {
 		SB_WRITER = sB_WRITER;
 	}
 
-	public Date getSB_REDITDATE() {
-		return SB_REDITDATE;
+	public Date getSB_PDATE() {
+		return SB_PDATE;
 	}
 
-	public void setSB_REDITDATE(Date sB_REDITDATE) {
-		SB_REDITDATE = sB_REDITDATE;
+	public void setSB_PDATE(Date sB_PDATE) {
+		SB_PDATE = sB_PDATE;
+	}
+	
+	public Date getSB_MDATE() {
+		return SB_MDATE;
+	}
+
+	public void setSB_MDATE(Date sB_MDATE) {
+		SB_MDATE = sB_MDATE;
 	}
 
 	public String getSB_TITLE() {
@@ -51,14 +55,6 @@ public class SellBoardBean {
 
 	public void setSB_TITLE(String sB_TITLE) {
 		SB_TITLE = sB_TITLE;
-	}
-
-	public int getSB_CATEGORY() {
-		return SB_CATEGORY;
-	}
-
-	public void setSB_CATEGORY(int sB_CATEGORY) {
-		SB_CATEGORY = sB_CATEGORY;
 	}
 
 	public String getSB_CONTENT() {
@@ -77,38 +73,6 @@ public class SellBoardBean {
 		SB_PRICE = sB_PRICE;
 	}
 
-	public int getSB_LATITUDE() {
-		return SB_LATITUDE;
-	}
-
-	public void setSB_LATITUDE(int sB_LATITUDE) {
-		SB_LATITUDE = sB_LATITUDE;
-	}
-
-	public int getSB_LOGITUDE() {
-		return SB_LOGITUDE;
-	}
-
-	public void setSB_LOGITUDE(int sB_LOGITUDE) {
-		SB_LOGITUDE = sB_LOGITUDE;
-	}
-
-	public String getSB_PICTURE() {
-		return SB_PICTURE;
-	}
-
-	public void setSB_PICTURE(String sB_PICTURE) {
-		SB_PICTURE = sB_PICTURE;
-	}
-
-	public int getSB_COMMENT() {
-		return SB_COMMENT;
-	}
-
-	public void setSB_COMMENT(int sB_COMMENT) {
-		SB_COMMENT = sB_COMMENT;
-	}
-
 	public Date getSB_DATE() {
 		return SB_DATE;
 	}
@@ -124,4 +88,5 @@ public class SellBoardBean {
 	public void setSB_READCOUNT(int sB_READCOUNT) {
 		SB_READCOUNT = sB_READCOUNT;
 	}
+	
 }
