@@ -124,4 +124,9 @@ public class ImageDAO {
 		
 		return imagelist;
 	}
+
+	public void imageDelete(int num) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -6,13 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import com.sun.org.glassfish.external.statistics.annotations.Reset;
 
 public class EpilogueBoardDAO {
 	DataSource ds;
