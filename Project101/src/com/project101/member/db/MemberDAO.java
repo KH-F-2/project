@@ -12,9 +12,9 @@ import javax.sql.DataSource;
 public class MemberDAO {
 
 	DataSource ds;
-	Connection con;
+	Connection conn;
 	PreparedStatement pstmt;
-	ResultSet rs;
+	ResultSet rset;
 	int result;
 	
 	public MemberDAO() {
@@ -95,16 +95,6 @@ public class MemberDAO {
 			
 			if(rset.next()) {
 				m.setId(rset.getString("id"));
-				m.setPassword(rset.getString(2));
-				m.setName(rset.getString(3));
-				m.setAge(rset.getInt(4));
-				m.setGender(rset.getString(5));
-				m.setEmail(rset.getString(6));
-				m.setPhonenum(rset.getInt(7));
-				m.setSchool(rset.getString(8));
-				m.setDepartment(rset.getString(9));
-				m.setStudentid(rset.getString(10));
-				m.setAddress(rset.getString(11));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -134,59 +124,11 @@ public class MemberDAO {
 		return m;
 	}
 	
-	
-	public int isId(String id, String pass) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int insert(Member m) {
-		
-		try {
-			con = ds.getConnection();
-			
-			String sql = "insert into member12 values(?,?,?,?,?,?,?,?,? ) ";
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setString(1, m.getId());
-			pstmt.setString(2, m.getPass());
-			pstmt.setString(3,  m.getName());
-			pstmt.setString(4, m.getEmail());
-			pstmt.setString(5, m.getTel());
-			pstmt.setString(6, m.getAddress());
-			pstmt.setString(7, m.getSchool());
-			pstmt.setString(8, m.getMajor());
-			pstmt.setString(9, m.getCollege());
-			
-			result = pstmt.executeUpdate();
-			
-		}catch(java.sql.SQLIntegrityConstraintViolationException e) {
-			result = -1;
-			System.out.println( "insert 에러" );
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			if(pstmt != null)
-				try {
-					pstmt.close();
-				}catch(SQLException ex) {
-					ex.printStackTrace();
-				}
-			if(con != null)
-				try {
-					con.close();
-				}catch(SQLException ex) {
-					ex.printStackTrace();
-				}
-		}
-		return result;
-	}
-
 	public int idcheck(String id) {
 	      int result = 1;
 	      try {
-	         con=ds.getConnection();
-	         pstmt = con.prepareStatement("select * from member12 where id = ?");
+	         conn=ds.getConnection();
+	         pstmt = conn.prepareStatement("select * from member12 where id = ?");
 	         pstmt.setString(1, id);
 	         ResultSet rs = pstmt.executeQuery();
 	         
@@ -197,21 +139,26 @@ public class MemberDAO {
 	      } catch(Exception e) {
 	         e.printStackTrace();
 	      } finally{
-	          if(rs!=null)
+	          if(rset!=null)
 	             try{
-	                rs.close(); 
+	                rset.close(); 
 	             } catch(SQLException ex){ex.printStackTrace();}
 	          if(pstmt!=null)
 	             try{
 	                pstmt.close(); 
 	             } catch(SQLException ex){ex.printStackTrace();}
-	          if(con!=null)
+	          if(conn!=null)
 	             try{
-	                con.close();
+	                conn.close();
 	             } catch(SQLException ex){ex.printStackTrace();}
 	          }
 	      
 	      return result;
 	   }
+
+	public int insert(Member m) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

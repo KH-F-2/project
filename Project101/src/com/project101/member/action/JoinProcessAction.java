@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.project101.member.db.Member;
 import com.project101.member.db.MemberDAO;
 
-public class joinProcessAction implements Action {
+public class JoinProcessAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -26,7 +26,7 @@ public class joinProcessAction implements Action {
 		
 		Member m = new Member();
 		m.setId(id);
-		m.setPass(pass);
+		m.setPassword(pass);
 		m.setName(name);
 		m.setEmail(email);
 		m.setTel(tel);
