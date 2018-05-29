@@ -33,19 +33,11 @@
 					</td>
 				</tr>
 				<tr>
-					<td>구매 날짜</td>
+
+					<td>구매날짜</td>
 					<td>
-						<input type="text" id="datepicker" name="SB_PDATE" value="${sellboard.SB_PDATE}">
-					</td>
-				</tr>
-				<tr>
-					<td>제목</td>
-					<td><input name="SB_TITLE" type="text" size="50" maxlength="100" value="${sellboard.SB_TITLE}"></td>
-				</tr>
-				<tr>
-					<td>가격</td>
-					<td>
-						<input name = "SB_PRICE" type="text" size="50" maxlength="100" value="${sellboard.SB_PRICE}">
+						<input name = "SB_BDATE" type="text" size="50" maxlength="100" value="${sellboard.SB_BDATE}">
+
 					</td>
 				</tr>
 				<tr>
@@ -53,31 +45,16 @@
 						<div>내용</div>
 					</td>
 					<td>
-						<textarea name="SB_CONTENT" cols="65" rows="15">${sellboard.SB_CONTENT}</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div>
-							<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
-						</div>
-					</td>
-					<td>
-						<div id="showImage">
-							<c:forEach var="img" items="${imagelist}">
-								<img src="${img.IMAGE_URL}"/>
-							</c:forEach>
-						</div>
-						<input type="hidden" id="img_hidden" name="img_hidden" value="">
+
+						<textarea name="SB_CONTENT" id="board_content" cols="65" rows="15">${sellboard.SB_CONTENT}</textarea>
 					</td>
 				</tr>
 				<tr class="center">
-					<td colspan="2">
-						<input type=submit value="등록">
+					<td colspan="2"><input type=submit value="등록">
 						<input type=reset value="취소" onclick = "history.go(-1)">
-					</td>
 				</tr>
 			</table>
-		</form>	
+		</form>
+
 	</body>
 </html>
