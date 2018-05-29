@@ -65,8 +65,8 @@ public class SellBoardListAction implements Action {
 		boardpage.setEndpage(endpage);
 		request.setAttribute("boardpage", boardpage);
 		forward.setRedirect(false);
-		forward.setPath("sellboard/sell_board_list.jsp");
-		//forward.setPath("./member/template.jsp?page=/sellboard/sell_board_list");
+		//forward.setPath("sellboard/sell_board_list.jsp");
+		forward.setPath("./member/template.jsp?page=/sellboard/sell_board_list");
 		
 		return forward;
 	}
