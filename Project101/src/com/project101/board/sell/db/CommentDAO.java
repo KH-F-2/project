@@ -28,42 +28,83 @@ public class CommentDAO {
 			return;
 		}
 	}
-	
-	/*public List<CommentBean> getBoardList(int no) {
-		List<CommentBean> list=new ArrayList<CommentBean>();
+
+	public List<CommentBean> getCommentList(int num) {
+		List<CommentBean> commentlist=new ArrayList<CommentBean>();
 		try {
 			conn=ds.getConnection();
-			String sql="select * from "
-					+ "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
-					+ "SB_READCOUNT, SB_DATE from "
-					+ "(select * from SELL_BOARD order by SB_NO desc)) "
-					+ "where rnum>=? and rnum<=?";
+			String sql="select * from BOARD_COMMENT where BOARD_NO=? and BOARD_NAME='SELL_BOARD'";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, startrow);
-			pstmt.setInt(2, endrow);
+			pstmt.setInt(1, num);
 			
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
-				SellBoardBean sellboard=new SellBoardBean();
-				sellboard.setSB_NO(rset.getInt("SB_NO"));
-				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
-				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
-				sellboard.setSB_DATE(rset.getDate("SB_DATE"));
-				sellboard.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
-				list.add(sellboard);
+				CommentBean comment=new CommentBean();
+				comment.setCOMMENT_NO(rset.getInt("COMMENT_NO"));
+				comment.setBOARD_NO(num);
+				comment.setBOARD_NAME(rset.getString("BOARD_NAME"));
+				comment.setCOMMENT_WRITER(rset.getString("COMMENT_WRITER"));
+				comment.setCOMMENT_DATE(rset.getString("COMMENT_DATE"));
+				comment.setCOMMENT_CONTENT(rset.getString("COMMENT_CONTENT"));
+				commentlist.add(comment);
 			}
-			return list;
-			}catch(Exception e){
-				e.printStackTrace();
-			}finally{
-				try {
-					if(pstmt!=null)	pstmt.close();
-					if(conn!=null)		conn.close();
-					if(rset!=null)		rset.close();
-				}catch(Exception e) {e.printStackTrace();}
-			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
 		
-		return null;
-	}*/
+		return commentlist;
+	}
+	
+	public int commentInsert(CommentBean comment) {
+		String sql="";
+		int num=0;
+		try {
+			conn=ds.getConnection();
+			
+			sql="select max(COMMENT_NO) from BOARD_COMMENT";
+			pstmt=conn.prepareStatement(sql);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				num=rset.getInt(1)+1;
+			}
+			else {
+				num=1;
+			}
+			
+			rset.close();
+			pstmt.close();
+			
+			sql="insert into BOARD_COMMENT "
+					+ "values(?, ?, ?, ?, sysdate, ?)";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, comment.getBOARD_NO());
+			pstmt.setString(3, "SELL_BOARD");
+			pstmt.setString(4, comment.getCOMMENT_WRITER());
+			pstmt.setString(5, comment.getCOMMENT_CONTENT());
+			
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return num;
+	}
+	
 }

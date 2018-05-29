@@ -26,7 +26,7 @@ public class SellBoardModifyView implements Action{
 		imagelist=imagedao.getImage(num);
 		for(ImageBean image : imagelist) {
 			String url=image.getIMAGE_URL();
-			url=url.replace("500x", "200x");
+			url=url.replace("500x", "x100");
 			image.setIMAGE_URL(url);
 		}
 		

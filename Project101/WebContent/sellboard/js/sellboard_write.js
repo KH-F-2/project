@@ -32,17 +32,18 @@
 		}
 	};
 	var widget=uploadcare.MultipleWidget('[role=uploadcare-uploader]');
-	var url=[];
 	widget.onUploadComplete(function(info){
+		var url=[];
+		console.log(info.cdnUrl);
 		$('#showImage').empty();
+		$('#img_hidden').attr('value', '');
 		var length=info.cdnUrl.charAt(info.cdnUrl.length-2);
 		for(var i=0;i<length;i++){
 			url[i]=info.cdnUrl+"nth/"+i+"/";
-			$('#showImage').append('<img src="'+url[i]+'-/resize/x100/"</img>');
+			$('#showImage').append('<img src="'+url[i]+'-/resize/x100/"/>');
 			url[i]+="-/resize/500x/ ";
 			var val=$('#img_hidden').attr('value');
 			$('#img_hidden').attr('value', val+url[i]);
-			console.log(url[i]);
 		}
 	});
 	

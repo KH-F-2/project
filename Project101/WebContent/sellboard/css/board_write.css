@@ -27,3 +27,7 @@ textarea{resize: none; }
 .ui-datepicker-calendar>tbody tr>td{
 	font-size: 12pt;
 }
+.uploadcare--widget__dragndrop-area{
+	height: 28px;
+	left: -24px;
+}

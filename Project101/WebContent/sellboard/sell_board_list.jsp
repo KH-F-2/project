@@ -23,7 +23,7 @@
 	        	});
 	        });
         </script>
-		<link href="/Project101/sellboard/css/board_list.css" rel="stylesheet" type="text/css">
+		<link href="/project101/sellboard/css/board_list.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<c:set var="b_p" value="${boardpage }"/>
@@ -95,7 +95,7 @@
 			</c:if>
 			
 			
-			<c:if test="${listcount==0}">
+			<c:if test="${b_p.listcount==0}">
 			<thead>
 				<tr>
 					<td colspan="5">판매 게시판</td>
