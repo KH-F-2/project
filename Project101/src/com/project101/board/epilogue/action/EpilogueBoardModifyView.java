@@ -14,25 +14,23 @@ public class EpilogueBoardModifyView implements Action {
 		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		
-		int num = Integer.parseInt(request.getParameter("num"));
-		System.out.println("num : "+num);
+		int num = Integer.parseInt(request.getParameter("num").trim());
 		ActionForward forward = new ActionForward();
-		EpilogueBoardDAO epildao = new EpilogueBoardDAO();
-		EpilogueBoardBean epildata = new EpilogueBoardBean();
+		EpilogueBoardDAO ebDAO = new EpilogueBoardDAO();
+		EpilogueBoardBean ebBoardBean = new EpilogueBoardBean();
 		
-		epildata = epildao.getDetail(num);
+		ebBoardBean = ebDAO.getDetail(num);
 		
-		if(epildata==null) {
+		if (ebBoardBean==null) {
 			System.out.println("(수정)상세보기 실패");
 			return null;
 		}
 		System.out.println("(수정)상세보기 성공");
 			
-		request.setAttribute("epildata", epildata);		
+		request.setAttribute("ebBoardBean", ebBoardBean);		
 		forward.setRedirect(false);
 		
-		forward.setPath("./epilogueboard/epilogue_board_modify.jsp");	
+		forward.setPath("./epilogueboard/ebmodify.jsp");	
 		return forward;
 	}
 }
