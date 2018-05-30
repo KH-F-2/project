@@ -19,14 +19,14 @@
 	        	$('#search_btn').click(function(){
 	        		var word=$('input[name=search_input').val();
 	        		var item=$('#search_sel').val();
-	        		location.href='./BoardList.sell?word='+word+'&item='+item;
+	        		location.href='./sbmain.sb?word='+word+'&item='+item;
 	        	});
 	        });
         </script>
-		<link href="/Project101/sellboard/css/board_list.css" rel="stylesheet" type="text/css">
+		<link href="/Project101/sellboard/css/sblist.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		<c:set var="b_p" value="${boardpage }"/>
+		<c:set var="b_p" value="${boardPageBean }"/>
 		<table class="sellboard_table">
 			<c:if test="${b_p.listcount>=1}">
 			<thead>
@@ -45,20 +45,20 @@
 				
 				<c:set var="num" value="${b_p.listcount-(b_p.page-1)*b_p.limit }"/>
 				<tbody>
-					<c:forEach var="board" items="${b_p.boardList }">
+					<c:forEach var="boardBean" items="${b_p.boardList }">
 						<tr>
 							<td width="8%">
 								<c:out value="${num }"/>
 								<c:set var="num" value="${num-1 }"/>
 							</td>
 							<td width="50%" align="left">
-								&nbsp;<a href="./BoardDetail.sell?num=${board.SB_NO }">
-									${board.SB_TITLE }
+								&nbsp;<a href="./sbview.sb?num=${boardBean.SB_NO }">
+									${boardBean.SB_TITLE }
 								</a>
 							</td>
-							<td width="14%">${board.SB_WRITER }</td>
-							<td width="17%">${board.SB_DATE }</td>
-							<td width="11%">${board.SB_READCOUNT }</td>
+							<td width="14%">${boardBean.SB_WRITER }</td>
+							<td width="17%">${boardBean.SB_DATE }</td>
+							<td width="11%">${boardBean.SB_READCOUNT }</td>
 						</tr>
 					</c:forEach>
 				
@@ -69,7 +69,7 @@
 							이전&nbsp;
 						</c:if>
 						<c:if test="${b_p.page>1 }">
-							<a href="./BoardList.sell?page=${b_p.page-1 }">이전</a>&nbsp;
+							<a href="./sbmain.sb?page=${b_p.page-1 }">이전</a>&nbsp;
 						</c:if>
 						
 						<c:forEach var="a" begin="${b_p.startpage }" end="${b_p.endpage }">
@@ -77,7 +77,7 @@
 								${a }
 							</c:if>
 							<c:if test="${a!=b_p.page }">
-								<a href="./BoardList.sell?page=${a }&word=${b_p.searchWord}&item=${b_p.searchItem}">${a }</a>
+								<a href="./sbmain.sb?page=${a }&word=${b_p.searchWord}&item=${b_p.searchItem}">${a }</a>
 							</c:if>
 						</c:forEach>
 						
@@ -85,7 +85,7 @@
 							&nbsp;다음
 						</c:if>
 						<c:if test="${b_p.page<b_p.maxpage }">
-							&nbsp;<a href="./BoardList.sell?page=${b_p.page+1}&word=${b_p.searchWord}&item=${b_p.searchItem}">다음</a>
+							&nbsp;<a href="./sbmain.sb?page=${b_p.page+1}&word=${b_p.searchWord}&item=${b_p.searchItem}">다음</a>
 						</c:if>
 						
 					</td>
@@ -95,7 +95,7 @@
 			</c:if>
 			
 			
-			<c:if test="${listcount==0}">
+			<c:if test="${b_p.listcount==0}">
 			<thead>
 				<tr>
 					<td colspan="5">판매 게시판</td>
@@ -112,7 +112,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="5" style="text-align:right; font-size: 14pt;">
-						<a style="margin-right:10px;" href="./BoardWrite.sell" id="a_write">글쓰기</a>
+						<a style="margin-right:10px;" href="./sbwriteview.sb" id="a_write">글쓰기</a>
 					</td>
 				</tr>
 			</tfoot>

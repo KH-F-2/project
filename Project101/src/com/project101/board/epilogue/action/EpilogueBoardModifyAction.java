@@ -15,21 +15,20 @@ public class EpilogueBoardModifyAction implements Action {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");		
 		ActionForward forward = new ActionForward();
-		
-		//공백제거 해줘야됨 ㅡㅡ
+		System.out.println("ㅡㅡㅡㅡ");
+		//공백제거 필수
 		int num = Integer.parseInt(request.getParameter("SB_NO").trim());
-		
-		EpilogueBoardDAO epildao = new EpilogueBoardDAO();
-		EpilogueBoardBean epildata = new EpilogueBoardBean();
+		System.out.println("num = "+num);
+		EpilogueBoardDAO ebDAO = new EpilogueBoardDAO();
+		EpilogueBoardBean ebBoardBean = new EpilogueBoardBean();
 		
 		//수정내용 설정
-		epildata.setSB_NO(num);
-		epildata.setSB_TITLE(request.getParameter("SB_TITLE"));
-		epildata.setSB_CONTENT(request.getParameter("SB_CONTENT"));
+		ebBoardBean.setSB_NO(num);
+		ebBoardBean.setSB_TITLE(request.getParameter("SB_TITLE"));
+		ebBoardBean.setSB_CONTENT(request.getParameter("SB_CONTENT"));
 		
-		int result1 = epildao.boardModify(epildata);
-		System.out.println("result1 : " + result1);
-		if(result1 == 0) {
+		int result1 = ebDAO.boardModify(ebBoardBean);
+		if (result1 == 0) {
 			System.out.println("게시판 수정 실패");
 			return null;
 		}
@@ -37,7 +36,7 @@ public class EpilogueBoardModifyAction implements Action {
 		
 		forward.setRedirect(true);
 		
-		forward.setPath("./BoardDetail.epil?num=" + epildata.getSB_NO());
+		forward.setPath("./ebview.eb?num=" + ebBoardBean.getSB_NO());
 		
 		return forward;
 	}

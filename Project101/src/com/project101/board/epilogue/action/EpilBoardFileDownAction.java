@@ -29,11 +29,11 @@ public class EpilBoardFileDownAction implements Action {
 	      
 	    byte b[] = new byte[4096];
 	      
-	      String sMimeType = context.getMimeType(sFilePath);
-	      System.out.println("sMimeType>>>"+sMimeType);
+	    String sMimeType = context.getMimeType(sFilePath);
+	    System.out.println("sMimeType>>>"+sMimeType);
 	      
-	       if (sMimeType == null)
-	          sMimeType = "application/octet-stream";
+	    if (sMimeType == null)
+	        sMimeType = "application/octet-stream";
 	         
 	      response.setContentType(sMimeType);
 	      

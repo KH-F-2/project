@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@WebServlet("*.sell")
+@WebServlet("*.sb")
 public class SellBoardFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,41 +23,44 @@ public class SellBoardFrontController extends HttpServlet {
 		String command = requestURI.substring(contextPath.length());
 		System.out.println("가상주소뽑기 : "+command);
 		
-		Action action=null;
-		ActionForward forward=null;
+		Action action = null;
+		ActionForward forward = null;
+		
 		try {
-			if(command.equals("/BoardList.sell")) {
-				action=new SellBoardListAction();
-				forward=action.execute(request, response);
+			if(command.equals("/sbmain.sb")) {
+				action = new SellBoardListAction();
+				forward = action.execute(request, response);
 			}
-			else if(command.equals("/BoardWrite.sell")) {
-				forward=new ActionForward();
+			else if(command.equals("/sbwriteview.sb")) {
+				forward = new ActionForward();
 				forward.setRedirect(false);
-				forward.setPath("./member/template.jsp?page=/sellboard/sell_board_write");
-				//forward.setPath("/sellboard/sell_board_write.jsp");
+				forward.setPath("template.jsp?page=/sellboard/sbwrite.jsp");
 			}
-			else if(command.equals("/BoardAddAction.sell")) {
-				action=new SellBoardAddAction();
-				forward=action.execute(request, response);
+			else if(command.equals("/sbwriteaction.sb")) {
+				action = new SellBoardAddAction();
+				forward = action.execute(request, response);
 			}
-			else if(command.equals("/BoardDetail.sell")) {
-				action=new SellBoardDetailAction();
-				forward=action.execute(request, response);
+			else if(command.equals("/sbview.sb")) {
+				action = new SellBoardDetailAction();
+				forward = action.execute(request, response);
 			}
-			else if(command.equals("/BoardDelete.sell")) {
-				action=new SellBoardDeleteAction();
-				forward=action.execute(request, response);
+			else if(command.equals("/sbdelete.sb")) {
+				action = new SellBoardDeleteAction();
+				forward = action.execute(request, response);
 			}
-			else if(command.equals("/BoardModifyView.sell")) {
-				action=new SellBoardModifyView();
-				forward=action.execute(request, response);
+			else if(command.equals("/sbmodifyview.sb")) {
+				action = new SellBoardModifyView();
+				forward = action.execute(request, response);
 			}
-			else if(command.equals("/BoardModifyAction.sell")) {
-				action=new SellBoardModifyAction();
-				forward=action.execute(request, response);
+			else if(command.equals("/sbmodifyaction.sb")) {
+				action = new SellBoardModifyAction();
+				forward = action.execute(request, response);
+			}
+			else if(command.equals("/sbcommentaddaction.sb")) {
+				action = new SellBoardCommentAddAction();
+				forward = action.execute(request, response);
 			}
 				
-			
 			
 			if(forward!=null) {
 				if(forward.isRedirect()) {
@@ -68,12 +71,9 @@ public class SellBoardFrontController extends HttpServlet {
 					dispatcher.forward(request, response);
 				}
 			}
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
