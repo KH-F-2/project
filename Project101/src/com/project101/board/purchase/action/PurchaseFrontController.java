@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("*.buy")
+@WebServlet("*.pb")
 public class PurchaseFrontController extends javax.servlet.http.HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class PurchaseFrontController extends javax.servlet.http.HttpServlet {
 		Action action = null;
 
 		// 수정하기
-		if (command.equals("/PurchaseModifyAction.buy")) {
+		if (command.equals("/pbmodifyAction.pb")) {
 			action = new PurchaseModifyAction();// 다형성에 의한 업캐스팅
 			try {
 				forward = action.execute(request, response);
@@ -42,8 +42,8 @@ public class PurchaseFrontController extends javax.servlet.http.HttpServlet {
 			}
 
 			// 상세보기
-		} else if (command.equals("/PurchaseDetailAction.buy")) {
-			action = new PurchaseDetailAction();
+		} else if (command.equals("/pbview.pb")) {
+			action = new PurchaseView();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -51,47 +51,39 @@ public class PurchaseFrontController extends javax.servlet.http.HttpServlet {
 			}
 
 			// 리스트목록
-		} else if (command.equals("/PurchaseListAction.buy")) {
+		} else if (command.equals("/pbmain.pb")) {
 			action = new PurchaseListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (command.equals("/BoardWrite.buy")) { 
+		} else if (command.equals("/pbwrite.pb")) { 
 			forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("/buy/buy_board_write.jsp");
+			forward.setPath("template.jsp?page=./purchaseboard/pbwrite.jsp");
 			System.out.println("on Boardwrite aaa");
-		} else if (command.equals("/PurchaseModifyView.buy")) { // 수정보기
-			action = new PurchaseModifyView();
+		} else if (command.equals("/pbmodify.pb")) { // 수정보기
+			action = new PurchaseModify();
 			try {
 				forward = action.execute(request, response);
 				System.out.println("on PurchaseModifyView vvv");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (command.equals("/PurchaseModifyAction.buy")) { // 수정
-			action = new PurchaseModifyAction();
-			try {
-				System.out.println("on PurchaseModifyView vavava");
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if (command.equals("/PurchaseAddAction.buy")) { // 작성
-			action = new PurchaseAddAction();
+		} else if (command.equals("/pbwriteAction.pb")) { // 작성
+			action = new PurchaseWriteAction();
 			try {
 				forward = action.execute(request, response);
 				System.out.println("on addAction.buy");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (command.equals("/PurchaseDeleteAction.buy")) { // 삭제
+		} else if (command.equals("/pbdeleteAction.pb")) { // 삭제
 			action = new PurchaseDeleteAction();
 			try {
 				forward = action.execute(request, response);
-				System.out.println("on PurchaseDeleteAction.buy");
+				System.out.println("on PurchaseDeleteAction.pb");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
