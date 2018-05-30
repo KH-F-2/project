@@ -35,7 +35,7 @@
 	<div class="pusher">
 	
 		<div id="header">
-			<jsp:include page='header.jsp' />
+			<jsp:include page='/header.jsp' />
 		</div>
 		
 		<div id="main_top">
