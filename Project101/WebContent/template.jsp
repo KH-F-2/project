@@ -20,19 +20,19 @@
 	<div class="ui left vertical menu sidebar">
 		<h1 id="navTitle"><i>&#xe801;</i>  우리지금만나</h1>
 		<h2>Category</h2>
-		<a class="item" href="pbmain.pb">구매게시판</a>
-		<a class="item" href="sbmain.sb">판매게시판</a>
-		<a class="item" href="ebmain.eb">후기게시판</a>
-		<a class="item" href="rbmain.rb">신고게시판</a>
+		<a class="item" href="./pbmain.pb">구매게시판</a>
+		<a class="item" href="./sbmain.sb">판매게시판</a>
+		<a class="item" href="./ebmain.eb">후기게시판</a>
+		<a class="item" href="./rbmain.rb">신고게시판</a>
 	</div>
 	
 	<div class="pusher">
 		<div id="header_section">
-			<jsp:include page='member/header.jsp' />
+			<jsp:include page='./header.jsp' />
 		</div>
 		
 		<div id="container_section">
-			<c:set var="pageFile" value="${empty param.page ? 'member/main.jsp' : param.page }"/>
+			<c:set var="pageFile" value="${empty param.page ? './main.jsp' : param.page }"/>
 			<jsp:include page='${pageFile}' />
 		</div>
 

@@ -46,12 +46,7 @@ public class FrontController extends HttpServlet {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("/member/signup.jsp");
-			}else if(command.equals("/joinform.mem")) {
-				
-				forward = new ActionForward();
-				forward.setRedirect(false);
-				forward.setPath("/member/joinform.jsp");
-			}else if(command.equals("/joinProcess.mem")) {
+			}else if(command.equals("/joinProcess.me")) {
 				action = new JoinProcessAction();
 				try {
 					forward=action.execute(request, response);
@@ -59,7 +54,7 @@ public class FrontController extends HttpServlet {
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
-			}else if(command.equals("/idcheck.mem")) {
+			}else if(command.equals("/idcheck.me")) {
 				action = new IdCheckAction();
 				try {
 					forward=action.execute(request, response);
@@ -67,7 +62,7 @@ public class FrontController extends HttpServlet {
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
-			}else if(command.equals("/emailCheck.mem")) {
+			}else if(command.equals("/emailCheck.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("/member/emailCheck.jsp");

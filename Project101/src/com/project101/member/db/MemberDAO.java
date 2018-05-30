@@ -31,25 +31,18 @@ public class MemberDAO {
 	public int isId(String id, String password) {
 
 		try {
-			System.out.println("여기1");
 			conn = ds.getConnection();
 			System.out.println("getConnection");
-			System.out.println("여기2");
 			pstmt = conn.prepareStatement("select id, password from member where id=?");
 			pstmt.setString(1, id);
 			rset = pstmt.executeQuery();
-			System.out.println("여기3");
 			if (rset.next()) {
-				System.out.println("여기4");
 				if (rset.getString("password").equals(password)) {
-					System.out.println("여기5");
 					result = 1; // 아이디와 비밀번호가 일치하는 경우
 				} else {
-					System.out.println("여기6");
 					result = 0; // 비밀번호가 일치하지 않는 경우
 				}
 			} else {
-				System.out.println("여기7");
 				result = -1; // 아이디가 없는 경우
 			}
 		} catch (SQLException e) {
@@ -156,8 +149,7 @@ public class MemberDAO {
 	      return result;
 	   }
 
-public int insert(Member m) {
-		
+	public int insert(Member m) {
 		try {
 			conn = ds.getConnection();
 			
