@@ -30,7 +30,7 @@ public class EpilogueBoardDetailAction implements Action {
 		} else {
 			System.out.println("상세보기 성공");
 			forward.setRedirect(false);
-			forward.setPath("/epilogueboard/ebview.jsp");
+			forward.setPath("template.jsp?page=/epilogueboard/ebview.jsp");
 		}
 		
 		return forward;

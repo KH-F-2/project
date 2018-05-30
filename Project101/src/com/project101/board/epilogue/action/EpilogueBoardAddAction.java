@@ -55,7 +55,7 @@ public class EpilogueBoardAddAction implements Action{
 			
 			int result = ebDAO.boardInsert(ebBoardBean);
 			if(result == 1 ) {
-				out.println("<script> alert('게시판 등록 성공!'); location.href='./BoardList.epil';</script>");
+				out.println("<script> alert('게시판 등록 성공!'); location.href='./ebmain.eb';</script>");
 			}else {
 				out.println("<script> alert('게시판 등록 실패!'); history.back()';</script>");
 			}
