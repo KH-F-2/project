@@ -31,3 +31,6 @@ textarea{resize: none; }
 	height: 28px;
 	left: -24px;
 }
+.sbwrite_table tbody tr:nth-child(7){
+	height: 105px;
+}

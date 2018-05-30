@@ -8,7 +8,7 @@ $(document).ready(function(){
 			type : "POST",
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			data : data,
-			url : "./SellBoardCommentAddAction.sell?",
+			url : "./sbcommentaddaction.sb?",
 			success: function(data){
 				$('.comment_view').append(data);
 				$('.comment_count').text($('.comment_count').text()*1+1);
@@ -26,16 +26,16 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('#comment_reply').click(function(){
-		alert(writer);
+	if(id == writer){
+		$('a[id="comment_reply"]').css('display', 'none');
+	}
+	if(id != writer){
+		$('a[id="comment_delete"]').css('display', 'none');
+	}
+	
+	$(document).on('click','#comment_reply', function(){
+		alert('미완성!');
 		
-		return false;
-	});
-	$('#comment_delete').click(function(){
-		if(id == null || id == ''){
-			alert('로그인 후 작성하실 수 있습니다.')
-			$(this).blur();
-		}
 	});
 	
 });
@@ -50,7 +50,7 @@ function chkword(obj, maxByte) {
    for (var i = 0; i < strLen; i++) {
        oneChar = strValue.charAt(i);
        if (escape(oneChar).length > 4) {
-           totalByte += 2;
+           totalByte += 3;
        } else {
            totalByte++;
        }

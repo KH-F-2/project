@@ -19,36 +19,39 @@ public class SellBoardDetailAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=euc-kr");
 		request.setCharacterEncoding("euc-kr");
-		SellBoardDAO selldao=new SellBoardDAO();
-		ActionForward forward=new ActionForward();
-		SellBoardBean sellboard=new SellBoardBean();
-		List<ImageBean> imagelist=new ArrayList<ImageBean>();
-		ImageDAO imagedao=new ImageDAO();
-		List<CommentBean> commentlist=new ArrayList<CommentBean>();
-		CommentDAO commentdao=new CommentDAO();
 		
-		int num=Integer.parseInt(request.getParameter("num"));
+		ActionForward forward = new ActionForward();
+		SellBoardBean boardBean = new SellBoardBean();
+		SellBoardDAO sellDAO = new SellBoardDAO();
+		ImageDAO imageDAO = new ImageDAO();
+		CommentDAO commentDAO = new CommentDAO();
 		
-		imagelist=imagedao.getImage(num);
-		commentlist=commentdao.getCommentList(num);
-		selldao.setReadCountUpdate(num);
-		sellboard=selldao.getDetail(num);
+		List<ImageBean> imageBeanList = new ArrayList<ImageBean>();
+		List<CommentBean> commentBeanList = new ArrayList<CommentBean>();
 		
-		request.setAttribute("sellboard", sellboard);
-		request.setAttribute("imagelist", imagelist);
-		request.setAttribute("commentlist", commentlist);
+		int num = Integer.parseInt(request.getParameter("num"));
 		
-		if(sellboard==null) {
+		imageBeanList = imageDAO.getImage(num);
+		commentBeanList = commentDAO.getCommentList(num);
+		sellDAO.setReadCountUpdate(num);
+		boardBean = sellDAO.getDetail(num);
+		
+		request.setAttribute("boardBean", boardBean);
+		request.setAttribute("imageBeanList", imageBeanList);
+		request.setAttribute("commentBeanList", commentBeanList);
+		
+		if(boardBean == null) {
 			System.out.println("상세보기 실패!");
 			return null;
-		}else {
+		}
+		else {
 			System.out.println("상세보기 성공!");
 			forward.setRedirect(false);
-			forward.setPath("sellboard/sell_board_view.jsp");
+			forward.setPath("template.jsp?page=sellboard/sbview.jsp");
 		}
 		
 		forward.setRedirect(false);
-		forward.setPath("/sellboard/sell_board_view.jsp");
+		forward.setPath("template.jsp?page=/sellboard/sbview.jsp");
 		return forward;
 	}
 

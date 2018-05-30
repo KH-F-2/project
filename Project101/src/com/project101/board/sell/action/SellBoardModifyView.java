@@ -11,39 +11,41 @@ import com.project101.board.sell.db.ImageDAO;
 import com.project101.board.sell.db.SellBoardBean;
 import com.project101.board.sell.db.SellBoardDAO;
 
-public class SellBoardModifyView implements Action{
+public class SellBoardModifyView implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
-		int num=Integer.parseInt(request.getParameter("num"));
-		SellBoardDAO selldao=new SellBoardDAO();
-		SellBoardBean sellboard=new SellBoardBean();
-		List<ImageBean> imagelist=new ArrayList<ImageBean>();
-		ImageDAO imagedao=new ImageDAO();
 		
-		sellboard=selldao.getDetail(num);
-		imagelist=imagedao.getImage(num);
-		for(ImageBean image : imagelist) {
-			String url=image.getIMAGE_URL();
-			url=url.replace("500x", "x100");
+		SellBoardDAO sellDAO = new SellBoardDAO();
+		SellBoardBean boardBean = new SellBoardBean();
+		List<ImageBean> imageBeanList = new ArrayList<ImageBean>();
+		ImageDAO imageDAO = new ImageDAO();
+		
+		int num = Integer.parseInt(request.getParameter("num"));
+
+		boardBean = sellDAO.getDetail(num);
+		imageBeanList = imageDAO.getImage(num);
+		
+		for (ImageBean image : imageBeanList) {
+			String url = image.getIMAGE_URL();
+			url = url.replace("500x", "x100");
 			image.setIMAGE_URL(url);
 		}
-		
-		if(sellboard==null) {
+
+		if (boardBean == null) {
 			System.out.println("수정 페이지 이동 실패");
 			return null;
 		}
 		System.out.println("수정 페이지 이동 완료");
-		
-		System.out.println("imagelist size : "+imagelist.size());
-		request.setAttribute("sellboard", sellboard);
-		request.setAttribute("imagelist", imagelist);
-		
-		forward.setPath("/sellboard/sell_board_modify.jsp");
+
+		request.setAttribute("boardBean", boardBean);
+		request.setAttribute("imageBeanList", imageBeanList);
+
+		forward.setPath("template.jsp?page=/sellboard/sbmodify.jsp");
 		forward.setRedirect(false);
-		
-	    return forward;
+
+		return forward;
 	}
 
 }

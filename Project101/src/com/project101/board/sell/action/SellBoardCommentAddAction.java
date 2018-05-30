@@ -1,6 +1,5 @@
 package com.project101.board.sell.action;
 
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,24 +16,32 @@ public class SellBoardCommentAddAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		ActionForward forward=new ActionForward();
+		
+		ActionForward forward = new ActionForward();
 		HttpSession session = request.getSession();
 			
-		CommentBean comment=new CommentBean();
-		CommentDAO commentdao=new CommentDAO();
-		comment.setBOARD_NO(Integer.parseInt(request.getParameter("SB_NO")));
-		comment.setCOMMENT_WRITER(session.getAttribute("id").toString());
-		comment.setCOMMENT_CONTENT(request.getParameter("content"));
+		CommentBean commentBean = new CommentBean();
+		CommentDAO commentDAO = new CommentDAO();
 		
-		int comment_no=commentdao.commentInsert(comment);
+		commentBean.setBOARD_NO(Integer.parseInt(request.getParameter("SB_NO")));
+		commentBean.setCOMMENT_WRITER(session.getAttribute("id").toString());
+		commentBean.setCOMMENT_CONTENT(request.getParameter("content"));
 		
+		int COMMENT_NO = commentDAO.commentInsert(commentBean);
+		
+		if(COMMENT_NO == 0) {
+			System.out.println("SellBoardCommentAddAction fail!");
+			return null;
+		}
 		Date date=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		comment.setCOMMENT_DATE(sdf.format(date));
-		comment.setCOMMENT_NO(comment_no);
-		request.setAttribute("comment", comment);
 		
-		forward.setPath("sellboard/sell_board_commentlist.jsp");
+		commentBean.setCOMMENT_DATE(sdf.format(date));
+		commentBean.setCOMMENT_NO(COMMENT_NO);
+		
+		request.setAttribute("commentBean", commentBean);
+		
+		forward.setPath("sellboard/sbcommentlist.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

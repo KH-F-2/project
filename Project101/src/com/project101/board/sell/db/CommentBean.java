@@ -3,11 +3,11 @@ package com.project101.board.sell.db;
 public class CommentBean {
 	private int COMMENT_NO;
 	private int BOARD_NO;
-	private String BOARD_NAME="SELL_BOARD";
+	private String BOARD_NAME = "SELL_BOARD";
 	private String COMMENT_WRITER;
 	private String COMMENT_CONTENT;
 	private String COMMENT_DATE;
-	
+
 	public CommentBean() {
 		super();
 	}
@@ -59,6 +59,5 @@ public class CommentBean {
 	public void setCOMMENT_DATE(String cOMMENT_DATE) {
 		COMMENT_DATE = cOMMENT_DATE;
 	}
-	
-	
+
 }

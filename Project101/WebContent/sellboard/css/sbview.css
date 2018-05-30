@@ -1,11 +1,9 @@
 @charset "UTF-8";
 a{text-decoration: none;}
-table{
+.main_table{
 	margin: 0 auto;
 	padding: 0px 20px 0px 20px;
 	width: 80%;
-}
-.main_table{
 	height: 1000px;
 	border: 0.5px solid #2aa1ff;
 	border-radius: 5px;
@@ -83,7 +81,7 @@ table{
 .content{
 	height: 100%;
 }
-tr:last-child{
+.main_table tbody tr:last-child{
 	height: 55%;
 }
 * {box-sizing:border-box}
@@ -92,7 +90,9 @@ tr:last-child{
 	width: 80%;
 	margin: 0 auto;
 }
-
+.main_table tbody tr div{
+	padding: 0px 5px 0px 5px;
+}
 
 /* 댓글 */
 ul{
@@ -134,7 +134,7 @@ ul{
   cursor:pointer;
   transition:800ms ease all;
   outline:none;
-  bottom: 70px;
+  bottom: 90px;
 }
 .comment_btn:hover{
   background:#fff;
@@ -251,7 +251,7 @@ a.animated-button.victoria-one {
     height: 25px;
     padding: 2px 0px 2px 0px;
     margin: 0 auto;
-    margin-top: 2px;
+    top: 25%;
 }
 a.animated-button.victoria-one:after {
     background: #D24D57;

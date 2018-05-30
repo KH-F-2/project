@@ -3,40 +3,35 @@ package com.project101.board.sell.db;
 import java.util.List;
 
 public class SellBoardPageBean {
-	private int page=1;
-	private int limit=10;
+	private int page = 1;
+	private int limit = 10;
 	private int listcount;
 	private int maxpage;
 	private int startpage;
 	private int endpage;
 	private List<SellBoardBean> boardList;
-	private String searchItem="";
-	private String searchWord="";
-	
+	private String searchItem = "";
+	private String searchWord = "";
+
 	public SellBoardPageBean() {
 		super();
 	}
-	
-	
+
 	public String getSearchItem() {
 		return searchItem;
 	}
-
 
 	public void setSearchItem(String searchItem) {
 		this.searchItem = searchItem;
 	}
 
-
 	public String getSearchWord() {
 		return searchWord;
 	}
 
-
 	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
 	}
-
 
 	public List<SellBoardBean> getboardList() {
 		return boardList;
@@ -93,6 +88,5 @@ public class SellBoardPageBean {
 	public void setEndpage(int endpage) {
 		this.endpage = endpage;
 	}
-	
-	
+
 }

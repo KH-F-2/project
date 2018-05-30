@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 		
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -15,13 +16,13 @@
 		<!-- 이미지 업로드 API -->
         <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
 
-        <script src="/project101/sellboard/js/sellboard_write.js"></script>
-        <link href="/project101/sellboard/css/board_write.css" rel="stylesheet" type="text/css">
-
+        <script src="/Project101/sellboard/js/sbwrite.js"></script>
+        <link href="/Project101/sellboard/css/sbwrite.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>	
-		<form action="./BoardAddAction.sell" method="post" id="write_submit">
-			<table>
+		<form action="./sbmodifyaction.sb" method="post" id="write_submit">
+		<input type="hidden" name="SB_NO" value="${boardBean.SB_NO}">
+			<table class="sbwrite_table">
 				<tr>
 					<th colspan="2">판매게시판</th>
 				</tr>
@@ -34,17 +35,17 @@
 				<tr>
 					<td>구매 날짜</td>
 					<td>
-						<input type="text" id="datepicker" name="SB_PDATE" readonly="readonly">
+						<input type="text" id="datepicker" name="SB_PDATE" value="${boardBean.SB_PDATE}">
 					</td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td><input name="SB_TITLE" type="text" size="50" maxlength="100"></td>
+					<td><input name="SB_TITLE" type="text" size="50" maxlength="100" value="${boardBean.SB_TITLE}"></td>
 				</tr>
 				<tr>
 					<td>가격</td>
 					<td>
-						<input name = "SB_PRICE" type="text" size="50" maxlength="100">
+						<input name = "SB_PRICE" type="text" size="50" maxlength="100" value="${boardBean.SB_PRICE}">
 					</td>
 				</tr>
 				<tr>
@@ -52,7 +53,7 @@
 						<div>내용</div>
 					</td>
 					<td>
-						<textarea name="SB_CONTENT" cols="65" rows="15"></textarea>
+						<textarea name="SB_CONTENT" cols="65" rows="15">${boardBean.SB_CONTENT}</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -62,7 +63,11 @@
 						</div>
 					</td>
 					<td>
-						<div id="showImage"></div>
+						<div id="showImage">
+							<c:forEach var="img" items="${imageBeanList}">
+								<img src="${img.IMAGE_URL}"/>
+							</c:forEach>
+						</div>
 						<input type="hidden" id="img_hidden" name="img_hidden" value="">
 					</td>
 				</tr>
