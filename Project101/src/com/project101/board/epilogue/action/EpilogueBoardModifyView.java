@@ -30,7 +30,7 @@ public class EpilogueBoardModifyView implements Action {
 		request.setAttribute("ebBoardBean", ebBoardBean);		
 		forward.setRedirect(false);
 		
-		forward.setPath("./epilogueboard/ebmodify.jsp");	
+		forward.setPath("template.jsp?page=/epilogueboard/ebmodify.jsp");	
 		return forward;
 	}
 }

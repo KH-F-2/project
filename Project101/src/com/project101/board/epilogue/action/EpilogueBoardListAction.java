@@ -63,7 +63,7 @@ public class EpilogueBoardListAction implements Action{
         
         // 단순 조회이므로 forward()사용 (= DB의 상태변화 없으므로) 
         forward.setRedirect(false);
-        forward.setPath("/epilogueboard/ebmain.jsp");
+        forward.setPath("template.jsp?page=/epilogueboard/ebmain.jsp");
         
         return forward;
 	}

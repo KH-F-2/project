@@ -33,7 +33,7 @@ public class EpilogueFrontControllerAction extends HttpServlet {
 			else if(command.equals("/ebwrite.eb")) {
 				forward=new ActionForward();
 				forward.setRedirect(false);
-				forward.setPath("/epilogueboard/ebwrite.jsp");
+				forward.setPath("template.jsp?page=/epilogueboard/ebwrite.jsp");
 			}
 			else if(command.equals("/ebwriteaction.eb")) {
 				action=new EpilogueBoardAddAction();

@@ -8,7 +8,6 @@
 	
 	<link href="css/signupform.css" rel="stylesheet">
 	
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	
 	<script src="./member/member.js"></script>
