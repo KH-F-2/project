@@ -16,13 +16,14 @@ public class PurchaseDeleteAction implements Action {
 		int num = Integer.parseInt(request.getParameter("num"));
 		//로그인 연동 이후 수정
 		//String id = request.getParameter("PB_WRITER");
-		boolean result = false;
+		System.out.println("delete : " + num);
+		int result;
 		
 		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
 			
 		result = purchaseDAO.purchaseDelete(num);
-		
-		if(result == false) {
+		System.out.println(result);
+		if(result == 1) {
 			
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
