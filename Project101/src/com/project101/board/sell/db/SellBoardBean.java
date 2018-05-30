@@ -12,7 +12,7 @@ public class SellBoardBean {
 	private int SB_PRICE;
 	private Date SB_DATE;
 	private int SB_READCOUNT;
-	
+
 	public SellBoardBean() {
 		super();
 	}
@@ -40,7 +40,7 @@ public class SellBoardBean {
 	public void setSB_PDATE(Date sB_PDATE) {
 		SB_PDATE = sB_PDATE;
 	}
-	
+
 	public Date getSB_MDATE() {
 		return SB_MDATE;
 	}
@@ -88,5 +88,5 @@ public class SellBoardBean {
 	public void setSB_READCOUNT(int sB_READCOUNT) {
 		SB_READCOUNT = sB_READCOUNT;
 	}
-	
+
 }

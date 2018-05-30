@@ -11,7 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
 public class CommentDAO {
 	DataSource ds;
 	Connection conn;
@@ -87,8 +86,8 @@ public class CommentDAO {
 			pstmt.close();
 
 			pstmt = conn.prepareStatement("insert into COMMENTS "
-					+ "(CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_SEQ) "
-					+ "values(?,?,?,sysdate,?,?,?,?)");
+					+ "(CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_SEQ, CMT_TABLE_NAME) "
+					+ "values(?,?,?,sysdate,?,?,?,?,?)");
 
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, cmtdata.getCMT_SUBJECT_NO());
@@ -97,6 +96,7 @@ public class CommentDAO {
 			pstmt.setInt(5, cmtdata.getCMT_NO());
 			pstmt.setInt(6, 0);
 			pstmt.setInt(7, 0);
+			//pstmt.setString(8, PURCHASEBOARD);
 
 			result = pstmt.executeUpdate();
 
@@ -143,15 +143,14 @@ public class CommentDAO {
 
 		int startrow = (page - 1) * limit + 1; // 읽기 시작할 row 번호 (1,11,21,31,...)
 		int endrow = startrow + limit - 1; // 읽을 마지막 row 번호(10,20,30,40,...)
-		
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(
-			"select * from " 
-			+ "(select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_SEQ "
-			+ "FROM (SELECT * FROM COMMENTS where CMT_SUBJECT_NO = ? order by CMT_NO asc )) "
-			+ "where rnum>= ? and rnum<= ? "
-			);
+					"select CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_SEQ from "
+							+ "(select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_SEQ "
+							+ "FROM (SELECT * FROM COMMENTS where CMT_SUBJECT_NO = ? order by CMT_NO asc )) "
+							+ "where rnum>= ? and rnum<= ? ");
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, startrow);
 			pstmt.setInt(3, endrow);
@@ -164,14 +163,15 @@ public class CommentDAO {
 				cmtList.setCMT_SUBJECT_NO(rset.getInt("CMT_SUBJECT_NO"));
 				cmtList.setCMT_WRITER(rset.getString("CMT_WRITER"));
 				cmtList.setCMT_DATE(rset.getDate("CMT_DATE"));
+				cmtList.setCMT_VIEW_DATE(rset.getString("CMT_DATE").toString());
 				cmtList.setCMT_CONTENT(rset.getString("CMT_CONTENT"));
 				cmtList.setCMT_RE_REF(rset.getInt("CMT_RE_REF"));
 				cmtList.setCMT_RE_LEV(rset.getInt("CMT_RE_LEV"));
 				cmtList.setCMT_SEQ(rset.getInt("CMT_SEQ"));
 				list.add(cmtList);
-				
+
 			}
-			
+
 			return list;
 
 		} catch (Exception e) {
@@ -203,17 +203,17 @@ public class CommentDAO {
 	}
 
 	public CommentBean getDetail(int num) {
-		
+
 		CommentBean cmtdata = null;
-		
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement("select * from COMMENTS where CMT_NO = ?");
-			
+
 			pstmt.setInt(1, num);
 			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
+
+			if (rset.next()) {
 				cmtdata = new CommentBean();
 				cmtdata.setCMT_NO(rset.getInt(1));
 				cmtdata.setCMT_SUBJECT_NO(rset.getInt(2));
@@ -223,13 +223,13 @@ public class CommentDAO {
 				cmtdata.setCMT_RE_REF(rset.getInt(6));
 				cmtdata.setCMT_RE_LEV(rset.getInt(7));
 				cmtdata.setCMT_SEQ(rset.getInt(8));
-				
+
 			}
 			return cmtdata;
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			System.out.println("reply getDetailAction 에러 :" + e);
-		}finally {
+		} finally {
 			if (rset != null) {
 				try {
 					rset.close();
@@ -253,7 +253,7 @@ public class CommentDAO {
 			}
 		}
 		return null;
-		
+
 	}
 
 	public int getListCount(int num) {

@@ -17,19 +17,19 @@ public class EpilogueBoardDeleteAction implements Action {
 		response.setContentType("text/html;charset=utf-8");
 		ActionForward forward = new ActionForward();
 		int num = Integer.parseInt(request.getParameter("num"));
-		EpilogueBoardDAO epildao = new EpilogueBoardDAO();
-		EpilogueBoardBean epildata = new EpilogueBoardBean();
+		EpilogueBoardDAO ebDAO = new EpilogueBoardDAO();
+		EpilogueBoardBean ebBoardBean = new EpilogueBoardBean();
 		PrintWriter out = response.getWriter();
 		boolean result = false;		
 		
-		epildata.setSB_NO(num);
+		ebBoardBean.setSB_NO(num);
 		
-		result = epildao.boardDelete(epildata);
+		result = ebDAO.boardDelete(ebBoardBean);
 		
-		if(result == false) {
+		if (result == false) {
 			out.println("<script>alert('삭제 실패');history.back();</script>");
-		}else {
-			out.println("<script>alert('삭제되었습니다.'); location ='./BoardList.epil';</script>");
+		} else {
+			out.println("<script>alert('삭제되었습니다.'); location ='./ebmain.eb';</script>");
 		}
 				
 		out.close();

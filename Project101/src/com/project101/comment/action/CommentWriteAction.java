@@ -13,24 +13,25 @@ public class CommentWriteAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		CommentDAO cmtdao = new CommentDAO();
-		CommentBean cmtdata = new CommentBean();
-		System.out.println("이거="+request.getParameter("num"));
+		CommentDAO cmtDAO = new CommentDAO();
+		CommentBean cmtBean = new CommentBean();
+		System.out.println("이거=" + request.getParameter("num"));
 		
 		int comment_boardNO = Integer.parseInt(request.getParameter("num"));
 		String comment_content = request.getParameter("comment_content");
 
-		cmtdata.setCMT_NO(cmtdao.getSeq());			//댓글 번호
-		cmtdata.setCMT_SUBJECT_NO(comment_boardNO);	//게시글 번호
-		cmtdata.setCMT_CONTENT(comment_content); 	//댓글 내용
+		cmtBean.setCMT_NO(cmtDAO.getSeq());			//댓글 번호
+		cmtBean.setCMT_SUBJECT_NO(comment_boardNO);	//게시글 번호
+		cmtBean.setCMT_CONTENT(comment_content); 	//댓글 내용
 		
-		boolean result = cmtdao.CommentInsert(cmtdata);
+		boolean result = cmtDAO.cmtInsert(cmtBean);
 		
 		PrintWriter pw = response.getWriter();
+		
 		if(result) {
-			pw.println(1);
+			pw.print(1);
 		} else {
-			pw.println(0);
+			pw.print(0);
 		}
 		pw.close();
 

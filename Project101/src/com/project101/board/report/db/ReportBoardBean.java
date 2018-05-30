@@ -1,71 +1,80 @@
 package com.project101.board.report.db;
 
+import java.util.Date;
+
 public class ReportBoardBean {
-	private String id;
-	private String password;
-	private String name;
-	private int age;
-	private String gender;
-	private String email;
-	
-	public ReportBoardBean() {
-		
-	}
-	
-	public ReportBoardBean(String id, String password, String name, int age, String gender, String email) {
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.age = age;
-		this.gender = gender;
-		this.email = email;
+
+	private String RB_WRITER;
+	private String RB_TITLE;
+	private String RB_CONTENT;
+	private int RB_PRICE;
+	private int RB_NO;
+	private Date RB_BDATE;
+	private Date RB_DATE;
+	private int RB_READCOUNT;
+
+	public String getRB_WRITER() {
+		return RB_WRITER;
 	}
 
-	public String getId() {
-		return id;
+	public void setRB_WRITER(String rB_WRITER) {
+		RB_WRITER = rB_WRITER;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getRB_TITLE() {
+		return RB_TITLE;
 	}
 
-	public String getPassword() {
-		return password;
+	public void setRB_TITLE(String rB_TITLE) {
+		RB_TITLE = rB_TITLE;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String getRB_CONTENT() {
+		return RB_CONTENT;
 	}
 
-	public String getName() {
-		return name;
+	public void setRB_CONTENT(String rB_CONTENT) {
+		RB_CONTENT = rB_CONTENT;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public int getRB_PRICE() {
+		return RB_PRICE;
 	}
 
-	public int getAge() {
-		return age;
+	public void setRB_PRICE(int rB_PRICE) {
+		RB_PRICE = rB_PRICE;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public int getRB_NO() {
+		return RB_NO;
 	}
 
-	public String getGender() {
-		return gender;
+	public void setRB_NO(int rB_NO) {
+		RB_NO = rB_NO;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public Date getRB_BDATE() {
+		return RB_BDATE;
 	}
 
-	public String getEmail() {
-		return email;
+	public void setRB_BDATE(Date rB_BDATE) {
+		RB_BDATE = rB_BDATE;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public Date getRB_DATE() {
+		return RB_DATE;
 	}
+
+	public void setRB_DATE(Date rB_DATE) {
+		RB_DATE = rB_DATE;
+	}
+
+	public int getRB_READCOUNT() {
+		return RB_READCOUNT;
+	}
+
+	public void setRB_READCOUNT(int rB_READCOUNT) {
+		RB_READCOUNT = rB_READCOUNT;
+	}
+
 }

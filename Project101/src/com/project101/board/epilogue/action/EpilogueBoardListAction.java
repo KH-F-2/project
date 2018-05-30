@@ -20,7 +20,7 @@ public class EpilogueBoardListAction implements Action{
         
         // 현재 페이지 번호 만들기
         int page = 1;
-        if(request.getParameter("page") != null) {
+        if (request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		System.out.println("넘어온 페이지 : " + page);
@@ -33,12 +33,11 @@ public class EpilogueBoardListAction implements Action{
         listOpt.put("opt", opt); //검색조건
         listOpt.put("condition", condition); //내용
         listOpt.put("start", start);
-        System.out.println("opt : " + opt +":::condition : " + condition + ":: start : " + start);
         
-        EpilogueBoardDAO dao = EpilogueBoardDAO.getInstance();
-        int listCount = dao.getBoardListCount(listOpt);
+        EpilogueBoardDAO ebDAO = EpilogueBoardDAO.getInstance();
+        int listCount = ebDAO.getBoardListCount(listOpt);
         System.out.println("listcount : " + listCount);
-        ArrayList<EpilogueBoardBean> list =  dao.getBoardList(listOpt);
+        ArrayList<EpilogueBoardBean> list =  ebDAO.getBoardList(listOpt);
         
         // 한 화면에 10개의 게시글을 보여지게함
         // 페이지 번호는 총 5개, 이후로는 [다음]으로 표시
@@ -56,7 +55,6 @@ public class EpilogueBoardListAction implements Action{
         request.setAttribute("maxPage", maxPage);
         request.setAttribute("startPage", startPage);
         request.setAttribute("endPage", endPage);
-        System.out.println("maxpage : " +maxPage+"a"+startPage+"d"+endPage);
         
         // 글의 총 수와 글목록 저장
         //request.setAttribute("listCount", listCount);
@@ -65,7 +63,7 @@ public class EpilogueBoardListAction implements Action{
         
         // 단순 조회이므로 forward()사용 (= DB의 상태변화 없으므로) 
         forward.setRedirect(false);
-        forward.setPath("/epilogueboard/epilogue_board_list.jsp");
+        forward.setPath("template.jsp?page=/epilogueboard/ebmain.jsp");
         
         return forward;
 	}

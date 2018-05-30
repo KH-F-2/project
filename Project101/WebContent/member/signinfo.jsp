@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="javax.naming.*"%>
 <%@ page import="java.io.*"%>
@@ -15,7 +15,6 @@
 	<!-- Semantic UI Library -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script src="semantic/semantic.min.js"></script>
-	
 	<script src="js/main.js"></script>
 </head>
 <style>
@@ -24,15 +23,18 @@ table{margin:0 auto; text-align: left; width:50%; height:400px}
 td:last-child {
 	background:white; text-align: center	
 }
+h2{
+	text-align: center
+}
 
 </style>
 <body>
 	<div class="ui left vertical menu sidebar">
-		<h1 id="navTitle"><i>&#xe801;</i>  ¿ì¸®Áö±İ¸¸³ª</h1>
+		<h1 id="navTitle"><i>&#xe801;</i>ìš°ë¦¬ì§€ê¸ˆë§Œë‚˜</h1>
 		<h2>Category</h2>
-		<a class="item" id="sellBoard">±¸¸Å°Ô½ÃÆÇ</a>
-		<a class="item">ÆÇ¸Å°Ô½ÃÆÇ</a>
-		<a class="item">ÈÄ±â°Ô½ÃÆÇ</a>
+		<a class="item" id="sellBoard">êµ¬ë§¤ê²Œì‹œíŒ</a>
+		<a class="item">íŒë§¤ê²Œì‹œíŒ</a>
+		<a class="item">í›„ê¸°ê²Œì‹œíŒ</a>
 	</div>
 	<div class="pusher">
 		
@@ -57,55 +59,68 @@ td:last-child {
 			</c:choose>
 			</div>
 	</div>
+	
+	<h2>ë§ˆì´í˜ì´ì§€</h2>
+	<hr width="52%" color="#86E57F">
 	<c:set var ="m" value="${signinfo}"/>
    <table border=1>
       <tr>
-         <td class="first_td">¾ÆÀÌµğ</td>
+         <td class="first_td">ì•„ì´ë””</td>
          <td>${m.id}</td>
       </tr>
       <tr>
-         <td>ºñ¹Ğ¹øÈ£</td>
+         <td>ë¹„ë°€ë²ˆí˜¸</td>
          <td>${m.password}</td>
       </tr>
       <tr>
-         <td>ÀÌ¸§</td>
+         <td>ì´ë¦„</td>
          <td>${m.name}</td>
       </tr>
       <tr>
-         <td>³ªÀÌ</td>
+         <td>ë‚˜ì´</td>
          <td>${m.age}</td>
       </tr>
       <tr>
-         <td>¼ºº°</td>
+         <td>ì„±ë³„</td>
          <td>${m.gender}</td>
       </tr>
       <tr>
-         <td>ÀÌ¸ŞÀÏ</td>
+         <td>ì´ë©”ì¼</td>
          <td>${m.email}</td>
       </tr>
       <tr>
-      	<td>ÁÖ¼Ò</td>
+      	<td>ì£¼ì†Œ</td>
       	<td>${m.address }</td>
       </tr>
       <tr>
-      	<td>ÀüÈ­¹øÈ£</td>
+      	<td>ì „í™”ë²ˆí˜¸</td>
       	<td>${m.phonenum }</td>
       </tr>      
       <tr>
-	      <td>ÇĞ±³¸í</td>
+	      <td>í•™êµëª…</td>
 	      <td>${m.school }</td>
       </tr>
       <tr>
-	      <td>ÇĞ°ú¸í</td>
+	      <td>í•™ê³¼ëª…</td>
 	      <td>${m.department }</td>
       </tr>
 	  <tr>
-	      <td>ÇĞ¹ø</td>
+	      <td>í•™ë²ˆ</td>
 	      <td>${m.studentid }</td>
       </tr>
       <tr>
-         <td colspan=2>
-         <a href="main.mem">¸®½ºÆ®·Î µ¹¾Æ°¡±â</a></td>
+         <td>
+         <a href="main.mem">ë¦¬ìŠ¤íŠ¸ë¡œ ëŒì•„ê°€ê¸°</a></td>
+         <td>
+         <a href="#" onclick="location.href='signepil.mem?name=${m.name}'">í›„ê¸°ì‘ì„±í•˜ê¸°</a></td>
+      </tr>
+      <tr>
+      	<td>
+      	<a class="item" href="signendhistory.mem">ê±°ë˜ì¢…ë£Œë‚´ì—­</a>
+      	</td>
+      	<td>
+      	<a class="trade" href="signtradelist.mem">ê±°ë˜ì¤‘ë¬¼í’ˆ</a>
+      	</td>
       </tr>
    
    </table>
