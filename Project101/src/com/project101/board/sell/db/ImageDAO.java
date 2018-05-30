@@ -27,16 +27,17 @@ public class ImageDAO {
 		}
 	}
 
-	public int imageInsert(ImageBean image) {
+	public int imageInsert(ImageBean image, String tableName) {
 		try {
 			conn = ds.getConnection();
 
-			String sql = "insert into IMAGE " + "values(?, 'SELL_BOARD', ?)";
+			String sql = "insert into IMAGE " + "values(?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, image.getBOARD_NO());
-			pstmt.setString(2, image.getIMAGE_URL());
+			pstmt.setString(2, tableName);
+			pstmt.setString(3, image.getIMAGE_URL());
 
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -59,16 +60,17 @@ public class ImageDAO {
 		return result;
 	}
 
-	public List<ImageBean> getImage(int num) {
+	public List<ImageBean> getImage(int num, String tableName) {
 		List<ImageBean> imageBeanList = new ArrayList<ImageBean>();
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "select * from IMAGE where BOARD_NO=? and BOARD_NAME='SELL_BOARD'";
+			String sql = "select * from IMAGE where BOARD_NO=? and BOARD_NAME=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
+			pstmt.setString(2, tableName);
 
 			rset = pstmt.executeQuery();
 
@@ -99,15 +101,16 @@ public class ImageDAO {
 		return imageBeanList;
 	}
 
-	public int imageDelete(int board_no) {
+	public int imageDelete(int board_no, String tableName) {
 		try {
 			conn = ds.getConnection();
 
-			String sql = "delete from IMAGE where BOARD_NO=? and BOARD_NAME='SELL_BOARD'";
+			String sql = "delete from IMAGE where BOARD_NO=? and BOARD_NAME=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, board_no);
+			pstmt.setString(2, tableName);
 
 			result = pstmt.executeUpdate();
 			

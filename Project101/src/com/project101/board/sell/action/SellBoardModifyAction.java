@@ -43,13 +43,14 @@ public class SellBoardModifyAction implements Action {
 		PrintWriter out = response.getWriter();
 
 		if (!request.getParameter("img_hidden").equals("")) {
-			imageDAO.imageDelete(num);
+			String tableName = "SELL_BOARD";
+			imageDAO.imageDelete(num, tableName);
 			String[] url = request.getParameter("img_hidden").split(" ");
 			imageBean.setBOARD_NO(num);
 			
 			for (String imageurl : url) {
 				imageBean.setIMAGE_URL(imageurl);
-				imageDAO.imageInsert(imageBean);
+				imageDAO.imageInsert(imageBean, tableName);
 			}
 		}
 		
