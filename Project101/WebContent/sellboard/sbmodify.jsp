@@ -16,13 +16,13 @@
 		<!-- 이미지 업로드 API -->
         <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
 
-        <script src="/Project101/sellboard/js/sellboard_write.js"></script>
-        <link href="/Project101/sellboard/css/board_write.css" rel="stylesheet" type="text/css">
+        <script src="/Project101/sellboard/js/sbwrite.js"></script>
+        <link href="/Project101/sellboard/css/sbwrite.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>	
-		<form action="./BoardModifyAction.sell" method="post" id="write_submit">
-		<input type="hidden" name="SB_NO" value="${sellboard.SB_NO}">
-			<table>
+		<form action="./sbmodifyaction.sb" method="post" id="write_submit">
+		<input type="hidden" name="SB_NO" value="${boardBean.SB_NO}">
+			<table class="sbwrite_table">
 				<tr>
 					<th colspan="2">판매게시판</th>
 				</tr>
@@ -35,17 +35,17 @@
 				<tr>
 					<td>구매 날짜</td>
 					<td>
-						<input type="text" id="datepicker" name="SB_PDATE" value="${sellboard.SB_PDATE}">
+						<input type="text" id="datepicker" name="SB_PDATE" value="${boardBean.SB_PDATE}">
 					</td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td><input name="SB_TITLE" type="text" size="50" maxlength="100" value="${sellboard.SB_TITLE}"></td>
+					<td><input name="SB_TITLE" type="text" size="50" maxlength="100" value="${boardBean.SB_TITLE}"></td>
 				</tr>
 				<tr>
 					<td>가격</td>
 					<td>
-						<input name = "SB_PRICE" type="text" size="50" maxlength="100" value="${sellboard.SB_PRICE}">
+						<input name = "SB_PRICE" type="text" size="50" maxlength="100" value="${boardBean.SB_PRICE}">
 					</td>
 				</tr>
 				<tr>
@@ -53,7 +53,7 @@
 						<div>내용</div>
 					</td>
 					<td>
-						<textarea name="SB_CONTENT" cols="65" rows="15">${sellboard.SB_CONTENT}</textarea>
+						<textarea name="SB_CONTENT" cols="65" rows="15">${boardBean.SB_CONTENT}</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -64,7 +64,7 @@
 					</td>
 					<td>
 						<div id="showImage">
-							<c:forEach var="img" items="${imagelist}">
+							<c:forEach var="img" items="${imageBeanList}">
 								<img src="${img.IMAGE_URL}"/>
 							</c:forEach>
 						</div>

@@ -15,13 +15,13 @@
 		<!-- 이미지 업로드 API -->
         <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
 
-        <script src="/Project101/sellboard/js/sellboard_write.js"></script>
-        <link href="/Project101/sellboard/css/board_write.css" rel="stylesheet" type="text/css">
+        <script src="/Project101/sellboard/js/sbwrite.js"></script>
+        <link href="/Project101/sellboard/css/sbwrite.css" rel="stylesheet" type="text/css">
 
 	</head>
 	<body>	
-		<form action="./BoardAddAction.sell" method="post" id="write_submit">
-			<table>
+		<form action="./sbwriteaction.sb" method="post" id="write_submit">
+			<table class="sbwrite_table">
 				<tr>
 					<th colspan="2">판매게시판</th>
 				</tr>
