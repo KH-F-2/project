@@ -13,7 +13,7 @@
 	</div>
 	
 	<div id="sec2">
-		<span id="header_fixed">Nice2MeetU</span>
+		<span id="header_title">Nice2MeetU</span>
 	</div>
 	
 	<div id="sec3">

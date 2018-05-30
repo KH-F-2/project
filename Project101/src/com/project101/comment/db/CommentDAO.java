@@ -70,7 +70,7 @@ public class CommentDAO {
 
 	}
 
-	public boolean CommentInsert(CommentBean cmtdata) {
+	public boolean cmtInsert(CommentBean cmtdata) {
 
 		int num = 0;
 		try {

@@ -34,42 +34,52 @@ public class FrontController extends HttpServlet {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("template.jsp");
+
 			} else if (command.equals("/signin.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("template.jsp?page=member/signin.jsp");
+			
 			} else if (command.equals("/signinprocess.me")) {
 				action = new SignInProcessAction();
 				forward = action.execute(request, response);
+			
 			} else if (command.equals("/signout.me")) {
 				action = new SignOutProcessAction();
 				forward = action.execute(request, response);
+			
 			} else if (command.equals("/signup.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
-				forward.setPath("/member/signup.jsp");
+				forward.setPath("template.jsp?page=/member/signup.jsp");
+			
+			} else if (command.equals("/mypage.me")) {
+				action = new Mypage();
+				forward = action.execute(request, response);
+			
 			}else if(command.equals("/joinProcess.me")) {
 				action = new JoinProcessAction();
 				try {
 					forward=action.execute(request, response);
-					
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
+			
 			}else if(command.equals("/idcheck.me")) {
 				action = new IdCheckAction();
 				try {
 					forward=action.execute(request, response);
-					
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
+			
 			}else if(command.equals("/emailCheck.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("/member/emailCheck.jsp");
+			
 			}else if(command.equals("/sellerpage/sellerpage_main.seller")) {
-		        action = new listAddAction();
+//		        action = new listAddAction();
 		        try {
 		           forward = action.execute(request, response);
 		        }catch(Exception e) {

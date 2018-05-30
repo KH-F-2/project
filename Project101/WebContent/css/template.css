@@ -20,7 +20,9 @@ body {
 	float: left;
 }
 
-
 #navTitle {
 	margin: 20px;
+	font-size: 30px;
+	font-family: "fontello";
+	font-style: normal;
 }
