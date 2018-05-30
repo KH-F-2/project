@@ -30,8 +30,9 @@ public class SellBoardDetailAction implements Action {
 		List<CommentBean> commentBeanList = new ArrayList<CommentBean>();
 		
 		int num = Integer.parseInt(request.getParameter("num"));
+		String tableName = "SELL_BOARD";
 		
-		imageBeanList = imageDAO.getImage(num);
+		imageBeanList = imageDAO.getImage(num, tableName);
 		commentBeanList = commentDAO.getCommentList(num);
 		sellDAO.setReadCountUpdate(num);
 		boardBean = sellDAO.getDetail(num);

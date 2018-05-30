@@ -23,9 +23,10 @@ public class SellBoardModifyView implements Action {
 		ImageDAO imageDAO = new ImageDAO();
 		
 		int num = Integer.parseInt(request.getParameter("num"));
+		String tableName = "SELL_BOARD";
 
 		boardBean = sellDAO.getDetail(num);
-		imageBeanList = imageDAO.getImage(num);
+		imageBeanList = imageDAO.getImage(num, tableName);
 		
 		for (ImageBean image : imageBeanList) {
 			String url = image.getIMAGE_URL();

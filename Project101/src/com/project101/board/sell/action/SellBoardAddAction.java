@@ -47,12 +47,13 @@ public class SellBoardAddAction implements Action {
 		int result = sellDAO.boardInsert(boardBean);
 
 		if (!request.getParameter("img_hidden").equals("")) {
+			String tableName = "SELL_BOARD";
 			String[] url = request.getParameter("img_hidden").split(" ");
 			imageBean.setBOARD_NO(BOARD_NO);
 
 			for (String imageurl : url) {
 				imageBean.setIMAGE_URL(imageurl);
-				int result2 = imageDAO.imageInsert(imageBean);
+				int result2 = imageDAO.imageInsert(imageBean, tableName);
 
 				if (result2 == 0) {
 					System.out.println("image insert fail!");

@@ -6,7 +6,25 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>글쓰기 게시판</title>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="/test/js/sellboard.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var widget=uploadcare.MultipleWidget('[role=uploadcare-uploader]');
+				widget.onUploadComplete(function(info){
+					var url=[];
+					console.log(info.cdnUrl);
+					$('#showImage').empty();
+					$('#img_hidden').attr('value', '');
+					var length=info.cdnUrl.charAt(info.cdnUrl.length-2);
+					for(var i=0;i<length;i++){
+						url[i]=info.cdnUrl+"nth/"+i+"/";
+						$('#showImage').append('<img src="'+url[i]+'-/resize/x100/"/>');
+						url[i]+="-/resize/500x/ ";
+						var val=$('#img_hidden').attr('value');
+						$('#img_hidden').attr('value', val+url[i]);
+					}
+				});
+			});
+		</script>
         <style>
         	nav{height: 40px; background: #e5ffff} 
 			a{text-decoration: none; }
@@ -58,11 +76,14 @@
 				</tr>
 				<tr>
 					<td>
-						<div>파일첨부</div>
+						<div>
+							<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
+						</div>
 					</td>
 					<td>
-						<input type="file" id="upfile" name="SB_FILE">					
-					</td>					
+						<div id="showImage"></div>
+						<input type="hidden" id="img_hidden" name="img_hidden" value="">
+					</td>
 				</tr>
 				<tr class="center">
 					<td colspan="2">
