@@ -431,18 +431,19 @@ public class PurchaseBoardDAO {
 	}
 
 	// 삭제
-	public boolean purchaseDelete(int boardNum) {
+	public int purchaseDelete(int boardNum) {
 		String sql = "DELETE FROM PURCHASE_BOARD WHERE PB_NO = ?";
+		int result = 0;
 		
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNum);
 
-			int result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 			
 			if (result == 1) {
-				return true;
+				result = 1;
 			}
 		} catch (Exception e) {
 			System.out.println("삭제 에러 " + e);
@@ -471,7 +472,7 @@ public class PurchaseBoardDAO {
 
 			}
 		}
-		return false;
+		return result;
 	}
 
 	// 검색 결과 값 숫자 세기

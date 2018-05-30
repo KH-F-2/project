@@ -96,7 +96,7 @@ table {
 
 			<c:set var="num" value="${listCount - (page - 1) * 10 }" />
 
-			<c:forEach var="b" items="${boardBean}">
+			<c:forEach var="b" items="${boardBeanList}">
 				<tr>
 					<td>
 						<c:out value="${num }" />
@@ -110,7 +110,7 @@ table {
 					</td>
 					<td><c:out value="${b.writer }" /></td>
 					<td><c:out value="${b.date }" /></td>
-					<td><c:out value="${b.readCount }" /></td>
+					<td><c:out value="${b.readcount }" /></td>
 				</tr>
 			</c:forEach>
 			<tr>
