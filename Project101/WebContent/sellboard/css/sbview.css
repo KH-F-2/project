@@ -1,0 +1,373 @@
+@charset "UTF-8";
+a{text-decoration: none;}
+.main_table{
+	margin: 0 auto;
+	padding: 0px 20px 0px 20px;
+	width: 80%;
+	height: 1000px;
+	border: 0.5px solid #2aa1ff;
+	border-radius: 5px;
+	background-color: #e8e8e880;
+}
+.main_table tbody tr:first-child{
+	border-top: 20px black solid;
+}
+.main_table tbody tr td{
+	padding-top: 5px;
+}
+.title{
+	width: 75%;
+	margin-top: 20px;
+	font-weight: bold;
+	font-size: 21pt;
+	text-align: left;
+	font-family: '나눔고딕';
+	display: inline-block;
+	float: left;
+}
+.titlebar{
+	width: 100%;
+	padding: 10px 0 10px 0;
+	border-top: 1px solid #c0c0c0;
+	border-bottom: 1px solid #c0c0c0;
+	background-color: #d9d9d9;
+}
+.date{
+	width: 25%;
+	text-align: right;
+	color: gray;
+	font-size: 10pt;
+	display: inline-block;
+	clear: left;
+}
+.writer_left{
+	display: inline-block;
+	width: 50%;
+	font-weight: bold;
+}
+.writer_right{
+	display: inline-block;
+	width: 48%;
+	text-align: right;
+}
+.writer_div{
+	width: 100%;
+	height: 1px;
+	background-color: #c0c0c0;
+	margin-top: 5px;
+}
+.info {
+	background-color: #5ab5f8;
+    border: none;
+    color: white;
+    padding: 7px 28px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.info:hover {background: #1891f3;}
+.price{
+	display: inline-block;
+	width: 50%;
+	color: #007ee6;
+	font-weight: bold;
+}
+.pdate{
+	display: inline-block;
+	width: 48%;
+	text-align: right;
+	color: #002544;
+	font-size: 11pt;
+}
+.content{
+	height: 100%;
+}
+.main_table tbody tr:last-child{
+	height: 55%;
+}
+* {box-sizing:border-box}
+.menu_bar{
+	text-align: right;
+	width: 80%;
+	margin: 0 auto;
+}
+.main_table tbody tr div{
+	padding: 0px 5px 0px 5px;
+}
+
+/* 댓글 */
+ul{
+	list-style: none;
+}
+.comment_div{
+	width: 80%;
+	margin: 0 auto;
+}
+.comment_div ul, .comment_view{
+	padding: 0;
+	width: 100%;
+}
+.comment_textarea{
+	width: 100%;
+	position: relative;
+}
+.comment_content{
+	width: 84%;
+}
+#counter{
+	position: absolute;
+	background:rgba(26,171,138,0.5);
+	border-radius: 0.5em;
+	padding: 0 .5em 0 .5em;
+	font-size: 0.75em;
+	bottom: 15%;
+	left: 75%;
+}
+.comment_btn{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  width: 90px;
+  font-size:0.8em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  bottom: 90px;
+}
+.comment_btn:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+.comment_btn:before,.comment_btn:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.comment_btn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.comment_btn:hover:before,.comment_btn:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+.commentlist{
+	width: 80%;
+	margin: 0 auto;
+	background-color: #eeeeee;
+}
+.comment_li{
+	width: 100%;
+	height: 100px;
+}
+.comment_li div{
+	display: inline-block;
+}
+.comment_top{
+	width: 100%;
+	height: 25%;
+	background-color: #e3e3e3;
+}
+.comment_writer{
+	width: 15%;
+	font-weight: bold;
+}
+.comment_date{
+	color: #adadad;
+	font-size: 9pt;
+}
+.comment_bottom{
+	width: 100%;
+	height: 75%;
+	vertical-align: middle;
+}
+.comment_text{
+	width: 89%;
+	overflow: hidden;
+	font-size: 10.5pt;
+	padding: 5px;
+	float: left;
+}
+.comment_btn2{
+	width: 10%;
+	height: 100%;
+	text-align: center;
+	padding-top: 10px;
+}
+
+/* 댓글 삭제 버튼 */
+a.animated-button:link, a.animated-button:visited {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 5px 0px 5px 0px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    letter-spacing: .08em;
+    border-radius: 0;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+a.animated-button:link:after, a.animated-button:visited:after {
+    content: "";
+    position: absolute;
+    height: 0%;
+    left: 50%;
+    top: 50%;
+    width: 150%;
+    z-index: 1;
+    -webkit-transition: all 0.75s ease 0s;
+    -moz-transition: all 0.75s ease 0s;
+    -o-transition: all 0.75s ease 0s;
+    transition: all 0.75s ease 0s;
+}
+a.animated-button:link:hover, a.animated-button:visited:hover {
+    color: #FFF;
+    text-shadow: none;
+}
+a.animated-button:link:hover:after, a.animated-button:visited:hover:after {
+    height: 450%;
+}
+a.animated-button.victoria-one {
+    border: 2px solid #D24D57;
+    color: black;
+    font-size: 8pt;
+    width: 40px;
+    height: 25px;
+    padding: 2px 0px 2px 0px;
+    margin: 0 auto;
+    top: 25%;
+}
+a.animated-button.victoria-one:after {
+    background: #D24D57;
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+    -ms-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+    transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+}
+
+
+/* 이미지 CSS */
+/* Slideshow container */
+.slideshow-container {
+	max-width: 500px;
+	width: 500px;
+	max-height: 500px;
+	height: 500px;
+	position: relative;
+	margin: auto;
+	background-color: black;
+}
+/* Hide the images by default */
+.mySlides {
+	width: 500px;
+	height: 100%;
+    display: none;
+    overflow: hidden;
+    position: relative;
+}
+.img_slide{
+	position: absolute;
+	width: 100%;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+.zoomContainer{
+	left: 115.5px; top: 223px; height: 500px; overflow: hidden;
+}
+/* Next & previous buttons */
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	margin-top: -22px;
+	padding: 16px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	transition: 0.6s ease;
+}
+.dot_div{
+	position: absolute;
+	top: 96%;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+/* Position the "next button" to the right */
+.prev {
+  left: -45;
+  border-radius: 5px 0 0 5px;
+}
+.next {
+  right: -45;
+  border-radius: 0 5px 5px 0;
+}
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.active, .dot:hover {
+  background-color: #4f4aa8;
+}
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
