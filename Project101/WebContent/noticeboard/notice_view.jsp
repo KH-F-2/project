@@ -10,7 +10,7 @@
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 	</head>
 	<body>
-		<%@ include file="/noticeboard/notice_board_list.jsp" %>
+		<%@ include file="/noticeboard/notice_main.jsp" %>
 		
 			
 					<c:forEach var = "notice" items = "${list}">

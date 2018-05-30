@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import com.project101.board.sell.db.SellBoardBean;
 
 public class MemberDAO {
 
@@ -189,5 +193,82 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	public List<SellBoardBean> getBoardList(int page, int limit, String SB_WRITER) {
+		List<SellBoardBean> list=new ArrayList<SellBoardBean>();
+		int startrow=(page-1)*limit+1;
+		int endrow=startrow+limit-1;
+		try {
+			conn=ds.getConnection();
+			String sql="select * from "
+					+ "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
+					+ "SB_READCOUNT, SB_DATE from "
+					+ "(select * from SELL_BOARD order by SB_NO desc)) "
+					+ " where rnum>=? and rnum<=? and SB_WRITER = ? ";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+			pstmt.setString(3, SB_WRITER);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				SellBoardBean boardBean=new SellBoardBean();
+				boardBean.setSB_NO(rset.getInt("SB_NO"));
+				boardBean.setSB_WRITER(rset.getString("SB_WRITER"));
+				boardBean.setSB_TITLE(rset.getString("SB_TITLE"));
+				boardBean.setSB_DATE(rset.getDate("SB_DATE"));
+				boardBean.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
+				list.add(boardBean);
+			}
+			return list;
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				try {
+					if(pstmt!=null)	pstmt.close();
+					if(conn!=null)		conn.close();
+					if(rset!=null)		rset.close();
+				}catch(Exception e) {e.printStackTrace();}
+			}
+		
+		return list;
+	}	// getBoardList() ----------
+	
+	public SellBoardBean getDetail(int num) {
+		SellBoardBean sellboard=new SellBoardBean();
+		try {
+			conn=ds.getConnection();
+			String sql="select * from SELL_BOARD where SB_NO=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				sellboard.setSB_NO(rset.getInt("SB_NO"));
+				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
+				sellboard.setSB_PDATE(rset.getDate("SB_PDATE"));
+				sellboard.setSB_MDATE(rset.getDate("SB_MDATE"));
+				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
+				sellboard.setSB_CONTENT(rset.getString("SB_CONTENT"));
+				sellboard.setSB_PRICE(rset.getInt("SB_PRICE"));
+				sellboard.setSB_DATE(rset.getDate("SB_DATE"));
+				sellboard.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
+				return sellboard;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rset!=null)	rset.close();
+				if(pstmt!=null)	pstmt.close();
+				if(conn!=null)		conn.close();
+			}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return null;
+	}	// getDetail() -----------
+	
 	
 }

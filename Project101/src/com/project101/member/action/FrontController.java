@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.project101.notice.action.listAddAction;
+
 @WebServlet("*.me")
 public class FrontController extends HttpServlet {
 
@@ -66,7 +68,14 @@ public class FrontController extends HttpServlet {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("/member/emailCheck.jsp");
-			}
+			}else if(command.equals("/sellerpage/sellerpage_main.seller")) {
+		        action = new listAddAction();
+		        try {
+		           forward = action.execute(request, response);
+		        }catch(Exception e) {
+		           e.printStackTrace();
+		        }
+		     }	
 
 			if (forward != null) {
 				if (forward.isRedirect()) {

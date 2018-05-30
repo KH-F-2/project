@@ -11,27 +11,26 @@ public class ReportBoardDetailAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=euc-kr");
 		request.setCharacterEncoding("utf-8");
-		ReportBoardDAO reportdao=new ReportBoardDAO();
-		ReportBoardBean reportboard=new ReportBoardBean();
-		ActionForward forward=new ActionForward();
-		
-		int num=Integer.parseInt(request.getParameter("RB_NO"));
-		
-		reportdao.setReadCountUpdate(num);
-		reportboard=reportdao.getDetail(num);
-		
-		request.setAttribute("reportboard", reportboard);
-		
-		if(reportboard==null) {
+		ReportBoardDAO reportDao = new ReportBoardDAO();
+		ReportBoardBean boardBean = new ReportBoardBean();
+		ActionForward forward = new ActionForward();
+
+		int num = Integer.parseInt(request.getParameter("RB_NO"));
+
+		reportDao.setReadCountUpdate(num);
+		boardBean = reportDao.getDetail(num);
+
+		request.setAttribute("boardbean", boardBean);
+
+		if (boardBean == null) {
 			System.out.println("상세보기 실패!");
 			return null;
-		}else {
+		} else {
 			System.out.println("상세보기 성공!");
 			forward.setRedirect(false);
-			forward.setPath("reportboard/report_board_view.jsp");
+			forward.setPath("reportboard/rb_view.jsp");
 		}
-		
-		
+
 		return forward;
 	}
 

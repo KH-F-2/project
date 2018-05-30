@@ -10,29 +10,29 @@ public class ReportBoardModifyView implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		ActionForward forward = new ActionForward();
-		ReportBoardDAO reportdao = new ReportBoardDAO();
-		ReportBoardBean reportboard = new ReportBoardBean();
-		
+		ReportBoardDAO reportDao = new ReportBoardDAO();
+		ReportBoardBean boardBean = new ReportBoardBean();
+
 		int num = Integer.parseInt(request.getParameter("RB_NO"));
-		
+
 		System.out.println("num : " + num);
-		
-		reportboard = reportdao.getDetail(num);
-		
-		if(reportboard == null) {
+
+		boardBean = reportDao.getDetail(num);
+
+		if (boardBean == null) {
 			System.out.println("수정 상세보기 실패");
 			return null;
 		}
 		System.out.println("수정 상세보기 완료");
-		
-		request.setAttribute("reportboard", reportboard);
+
+		request.setAttribute("boardBean", boardBean);
 		forward.setRedirect(false);
-		
-		forward.setPath("./reportboard/report_board_modify.jsp");
+
+		forward.setPath("/reportboard/rb_modify.jsp");
 		return forward;
 	}
 
