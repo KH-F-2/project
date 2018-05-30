@@ -231,7 +231,7 @@ a {
 										value="${num-1 }" /> --%>
 										${board.SB_NO}</li>
 				
-								<li><a href="./BoardDetail.epil?num=${board.SB_NO }">
+								<li><a href="./ebview.eb?num=${board.SB_NO }">
 										${board.SB_TITLE } </a></li>
 
 								<li>${board.SB_WRITER }</li>
@@ -246,12 +246,11 @@ a {
 				</ul>
 			</li>
 
-
 			<!-- 게시판 페이징 영역 -->
 			<li>
 				<div id="divPaging">
 					<c:if test="${startPage != 1}">
-						<a href='BoardList.epil?page=${startPage-1}'>[ 이전 ]</a>
+						<a href='ebmain.eb?page=${startPage-1}'>[ 이전 ]</a>
 					</c:if>
 
 					<c:forEach var="pageNum" begin="${startPage}" end="${endPage}">
@@ -259,18 +258,18 @@ a {
                 ${pageNum}&nbsp;
             </c:if>
 						<c:if test="${pageNum != spage}">
-							<a href='BoardList.epil?page=${pageNum}'>${pageNum}&nbsp;</a>
+							<a href='ebmain.eb?page=${pageNum}'>${pageNum}&nbsp;</a>
 						</c:if>
 					</c:forEach>
 
 					<c:if test="${endPage != maxPage }">
-						<a href='BoardList.epil?page=${endPage+1 }'>[다음]</a>
+						<a href='ebmain.eb?page=${endPage+1 }'>[다음]</a>
 					</c:if>
 				</div>
 			</li>
 			<hr>
 			<li><input type="button" id="write_button" value="글쓰기"
-				onClick="location.href='BoardWrite.epil'"></li>
+				onClick="location.href='ebwrite.eb'"></li>
 
 			<!-- 검색 폼 영역 -->
 			<li id='liSearchOption'>

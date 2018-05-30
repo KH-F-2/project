@@ -13,27 +13,25 @@ public class EpilogueBoardDetailAction implements Action {
 			HttpServletResponse response) throws Exception {
 		response.setContentType("text/htmlcharset=euc-kr");
 		request.setCharacterEncoding("euc-kr");
-		EpilogueBoardDAO epildao = new EpilogueBoardDAO();
-		EpilogueBoardBean epilboard = new EpilogueBoardBean();
+		EpilogueBoardDAO ebDAO = new EpilogueBoardDAO();
+		EpilogueBoardBean ebBoardBean = new EpilogueBoardBean();
 		ActionForward forward = new ActionForward();
 		
 		int num = Integer.parseInt(request.getParameter("num"));
 		
-		epildao.setReadCountUpdate(num);
-		epilboard = epildao.getDetail(num);
+		ebDAO.setReadCountUpdate(num);
+		ebBoardBean = ebDAO.getDetail(num);
 		
-		request.setAttribute("epilboard", epilboard);
+		request.setAttribute("ebBoardBean", ebBoardBean);
 		
-		if(epilboard == null) {
+		if (ebBoardBean == null) {
 			System.out.println("상세보기 실패");
 			return null;
 		} else {
 			System.out.println("상세보기 성공");
 			forward.setRedirect(false);
-			forward.setPath("/epilogueboard/epilogue_board_view.jsp");
+			forward.setPath("/epilogueboard/ebview.jsp");
 		}
-		/*forward.setRedirect(false);
-		forward.setPath("/epilogueboard/epilogue_board_view.jsp");*/
 		
 		return forward;
 	}

@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-@WebServlet("*.epil")
+@WebServlet("*.eb")
 public class EpilogueFrontControllerAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,31 +26,31 @@ public class EpilogueFrontControllerAction extends HttpServlet {
 		Action action=null;
 		ActionForward forward=null;
 		try {
-			if(command.equals("/BoardList.epil")) {
+			if(command.equals("/ebmain.eb")) {
 				action=new EpilogueBoardListAction();
 				forward=action.execute(request, response);
 			}
-			else if(command.equals("/BoardWrite.epil")) {
+			else if(command.equals("/ebwrite.eb")) {
 				forward=new ActionForward();
 				forward.setRedirect(false);
-				forward.setPath("/epilogueboard/epilogueboard_board_write.jsp");
+				forward.setPath("/epilogueboard/ebwrite.jsp");
 			}
-			else if(command.equals("/BoardAddAction.epil")) {
+			else if(command.equals("/ebwriteaction.eb")) {
 				action=new EpilogueBoardAddAction();
 				forward=action.execute(request, response);
-			}else if(command.equals("/BoardDetail.epil")) {
+			}else if(command.equals("/ebview.eb")) {
 				action = new EpilogueBoardDetailAction();
 				forward = action.execute(request, response);
-			}else if(command.equals("/BoardDelete.epil")) {
+			}else if(command.equals("/ebdelete.eb")) {
 				action = new EpilogueBoardDeleteAction();
 				forward = action.execute(request, response);
-			}else if(command.equals("/BoardModifyAction.epil")) {
+			}else if(command.equals("/ebmodify.eb")) {
 				action = new EpilogueBoardModifyAction();
 				forward = action.execute(request, response);
-			}else if(command.equals("/BoardModifyView.epil")) {
+			}else if(command.equals("/ebmodifyview.eb")) {
 				action = new EpilogueBoardModifyView();
 				forward = action.execute(request, response);
-			}else if (command.equals("/BoardFileDown.epil")) {
+			}else if (command.equals("/ebfiledown.eb")) {
 				action = new EpilBoardFileDownAction();
 				try {
 					forward=action.execute(request, response);

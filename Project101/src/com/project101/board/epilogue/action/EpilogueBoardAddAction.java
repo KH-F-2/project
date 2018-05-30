@@ -21,8 +21,8 @@ public class EpilogueBoardAddAction implements Action{
 		String writer=request.getParameter("SB_WRITER");
 		PrintWriter out=response.getWriter();
 			
-		EpilogueBoardDAO epildao = new EpilogueBoardDAO();
-		EpilogueBoardBean epilboard=new EpilogueBoardBean();
+		EpilogueBoardDAO ebDAO = new EpilogueBoardDAO();
+		EpilogueBoardBean ebBoardBean=new EpilogueBoardBean();
 		
 		String realFolder = "";
 		
@@ -41,19 +41,19 @@ public class EpilogueBoardAddAction implements Action{
 					"utf-8",
 					new DefaultFileRenamePolicy());
 		
-			epilboard.setSB_WRITER(multi.getParameter("SB_WRITER"));
-			epilboard.setSB_TITLE(multi.getParameter("SB_TITLE"));
-			epilboard.setSB_CONTENT(multi.getParameter("SB_CONTENT"));
-			epilboard.setSB_PRICE(Integer.parseInt(multi.getParameter("SB_PRICE")));
-			epilboard.setSB_GRADE(Integer.parseInt(multi.getParameter("SB_GRADE")));
+			ebBoardBean.setSB_WRITER(multi.getParameter("SB_WRITER"));
+			ebBoardBean.setSB_TITLE(multi.getParameter("SB_TITLE"));
+			ebBoardBean.setSB_CONTENT(multi.getParameter("SB_CONTENT"));
+			ebBoardBean.setSB_PRICE(Integer.parseInt(multi.getParameter("SB_PRICE")));
+			ebBoardBean.setSB_GRADE(Integer.parseInt(multi.getParameter("SB_GRADE")));
 			/*SimpleDateFormat format=new SimpleDateFormat("MM-dd-yyyy");
 		sellboard.setSB_BDATE(format.format(request.getParameter("SB_BDATE")));*/
 			
-			epilboard.setSB_FILE(
+			ebBoardBean.setSB_FILE(
 					multi.getFilesystemName(
 						(String)multi.getFileNames().nextElement()));	
 			
-			int result = epildao.boardInsert(epilboard);
+			int result = ebDAO.boardInsert(ebBoardBean);
 			if(result == 1 ) {
 				out.println("<script> alert('게시판 등록 성공!'); location.href='./BoardList.epil';</script>");
 			}else {
