@@ -22,6 +22,15 @@
 	margin: 0 auto;
 }
 
+#locationField {
+	position: absolute;
+	height: 30px;
+	width: 100%;
+	font-size: 25px;
+	z-index: 1;
+	text-align: center;
+}
+
 #container {
 	display: block;
 	width: 80%;
@@ -48,67 +57,4 @@
 .content p {
 	font-weight: bold;
 	font-size: 20px;
-}
-
-#navTitle {
-	margin: 20px;
-}
-
-#hiddenHeader {
-	width: 100%;
-	height: 70px;
-	background-color: white;
-	box-shadow: 0 3px 5px gray;
-	z-index: 10;
-}
-
-#hiddenHeader #sec1 {
-	height: 100%;
-	width: 20%;
-	display: inline-block;
-	font-size: 50px;
-	border: 0;
-	padding: 20px 20px;
-	color: black;
-	
-}
-
-#hiddenHeader #sec2 {
-	height: 100%;
-	width: 59%;
-	margin: 0 auto;
-	display: inline-block;
-	font-size: 30px;
-	text-align: center;
-	letter-spacing: 10px;
-}
-
-#hiddenHeader #sec3 {
-	height: 100%;
-	width: 20%;
-	display: inline-block;
-	text-decoration: none;
-	font-size: 20px;
-	float: right;
-	padding: 25px 20px;
-}
-
-#sec3 a{
-	color: black;
-	float: right;
-}
-
-#navTitle i {
-	font-family: "fontello";
-	font-size: 30px;
-	font-style: normal;
-}
-
-#locationField {
-	position: absolute;
-	display: inline-block;
-	height: 30px;
-	width: 400px;
-	font-size: 25px;
-	z-index: 1;
 }
