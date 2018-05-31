@@ -2,3 +2,4 @@
 
 <%=session.getAttribute("id") %>
 	
+마이페이지

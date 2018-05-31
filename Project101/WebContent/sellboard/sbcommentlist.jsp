@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <li class="comment_li" id="${commentBean.COMMENT_NO}">
 	<div class="comment_top">
 		<span class="comment_writer">${commentBean.COMMENT_WRITER}</span>
