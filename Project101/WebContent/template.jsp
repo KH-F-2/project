@@ -12,13 +12,21 @@
 	<script src="semantic/semantic.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="css/template.css">
+	
+	<script>
+		$(document).ready(function () {
+			$('#navTitle').click(function () {
+				location.href = 'main.me';
+			});
+		});
+	</script>
 
 </head>
 
 <body>
 
 	<div class="ui left vertical menu sidebar">
-		<h1 id="navTitle"><i>&#xe801;</i>  우리지금만나</h1>
+		<h1 id="navTitle">&#xe801;  우리지금만나</h1>
 		<h2>Category</h2>
 		<a class="item" href="./pbmain.pb">구매게시판</a>
 		<a class="item" href="./sbmain.sb">판매게시판</a>
@@ -28,7 +36,14 @@
 	
 	<div class="pusher">
 		<div id="header_section">
-			<jsp:include page='./header.jsp' />
+			<c:choose>
+				<c:when test="${empty param.page }">
+					<jsp:include page='./mainheader.jsp' />
+				</c:when>
+				<c:otherwise>
+					<jsp:include page='./header.jsp' />
+				</c:otherwise>
+			</c:choose>
 		</div>
 		
 		<div id="container_section">
@@ -36,9 +51,8 @@
 			<jsp:include page='${pageFile}' />
 		</div>
 
-		<div id="footer_section">
+		<div id="footer_section"></div>
 		
-		</div>
 	</div>
 </body>
 </html>
