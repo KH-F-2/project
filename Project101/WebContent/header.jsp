@@ -13,7 +13,7 @@
 	</div>
 	
 	<div id="sec2">
-		<span id="header_title">Nice2MeetU</span>
+		<span id="header_fixed">Nice2MeetU</span>
 	</div>
 	
 	<div id="sec3">
@@ -23,8 +23,8 @@
 			</c:when>
 	
 			<c:otherwise>
-				<a href="signout.me">Sign Out</a>
 				<a href="mypage.me?id=${id }">${id }</a>
+				<a href="signout.me">Sign Out</a>
 			</c:otherwise>
 		</c:choose>
 	</div>
