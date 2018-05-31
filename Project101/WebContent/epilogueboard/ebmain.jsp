@@ -1,83 +1,68 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- datepicker -->
+
 <script>
 	$(function() {
-		$("#Datepicker").datepicker(
-				{
-					dateFormat : 'yy.mm.dd',
-					prevText : '이전 달',
-					nextText : '다음 달',
-					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-							'8월', '9월', '10월', '11월', '12월' ],
-					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-							'7월', '8월', '9월', '10월', '11월', '12월' ],
-					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dateFormat : 'yy년 mm월 dd일',
-					showMonthAfterYear : true,
-					changeMonth : true,
-					changeYear : true,
-					yearSuffix : '년',
-					showButtonPanel : true,
-					closeText : 'Clear',
-					onClose : function(dateText, inst) {
-						if ($(window.event.srcElement).hasClass(
-								'ui-datepicker-close')) {
-							document.getElementById(this.id).value = '';
-						}
-					}
-				});
+		$("#Datepicker").datepicker({
+			dateFormat : 'yy.mm.dd',
+			prevText : '이전 달',
+			nextText : '다음 달',
+			monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월' ],
+			monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월' ],
+			dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dateFormat : 'yy년 mm월 dd일',
+			showMonthAfterYear : true,
+			changeMonth : true,
+			changeYear : true,
+			yearSuffix : ' 년 ',
+			showButtonPanel : true,
+			closeText : 'Clear',
+			onClose : function(dateText, inst) {
+				if ($(window.event.srcElement).hasClass('ui-datepicker-close')) {
+					document.getElementById(this.id).value = '';
+				}
+			}
+		});
 	});
 
 	$(function() {
-		$("#Datepicker2").datepicker(
-				{
-					dateFormat : 'yy.mm.dd',
-					prevText : '이전 달',
-					nextText : '다음 달',
-					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-							'8월', '9월', '10월', '11월', '12월' ],
-					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-							'7월', '8월', '9월', '10월', '11월', '12월' ],
-					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dateFormat : 'yy년 mm월 dd일',
-					showMonthAfterYear : true,
-					changeMonth : true,
-					changeYear : true,
-					yearSuffix : '년',
-					showButtonPanel : true,
-					closeText : 'Clear',
-					onClose : function(dateText, inst) {
-						if ($(window.event.srcElement).hasClass(
-								'ui-datepicker-close')) {
-							document.getElementById(this.id).value = '';
-						}
-					}
-				});
+		$("#Datepicker2").datepicker({
+			dateFormat : 'yy.mm.dd',
+			prevText : '이전 달',
+			nextText : '다음 달',
+			monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월' ],
+			monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월' ],
+			dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dateFormat : 'yy년 mm월 dd일',
+			showMonthAfterYear : true,
+			changeMonth : true,
+			changeYear : true,
+			yearSuffix : ' 년 ',
+			showButtonPanel : true,
+			closeText : 'Clear',
+			onClose : function(dateText, inst) {
+				if ($(window.event.srcElement).hasClass('ui-datepicker-close')) {
+					document.getElementById(this.id).value = '';
+				}
+			}
+		});
 	});
 </script>
-<meta charset="utf-8">
-<title>Canvas</title>
 
 <style type="text/css">
 body {
-	line-height: 2em;
-	font-family: "맑은 고딕";
 }
 
 ul, li {
+	line-height: 2em;
+	font-family: "맑은 고딕";
 	list-style: none;
 	text-align: center;
 	padding: 0;
@@ -166,7 +151,7 @@ ul, li {
 	text-align: left;
 }
 
-span {
+#wrap span {
 	text-align: center;
 	font-weight: bold;
 	font-size: 30px
@@ -178,10 +163,6 @@ span {
 	height: 35px;
 	font-size: 20px;
 	margin-right: 10px
-}
-
-span {
-	float: left
 }
 
 .ui-datepicker-title {
@@ -203,100 +184,93 @@ a {
 }
 </style>
 
-</head>
-<body>
 
-	<div id="wrap">
-		<ul>
-			<span>후기게시판</span>
-			<!-- 게시판 목록  -->
-			<li>
-				<ul id="ulTable">
+<div id="wrap">
+	<ul>
+		<span>후기게시판</span>
+		<!-- 게시판 목록  -->
+		<li>
+			<ul id="ulTable">
+				<li>
+					<ul>
+						<li>글번호</li>
+						<li>제 목</li>
+						<li>작성자</li>
+						<li>작성일</li>
+						<li>조회수</li>
+					</ul>
+				</li>
+
+				<!-- 글번호 -->
+				<%-- <c:set var="num" value="${listcount-(page-1)*limit }" /> --%>
+				<c:forEach var="board" items="${requestScope.list}">
 					<li>
 						<ul>
-							<li>글번호</li>
-							<li>제 목</li>
-							<li>작성자</li>
-							<li>작성일</li>
-							<li>조회수</li>
+							<li>
+								<%-- <c:out value="${num }" /> <c:set var="num" value="${num-1 }" /> --%> ${board.SB_NO}
+							</li>
+
+							<li><a href="./ebview.eb?num=${board.SB_NO }">
+									${board.SB_TITLE } </a></li>
+
+							<li>${board.SB_WRITER }</li>
+
+							<li>${board.SB_DATE }</li>
+
+							<li>${board.SB_READCOUNT }</li>
 						</ul>
 					</li>
-					
-					<!-- 글번호 -->
-					<%-- <c:set var="num" value="${listcount-(page-1)*limit }" /> --%>
-					<c:forEach var="board" items="${requestScope.list}">
-						<li>
-							<ul>
-								<li><%-- <c:out value="${num }" /> <c:set var="num"
-										value="${num-1 }" /> --%>
-										${board.SB_NO}</li>
-				
-								<li><a href="./ebview.eb?num=${board.SB_NO }">
-										${board.SB_TITLE } </a></li>
+				</c:forEach>
 
-								<li>${board.SB_WRITER }</li>
+			</ul>
+		</li>
 
-								<li>${board.SB_DATE }</li>
+		<!-- 게시판 페이징 영역 -->
+		<li>
+			<div id="divPaging">
+				<c:if test="${startPage != 1}">
+					<a href='ebmain.eb?page=${startPage-1}'>[ 이전 ]</a>
+				</c:if>
 
-								<li>${board.SB_READCOUNT }</li>
-							</ul>
-						</li>
-					</c:forEach>
-
-				</ul>
-			</li>
-
-			<!-- 게시판 페이징 영역 -->
-			<li>
-				<div id="divPaging">
-					<c:if test="${startPage != 1}">
-						<a href='ebmain.eb?page=${startPage-1}'>[ 이전 ]</a>
+				<c:forEach var="pageNum" begin="${startPage}" end="${endPage}">
+					<c:if test="${pageNum == spage}">
+		               ${pageNum}&nbsp;
+		           </c:if>
+					<c:if test="${pageNum != spage}">
+						<a href='ebmain.eb?page=${pageNum}'>${pageNum}&nbsp;</a>
 					</c:if>
+				</c:forEach>
 
-					<c:forEach var="pageNum" begin="${startPage}" end="${endPage}">
-						<c:if test="${pageNum == spage}">
-                ${pageNum}&nbsp;
-            </c:if>
-						<c:if test="${pageNum != spage}">
-							<a href='ebmain.eb?page=${pageNum}'>${pageNum}&nbsp;</a>
-						</c:if>
-					</c:forEach>
+				<c:if test="${endPage != maxPage }">
+					<a href='ebmain.eb?page=${endPage+1 }'>[다음]</a>
+				</c:if>
+			</div>
+		</li>
+		<hr>
+		<li>
+			<input type="button" id="write_button" value="글쓰기" onClick="location.href='ebwrite.eb'">
+		</li>
 
-					<c:if test="${endPage != maxPage }">
-						<a href='ebmain.eb?page=${endPage+1 }'>[다음]</a>
-					</c:if>
-				</div>
-			</li>
-			<hr>
-			<li><input type="button" id="write_button" value="글쓰기"
-				onClick="location.href='ebwrite.eb'"></li>
-
-			<!-- 검색 폼 영역 -->
-			<li id='liSearchOption'>
-				<div id="searchForm">
-					<form>
+		<!-- 검색 폼 영역 -->
+		<li id='liSearchOption'>
+			<div id="searchForm">
+				<form>
 					<select id='pick_all'>
 						<option value="pick">기간선택</option>
 						<option value="all">전체기간</option>
-					</select>
-					
-					<select name="opt">
+					</select> <select name="opt">
 						<option value="0">제목</option>
 						<option value="1">내용</option>
 						<option value="2">제목+내용</option>
 						<option value="3">글쓴이</option>
-					</select>
-					
+					</select> 
 					<input type="text" id="txtKeyWord" name="condition" />
 					<input type="submit" value='검색' /><br>
-					
-					<input type="text" id="Datepicker" size="13px"> ~
-					<input type="text" id="Datepicker2" size="13px">
-					</form>
-				</div>
+					<input type="text" id="Datepicker" size="13px"> 
+					~ <input type="text" id="Datepicker2" size="13px">
+				</form>
+			</div>
 
-			</li>
-		</ul>
-	</div>
-</body>
-</html>
+		</li>
+	</ul>
+</div>

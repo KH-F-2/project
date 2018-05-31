@@ -52,7 +52,7 @@ height: 100%;
 		</select>
 	</aside>
 	<section>
-	<form action="./PurchaseModifyAction.pb" method="post" name="Modifyform">
+	<form action="./pbmodifyAction.pb" method="post" name="Modifyform">
 	<input type = "hidden" name="PB_NO" value="${boardBean.num }">
 		<table>
 			<tr>

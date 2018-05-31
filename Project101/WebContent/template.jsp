@@ -12,6 +12,14 @@
 	<script src="semantic/semantic.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="css/template.css">
+	
+	<script>
+		$(document).ready(function () {
+			$('#navTitle').click(function () {
+				location.href = 'main.me';
+			});
+		});
+	</script>
 
 </head>
 

@@ -35,7 +35,7 @@
 				if($("#comment_content").val() == "") {
 					alert("글을 쓰시오");
 					return false;
-				}else{		
+				}else{
 					$.ajax({
 						type : "post",
 						dataType : "json",
