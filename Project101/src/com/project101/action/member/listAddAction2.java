@@ -13,8 +13,7 @@ import com.project101.bean.SellBoardPageBean;
 import com.project101.dao.MemberDAO;
 
 
-
-public class listAddAction implements Action {
+public class listAddAction2 implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -76,10 +75,9 @@ public class listAddAction implements Action {
 		boardpage.setStartpage(startpage);
 		boardpage.setEndpage(endpage);
 		request.setAttribute("boardpage", boardpage);
-		request.setAttribute("writer", writer);
 		
 		forward.setRedirect(false);
-		forward.setPath("template.jsp?page=/member/sellerpage_main.jsp");
+		forward.setPath("template.jsp?page=/member/sellerpage_main2.jsp");
 		return forward;
 	}
 
