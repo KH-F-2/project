@@ -4,9 +4,7 @@ import java.io.*;
 
 import javax.servlet.http.*;
 
-import com.project101.action.Action;
-import com.project101.action.ActionForward;
-import com.project101.dao.SellBoardDAO;
+import com.project101.board.sell.db.*;
 
 public class SellBoardDeleteAction implements Action{
 

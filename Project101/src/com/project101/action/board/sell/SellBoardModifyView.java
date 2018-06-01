@@ -6,13 +6,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.project101.action.Action;
-import com.project101.action.ActionForward;
-import com.project101.bean.ImageBean;
-import com.project101.bean.SellBoardBean;
-import com.project101.dao.ImageDAO;
-import com.project101.dao.SellBoardDAO;
+import org.json.simple.JSONObject;
 
+import com.project101.board.sell.db.ImageBean;
+import com.project101.board.sell.db.ImageDAO;
+import com.project101.board.sell.db.SellBoardBean;
+import com.project101.board.sell.db.SellBoardDAO;
 
 public class SellBoardModifyView implements Action {
 
@@ -21,7 +20,7 @@ public class SellBoardModifyView implements Action {
 		ActionForward forward = new ActionForward();
 		
 		SellBoardDAO sellDAO = new SellBoardDAO();
-		SellBoardBean boardBean = new SellBoardBean();
+		JSONObject boardBean = new JSONObject();
 		List<ImageBean> imageBeanList = new ArrayList<ImageBean>();
 		ImageDAO imageDAO = new ImageDAO();
 		

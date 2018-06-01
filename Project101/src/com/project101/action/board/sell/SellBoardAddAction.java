@@ -8,12 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project101.action.Action;
-import com.project101.action.ActionForward;
-import com.project101.bean.ImageBean;
-import com.project101.bean.SellBoardBean;
-import com.project101.dao.ImageDAO;
-import com.project101.dao.SellBoardDAO;
+import com.project101.action.*;
+import com.project101.bean.*;
+import com.project101.dao.*;
+
 
 public class SellBoardAddAction implements Action {
 
@@ -43,11 +41,16 @@ public class SellBoardAddAction implements Action {
 		boardBean.setSB_WRITER(session.getAttribute("id").toString());
 		boardBean.setSB_TITLE(request.getParameter("SB_TITLE"));
 		boardBean.setSB_CONTENT(request.getParameter("SB_CONTENT"));
-		boardBean.setSB_PDATE(pdate);
+		boardBean.setSB_PURCHASE_DATE(pdate);
 		boardBean.setSB_PRICE(Integer.parseInt(request.getParameter("SB_PRICE").toString()));
+		boardBean.setSB_LAT(0);
+		boardBean.setSB_LNG(0);
+		boardBean.setSB_CATEGORY(Integer.parseInt(request.getParameter("SB_CATEGORY")));
+		boardBean.setSB_HASHTAG(request.getParameter("SB_HASHTAG"));
 		
 		int result = sellDAO.boardInsert(boardBean);
 
+		// 이미지 있으면 IMAGE 테이블 insert
 		if (!request.getParameter("img_hidden").equals("")) {
 			String tableName = "SELL_BOARD";
 			String[] url = request.getParameter("img_hidden").split(" ");

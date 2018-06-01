@@ -8,12 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project101.action.Action;
-import com.project101.action.ActionForward;
-import com.project101.bean.ImageBean;
-import com.project101.bean.SellBoardBean;
-import com.project101.dao.ImageDAO;
-import com.project101.dao.SellBoardDAO;
+import com.project101.board.sell.db.ImageBean;
+import com.project101.board.sell.db.ImageDAO;
+import com.project101.board.sell.db.SellBoardBean;
+import com.project101.board.sell.db.SellBoardDAO;
 
 public class SellBoardModifyAction implements Action {
 
@@ -38,25 +36,28 @@ public class SellBoardModifyAction implements Action {
 		boardBean.setSB_WRITER(session.getAttribute("id").toString());
 		boardBean.setSB_TITLE(request.getParameter("SB_TITLE"));
 		boardBean.setSB_CONTENT(request.getParameter("SB_CONTENT"));
+		boardBean.setSB_PURCHASE_DATE(pdate);
 		boardBean.setSB_PRICE(Integer.parseInt(request.getParameter("SB_PRICE").toString()));
-		boardBean.setSB_PDATE(pdate);
+		boardBean.setSB_LAT(0);
+		boardBean.setSB_LNG(0);
+		boardBean.setSB_CATEGORY(Integer.parseInt(request.getParameter("SB_CATEGORY")));
+		boardBean.setSB_HASHTAG(request.getParameter("SB_HASHTAG"));
 
 		int result = sellDAO.boardModify(boardBean);
 		PrintWriter out = response.getWriter();
 
-		if (!request.getParameter("img_hidden").equals("")) {
-			String tableName = "SELL_BOARD";
-			imageDAO.imageDelete(num, tableName);
-			String[] url = request.getParameter("img_hidden").split(" ");
-			imageBean.setBOARD_NO(num);
-			
-			for (String imageurl : url) {
-				imageBean.setIMAGE_URL(imageurl);
-				imageDAO.imageInsert(imageBean, tableName);
-			}
-		}
-		
 		if (result == 1) {
+			if (!request.getParameter("img_hidden").equals("")) {
+				String tableName = "SELL_BOARD";
+				imageDAO.imageDelete(num, tableName);
+				String[] url = request.getParameter("img_hidden").split(" ");
+				imageBean.setBOARD_NO(num);
+				
+				for (String imageurl : url) {
+					imageBean.setIMAGE_URL(imageurl);
+					imageDAO.imageInsert(imageBean, tableName);
+				}
+			}
 			out.println("<script> alert('게시판 수정 성공!'); location.href='./sbview.sb?num=" + num + "';</script>");
 		} else {
 			out.println("<script> alert('게시판 수정 실패!'); history.back();</script>");

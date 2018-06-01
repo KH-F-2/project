@@ -6,9 +6,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import com.project101.action.Action;
-import com.project101.action.ActionForward;
-
 @WebServlet("*.sb")
 public class SellBoardFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -63,7 +60,7 @@ public class SellBoardFrontController extends HttpServlet {
 				action = new SellBoardCommentAddAction();
 				forward = action.execute(request, response);
 			}
-				
+			
 			
 			if(forward!=null) {
 				if(forward.isRedirect()) {
