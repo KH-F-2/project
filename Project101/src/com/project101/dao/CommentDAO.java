@@ -72,9 +72,9 @@ public class CommentDAO {
 
 	}
 
-	public boolean cmtInsert(CommentBean cmtdata) {
+	public boolean cmtInsert(CommentBean cmtdata, String board_name) {
+
 		int num = 0;
-		
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement("select max(CMT_NO) from COMMENTS");
@@ -88,20 +88,20 @@ public class CommentDAO {
 			pstmt.close();
 
 			pstmt = conn.prepareStatement("insert into COMMENTS "
-					+ "(CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_SEQ, CMT_TABLE_NAME) "
-					+ "values (?, ?, ?, sysdate, ?, ?, ?, ?, ?)");
+					+ "(CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ, CMT_BOARD_NAME) "
+					+ "values(?,?,?,sysdate,?,?,?,?,?)");
 
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, cmtdata.getCMT_SUBJECT_NO());
 			pstmt.setString(3, cmtdata.getCMT_WRITER());
 			pstmt.setString(4, cmtdata.getCMT_CONTENT());
-			pstmt.setInt(5, cmtdata.getCMT_NO());
+			pstmt.setInt(5, num);
 			pstmt.setInt(6, 0);
 			pstmt.setInt(7, 0);
-			pstmt.setString(8, "PURCHASEBOARD");
+			pstmt.setString(8, board_name);
 
 			result = pstmt.executeUpdate();
-			
+
 			if (result == 0) {
 				return false;
 			} else {
@@ -110,7 +110,6 @@ public class CommentDAO {
 
 		} catch (Exception e) {
 			System.out.println("CommentInsert에러 : " + e);
-			e.printStackTrace();
 		} finally {
 			if (rset != null) {
 				try {
@@ -135,6 +134,7 @@ public class CommentDAO {
 				}
 
 			}
+		
 
 		}
 
@@ -150,9 +150,9 @@ public class CommentDAO {
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(
-					"select CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_SEQ from "
-							+ "(select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_SEQ "
-							+ "FROM (SELECT * FROM COMMENTS where CMT_SUBJECT_NO = ? order by CMT_NO asc )) "
+					"select CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ from "
+							+ "(select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ "
+							+ "FROM (SELECT * FROM COMMENTS where CMT_SUBJECT_NO = ? order by CMT_RE_REF asc, CMT_RE_SEQ asc )) "
 							+ "where rnum>= ? and rnum<= ? ");
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, startrow);
@@ -165,12 +165,11 @@ public class CommentDAO {
 				cmtList.setCMT_NO(rset.getInt("CMT_NO"));
 				cmtList.setCMT_SUBJECT_NO(rset.getInt("CMT_SUBJECT_NO"));
 				cmtList.setCMT_WRITER(rset.getString("CMT_WRITER"));
-				cmtList.setCMT_DATE(rset.getDate("CMT_DATE"));
-				cmtList.setCMT_VIEW_DATE(rset.getString("CMT_DATE").toString());
 				cmtList.setCMT_CONTENT(rset.getString("CMT_CONTENT"));
+				cmtList.setCMT_DATE(rset.getString("CMT_DATE"));
 				cmtList.setCMT_RE_REF(rset.getInt("CMT_RE_REF"));
 				cmtList.setCMT_RE_LEV(rset.getInt("CMT_RE_LEV"));
-				cmtList.setCMT_SEQ(rset.getInt("CMT_SEQ"));
+				cmtList.setCMT_RE_SEQ(rset.getInt("CMT_RE_SEQ"));
 				list.add(cmtList);
 
 			}
@@ -205,7 +204,7 @@ public class CommentDAO {
 		return null;
 	}
 
-	public CommentBean getDetail(int num) {
+	public CommentBean getDetail(int comment_cmtNO) {
 
 		CommentBean cmtdata = null;
 
@@ -213,7 +212,7 @@ public class CommentDAO {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement("select * from COMMENTS where CMT_NO = ?");
 
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, comment_cmtNO);
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -221,11 +220,11 @@ public class CommentDAO {
 				cmtdata.setCMT_NO(rset.getInt(1));
 				cmtdata.setCMT_SUBJECT_NO(rset.getInt(2));
 				cmtdata.setCMT_WRITER(rset.getString(3));
-				cmtdata.setCMT_DATE(rset.getDate(4));
 				cmtdata.setCMT_CONTENT(rset.getString(5));
+				cmtdata.setCMT_DATE(rset.getString(4));
 				cmtdata.setCMT_RE_REF(rset.getInt(6));
 				cmtdata.setCMT_RE_LEV(rset.getInt(7));
-				cmtdata.setCMT_SEQ(rset.getInt(8));
+				cmtdata.setCMT_RE_SEQ(rset.getInt(8));
 
 			}
 			return cmtdata;
@@ -297,6 +296,138 @@ public class CommentDAO {
 			}
 		}
 		return x;
+	}
+
+	public int cmtDelete(int cmtNum, String board_name) {
+
+		int result = 0;
+
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement("DELETE FROM COMMENTS WHERE CMT_NO = ?");
+			pstmt.setInt(1, cmtNum);
+			//쿼리문 바꿔야지/////////////////////////
+			result = pstmt.executeUpdate();
+
+			if (result == 1) {
+				result = 1;
+			}
+
+		} catch (Exception e) {
+			System.out.println("cmtDelete 에러 " + e);
+		} finally {
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			}
+		}
+		return result;
+
+	}
+
+	public boolean cmtReplyInsert(CommentBean cmtBean, int comment_boardNO, int comment_cmtNO, String board_name) {
+
+		int num = 0;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement("select max(CMT_NO) from COMMENTS");
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				num = rset.getInt(1) + 1; // 최대값보다 1만큼 큰 값 지정
+			} else {
+				num = 1;
+			}
+			
+		
+			rset.close();
+			pstmt.close();
+			
+			pstmt = conn.prepareStatement("update COMMENTS set CMT_RE_SEQ = CMT_RE_SEQ +1 where CMT_RE_REF = ? and CMT_RE_SEQ > ?");
+			pstmt.setInt(1, cmtBean.getCMT_RE_REF());
+			pstmt.setInt(2, cmtBean.getCMT_RE_SEQ());
+			
+			result = pstmt.executeUpdate();
+			
+			pstmt.close();
+
+			pstmt = conn.prepareStatement("insert into COMMENTS "
+					+ "(CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ, CMT_BOARD_NAME) "
+					+ "values(?,?,?,sysdate,?,?,?,?,?)");
+
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, cmtBean.getCMT_SUBJECT_NO());
+			pstmt.setString(3, cmtBean.getCMT_WRITER());
+			pstmt.setString(4, cmtBean.getCMT_CONTENT());
+			if(cmtBean.getCMT_RE_SEQ()==0) {
+			pstmt.setInt(5, comment_cmtNO);
+			}else {
+				pstmt.setInt(5, cmtBean.getCMT_RE_REF());
+				
+			}
+			pstmt.setInt(6, cmtBean.getCMT_RE_LEV() + 1);
+			pstmt.setInt(7, cmtBean.getCMT_RE_SEQ() + 1);
+			pstmt.setString(8, board_name);
+
+			result = pstmt.executeUpdate();
+			
+		
+			if (result == 0) {
+				return false;
+			} else {
+				return true;
+			}
+
+		} catch (Exception e) {
+			System.out.println("cmtReplyInsert에러 : " + e);
+			e.printStackTrace();
+		} finally {
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			}
+
+		}
+
+		return true;
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import com.project101.bean.PurchaseBoardBean;
 
+
 public class PurchaseBoardDAO {
 	DataSource ds;
 	Connection conn;
