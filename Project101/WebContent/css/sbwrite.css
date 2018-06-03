@@ -1,10 +1,115 @@
-table {margin:0 auto; width: 90%; text-align: center; margin-top: 20px; font-family: koverwatch; overflow: auto;}
-nav{height: 40px; background: #e5ffff} 
-tr:first-child{background-color:#A566FF; height: 50px; color: white; letter-spacing: 3px; font-size: 16pt;}
-tr{height: 30px;}
-tr>td:first-child{width:150px; margin-left: 10px; background-color: rgba(205,185,202,0.4);}
-tr>td:nth-child(2n){background-color: rgba(185,245,202,0.4); text-align: left;}
-textarea{resize: none; }
+.sbwrite_ul{
+	margin: 0 auto;
+	width: 70%;
+	font-family: "fontello";
+	border: solid 1px #cdd2d2;
+	border-radius: 10px;
+	padding: 0;
+}
+.write_li{
+	list-style: none;
+	width: 100%;
+	padding: 10px 30px;
+	border-bottom: 1px solid #cdd2d2;
+}
+
+.sbwrite_ul li div{
+	-webkit-box-sizing: border-box;
+  			-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+input[type=text]{
+	display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 16px;
+    box-sizing: border-box;
+    outline: none;
+}
+.header{
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 30px;
+}
+.hashtag, .category, .purchase_date, .price{
+	display: inline-block;
+	width: 49%;
+}
+select{
+	height: 20px;
+}
+textarea{
+	width: 100%;
+	resize: none;
+}
+.btn_li{
+	list-style: none;
+	width: 100%;
+	padding: 10px 30px;
+	text-align: center;
+	font-size: 17pt;
+}
+.write_btn{
+	background:#1AAB8A;
+	color:#fff;
+	border:none;
+	position:relative;
+	height:30px;
+	width: 80px;
+	font-size:10pt;
+	padding:0 2em;
+	cursor:pointer;
+	transition:800ms ease all;
+	outline:none;
+}
+#cancle_btn{
+	background: #D24D57;
+}
+.write_btn:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+#cancle_btn:hover{
+	background: #fff;
+	color: #D24D57;
+}
+.write_btn:before, .write_btn:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+#cancle_btn:before, #cancle_btn:after{
+	background: #D24D57;
+}
+.write_btn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.write_btn:hover:before, .write_btn:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+.sbwrite_ul{
+	margin: 0 auto;
+	width: 85%;
+	font-family: "fontello";
+}
+.sbwrite_ul li{
+	list-style: none;
+}
+
+/* 달력 API */
 .ui-datepicker-calendar>thead tr{
 	height: 40px;
 }
@@ -30,7 +135,4 @@ textarea{resize: none; }
 .uploadcare--widget__dragndrop-area{
 	height: 28px;
 	left: -24px;
-}
-.sbwrite_table tbody tr:nth-child(7){
-	height: 105px;
 }

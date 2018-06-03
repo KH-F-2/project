@@ -8,15 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import com.project101.board.sell.db.ImageBean;
-import com.project101.board.sell.db.ImageDAO;
-import com.project101.board.sell.db.SellBoardBean;
-import com.project101.board.sell.db.SellBoardDAO;
+import com.project101.action.Action;
+import com.project101.action.ActionForward;
+import com.project101.bean.ImageBean;
+import com.project101.dao.ImageDAO;
+import com.project101.dao.SellBoardDAO;
 
 public class SellBoardModifyView implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		
 		ActionForward forward = new ActionForward();
 		
 		SellBoardDAO sellDAO = new SellBoardDAO();

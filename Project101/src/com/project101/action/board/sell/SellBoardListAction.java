@@ -1,16 +1,16 @@
 package com.project101.action.board.sell;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.project101.board.sell.db.SellBoardBean;
-import com.project101.board.sell.db.SellBoardDAO;
-import com.project101.board.sell.db.SellBoardPageBean;
+import com.project101.action.Action;
+import com.project101.action.ActionForward;
+import com.project101.bean.SellBoardBean;
+import com.project101.bean.SellBoardPageBean;
+import com.project101.dao.SellBoardDAO;
 
 public class SellBoardListAction implements Action {
 

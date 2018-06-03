@@ -3,9 +3,9 @@ package com.project101.action.comment;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.project101.action.*;
-import com.project101.bean.*;
-import com.project101.dao.*;
+import com.project101.action.Action;
+import com.project101.action.ActionForward;
+import com.project101.dao.CommentDAO;
 
 public class CommentDeleteAction implements Action {
 
@@ -17,9 +17,9 @@ public class CommentDeleteAction implements Action {
 		CommentDAO commentDAO = new CommentDAO();
 		
 		int cmt_no= Integer.parseInt(request.getParameter("CMT_NO"));
-		int board_no = Integer.parseInt(request.getParameter("BOARD_NO"));
+		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
 		String board_name = request.getParameter("CMT_BOARD_NAME");
-		String url = request.getParameter("URL");
+		String url = request.getParameter("url");
 		
 		int result = commentDAO.commentDelete(cmt_no, board_name);
 		if(result == 0) {
@@ -29,7 +29,7 @@ public class CommentDeleteAction implements Action {
 		ActionForward forward = new ActionForward();
 		
 		forward.setRedirect(false);
-		forward.setPath(url + board_no);
+		forward.setPath(url + CMT_SUBJECT_NO);
 		return forward;
 	}
 

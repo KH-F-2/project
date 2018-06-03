@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.project101.bean.CommentBean;
+
 
 public class CommentDAO {
 	DataSource ds;
@@ -148,7 +150,7 @@ public class CommentDAO {
 						+ "CMT_RE_SEQ, CMT_BOARD_NAME "
 						+ "FROM (SELECT * FROM COMMENTS "
 						+ "where CMT_SUBJECT_NO = ? AND CMT_BOARD_NAME = ? "
-						+ "order by CMT_RE_REF desc, CMT_RE_SEQ asc, CMT_NO desc)) "
+						+ "order by CMT_RE_REF desc, CMT_RE_SEQ asc)) "
 						+ "where rnum >= ? and rnum <= ?";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -209,11 +211,13 @@ public class CommentDAO {
 		CommentBean commentBean = new CommentBean();
 		try {
 			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement("select * from COMMENTS where CMT_NO = ? "
 					+ "and CMT_BOARD_NAME = ?");
 			
 			pstmt.setInt(1, num);
 			pstmt.setString(2, board_name);
+			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -229,7 +233,7 @@ public class CommentDAO {
 				commentBean.setCMT_BOARD_NAME(rset.getString(9));
 			}
 		}catch(Exception e) {
-			System.out.println("reply getDetailAction 에러 :" + e);
+			System.out.println("reply getDetail 에러 :" + e);
 		}finally {
 			if (rset != null) {
 				try {
@@ -337,7 +341,7 @@ public class CommentDAO {
 	
 	
 	
-	public int commentReply(CommentBean commentBean,String board_name) {
+	public boolean commentReply(CommentBean commentBean, String board_name) {
 		int num = 0;
 		try {
 			conn = ds.getConnection();
@@ -352,96 +356,67 @@ public class CommentDAO {
 				num = 1;
 			}
 			
+		
+			rset.close();
+			pstmt.close();
+			
+			pstmt = conn.prepareStatement("update COMMENTS set CMT_RE_SEQ = CMT_RE_SEQ +1 where CMT_RE_REF = ? and CMT_RE_SEQ > ?");
+			pstmt.setInt(1, commentBean.getCMT_RE_REF());
+			pstmt.setInt(2, commentBean.getCMT_RE_SEQ());
+			
+			result = pstmt.executeUpdate();
+			
 			pstmt.close();
 
-			pstmt = conn.prepareStatement("insert into COMMENTS values("
-					+ "?, ?, ?, ?, sysdate, ?, ?, ?, ?)");
+			pstmt = conn.prepareStatement("insert into COMMENTS "
+					+ "(CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_CONTENT, CMT_DATE, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ, CMT_BOARD_NAME) "
+					+ "values(?,?,?,?,sysdate,?,?,?,?)");
 
-			
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, commentBean.getCMT_SUBJECT_NO());
 			pstmt.setString(3, commentBean.getCMT_WRITER());
 			pstmt.setString(4, commentBean.getCMT_CONTENT());
-			pstmt.setInt(5, num);
-			pstmt.setInt(6, 0);
-			pstmt.setInt(7, 0);
-			pstmt.setString(8, BOARD_NAME);
-			
-			pstmt.setInt(1, num);
-			pstmt.setString(2, board.getBOARD_NAME());
-			pstmt.setString(3, board.getBOARD_PASS());
-			pstmt.setString(4, board.getBOARD_SUBJECT());
-			pstmt.setString(5, board.getBOARD_CONTENT());
-			pstmt.setString(6, board.getBOARD_FILE());
-			pstmt.setInt(7, board.getBOARD_RE_REF());
-			pstmt.setInt(8, board.getBOARD_RE_LEV()+1);
-			pstmt.setInt(9, board.getBOARD_RE_SEQ()+1);
+			pstmt.setInt(5, commentBean.getCMT_RE_REF());
+			pstmt.setInt(6, commentBean.getCMT_RE_LEV() + 1);
+			pstmt.setInt(7, commentBean.getCMT_RE_SEQ() + 1);
+			pstmt.setString(8, board_name);
 
 			result = pstmt.executeUpdate();
-			
-			
-		int num=0;
-		String sql="";
-		try {
-			conn=ds.getConnection();
-			
-			sql="select max(board_num) from board";
-			pstmt=conn.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			
-			if(rs.next())
-				num=rs.getInt(1)+1;
-			else
-				num=1;
-			
-			rs.close();
-			pstmt.close();
-			
-			sql="update board "
-				     + "set BOARD_RE_SEQ=BOARD_RE_SEQ + 1 "
-				     + "where BOARD_RE_REF = ? "
-				     + "and BOARD_RE_SEQ > ?";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, board.getBOARD_RE_REF());
-			pstmt.setInt(2, board.getBOARD_RE_SEQ());
-			result=pstmt.executeUpdate();
-			
-			System.out.println(result+"개 게시글 수정 완료");
-			
-			pstmt.close();
-			
-			sql="insert into board "
-				      + "(BOARD_NUM,BOARD_NAME,BOARD_PASS,BOARD_SUBJECT,"
-				      + " BOARD_CONTENT, BOARD_FILE, BOARD_RE_REF,"
-				      + " BOARD_RE_LEV, BOARD_RE_SEQ,"
-				      + " BOARD_READCOUNT,BOARD_DATE) "
-				      + "values(?,?,?,?,?,?,?,?,?,?,sysdate)";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.setString(2, board.getBOARD_NAME());
-			pstmt.setString(3, board.getBOARD_PASS());
-			pstmt.setString(4, board.getBOARD_SUBJECT());
-			pstmt.setString(5, board.getBOARD_CONTENT());
-			pstmt.setString(6, board.getBOARD_FILE());
-			pstmt.setInt(7, board.getBOARD_RE_REF());
-			pstmt.setInt(8, board.getBOARD_RE_LEV()+1);
-			pstmt.setInt(9, board.getBOARD_RE_SEQ()+1);
-			pstmt.setInt(10, 0);
-			
-			pstmt.executeUpdate();
-			
-			return num;
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs!=null)	rs.close();
-				if(pstmt!=null)	pstmt.close();
-				if(conn!=null)		conn.close();
-			}catch(Exception e) {e.printStackTrace();}
-		}
 		
-		return 0;
+			if (result == 0) {
+				return false;
+			} else {
+				return true;
+			}
+
+		} catch (Exception e) {
+			System.out.println("cmtReplyInsert에러 : " + e);
+			e.printStackTrace();
+		} finally {
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+
+		return true;
 	}
 	
 }

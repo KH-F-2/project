@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project101.board.sell.db.ImageBean;
-import com.project101.board.sell.db.ImageDAO;
-import com.project101.board.sell.db.SellBoardBean;
-import com.project101.board.sell.db.SellBoardDAO;
+import com.project101.action.Action;
+import com.project101.action.ActionForward;
+import com.project101.bean.ImageBean;
+import com.project101.bean.SellBoardBean;
+import com.project101.dao.ImageDAO;
+import com.project101.dao.SellBoardDAO;
 
 public class SellBoardModifyAction implements Action {
 

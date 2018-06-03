@@ -12,11 +12,13 @@ $(document).ready(function(){
 			type : "POST",
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			data : data,
-			url : "./sbcommentaddaction.sb?",
+			url : "./sbcommentaddaction.sb",
 			success: function(data){
-				console.log(data);
+				console.log(data.length);
 				$('.comment_view').empty().append(data);
-				$('#comment_count').text($('#comment_count').text()*1+1);
+				if(data.length > 100) {
+					$('#comment_count').text($('#comment_count').text()*1+1);
+				}
 			},
 			error: function() {
 				alert("error");
@@ -68,12 +70,15 @@ function commentDelete(CMT_NO){
    		$.ajax({
 			type : "POST",
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			data : {"BOARD_NO" : SB_NO, "CMT_NO" : CMT_NO, "URL" : "sbview.sb?ajax=", 
+			data : {"CMT_SUBJECT_NO" : SB_NO, "CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax=", 
 				"CMT_BOARD_NAME" : "SELL_BOARD"},
-			url : "./cmtdelete.cmt?",
+			url : "./cmtdelete.cmt",
 			success: function(data){
+				console.log(data.length)
 				$('.comment_view').empty().append(data);
-				$('.comment_count').text($('.comment_count').text()*1-1);
+				if(data.length > 5){
+					$('#comment_count').text($('#comment_count').text()*1-1);
+				}
 			},
 			error: function() {
 				alert("error");
@@ -88,10 +93,10 @@ function replyView(CMT_NO){
 	$.ajax({
 		type : "POST",
 		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+		data : {"CMT_NO" : CMT_NO},
 		url : "./sellboard/sbcommentreply.jsp",
 		success: function(data){
 			console.log(data);
-			console.log(CMT_NO);
 			$('.reply').empty();
 			$('.reply').css("display", "none");
 			$('.r'+CMT_NO).append(data);
@@ -105,41 +110,25 @@ function replyView(CMT_NO){
 
 function commentReply(CMT_NO){
 	var content=$('#comment_reply_content').val();
-	var writer=$('#SB_WRITER').val();
 	var SB_NO=$('#SB_NO').val();
-	var data={"writer" : writer, "content" : content, "SB_NO" : SB_NO, "CMT_BOARD_NAME" : "SELL_BOARD", 
-				"CMT_NO" : CMT_NO};
+	var data={"CMT_CONTENT" : content, "CMT_SUBJECT_NO" : SB_NO, "CMT_BOARD_NAME" : "SELL_BOARD", 
+				"CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax="};
 	
-	
-	alert('댓댓글 입력!\n'+content);
-	/*$.ajax({
+	$.ajax({
 		type : "POST",
 		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-		data : {"BOARD_NO" : SB_NO, "CMT_NO" : CMT_NO, "URL" : "sbview.sb?ajax=", 
-			"CMT_BOARD_NAME" : "SELL_BOARD"},
-		url : "./cmtreply.cmt?",
+		data : data,
+		url : "./cmtreply.cmt",
 		success: function(data){
 			$('.comment_view').empty().append(data);
-			$('.comment_count').text($('.comment_count').text()*1-1);
+			if(data.length > 100){
+				$('#comment_count').text($('#comment_count').text()*1+1);
+			}
 		},
 		error: function() {
 			alert("error");
 		}
-	});*/
-	/*$.ajax({
-		type : "POST",
-		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-		data : {"BOARD_NO" : SB_NO, "CMT_NO" : CMT_NO, "URL" : "sbview.sb?ajax=", 
-			"CMT_BOARD_NAME" : "SELL_BOARD"},
-		url : "./cmtreply.cmt?",
-		success: function(data){
-			$('.comment_view').empty().append(data);
-			$('.comment_count').text($('.comment_count').text()*1-1);
-		},
-		error: function() {
-			alert("error");
-		}
-	});*/
+	});
 }
 
 // 댓글입력창 글자수 카운팅

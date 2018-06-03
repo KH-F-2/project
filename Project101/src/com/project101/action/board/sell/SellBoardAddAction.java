@@ -30,7 +30,7 @@ public class SellBoardAddAction implements Action {
 		HttpSession session = request.getSession();
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = format.parse(request.getParameter("SB_PDATE"));
+		java.util.Date date = format.parse(request.getParameter("SB_PURCHASE_DATE"));
 
 		long date2 = date.getTime();
 		Date pdate = new Date(date2);

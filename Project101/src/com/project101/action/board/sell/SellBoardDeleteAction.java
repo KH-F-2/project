@@ -1,10 +1,13 @@
 package com.project101.action.board.sell;
 
-import java.io.*;
+import java.io.PrintWriter;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import com.project101.board.sell.db.*;
+import com.project101.action.Action;
+import com.project101.action.ActionForward;
+import com.project101.dao.SellBoardDAO;
 
 public class SellBoardDeleteAction implements Action{
 

@@ -8,20 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import com.project101.comment.db.*;
-
-import com.project101.board.sell.db.ImageBean;
-import com.project101.board.sell.db.ImageDAO;
-import com.project101.board.sell.db.SellBoardBean;
-import com.project101.board.sell.db.SellBoardDAO;
-import com.project101.board.sell.db.SellBoardPageBean;
+import com.project101.action.Action;
+import com.project101.action.ActionForward;
+import com.project101.bean.CommentBean;
+import com.project101.bean.ImageBean;
+import com.project101.bean.SellBoardPageBean;
+import com.project101.dao.CommentDAO;
+import com.project101.dao.ImageDAO;
+import com.project101.dao.SellBoardDAO;
 
 public class SellBoardDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=euc-kr");
-		request.setCharacterEncoding("euc-kr");
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
 		ActionForward forward = new ActionForward();
 		JSONObject boardBean = new JSONObject();

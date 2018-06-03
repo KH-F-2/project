@@ -28,7 +28,106 @@
         <link href="css/sbview.css" rel="stylesheet" type="text/css">
 	</head>
 		<body>
-			<table class="main_table">
+			<ul class="sbview_ul">
+			
+				<li class="sbview_li 1">
+					<div class="title">
+						${boardBean.SB_TITLE}
+					</div>
+					<div class="date">
+						글번호 ${boardBean.SB_NO}<input type="hidden" id="SB_NO" value="${boardBean.SB_NO}"><br>
+						등록 ${boardBean.SB_DATE}
+					</div>
+				</li>
+				
+				<li class="sbview_li 2">
+					<div class="category">
+						[${boardBean.SB_CATEGORY}]
+					</div>
+					<div class="hashtag">
+						${boardBean.SB_HASHTAG}
+					</div>
+					<div class="pdate">
+						구입일 ${boardBean.SB_PURCHASE_DATE }
+					</div>
+					
+					<div class="writer">
+						${boardBean.SB_WRITER}
+						<input type="hidden" id="SB_WRITER" value="${boardBean.SB_WRITER}">
+					</div>
+					
+					<div class="price">${boardBean.SB_PRICE } 원</div>
+					
+					
+				</li>
+				
+				<li class="sbview_li 3">
+					<div class="lat_lng">
+						위도 ${boardBean.SB_LAT}
+						경도 ${boardBean.SB_LNG}
+					</div>
+					
+				</li>
+			
+				<li class="sbview_li_last 4">
+					<div class="image">
+						<c:if test="${imageBeanList.size()>0}">
+							<div class="slideshow-container">
+								<c:forEach var="image" items="${imageBeanList}" varStatus="i">
+									<div class="mySlides fade">
+										<div class="numbertext">${i.index+1} / ${imageBeanList.size()}</div>
+										<img src="${image.IMAGE_URL}" class="img_slide">
+									</div>
+								</c:forEach>
+								<a class="prev" onclick="plusSlides(-1)" style="left:-45px;">&#10094;</a>
+								<a class="next" onclick="plusSlides(1)">&#10095;</a>
+								
+								<div style="text-align:center" class="dot_div">
+									<c:forEach var="image" items="${imageBeanList}" varStatus="i">
+										<span class="dot" onclick="currentSlide(${i.index+1})"></span> 
+									</c:forEach>
+								</div>
+							</div>
+							<script>
+								function plusSlides(n) {
+						     		showSlides(slideIndex += n);
+						     	}
+	
+						     	// Thumbnail image controls
+						     	function currentSlide(n) {
+						     		showSlides(slideIndex = n);
+						     	}
+						     	var slideIndex = 1;
+						     	showSlides(slideIndex);
+						     	function showSlides(n) {
+						 			var i;
+						 			var slides = document.getElementsByClassName("mySlides");
+						 			var dots = document.getElementsByClassName("dot");
+						 			if (n > slides.length) {slideIndex = 1} 
+						 			if (n < 1) {slideIndex = slides.length}
+						 			for (i = 0; i < slides.length; i++) {
+						 			    slides[i].style.display = "none"; 
+						 			}
+						 			for (i = 0; i < dots.length; i++) {
+						 			    dots[i].className = dots[i].className.replace(" active", "");
+						 			}
+						 			slides[slideIndex-1].style.display = "block";
+						 			dots[slideIndex-1].className += " active";
+						     	}
+							</script>
+						</c:if>
+					</div>
+					
+					<div class="content">
+						${boardBean.SB_CONTENT }
+					</div>
+				</li>
+				
+				
+			</ul>
+			
+			
+			<%-- <table class="main_table">
 				<tr>
 					<td colspan="2">
 						<div class="titlebar">
@@ -126,7 +225,8 @@
 						</div>
 					</td>
 				</tr>
-			</table>
+			</table> --%>
+			
 			<div class="menu_bar">
 				<ul>
 					<li>
@@ -163,7 +263,8 @@
 				<ul class="comment_view">
 					<c:if test="${b_p.listcount>0}">
 						<c:forEach var="comment" items="${b_p.commentBeanList}" varStatus="i">
-							<li id="${comment.CMT_WRITER}" class="comment_li">
+							<li id="${comment.CMT_WRITER}" class="comment_li" 
+								style="padding-left:${comment.CMT_RE_LEV*3}%">
 								<div class="comment_top">
 									<span class="comment_writer">${comment.CMT_WRITER}</span>
 									<span class="comment_date">${comment.CMT_DATE}</span>
