@@ -159,7 +159,49 @@ public class SellBoardDAO {
 		
 		return null;
 	}	// getBoardList() ----------
-
+	
+	
+	public List<SellBoardBean> getBoardList(int page, int limit, String SB_WRITER) {
+		List<SellBoardBean> list=new ArrayList<SellBoardBean>();
+		int startrow=(page-1)*limit+1;
+		int endrow=startrow+limit-1;
+		try {
+			conn=ds.getConnection();
+			String sql="select * from "
+					+ "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
+					+ "SB_READCOUNT, SB_DATE from "
+					+ "(select * from SELL_BOARD  WHERE SB_WRITER = ? order by SB_NO desc)) "
+					+ " where rnum>=? and rnum<=? ";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, SB_WRITER);
+			pstmt.setInt(2, startrow);
+			pstmt.setInt(3, endrow);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				SellBoardBean boardBean=new SellBoardBean();
+				boardBean.setSB_NO(rset.getInt("SB_NO"));
+				boardBean.setSB_WRITER(rset.getString("SB_WRITER"));
+				boardBean.setSB_TITLE(rset.getString("SB_TITLE"));
+				boardBean.setSB_DATE(rset.getDate("SB_DATE"));
+				boardBean.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
+				list.add(boardBean);
+			}
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				try {
+					if(pstmt!=null)	pstmt.close();
+					if(conn!=null)		conn.close();
+					if(rset!=null)		rset.close();
+				}catch(Exception e) {e.printStackTrace();}
+			}
+		
+		return list;
+	}	// getBoardList() ----------
+	
 
 	public void setReadCountUpdate(int num) {
 		String sql="";
