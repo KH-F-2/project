@@ -79,8 +79,8 @@ public class FrontController extends HttpServlet {
 				forward.setRedirect(false);
 				forward.setPath("/member/emailCheck.jsp");
 			
-			}else if(command.equals("/sellerpage/sellerpage_main.seller")) {
-//		        action = new listAddAction();
+			}else if(command.equals("/sellerpage_main.me")) {
+				action = new listAddAction();
 		        try {
 		           forward = action.execute(request, response);
 		        }catch(Exception e) {
