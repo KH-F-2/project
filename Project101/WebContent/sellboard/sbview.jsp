@@ -11,8 +11,13 @@
 		<!-- Icon link -->
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		
+		<!-- 지도 API -->
+        <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
+		
         <script type="text/javascript">
 			var id='${sessionScope.id}';
+			var sb_lat = ${boardBean.SB_LAT};
+			var sb_lng = ${boardBean.SB_LNG};
 				function deleteConfirm(){
 				   	ans=confirm("삭제하시겠습니까?");
 				   	if(ans){
@@ -61,11 +66,7 @@
 				</li>
 				
 				<li class="sbview_li 3">
-					<div class="lat_lng">
-						위도 ${boardBean.SB_LAT}
-						경도 ${boardBean.SB_LNG}
-					</div>
-					
+					<div id="map"></div>
 				</li>
 			
 				<li class="sbview_li_last 4">

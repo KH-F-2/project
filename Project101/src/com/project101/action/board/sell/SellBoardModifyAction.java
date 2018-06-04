@@ -40,26 +40,26 @@ public class SellBoardModifyAction implements Action {
 		boardBean.setSB_CONTENT(request.getParameter("SB_CONTENT"));
 		boardBean.setSB_PURCHASE_DATE(pdate);
 		boardBean.setSB_PRICE(Integer.parseInt(request.getParameter("SB_PRICE").toString()));
-		boardBean.setSB_LAT(0);
-		boardBean.setSB_LNG(0);
+		boardBean.setSB_LAT(Double.parseDouble(request.getParameter("markerLat")));
+		boardBean.setSB_LNG(Double.parseDouble(request.getParameter("markerLng")));
 		boardBean.setSB_CATEGORY(Integer.parseInt(request.getParameter("SB_CATEGORY")));
 		boardBean.setSB_HASHTAG(request.getParameter("SB_HASHTAG"));
 
 		int result = sellDAO.boardModify(boardBean);
 		PrintWriter out = response.getWriter();
+		
+		// 이미지 insert
+		String tableName = "SELL_BOARD";
+		String url = request.getParameter("img_hidden");
+		imageBean.setBOARD_NO(num);
+		imageBean.setIMAGE_URL(url);
+		
+		int result2 = imageDAO.imageModify(imageBean, tableName);
+		if (result2 == 0) {
+			System.out.println("image modify fail!");
+		}
 
-		if (result == 1) {
-			if (!request.getParameter("img_hidden").equals("")) {
-				String tableName = "SELL_BOARD";
-				imageDAO.imageDelete(num, tableName);
-				String[] url = request.getParameter("img_hidden").split(" ");
-				imageBean.setBOARD_NO(num);
-				
-				for (String imageurl : url) {
-					imageBean.setIMAGE_URL(imageurl);
-					imageDAO.imageInsert(imageBean, tableName);
-				}
-			}
+		if (result == 1 && result2 == 1) {
 			out.println("<script> alert('게시판 수정 성공!'); location.href='./sbview.sb?num=" + num + "';</script>");
 		} else {
 			out.println("<script> alert('게시판 수정 실패!'); history.back();</script>");

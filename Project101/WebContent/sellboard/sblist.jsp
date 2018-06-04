@@ -24,8 +24,37 @@
 	        });
         </script>
 		<link href="css/sblist.css" rel="stylesheet" type="text/css">
+		<style>
+			.map{width: 100%; background-color: silver; height: 300px}
+		</style>
 	</head>
 	<body>
+		<%-- <c:set var="b_p" value="${boardPageBean }"/>
+		<h1>판매 게시판</h1>
+		<div class="map">지도~</div>
+		
+		<div class="write"><button type="button">글쓰기</button></div>
+		<c:set var="num" value="${b_p.listcount-(b_p.page-1)*b_p.limit }"/>
+		
+		<c:forEach var="boardBean" items="${b_p.boardBeanList }">
+			<div class="content">
+				
+			</div>
+			<tr>
+				<td width="8%">
+					<c:out value="${num }"/>
+					<c:set var="num" value="${num-1 }"/>
+				</td>
+				<td width="50%" align="left">
+					&nbsp;<a href="./sbview.sb?num=${boardBean.SB_NO }">
+						${boardBean.SB_TITLE }
+					</a>
+				</td>
+				<td width="14%">${boardBean.SB_WRITER }</td>
+				<td width="17%">${boardBean.SB_DATE }</td>
+				<td width="11%">${boardBean.SB_READCOUNT }</td>
+			</tr>
+		</c:forEach> --%>
 		<c:set var="b_p" value="${boardPageBean }"/>
 		<table class="sellboard_table">
 			<c:if test="${b_p.listcount>=1}">

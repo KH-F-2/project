@@ -43,28 +43,35 @@ public class SellBoardAddAction implements Action {
 		boardBean.setSB_CONTENT(request.getParameter("SB_CONTENT"));
 		boardBean.setSB_PURCHASE_DATE(pdate);
 		boardBean.setSB_PRICE(Integer.parseInt(request.getParameter("SB_PRICE").toString()));
-		boardBean.setSB_LAT(0);
-		boardBean.setSB_LNG(0);
+		boardBean.setSB_LAT(Double.parseDouble(request.getParameter("markerLat")));
+		boardBean.setSB_LNG(Double.parseDouble(request.getParameter("markerLng")));
 		boardBean.setSB_CATEGORY(Integer.parseInt(request.getParameter("SB_CATEGORY")));
 		boardBean.setSB_HASHTAG(request.getParameter("SB_HASHTAG"));
 		
 		int result = sellDAO.boardInsert(boardBean);
 
-		// 이미지 있으면 IMAGE 테이블 insert
-		if (!request.getParameter("img_hidden").equals("")) {
-			String tableName = "SELL_BOARD";
-			String[] url = request.getParameter("img_hidden").split(" ");
-			imageBean.setBOARD_NO(BOARD_NO);
-
-			for (String imageurl : url) {
-				imageBean.setIMAGE_URL(imageurl);
-				int result2 = imageDAO.imageInsert(imageBean, tableName);
-
-				if (result2 == 0) {
-					System.out.println("image insert fail!");
-				}
-			}
+		// 이미지 insert
+		String tableName = "SELL_BOARD";
+		String url = request.getParameter("img_hidden");
+		imageBean.setBOARD_NO(BOARD_NO);
+		imageBean.setIMAGE_URL(url);
+		
+		int result2 = imageDAO.imageInsert(imageBean, tableName);
+		if (result2 == 0) {
+			System.out.println("image insert fail!");
 		}
+		/*String tableName = "SELL_BOARD";
+		String[] url = request.getParameter("img_hidden").split(" ");
+		imageBean.setBOARD_NO(BOARD_NO);
+
+		for (String imageurl : url) {
+			imageBean.setIMAGE_URL(imageurl);
+			int result2 = imageDAO.imageInsert(imageBean, tableName);
+
+			if (result2 == 0) {
+				System.out.println("image insert fail!");
+			}
+		}*/
 
 		if (result == 1) {
 			out.println("<script> alert('게시판 등록 성공!'); location.href='./sbview.sb?num=" + BOARD_NO+ "';</script>");

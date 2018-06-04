@@ -98,4 +98,5 @@ public class SellBoardPageBean {
 		this.endpage = endpage;
 	}
 
+
 }

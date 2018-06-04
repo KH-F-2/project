@@ -33,6 +33,7 @@ public class SellBoardDetailAction implements Action {
 		
 		
 		List<ImageBean> imageBeanList = new ArrayList<ImageBean>();
+		ImageBean imageBean = new ImageBean();
 		List<CommentBean> commentBeanList = new ArrayList<CommentBean>();
 		
 		int num = 0;
@@ -51,8 +52,15 @@ public class SellBoardDetailAction implements Action {
 		}
 		
 		
-		imageBeanList = imageDAO.getImage(num, BOARD_NAME);
+		imageBean = imageDAO.getImage(num, BOARD_NAME);
 		commentBeanList = commentDAO.getCmtList(num, page, limit, BOARD_NAME);
+		
+		String[] url = imageBean.getIMAGE_URL().split(" ");
+		for (String imageurl : url) {
+			ImageBean imageBean2 = new ImageBean();
+			imageBean2.setIMAGE_URL(imageurl);
+			imageBeanList.add(imageBean2);
+		}
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		int startpage = ((page - 1) / limit) * limit + 1;

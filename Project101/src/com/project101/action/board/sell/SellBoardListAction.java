@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
+import com.project101.bean.ImageBean;
 import com.project101.bean.SellBoardBean;
 import com.project101.bean.SellBoardPageBean;
 import com.project101.dao.SellBoardDAO;
@@ -24,6 +25,7 @@ public class SellBoardListAction implements Action {
 		SellBoardDAO sellDAO = new SellBoardDAO();
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
 		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
+		List<ImageBean> imageBeanList = new ArrayList<ImageBean>();
 
 		/*String searchWord = boardPageBean.getSearchWord();
 		String searchItem = boardPageBean.getSearchItem();*/
@@ -57,6 +59,7 @@ public class SellBoardListAction implements Action {
 			boardBeanlist = sellDAO.getBoardList(page, limit);
 		}*/
 		boardBeanlist = sellDAO.getBoardList(page, limit);
+		/*imageBeanList*/
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		int startpage = ((page - 1) / limit) * limit + 1;

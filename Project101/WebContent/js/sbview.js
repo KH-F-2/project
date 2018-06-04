@@ -184,3 +184,21 @@ function chkword(obj, maxByte) {
        chkword(obj, 4000);
    }
 }
+
+function initMap() {
+	var centerLocation = {
+		lat : sb_lat,
+		lng : sb_lng
+	};
+	console.log(centerLocation)
+
+	map = new google.maps.Map(document.getElementById('map'), {
+		zoom : 17,
+		center : centerLocation
+	});
+	
+	marker = new google.maps.Marker({
+		position : centerLocation,
+		map : map
+	});
+}

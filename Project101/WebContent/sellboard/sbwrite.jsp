@@ -13,6 +13,9 @@
 		
 		<!-- 이미지 업로드 API -->
         <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
+        
+        <!-- 지도 API -->
+        <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
 
         <script src="js/sbwrite.js"></script>
         <link href="css/sbwrite.css" rel="stylesheet" type="text/css">
@@ -42,11 +45,24 @@
 				});
 			}); */
 		</script>
+		<style>
+			
+		</style>
 	</head>
 	<body>	
 		<div class="header"><h1>판매게시판 글쓰기</h1></div>
 		<form action="./sbwriteaction.sb" method="post" id="write_submit">
 			<ul class="sbwrite_ul">
+				
+				<li class="write_li">
+					<div id="locationField">
+						<input type="text" placeholder="검색할 장소를 입력하세요." id="autocomplete">
+					</div>
+					<div id="map"></div>
+					<input type="hidden" name="markerLat" id="markerLat">
+					<input type="hidden" name="markerLng" id="markerLng">
+				</li>
+			
 				<li class="write_li">
 					<div class="title">
 						<input name="SB_TITLE" type="text" size="50" maxlength="100" placeholder="제목을 입력하세요">
