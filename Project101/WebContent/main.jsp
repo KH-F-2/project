@@ -23,6 +23,10 @@
 
 <div id="map"></div>
 
+<div id="chkBtnDiv">
+	<input type="button" id="checkCurrentPosition" value="현재위치에서 조회">
+</div>
+
 <div id="container">
 	<div class="content">
 		<img src="./image/koala.jpg">

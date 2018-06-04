@@ -33,15 +33,16 @@ public class MapDAO {
 
 	public JSONArray getMarkers(double startLat, double startLng, double endLat, double endLng) {
 		JSONArray array = new JSONArray();
+
 		try {
 			conn = ds.getConnection();
-			String sql = "select * from sell_board where SB_LAT between ? and ?";
+			String sql = "select * from (select * from sell_board where SB_LAT between ? and ?) where SB_LNG between ? and ?";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setDouble(1, startLat);
 			pstmt.setDouble(2, endLat);
-//			pstmt.setDouble(3, startLng);
-//			pstmt.setDouble(4, endLng);
+			pstmt.setDouble(3, startLng);
+			pstmt.setDouble(4, endLng);
 
 			rset = pstmt.executeQuery();
 
