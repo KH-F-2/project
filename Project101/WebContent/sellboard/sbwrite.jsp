@@ -6,7 +6,6 @@
 	<head>
 		<title>Insert title here</title>
 		
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 		<!-- 달력 API -->
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">

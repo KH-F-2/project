@@ -6,6 +6,7 @@
 	border-radius: 10px;
 	padding: 0;
 	min-height: 800px;
+	position: relative;
 }
 .sbview_li{
 	list-style: none;
@@ -58,6 +59,24 @@
 	display: inline-block;
 	color: #007ee6;
 	font-weight: bold;
+}
+.btn_li{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+#trade{
+	background: #1AAB8A;
+    color: #fff;
+    border: none;
+    height: 30px;
+    font-size: 9pt;
+    width: 80px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
 }
 .menu_bar{
 	text-align: right;

@@ -23,7 +23,7 @@ public class SellBoardModifyAction implements Action {
 		request.setCharacterEncoding("utf-8");
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = format.parse(request.getParameter("SB_PDATE"));
+		java.util.Date date = format.parse(request.getParameter("SB_PURCHASE_DATE"));
 		Date pdate = new Date(date.getTime());
 
 		SellBoardDAO sellDAO = new SellBoardDAO();

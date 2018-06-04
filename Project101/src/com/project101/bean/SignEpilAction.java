@@ -12,22 +12,21 @@ import com.project101.dao.EpilDAO;
 public class SignEpilAction implements Action {
 
 	@Override
-	public ActionForward execute(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-			
-	      
-	      EpilDAO epDAO = new EpilDAO();
-	      String id = request.getParameter("writer");
-		  ArrayList<Epil> list = epDAO.getEpilList(id);
-		  request.setAttribute("list", list);
-	      
-	    	  forward.setPath("./member/signepil.jsp");
-	    	  forward.setRedirect(false);
-	    	  return forward;
-	      
+
+		EpilDAO epDAO = new EpilDAO();
+		String name = request.getParameter("name");
+		ArrayList<Epil> list = epDAO.getEpilList(name);
+		request.setAttribute("list", list);
+		
+		request.setAttribute("name", name);
+
+		forward.setPath("./member/signepil.jsp");
+		forward.setRedirect(false);
+		return forward;
 
 	}
 }

@@ -3,6 +3,7 @@ package com.project101.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,9 +38,9 @@ public class SellBoardDAO {
 	public int getListCount() {
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = "SELECT COUNT(*) FROM SELL_BOARD";
-			
+
 			pstmt = conn.prepareStatement(sql);
 
 			rset = pstmt.executeQuery();
@@ -71,9 +72,9 @@ public class SellBoardDAO {
 		int num = 0;
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = "select max(SB_NO) from SELL_BOARD";
-			
+
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
@@ -103,16 +104,16 @@ public class SellBoardDAO {
 	}
 
 	public int boardInsert(SellBoardBean boardBean) {
+		int num = 0;
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = "insert into SELL_BOARD " + "(SB_NO, SB_WRITER, SB_PURCHASE_DATE, SB_TITLE, "
 					+ "SB_CONTENT, SB_PRICE, SB_DATE, SB_READCOUNT, SB_LAT, SB_LNG, SB_STATE, "
-					+ "SB_CATEGORY, SB_HASHTAG) "
-					+ "values(?, ?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?, ?, ?)";
-			
+					+ "SB_CATEGORY, SB_HASHTAG) " + "values(?, ?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?, ?, ?)";
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, boardBean.getSB_NO());
 			pstmt.setString(2, boardBean.getSB_WRITER());
 			pstmt.setDate(3, boardBean.getSB_PURCHASE_DATE());
@@ -120,13 +121,40 @@ public class SellBoardDAO {
 			pstmt.setString(5, boardBean.getSB_CONTENT());
 			pstmt.setInt(6, boardBean.getSB_PRICE());
 			pstmt.setInt(7, 0);
-			pstmt.setInt(8, boardBean.getSB_LAT());
-			pstmt.setInt(9, boardBean.getSB_LNG());
+			pstmt.setDouble(8, boardBean.getSB_LAT());
+			pstmt.setDouble(9, boardBean.getSB_LNG());
 			pstmt.setInt(10, 0);
 			pstmt.setInt(11, boardBean.getSB_CATEGORY());
 			pstmt.setString(12, boardBean.getSB_HASHTAG());
 
 			result = pstmt.executeUpdate();
+			
+			// insert 성공시 history 도 insert
+			if(result == 1) {
+				pstmt.close();
+				
+				pstmt = conn.prepareStatement("select max(SH_NO) from SELL_HISTORY");
+				rset = pstmt.executeQuery();
+
+				if (rset.next()) {
+					num = rset.getInt(1) + 1;
+				} else {
+					num = 1;
+				}
+				
+				rset.close();
+				pstmt.close();
+				
+				pstmt = conn.prepareStatement("insert into SELL_HISTORY (SH_NO, SH_BOARD_NO, "
+						+ "SH_MEMBER, SH_DATE, SH_STATE) values("
+						+ "?, ?, ?, sysdate, 0)");
+				
+				pstmt.setInt(1, num);
+				pstmt.setInt(2, boardBean.getSB_NO());
+				pstmt.setString(3, boardBean.getSB_WRITER());
+				
+				pstmt.executeUpdate();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -153,13 +181,13 @@ public class SellBoardDAO {
 		int endrow = startrow + limit - 1;
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = "select * from " + "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
-					+ "SB_READCOUNT, SB_DATE from " + "(select * from SELL_BOARD order by SB_NO desc)) "
+					+ "SB_READCOUNT, SB_DATE, SB_LAT, SB_LNG from " + "(select * from SELL_BOARD order by SB_NO desc)) "
 					+ "where rnum>=? and rnum<=?";
-			
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, startrow);
 			pstmt.setInt(2, endrow);
 
@@ -172,6 +200,8 @@ public class SellBoardDAO {
 				boardBean.setSB_TITLE(rset.getString("SB_TITLE"));
 				boardBean.setSB_DATE(rset.getDate("SB_DATE"));
 				boardBean.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
+				boardBean.setSB_LAT(rset.getDouble("SB_LAT"));
+				boardBean.setSB_LNG(rset.getDouble("SB_LNG"));
 				boardBeanList.add(boardBean);
 			}
 		} catch (Exception e) {
@@ -193,28 +223,26 @@ public class SellBoardDAO {
 		}
 		return boardBeanList;
 	} // getBoardList() ----------
-	
-	
+
 	public List<SellBoardBean> getBoardList(int page, int limit, String SB_WRITER) {
-		List<SellBoardBean> list=new ArrayList<SellBoardBean>();
-		int startrow=(page-1)*limit+1;
-		int endrow=startrow+limit-1;
+		List<SellBoardBean> list = new ArrayList<SellBoardBean>();
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
 		try {
-			conn=ds.getConnection();
-			String sql="select * from "
-					+ "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
+			conn = ds.getConnection();
+			String sql = "select * from " + "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
 					+ "SB_READCOUNT, SB_DATE from "
 					+ "(select * from SELL_BOARD  WHERE SB_WRITER = ? order by SB_NO desc)) "
 					+ " where rnum>=? and rnum<=? ";
-			pstmt=conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, SB_WRITER);
 			pstmt.setInt(2, startrow);
 			pstmt.setInt(3, endrow);
-			
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				SellBoardBean boardBean=new SellBoardBean();
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				SellBoardBean boardBean = new SellBoardBean();
 				boardBean.setSB_NO(rset.getInt("SB_NO"));
 				boardBean.setSB_WRITER(rset.getString("SB_WRITER"));
 				boardBean.setSB_TITLE(rset.getString("SB_TITLE"));
@@ -222,29 +250,67 @@ public class SellBoardDAO {
 				boardBean.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
 				list.add(boardBean);
 			}
-			
-			}catch(Exception e){
-				e.printStackTrace();
-			}finally{
-				try {
-					if(pstmt!=null)	pstmt.close();
-					if(conn!=null)		conn.close();
-					if(rset!=null)		rset.close();
-				}catch(Exception e) {e.printStackTrace();}
-			}
-		
-		return list;
-	}	// getBoardList() ----------
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+				if (rset != null)
+					rset.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return list;
+	} // getBoardList() ----------
+
+	public int getListCount(String SB_WRITER) {
+		int x = 0;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement("select count(*) from sell_board where SB_WRITER = ? ");
+			pstmt.setString(1, SB_WRITER);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				x = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			System.out.println("getListCount()에러: ");
+			e.printStackTrace();
+		} finally {
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+
+		}
+		return x;
+	}
 
 	public void setReadCountUpdate(int num) {
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = "update SELL_BOARD set SB_READCOUNT=SB_READCOUNT+1 where SB_NO=?";
-			
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -270,13 +336,12 @@ public class SellBoardDAO {
 		JSONObject obj = new JSONObject();
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = "select * from SELL_BOARD inner join CATEGORY "
-					+ "ON SELL_BOARD.SB_CATEGORY = CATEGORY.CATEGORY_ID "
-					+ "WHERE SELL_BOARD.SB_NO=?";
-			
+					+ "ON SELL_BOARD.SB_CATEGORY = CATEGORY.CATEGORY_ID " + "WHERE SELL_BOARD.SB_NO=?";
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, num);
 
 			rset = pstmt.executeQuery();
@@ -290,8 +355,8 @@ public class SellBoardDAO {
 				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
 				obj.put("SB_DATE", rset.getDate("SB_DATE"));
 				obj.put("SB_READCOUNT", rset.getInt("SB_READCOUNT"));
-				obj.put("SB_LAT", rset.getInt("SB_LAT"));
-				obj.put("SB_LNG", rset.getInt("SB_LNG"));
+				obj.put("SB_LAT", rset.getDouble("SB_LAT"));
+				obj.put("SB_LNG", rset.getDouble("SB_LNG"));
 				obj.put("SB_STATE", rset.getInt("SB_STATE"));
 				obj.put("SB_CATEGORY", rset.getString("CATEGORY_NAME"));
 				obj.put("SB_HASHTAG", rset.getString("SB_HASHTAG"));
@@ -319,11 +384,11 @@ public class SellBoardDAO {
 	public int boardDelete(int num) {
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = "delete from SELL_BOARD where SB_NO=?";
-			
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, num);
 
 			int result = pstmt.executeUpdate();
@@ -356,20 +421,19 @@ public class SellBoardDAO {
 	public int boardModify(SellBoardBean boardBean) {
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = "update SELL_BOARD " + "set SB_WRITER=?, SB_PURCHASE_DATE=?, SB_TITLE=?, SB_CONTENT=?, "
-					+ "SB_PRICE=?, SB_LAT=?, SB_LNG=?, SB_CATEGORY=?, SB_HASHTAG=? "
-					+ "where SB_NO=?";
-			
+					+ "SB_PRICE=?, SB_LAT=?, SB_LNG=?, SB_CATEGORY=?, SB_HASHTAG=? " + "where SB_NO=?";
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, boardBean.getSB_WRITER());
 			pstmt.setDate(2, boardBean.getSB_PURCHASE_DATE());
 			pstmt.setString(3, boardBean.getSB_TITLE());
 			pstmt.setString(4, boardBean.getSB_CONTENT());
 			pstmt.setInt(5, boardBean.getSB_PRICE());
-			pstmt.setInt(6, boardBean.getSB_LAT());
-			pstmt.setInt(7, boardBean.getSB_LNG());
+			pstmt.setDouble(6, boardBean.getSB_LAT());
+			pstmt.setDouble(7, boardBean.getSB_LNG());
 			pstmt.setInt(8, boardBean.getSB_CATEGORY());
 			pstmt.setString(9, boardBean.getSB_HASHTAG());
 			pstmt.setInt(10, boardBean.getSB_NO());
@@ -405,12 +469,13 @@ public class SellBoardDAO {
 		String contentStr = "%" + content + "%";
 		try {
 			conn = ds.getConnection();
-			
+
 			StringBuffer sb = new StringBuffer();
-			
-			sb.append("select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, " + "SB_READCOUNT, SB_DATE from "
+
+			sb.append("select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
+					+ "SB_READCOUNT, SB_DATE, SB_LAT, SB_LNG from "
 					+ "(select * from SELL_BOARD where ");
-			
+
 			if (item.equals("title")) {
 				sb.append("SB_TITLE LIKE ? ");
 			} else if (item.equals("content")) {
@@ -419,11 +484,11 @@ public class SellBoardDAO {
 				sb.append("SB_TITLE LIKE ? OR SB_CONTENT LIKE ? ");
 			}
 			sb.append("order by SB_NO desc)");
-			
+
 			pstmt = conn.prepareStatement(sb.toString());
-			
+
 			pstmt.setString(1, contentStr);
-			
+
 			if (item.equals("title_content")) {
 				pstmt.setString(2, contentStr);
 			}
@@ -441,9 +506,9 @@ public class SellBoardDAO {
 			sb.append(") where rnum>=? and rnum<=?");
 
 			pstmt = conn.prepareStatement(sb.toString());
-			
+
 			pstmt.setString(1, contentStr);
-			
+
 			if (item.equals("title_content")) {
 				pstmt.setString(2, contentStr);
 				pstmt.setInt(3, startrow);
@@ -455,13 +520,15 @@ public class SellBoardDAO {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				SellBoardBean sellboard = new SellBoardBean();
-				sellboard.setSB_NO(rset.getInt("SB_NO"));
-				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
-				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
-				sellboard.setSB_DATE(rset.getDate("SB_DATE"));
-				sellboard.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
-				boardBeanList.add(sellboard);
+				SellBoardBean boardBean = new SellBoardBean();
+				boardBean.setSB_NO(rset.getInt("SB_NO"));
+				boardBean.setSB_WRITER(rset.getString("SB_WRITER"));
+				boardBean.setSB_TITLE(rset.getString("SB_TITLE"));
+				boardBean.setSB_DATE(rset.getDate("SB_DATE"));
+				boardBean.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
+				boardBean.setSB_LAT(rset.getDouble("SB_LAT"));
+				boardBean.setSB_LNG(rset.getDouble("SB_LNG"));
+				boardBeanList.add(boardBean);
 			}
 			map.put("boardBeanList", boardBeanList);
 		} catch (Exception e) {
@@ -482,5 +549,58 @@ public class SellBoardDAO {
 			}
 		}
 		return map;
+	}
+	
+	
+	public int tradeItem(int SB_NO, String id) {
+		int state = 1;
+		try {
+			conn = ds.getConnection();
+			
+			pstmt = conn.prepareStatement("select SB_STATE from SELL_BOARD where SB_NO = ?");
+			pstmt.setInt(1, SB_NO);
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				state = rset.getInt(1);
+			}
+			
+			// 구매 신청이 완료된 게시물 일시 return 0
+			if(state == 1) {
+				return 0;
+			}
+			
+			pstmt = conn.prepareStatement("update SELL_BOARD set SB_STATE=1 where SB_NO=?");
+			pstmt.setInt(1, SB_NO);
+			
+			result = pstmt.executeUpdate();
+			pstmt.close();
+			
+			pstmt = conn.prepareStatement("update SELL_HISTORY set SH_STATE=1, "
+					+ "SH_OPPONENT=? where SH_BOARD_NO=?");
+			
+			pstmt.setString(1, id);
+			pstmt.setInt(2, SB_NO);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rset != null) {
+					rset.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
 	}
 }

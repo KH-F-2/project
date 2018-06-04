@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
+import com.project101.bean.SignEpilAction;
 
 @WebServlet("*.me")
 public class FrontController extends HttpServlet {
@@ -86,7 +87,14 @@ public class FrontController extends HttpServlet {
 		        }catch(Exception e) {
 		           e.printStackTrace();
 		        }
-		     }	
+		     }else if(command.equals("/signepil.me")) {
+					action = new SignEpilAction();
+			        try {
+			           forward = action.execute(request, response);
+			        }catch(Exception e) {
+			           e.printStackTrace();
+			        }
+			     }	
 
 			if (forward != null) {
 				if (forward.isRedirect()) {

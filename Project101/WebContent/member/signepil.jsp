@@ -279,7 +279,7 @@ input#upfile.photo {
 		<!--  수정일 경우 'review-edit'클래스 추가 -->
 		<div class="title">
 			<h1>구매후기 작성</h1>
-			<input type="text" name="EP_NAME">
+			<input type="text" name="EP_NAME" value="${name }">
 			<!-- 수정일 경우 '구매후기 수정'으로 변경 -->
 		</div>
 
