@@ -9,7 +9,8 @@ public class SellBoardPageBean {
 	private int maxpage;
 	private int startpage;
 	private int endpage;
-	private List<SellBoardBean> boardList;
+	private List<SellBoardBean> boardBeanList;
+	private List<CommentBean> commentBeanList;
 	private String searchItem = "";
 	private String searchWord = "";
 
@@ -32,13 +33,21 @@ public class SellBoardPageBean {
 	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
 	}
-
-	public List<SellBoardBean> getboardList() {
-		return boardList;
+	
+	public List<SellBoardBean> getBoardBeanList() {
+		return boardBeanList;
 	}
 
-	public void setboardList(List<SellBoardBean> boardList) {
-		this.boardList = boardList;
+	public void setBoardBeanList(List<SellBoardBean> boardBeanList) {
+		this.boardBeanList = boardBeanList;
+	}
+
+	public List<CommentBean> getCommentBeanList() {
+		return commentBeanList;
+	}
+
+	public void setCommentBeanList(List<CommentBean> commentBeanList) {
+		this.commentBeanList = commentBeanList;
 	}
 
 	public int getPage() {

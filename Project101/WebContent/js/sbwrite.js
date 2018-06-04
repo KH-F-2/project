@@ -47,12 +47,21 @@
 		}
 	});
 	
+	
 	$('#write_submit').submit(function () {
 		if($('input[name=SB_TITLE]').val()==''){
         	alert('제목을 입력하세요');
         	$('input[name=SB_TITLE]').focus();
         	return false;
         }
+		if($('select').val()==0){
+			alert('카테고리를 선택해 주세요');
+			return false;
+		}
+		if($('#datepicker').val() == ''){
+			alert('구매일을 선택해 주세요');
+			return false;
+		}
         if($('input[name=SB_PRICE]').val()==''){
             alert("가격을 입력하세요");
             $('input[name=SB_PRICE]').focus();
