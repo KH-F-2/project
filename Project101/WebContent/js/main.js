@@ -4,11 +4,21 @@ $(document).ready(function() {
 	$('#main_head').css('height', $(window).height() * 0.5 - 70);
 	$('#map').css('height', $(window).height() * 0.5);
 
+	// 페이지 로드 후 1초 뒤 현재위치에서 조회 실행
+	window.setTimeout(function () {
+		checkCurrentPosition()
+	}, 1000);
+	
+	$('#checkCurrentPosition').click(function () {
+		checkCurrentPosition();
+	});
+	
 });
 
 // 맵 필드 변수 설정
 var map;
 var markers = [];
+var infoContentArr = [];
 
 var startLat = null;
 var startLng = null;
@@ -21,12 +31,30 @@ function initMap() {
 		lat : 37.566697,
 		lng : 126.978457
 	};
-
+	
 	// 구글 맵 객체 생성하고 센터, 줌 초기 설정
 	map = new google.maps.Map(document.getElementById('map'), {
 		zoom : 14,
 		center : seoulCityhall
 	});
+	
+	// 현재 위치 정보를 가져와서 지도 이동시킴
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var currentPosition = {
+				lat : position.coords.latitude,
+				lng : position.coords.longitude
+			};
+
+			map.setCenter(currentPosition);
+		}, function() {
+			handleLocationError(true, infoWindow, map.getCenter());
+		});
+	} else {
+		// Browser doesn't support Geolocation
+		handleLocationError(false, infoWindow, map.getCenter());
+	}
+
 
 	// 검색 자동 완성 기능 구현
 	autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
@@ -40,20 +68,10 @@ function initMap() {
 			document.getElementById('autocomplete').placeholder = 'Enter a city';
 		}
 	});
-
-	// idle : 가동 되지 않는
-		map.addListener('idle', function() {
-		startLat = map.getBounds().getSouthWest().lat();
-		startLng = map.getBounds().getSouthWest().lng();
-		endLat = map.getBounds().getNorthEast().lat();
-		endLng = map.getBounds().getNorthEast().lng();
-
-		viewMarkers();
-	});
-	
 	
 }
 
+// 현재 위치에서 조회
 function checkCurrentPosition() {
 	startLat = map.getBounds().getSouthWest().lat();
 	startLng = map.getBounds().getSouthWest().lng();
@@ -63,7 +81,7 @@ function checkCurrentPosition() {
 	viewMarkers();
 }
 
-// 초기 로드 시 & 지도 중심이 움직이면 ajax로 DB에서 json 받아 marker 생성
+// ajax로 DB에서 json 받아 marker 생성
 function viewMarkers() {
 
 	if (startLat) {
@@ -78,58 +96,21 @@ function viewMarkers() {
 			},
 			// json 받아 마커 생성 & 마커 클러스터 생성 & 마커 이벤트 추가
 			success : function(json) {
-				var kkk = 0; //마커 갯수 확인 용
-				var infoContentArr = [];
 
-				// DB에서 json으로 넘겨받아 마커 생성
-				markers = json.map(function(spot, i) {
-					kkk++; //마커 갯수 확인 용
-					var title = spot.sb_TITLE;
-					/* var content = decodeURIComponent(spot.SB_CONTENT.replace(gap, " ") ); */
-					
-					var infoContent = '<a href="http://www.naver.com">'
-						+ title + '</a>' + '<br>가격 : '
-						+ spot.SB_PRICE + '<br>설명 : ' + '블라블라';
-					
+				for (var i = 0; i < json.length; i++) {
+					var title = json[i].sb_TITLE;
+					var infoContent = '<h3><a href="sbview.sb?num=' + json[i].SB_NO + '">'
+						+ title + '</a></h3>' + '<br><b>가격</b> : '
+						+ json[i].SB_PRICE + '<br><b>설명</b> : ' + '블라블라';
 					infoContentArr.push(infoContent);
-						
-					return new google.maps.Marker({
-						position: new google.maps.LatLng(spot.lat, spot.lng),
-						animation: google.maps.Animation.DROP,
-						label: {
-							color: 'black',
-							fontWeight: 'bold',
-							text: title,
-						},
-						icon: {
-							labelOrigin : new google.maps.Point(11, 50),
-							url : './image/ryan.png',
-							size : new google.maps.Size(24, 40),
-							origin : new google.maps.Point(0, 0),
-							anchor : new google.maps.Point(11, 40),
-						}
-					});
-				});
-				
-				// 마커 클러스터 생성
-				var markerCluster = new MarkerClusterer(map, markers, {
-					imagePath : 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-				});
-				
-				// 각 마커에 클릭이벤트 할당
-				for (let i = 0; i < markers.length; i++) {
-					markers[i].addListener('click', function() {
-						/* map.setZoom(16); */
-
-						var infoWindow = new google.maps.InfoWindow({
-							content : infoContentArr[i]
-						});
-
-						infoWindow.open(markers[i].get('map'), markers[i]);
-					});
+					
+					addMarkerWithTimeout(json[i], i, title);
 				}
 				
-				console.log("현재 화면에 " + kkk + "개의 마커가 로드됨");
+				console.log("현재 화면에 " + json.length + "개의 마커가 로드됨");
+			},
+			error: function () {
+				console.log('error');
 			}
 		});
 	}
@@ -142,5 +123,46 @@ function fnRemoveMarker() {
 		markers[i].setMap(null);
 	}
 	markers = [];
+}
+
+// 시간 차 를 두고 마커 생성 & 이벤트 추가
+function addMarkerWithTimeout(position, i, title) {
+	window.setTimeout(function() {
+		markers.push(new google.maps.Marker({
+			position : new google.maps.LatLng(position.lat, position.lng),
+			animation : google.maps.Animation.DROP,
+			map: map,
+			label : {
+				color : 'black',
+				fontWeight : 'bold',
+				text : title,
+			},
+			icon : {
+				labelOrigin : new google.maps.Point(11, 50),
+				url : './image/ryan.png',
+				size : new google.maps.Size(24, 40),
+				origin : new google.maps.Point(0, 0),
+				anchor : new google.maps.Point(11, 40),
+			}
+		}));
+		
+		markers[i].addListener('click', function() {
+			var infoWindow = new google.maps.InfoWindow({
+				content : infoContentArr[i],
+				maxWidth: 200
+			});
+
+			infoWindow.open(markers[i].get('map'), markers[i]);
+		});
+		
+	}, i * 200);
+}
+
+// 현재 위치정보 가져올 때 예외처리
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+	infoWindow.setPosition(pos);
+	infoWindow.setContent(browserHasGeolocation ? 
+			'Error: The Geolocation service failed.'
+			: 'Error: Your browser doesn\'t support geolocation.');
 }
 
