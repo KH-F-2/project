@@ -11,6 +11,7 @@ import com.project101.action.ActionForward;
 import com.project101.bean.SellBoardBean;
 import com.project101.bean.SellBoardPageBean;
 import com.project101.dao.MemberDAO;
+import com.project101.dao.SellBoardDAO;
 
 
 public class listAddAction2 implements Action {
@@ -21,7 +22,7 @@ public class listAddAction2 implements Action {
 		request.setCharacterEncoding("UTF-8");
 		
         
-		MemberDAO sellerdao = new MemberDAO();
+		SellBoardDAO sellerdao = new SellBoardDAO();
 		
 		SellBoardPageBean boardpage=new SellBoardPageBean();
 		ActionForward forward = new ActionForward();

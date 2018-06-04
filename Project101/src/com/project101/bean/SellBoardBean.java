@@ -11,8 +11,8 @@ public class SellBoardBean {
 	private int SB_PRICE;
 	private Date SB_DATE;
 	private int SB_READCOUNT;
-	private int SB_LAT;
-	private int SB_LNG;
+	private double SB_LAT;
+	private double SB_LNG;
 	private int SB_STATE;
 	private int SB_CATEGORY;
 	private String SB_HASHTAG;
@@ -85,19 +85,19 @@ public class SellBoardBean {
 		SB_READCOUNT = sB_READCOUNT;
 	}
 
-	public int getSB_LAT() {
+	public double getSB_LAT() {
 		return SB_LAT;
 	}
 
-	public void setSB_LAT(int sB_LAT) {
+	public void setSB_LAT(double sB_LAT) {
 		SB_LAT = sB_LAT;
 	}
 
-	public int getSB_LNG() {
+	public double getSB_LNG() {
 		return SB_LNG;
 	}
 
-	public void setSB_LNG(int sB_LNG) {
+	public void setSB_LNG(double sB_LNG) {
 		SB_LNG = sB_LNG;
 	}
 

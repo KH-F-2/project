@@ -5,7 +5,6 @@
 <html>
 	<head>
 		<title>판매 게시판</title>
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
         <script type="text/javascript">
 	        $(document).ready(function(){

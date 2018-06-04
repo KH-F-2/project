@@ -6,7 +6,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 		
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		
 		<!-- Icon link -->
@@ -122,110 +121,15 @@
 						${boardBean.SB_CONTENT }
 					</div>
 				</li>
-				
+				<li class="btn_li">
+					<button type="button" id="trade">구매 신청</button>
+				</li>
 				
 			</ul>
 			
 			
-			<%-- <table class="main_table">
-				<tr>
-					<td colspan="2">
-						<div class="titlebar">
-							<div class="title">
-								${boardBean.SB_TITLE} ${boardBean.SB_HASHTAG}<br>[${boardBean.SB_CATEGORY}]
-							</div>
-							<div class="date">
-								글번호 ${boardBean.SB_NO}<input type="hidden" id="SB_NO" value="${boardBean.SB_NO}"><br>
-								등록 ${boardBean.SB_DATE}
-							</div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						위도 ${boardBean.SB_LAT}
-						경도 ${boardBean.SB_LNG}
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<div class="writer">
-							<div class=writer_left>
-								${boardBean.SB_WRITER}
-								<input type="hidden" id="SB_WRITER" value="${boardBean.SB_WRITER}">
-							</div>
-							<div class=writer_right>
-								<button class="info">Info</button>
-							</div>
-						</div>
-						<div class="writer_div"></div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<div class="price">${boardBean.SB_PRICE } 원</div>
-						<div class="pdate">
-							구입일 ${boardBean.SB_PURCHASE_DATE }
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<c:if test="${imageBeanList.size()>0}">
-							<div class="slideshow-container">
-								<c:forEach var="image" items="${imageBeanList}" varStatus="i">
-									<div class="mySlides fade">
-										<div class="numbertext">${i.index+1} / ${imageBeanList.size()}</div>
-										<img src="${image.IMAGE_URL}" class="img_slide">
-									</div>
-								</c:forEach>
-								<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-								<a class="next" onclick="plusSlides(1)">&#10095;</a>
-								
-								<div style="text-align:center" class="dot_div">
-									<c:forEach var="image" items="${imageBeanList}" varStatus="i">
-										<span class="dot" onclick="currentSlide(${i.index+1})"></span> 
-									</c:forEach>
-								</div>
-							</div>
-							<script>
-								function plusSlides(n) {
-						     		showSlides(slideIndex += n);
-						     	}
-	
-						     	// Thumbnail image controls
-						     	function currentSlide(n) {
-						     		showSlides(slideIndex = n);
-						     	}
-						     	var slideIndex = 1;
-						     	showSlides(slideIndex);
-						     	function showSlides(n) {
-						 			var i;
-						 			var slides = document.getElementsByClassName("mySlides");
-						 			var dots = document.getElementsByClassName("dot");
-						 			if (n > slides.length) {slideIndex = 1} 
-						 			if (n < 1) {slideIndex = slides.length}
-						 			for (i = 0; i < slides.length; i++) {
-						 			    slides[i].style.display = "none"; 
-						 			}
-						 			for (i = 0; i < dots.length; i++) {
-						 			    dots[i].className = dots[i].className.replace(" active", "");
-						 			}
-						 			slides[slideIndex-1].style.display = "block";
-						 			dots[slideIndex-1].className += " active";
-						     	}
-							</script>
-						</c:if>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<div class="content">
-							${boardBean.SB_CONTENT }
-						</div>
-					</td>
-				</tr>
-			</table> --%>
+			
+			
 			
 			<div class="menu_bar">
 				<ul>
