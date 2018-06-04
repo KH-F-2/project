@@ -1,4 +1,4 @@
-package com.project101.action.member;
+package com.project101.bean;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
-import com.project101.bean.Epil;
 import com.project101.dao.EpilDAO;
 
 public class SignEpilContentAction implements Action {
