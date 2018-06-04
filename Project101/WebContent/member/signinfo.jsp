@@ -48,12 +48,12 @@ h2{
 			<c:set var="id" value="${id }"/>
 			<c:choose>
 				<c:when test="${empty id }">
-					<a href="./signin.mem">Sign in</a><br>
+					<a href="./signin.me">Sign in</a><br>
 				</c:when>
 	
 				<c:otherwise>
 
-					<a href="signout.mem">Sign Out</a>
+					<a href="signout.me">Sign Out</a>
 					<a href="signmypage.mem?id=${id }">${id }</a>
 				</c:otherwise>
 			</c:choose>
@@ -110,9 +110,9 @@ h2{
       </tr>
       <tr>
          <td>
-         <a href="main.mem">리스트로 돌아가기</a></td>
+         <a href="main.me">리스트로 돌아가기</a></td>
          <td>
-         <a href="#" onclick="location.href='signepil.mem?name=${m.name}'">후기작성하기</a></td>
+         <a href="#" onclick="location.href='signepil.me?name=${m.name}'">후기작성하기</a></td>
       </tr>
       <tr>
       	<td>

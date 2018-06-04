@@ -1,16 +1,12 @@
 package com.project101.action.board.sell;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project101.action.Action;
-import com.project101.action.ActionForward;
-import com.project101.bean.CommentBean2;
-import com.project101.dao.CommentDAO2;
+import com.project101.action.*;
+import com.project101.bean.*;
+import com.project101.dao.*;
 
 public class SellBoardCommentAddAction implements Action {
 
@@ -22,28 +18,31 @@ public class SellBoardCommentAddAction implements Action {
 		ActionForward forward = new ActionForward();
 		HttpSession session = request.getSession();
 			
-		CommentBean2 commentBean = new CommentBean2();
-		CommentDAO2 commentDAO = new CommentDAO2();
+		CommentBean commentBean = new CommentBean();
+		CommentDAO commentDAO = new CommentDAO();
 		
-		commentBean.setBOARD_NO(Integer.parseInt(request.getParameter("SB_NO")));
-		commentBean.setCOMMENT_WRITER(session.getAttribute("id").toString());
-		commentBean.setCOMMENT_CONTENT(request.getParameter("content"));
+		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("SB_NO"));
+		String CMT_BOARD_NAME = "SELL_BOARD";
 		
-		int COMMENT_NO = commentDAO.commentInsert(commentBean);
+		commentBean.setCMT_SUBJECT_NO(CMT_SUBJECT_NO);
+		commentBean.setCMT_WRITER(session.getAttribute("id").toString());
+		commentBean.setCMT_CONTENT(request.getParameter("content"));
 		
-		if(COMMENT_NO == 0) {
+		int result = commentDAO.commentInsert(commentBean, CMT_BOARD_NAME);
+		
+		if(result == 0) {
 			System.out.println("SellBoardCommentAddAction fail!");
 			return null;
 		}
-		Date date=new Date();
+		/*Date date=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		commentBean.setCOMMENT_DATE(sdf.format(date));
-		commentBean.setCOMMENT_NO(COMMENT_NO);
+		commentBean.setCOMMENT_NO(COMMENT_NO);*/
 		
-		request.setAttribute("commentBean", commentBean);
+		//request.setAttribute("commentBean", commentBean);
 		
-		forward.setPath("sellboard/sbcommentlist.jsp");
+		forward.setPath("sbview.sb?ajax=" + CMT_SUBJECT_NO);
 		forward.setRedirect(false);
 		
 		return forward;

@@ -12,3 +12,4 @@ create table member12(
 	college varchar2(15),
 	PRIMARY KEY(id)
 );
+select * from MEMBER;

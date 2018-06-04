@@ -2,7 +2,6 @@
 
 #map {
 	width: 100%;
-	margin-bottom: 50px;
 }
 
 #main_head span {
@@ -29,6 +28,15 @@
 	font-size: 25px;
 	z-index: 1;
 	text-align: center;
+}
+
+#chkBtnDiv {
+	display: block;
+	height: 150px;
+	width: 100%;
+	font-size: 25px;
+	text-align: center;
+	line-height: 150px;
 }
 
 #container {
