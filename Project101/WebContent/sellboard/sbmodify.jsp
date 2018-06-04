@@ -30,7 +30,68 @@
 		</script>
 	</head>
 	<body>	
+	
+		<div class="header"><h1>판매게시판 글쓰기</h1></div>
 		<form action="./sbmodifyaction.sb" method="post" id="write_submit">
+			<input type="hidden" name="SB_NO" value="${boardBean.SB_NO}">
+			<ul class="sbwrite_ul">
+				<li class="write_li">
+					<div class="title">
+						<input name="SB_TITLE" type="text" size="50" maxlength="100" value="${boardBean.SB_TITLE}" placeholder="제목">
+					</div>
+				</li>
+				<li class="write_li">
+					<div class="category">
+						<select name="SB_CATEGORY">
+							<option class="cate_option" value="0" selected>카테고리</option>
+						    <option class="cate_option" value="1">의류/잡화</option>
+						    <option class="cate_option" value="2">뷰티</option>
+						    <option class="cate_option" value="3">식품/생활/유아동</option>
+						    <option class="cate_option" value="4">가구</option>
+						    <option class="cate_option" value="5">가전/디지털</option>
+						    <option class="cate_option" value="6">도서/쿠폰</option>
+						</select>
+					</div>
+					<div class="hashtag">
+						<input type="text" id="hashtag" name="SB_HASHTAG" size="50" value="${boardBean.SB_HASHTAG}" placeholder="hashtag">
+					</div>
+				</li>
+				<li class="write_li">
+					<div class="purchase_date">
+						<input type="text" name="SB_PURCHASE_DATE" id="datepicker" readonly="readonly" value="${boardBean.SB_PURCHASE_DATE}" placeholder="구매일">
+					</div>
+					<div class="price">
+						<input name = "SB_PRICE" type="text" size="50" maxlength="50" value="${boardBean.SB_PRICE}" placeholder="가격">
+					</div>
+				</li>
+				<li class="write_li">
+					<div class="content">
+						<textarea name="SB_CONTENT" cols="65" rows="15">${boardBean.SB_CONTENT}</textarea>
+					</div>
+				</li>
+				<li class="write_li">
+					<div class="image">
+						<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
+						<div id="showImage">
+							<c:forEach var="img" items="${imageBeanList}">
+								<img src="${img.IMAGE_URL}"/>
+							</c:forEach>
+						</div>
+						<input type="hidden" id="img_hidden" name="img_hidden" value="">
+					</div>
+				</li>
+				<li class="btn_li">
+					<div>
+						<button type="submit" id="submit_btn" class="write_btn">등록</button>
+						<button type="reset" id="cancle_btn" class="write_btn" onclick='history.go(-1)'>취소</button>
+					</div>
+				</li>
+				
+			</ul>
+			
+		</form>
+		
+		<%-- <form action="./sbmodifyaction.sb" method="post" id="write_submit">
 		<input type="hidden" name="SB_NO" value="${boardBean.SB_NO}">
 			<table class="sbwrite_table">
 				<tr>
@@ -108,6 +169,6 @@
 					</td>
 				</tr>
 			</table>
-		</form>	
+		</form>	 --%>
 	</body>
 </html>

@@ -81,7 +81,7 @@ ul{
 	position: relative;
 }
 #comment_content, #comment_reply_content{
-	width: 90%;
+	width: 85%;
 	height: 150px;
 }
 .reply{
