@@ -52,7 +52,7 @@
 					</div>
 					
 					<div class="writer">
-						${boardBean.SB_WRITER}
+						<a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a>
 						<input type="hidden" id="SB_WRITER" value="${boardBean.SB_WRITER}">
 					</div>
 					
