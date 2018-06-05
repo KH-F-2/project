@@ -17,6 +17,7 @@ public class JoinProcessAction implements Action {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		String id = request.getParameter("id");
 		String email = request.getParameter("email");
 		String emailcheck = request.getParameter("emailconfirm_value");
 		String password = request.getParameter("password");
@@ -29,6 +30,7 @@ public class JoinProcessAction implements Action {
 		
 		Member m = new Member();
 		
+		m.setId(id);
 		m.setEmail(email);
 		m.setEmailcheck(emailcheck);
 		m.setPassword(password);
@@ -46,10 +48,10 @@ public class JoinProcessAction implements Action {
 		System.out.println(result);
 		out.println("<script>");
 		if(result == 1) {
-			out.println("alert('회원가입을 축하합니다');");
+			out.println("alert('�쉶�썝媛��엯�쓣 異뺥븯�빀�땲�떎');");
 			out.println("location.href='main.mem';");
 		}else if(result== -1) {
-			out.println("alert('다시입력해주세요~');");
+			out.println("alert('�떎�떆�엯�젰�빐二쇱꽭�슂~');");
 			out.println("history.back()");
 		}
 		out.println("</script>");

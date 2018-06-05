@@ -20,9 +20,9 @@
 			return;
 		}
 		
-		var phone = $("#phone");
-		if(phone.val() == ""){
-			alert("연락처를 입력하세요");
+		var email = $("#email");
+		if(email.val() == ""){
+			alert("Email를 입력하세요");
 			return;
 		}
 		
@@ -35,7 +35,7 @@
 		
 		$.ajax({
 			type: "post",
-			data: 'nickname=' + nickname.val() + '&phone=' + phone.val(),
+			data: 'nickname=' + nickname.val() + '&email=' + email.val(),
 			url: 'findIDResult.me',
 			success: function(result) {
 				 alert(result); 
@@ -47,8 +47,8 @@
 	}
 	
 	function btnfindPW(event){
-		var email =$("#email");
-		if(email.val() == ""){
+		var id =$("#id");
+		if(id.val() == ""){
 			alert("이메일을 입력하세요");
 			return;
 		}
@@ -59,15 +59,15 @@
 			return;
 		}
 		
-		var phone = $("#pwphone");
-		if(phone.val() == ""){
-			alert("연락처를 입력하세요");
+		var email = $("#pwemail");
+		if(email.val() == ""){
+			alert("Email를 입력하세요");
 			return;
 		}
 		
 		$.ajax({
 			type: "post",
-			data: 'email=' + email.val() +'&nickname=' + nickname.val() + '&phone=' + phone.val(),
+			data: 'id=' + id.val() +'&nickname=' + nickname.val() + '&email=' + email.val(),
 			url: 'findPWResult.me',
 			success: function(result) {
 			 	alert(result); 
@@ -92,7 +92,7 @@
 			<legend class="hidden">ID/비밀번호 찾기</legend>
 			<ul id ="findid">
 				<li><label>닉네임</label><input type="text" id="nickname" name="nickname"/></li>
-				<li><label>연락처</label><input type = "text" id ="phone" name="phone"/></li>
+				<li><label>Email</label><input type = "text" id ="email" name="email"/></li>
 				<li>
 				<input type= "button" name = "btnfindUid" id="btnfindUid" value="아이디찾기/"/>
 				</li>
@@ -107,9 +107,9 @@
 			<fieldset>
 				<ul id="findPW">
 					<li>비밀번호 찾기</li>
-					<li><label>Email</label><input type="text" name="email" id="email"></li>
+					<li><label>아이디</label><input type="text" name= "id"	id="id"></li>
 					<li><label>닉네임</label><input type="text" name="nickname"	 id="pwnickname"></li>
-					<li><label>연락처</label><input type="text" name= "phone"	id="pwphone"></li>
+					<li><label>Email</label><input type="text" name="email" id="pwemail"></li>
 					<li>
 						<input type="button" id="btnfindPW" name="btnfindPW" value="비밀번호 찾기"/>
 					</li>

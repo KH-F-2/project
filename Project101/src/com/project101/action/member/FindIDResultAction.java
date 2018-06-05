@@ -15,18 +15,19 @@ public class FindIDResultAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
+		
 		String nickname = request.getParameter("nickname");
-		String phone	 = request.getParameter("phone");
+		String email	 = request.getParameter("email");
 		MemberDAO mdao = new MemberDAO();
 		
-		String result = mdao.findID(nickname,phone);
+		String result = mdao.findID(nickname,email);
 		System.out.println("findidresultaction : " + result);
 		if(result != null) {
 			
-			out.write("입력하신정보와 일치하는 아이디는 " + result + "입니다.");
+			out.write("�엯�젰�븯�떊�젙蹂댁� �씪移섑븯�뒗 �븘�씠�뵒�뒗 " + result + "�엯�땲�떎.");
 		} else {
 			
-			out.write("입력하신정보와 일치하는 아이디가 없습니다.");
+			out.write("�엯�젰�븯�떊�젙蹂댁� �씪移섑븯�뒗 �븘�씠�뵒媛� �뾾�뒿�땲�떎.");
 		}
 		out.close();
 		return null;

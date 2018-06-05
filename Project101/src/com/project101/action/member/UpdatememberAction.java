@@ -15,6 +15,7 @@ public class UpdatememberAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
+		String id = request.getParameter("id");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String nickname = request.getParameter("nickname");
@@ -26,7 +27,7 @@ public class UpdatememberAction implements Action {
 		
 		Member m = new Member();
 		
-		
+		m.setId(id);
 		m.setEmail(email);
 		m.setPassword(password);
 		m.setNickname(nickname);
@@ -43,10 +44,10 @@ public class UpdatememberAction implements Action {
 		out.println("<script>");
 		
 		if(result == 1 ) {
-			out.println("alert(' 회원 정보가 수정되었습니다.') ;");
+			out.println("alert(' �쉶�썝 �젙蹂닿� �닔�젙�릺�뿀�뒿�땲�떎.') ;");
 			out.println("location.href='main.me'; ");
 		}else {
-			out.println("alert(' 다시입력해주세요 ' ); ");
+			out.println("alert(' �떎�떆�엯�젰�빐二쇱꽭�슂 ' ); ");
 			out.println("history.back()");
 		}
 		out.println("</script>");

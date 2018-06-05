@@ -27,17 +27,17 @@
 		var id, id2;
 		
 		$("#idcheck").click(function() {
-			id = $("input[name=email]").val();
+			id = $("input[name=id]").val();
 
 			if (id == '') {
-				alert('email를 입력해주세요')
+				alert('아이디를 입력해주세요')
 				return false;
 			}
 
 			$.ajax({
 				type : "GET",
 				data : {
-					"email" : email
+					"id" : id
 				},
 				url : "idcheck.me",
 				success : function(result) {
@@ -47,18 +47,18 @@
 					}
 					if (result == -1) {
 						$("#message").html('중복된 아이디입니다.').css('color', 'red');
-						$("input[name=email]").val('');
-						$("input[name=email]").focus();
+						$("input[name=id]").val('');
+						$("input[name=id]").focus();
 					}
 				}
 			}); //ajax end
 		}) //click end
 
 		$('form').submit(function() {
-			id2 = $("input[name=email]").val();
+			id2 = $("input[name=id]").val();
 
 			if (id != id2) {
-				alert('email중복검사를 해주세요');
+				alert('id중복검사를 해주세요');
 				return false;
 			}
 			var emailconfirm_value;
@@ -124,6 +124,10 @@
 		<div class="first">
 		<h1>기본정보</h1>
 		<hr>
+		<label>ID</label> <input type="text" name="id" id="id" placeholder="Enter Id" required> 
+		<input type="button" id="idcheck" value="ID중복검사">
+		<br>
+		<span id="message"></span><br>
 		<label>E-mail</label> <input type="text" name="email" id="email" placeholder="Enter email" required>@ 
 		<input type="text" name="domain" id="domain"> 
 		<select name="sel" id="sel">
@@ -136,7 +140,7 @@
 		<br>
 		<span id="message"></span><br>
 		<br>
-		<input type="button" id="idcheck" value="EMAIL중복검사">
+		
 		<input type="button" name="emailconfirm_btn" value="인증하기" 
          			onclick="emailcheck(joinform.email.value,joinform.domain.value)">
 		<input type="hidden" name="emailconfirm_value">

@@ -15,6 +15,8 @@
 </script>
 	<c:set var="m"	value="${memberinfo }"/>
 <form name="joinform" action="Updatemember.me" method="post">
+	<b>ID</b>
+	<input type="text" name="id" value="${m.id }" readonly><br>
 	<b>Email</b>
 	<input type="text" name="email" value="${m.email}" readonly><br> 
 <b>비밀번호</b>

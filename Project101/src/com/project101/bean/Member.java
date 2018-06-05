@@ -1,6 +1,7 @@
 package com.project101.bean;
 
 public class Member {
+	private String id;
 	private String email;
 	private String domain;
 	private String emailcheck;
@@ -14,6 +15,12 @@ public class Member {
 	private int longitude;
 	
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 	public String getEmail() {
 		return email;

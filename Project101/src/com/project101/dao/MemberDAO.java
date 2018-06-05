@@ -38,17 +38,17 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			System.out.println("getConnection");
-			pstmt = conn.prepareStatement("select id, password from member12 where id=?");
+			pstmt = conn.prepareStatement("select id, password from member where id=?");
 			pstmt.setString(1, id);
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
 				if (rset.getString("password").equals(password)) {
-					result = 1; // 아이디와 비밀번호가 일치하는 경우
+					result = 1; // �븘�씠�뵒�� 鍮꾨�踰덊샇媛� �씪移섑븯�뒗 寃쎌슦
 				} else {
-					result = 0; // 비밀번호가 일치하지 않는 경우
+					result = 0; // 鍮꾨�踰덊샇媛� �씪移섑븯吏� �븡�뒗 寃쎌슦
 				}
 			} else {
-				result = -1; // 아이디가 없는 경우
+				result = -1; // �븘�씠�뵒媛� �뾾�뒗 寃쎌슦
 			}
 		} catch (SQLException e) {
 			e.getStackTrace();
@@ -80,30 +80,31 @@ public class MemberDAO {
 		return result;
 	}
 	
-	//마이페이지
-	public Member member_info(String email) {
+	//留덉씠�럹�씠吏�
+	public Member member_info(String id) {
 		Member m = new Member();
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "select * from member where email = ? ";
+			String sql = "select * from member where id = ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, email);
+			pstmt.setString(1, id);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				m.setEmail(rset.getString("email"));
-				m.setPassword(rset.getString(2));
-				m.setNickname(rset.getString(3));
-				m.setPhone(rset.getString(4));
-				m.setPost(rset.getString(5));
-				m.setAddress(rset.getString(6));
-				m.setDetailaddress(rset.getString(7));
+				m.setId(rset.getString("id"));
+				m.setEmail(rset.getString(2));
+				m.setPassword(rset.getString(3));
+				m.setNickname(rset.getString(4));
+				m.setPhone(rset.getString(5));
+				m.setPost(rset.getString(6));
+				m.setAddress(rset.getString(7));
+				m.setDetailaddress(rset.getString(8));
 			
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("member_info 오류 :" + e);
+			System.out.println("member_info �삤瑜� :" + e);
 		}finally {			
 			}if(rset!=null) {
 				try {
@@ -129,12 +130,12 @@ public class MemberDAO {
 		return m;
 	}
 	
-	public int idcheck(String email) {
+	public int idcheck(String id) {
 	      int result = 1;
 	      try {
 	         conn=ds.getConnection();
-	         pstmt = conn.prepareStatement("select * from member where email = ?");
-	         pstmt.setString(1, email);
+	         pstmt = conn.prepareStatement("select * from member where id = ?");
+	         pstmt.setString(1, id);
 	         ResultSet rs = pstmt.executeQuery();
 	         
 	         if(rs.next()) {
@@ -165,25 +166,25 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into member values(?,?,?,?,?,?,?,? ) ";
+			String sql = "insert into member values(?,?,?,?,?,?,?,?,? ) ";
 			pstmt = conn.prepareStatement(sql);
 			
-			
-			pstmt.setString(1, m.getEmail() + "@" + m.getDomain());
-			pstmt.setString(2, m.getEmailcheck());
-			pstmt.setString(3, m.getPassword());
-			pstmt.setString(4,  m.getNickname());
-			pstmt.setString(5, m.getPhone());
-			pstmt.setString(6, m.getPost());
-			pstmt.setString(7, m.getAddress());
-			pstmt.setString(8, m.getDetailaddress());
+			pstmt.setString(1, m.getId());
+			pstmt.setString(2, m.getEmail() + "@" + m.getDomain());
+			pstmt.setString(3, m.getEmailcheck());
+			pstmt.setString(4, m.getPassword());
+			pstmt.setString(5,  m.getNickname());
+			pstmt.setString(6, m.getPhone());
+			pstmt.setString(7, m.getPost());
+			pstmt.setString(8, m.getAddress());
+			pstmt.setString(9, m.getDetailaddress());
 			
 			
 			result = pstmt.executeUpdate();
 			
 		}catch(java.sql.SQLIntegrityConstraintViolationException e) {
 			result = -1;
-			System.out.println( "insert 에러" );
+			System.out.println( "insert �뿉�윭" );
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -279,19 +280,19 @@ public class MemberDAO {
 		return null;
 	}	// getDetail() -----------
 	
-	public String findID(String nickname, String phone) {
+	public String findID(String nickname, String email) {
 		  String result = null;
 		  
 	      try {
 	         conn = ds.getConnection();
-	         pstmt = conn.prepareStatement("select * from member where nickname = ? and phone = ? ");
+	         pstmt = conn.prepareStatement("select * from member where nickname = ? and email = ? ");
 	         pstmt.setString(1, nickname);
-	         pstmt.setString(2, phone);
+	         pstmt.setString(2, email);
 	         
 	         ResultSet rs = pstmt.executeQuery();
 	         
 	         if(rs.next()) {
-	            result = rs.getString("EMAIL");
+	            result = rs.getString("ID");
 	         }
 	         
 	      } catch(Exception e) {
@@ -314,14 +315,14 @@ public class MemberDAO {
 	      return result;
 	}
 	
-	public String findPW(String email, String nickname, String phone) {
+	public String findPW(String id, String nickname, String email) {
 		String result = null;
 		try {
 	         conn = ds.getConnection();
-	         pstmt = conn.prepareStatement("select * from member12 where email = ? and nickname = ? and phone = ? ");
-	         pstmt.setString(1, email);
+	         pstmt = conn.prepareStatement("select * from member where id = ? and nickname = ? and email = ? ");
+	         pstmt.setString(1, id );
 	         pstmt.setString(2, nickname);
-	         pstmt.setString(3, phone );
+	         pstmt.setString(3, email);
 	         
 	         ResultSet rs = pstmt.executeQuery();
 	         
@@ -353,14 +354,14 @@ public class MemberDAO {
 		int result = 0;
 		try {
 			conn = ds.getConnection();
-			String sql = "update member set password= ? , nickname= ? , phone= ? , post= ? , address = ? , subaddress = ?  where email= ?  ";
+			String sql = "update member set password= ? , nickname= ? , phone= ? , post= ? , address = ? , subaddress = ?  where id= ?  ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,  m.getNickname());
 			pstmt.setString(2, m.getPhone());
 			pstmt.setString(3, m.getPost());
 			pstmt.setString(4, m.getAddress());
 			pstmt.setString(5, m.getDetailaddress());
-			pstmt.setString(6, m.getEmail());
+			pstmt.setString(6, m.getId());
 			
 			result = pstmt.executeUpdate();
 		}catch(Exception e){
