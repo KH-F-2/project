@@ -18,103 +18,113 @@
 	}
 %>
 
-<script>
-	$(document).ready(function() {
-		$('#id').focus();
-		var id = '<%=remember %>';
-		
-		if (id != "") {
-			$('#rememberID').attr('checked', true);
-			$('#id').val(id);
-		}
-		
-		$('#rememberID').on('change', function() {
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Insert title here</title>
+
+	<script>
+		$(document).ready(function() {
+			$('#id').focus();
+			var id = '<%=remember %>';
 			
 			if (id != "") {
-				$('#id').val('');
-				
-				var noww = new Date();
-				noww.setDate(noww.getDate() - 1);
-				
-				document.cookie = "rememberID=; path=/member/; expires=" + noww.toGMTString() + ";";
+				$('#rememberID').attr('checked', true);
+				$('#id').val(id);
 			}
-		});
-		
-		$('#signInForm').submit(function () {
-			$('#alertId').css('display', 'none');
-			$('#alertPassword').css('display', 'none');
 			
-			if ($('#id').val() != "") {
+			$('#rememberID').on('change', function() {
 				
-				$.ajax({
-					type: 'post',
-					data: $(this).serialize(),
-					url: 'signinprocess.me',
-					success: function (result) {
-						
-						if (result == -1) {
-							$('#alertId').css({
-								'display': 'block',
-								'color': 'red'
-							});
-							$('#id').focus();
-						} else if (result == 0) {
-							$('#alertPassword').css({
-								'display': 'block',
-								'color': 'red'
-							});
-							$('#password').focus();
-						} else {
-							location.href = "./main.me";
+				if (id != "") {
+					$('#id').val('');
+					
+					var noww = new Date();
+					noww.setDate(noww.getDate() - 1);
+					
+					document.cookie = "rememberID=; path=/member/; expires=" + noww.toGMTString() + ";";
+				}
+			});
+			
+			$('#signInForm').submit(function () {
+				$('#alertId').css('display', 'none');
+				$('#alertPassword').css('display', 'none');
+				
+				if ($('#id').val() != "") {
+					
+					$.ajax({
+						type: 'post',
+						data: $(this).serialize(),
+						url: 'signinprocess.me',
+						success: function (result) {
+							
+							if (result == -1) {
+								$('#alertId').css({
+									'display': 'block',
+									'color': 'red'
+								});
+								$('#id').focus();
+							} else if (result == 0) {
+								$('#alertPassword').css({
+									'display': 'block',
+									'color': 'red'
+								});
+								$('#password').focus();
+							} else {
+								location.href = "./main.me";
+							}
 						}
-					}
-				});
+					});
+					
+				} else {
+					
+					alert("아이디를 입력하세요.");
+				}
 				
-			} else {
-				
-				alert("아이디를 입력하세요.");
-			}
+				return false;
+			});
 			
-			return false;
 		});
-		
-	});
-</script>
-
-<style>
-	#signInDiv {
-		width: 300px;
-		height: 500px;
-		display: block;
-		margin: 0 auto;
-	}
+	</script>
 	
-	#alertId, #alertPassword {
-		display: none;
-	}
-	
-</style>
-<div id="signInDiv">
-	<h1>Sign In</h1>
-	<form action="loginprocess.me" name="joinForm" method="post" id="signInForm">
+	<style>
+		#signInDiv {
+			width: 300px;
+			height: 500px;
+			display: block;
+			margin: 0 auto;
+		}
 		
-		<div class="ff">
-			<div id="alertId">We cannot find an account with that ID.</div>
-			<b>ID</b>
-			<input type="text" name="id" id="id" placeholder="Enter ID" required>
+		#alertId, #alertPassword {
+			display: none;
+		}
+		
+	</style>
+</head>
+<body>
+	<div id="signInDiv">
+		<h1>Sign In</h1>
+		<form action="loginprocess.me" name="joinForm" method="post" id="signInForm">
 			
-			<input type="checkbox" name="rememberID" id="rememberID">Remember ID<br>
+			<div class="ff">
+				<div id="alertId">We cannot find an account with that ID.</div>
+				<b>ID</b>
+				<input type="text" name="id" id="id" placeholder="Enter ID" required>
+				
+				<input type="checkbox" name="rememberID" id="rememberID">Remember ID<br>
 
-			<div id="alertPassword">Your Password is incorrect!</div>				
-			<b>PASSWORD</b>
-			<input type="password" name="password" id="password" placeholder="Enter Password" required><br>
-		</div>
+				<div id="alertPassword">Your Password is incorrect!</div>				
+				<b>PASSWORD</b>
+				<input type="password" name="password" id="password" placeholder="Enter Password" required><br>
+			</div>
+			
+			<div class="clearfix">
+				<input type="submit" value="Sign In">
+			</div>
+		</form>
 		
-		<div class="clearfix">
-			<input type="submit" value="Sign In">
-		</div>
-	</form>
-	
-	<hr>
-	<input type="button" value="Create Your Account" onclick="location.href='signup.me'">
-</div>
+		<hr>
+		<input type="button" value="아이디/비밀번호찾기" onclick="location.href='find.me'">
+		<input type="button" value="Create Your Account" onclick="location.href='signup.me'">
+	</div>
+</body>
+</html>

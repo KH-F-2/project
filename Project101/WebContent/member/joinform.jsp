@@ -71,6 +71,8 @@
 		
 		$(function() { $("#postcodify_search_button").postcodifyPopUp(); });
 		
+		var email;
+		
 		$("#emailcheck").click(function(){
 			email = $("input[name=email]").val() + "@" +$("input[name=domain]").val(); 	
 			
@@ -154,6 +156,8 @@
 			<option value="gmail.com">gmail.com</option>
 		</select> 
 		<br>
+		
+		
 		<input type="button" name="emailconfirm_btn" value="인증하기" 
          			onclick="emailcheck(joinform.email.value,joinform.domain.value)">
 		<input type="hidden" name="emailconfirm_value">

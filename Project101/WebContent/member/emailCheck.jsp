@@ -12,7 +12,7 @@ function confirmemail(emailconfirm_value, authNum){
     // 인증코드가 일치하는 경우
 	}else if(emailconfirm_value==authNum){
 		alert("인증되었습니다.");
-		location.href='main.mem';
+		location.href='main.me';
 		emailconfirm_value = "";
 		self.close();
 		opener.document.joinform.emailconfirm_value.value = 1;

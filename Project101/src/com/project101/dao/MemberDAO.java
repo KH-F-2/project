@@ -38,7 +38,7 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			System.out.println("getConnection");
-			pstmt = conn.prepareStatement("select id, password from member where id=?");
+			pstmt = conn.prepareStatement("select id, password from member12 where id=?");
 			pstmt.setString(1, id);
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
@@ -81,18 +81,25 @@ public class MemberDAO {
 	}
 	
 	//마이페이지
-	public Member member_info(String id) {
+	public Member member_info(String email) {
 		Member m = new Member();
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "select * from member where id = ?";
+			String sql = "select * from member where email = ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, email);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				m.setId(rset.getString("id"));
+				m.setEmail(rset.getString("email"));
+				m.setPassword(rset.getString(2));
+				m.setNickname(rset.getString(3));
+				m.setPhone(rset.getString(4));
+				m.setPost(rset.getString(5));
+				m.setAddress(rset.getString(6));
+				m.setDetailaddress(rset.getString(7));
+			
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -122,12 +129,12 @@ public class MemberDAO {
 		return m;
 	}
 	
-	public int idcheck(String id) {
+	public int idcheck(String email) {
 	      int result = 1;
 	      try {
 	         conn=ds.getConnection();
-	         pstmt = conn.prepareStatement("select * from member12 where id = ?");
-	         pstmt.setString(1, id);
+	         pstmt = conn.prepareStatement("select * from member where email = ?");
+	         pstmt.setString(1, email);
 	         ResultSet rs = pstmt.executeQuery();
 	         
 	         if(rs.next()) {
@@ -158,18 +165,19 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into member12 values(?,?,?,?,?,?,?,?,? ) ";
+			String sql = "insert into member values(?,?,?,?,?,?,?,? ) ";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, m.getId());
-			pstmt.setString(2, m.getPassword());
-			pstmt.setString(3,  m.getName());
-			pstmt.setString(4, m.getEmail());
-			pstmt.setString(5, m.getTel());
-			pstmt.setString(6, m.getAddress());
-			pstmt.setString(7, m.getSchool());
-			pstmt.setString(8, m.getMajor());
-			pstmt.setString(9, m.getCollege());
+			
+			pstmt.setString(1, m.getEmail() + "@" + m.getDomain());
+			pstmt.setString(2, m.getEmailcheck());
+			pstmt.setString(3, m.getPassword());
+			pstmt.setString(4,  m.getNickname());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getPost());
+			pstmt.setString(7, m.getAddress());
+			pstmt.setString(8, m.getDetailaddress());
+			
 			
 			result = pstmt.executeUpdate();
 			
@@ -271,5 +279,106 @@ public class MemberDAO {
 		return null;
 	}	// getDetail() -----------
 	
+	public String findID(String nickname, String phone) {
+		  String result = null;
+		  
+	      try {
+	         conn = ds.getConnection();
+	         pstmt = conn.prepareStatement("select * from member where nickname = ? and phone = ? ");
+	         pstmt.setString(1, nickname);
+	         pstmt.setString(2, phone);
+	         
+	         ResultSet rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            result = rs.getString("EMAIL");
+	         }
+	         
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally{
+	          if(rset!=null)
+	             try{
+	                rset.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(pstmt!=null)
+	             try{
+	                pstmt.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(conn!=null)
+	             try{
+	                conn.close();
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          }
+	      
+	      return result;
+	}
 	
+	public String findPW(String email, String nickname, String phone) {
+		String result = null;
+		try {
+	         conn = ds.getConnection();
+	         pstmt = conn.prepareStatement("select * from member12 where email = ? and nickname = ? and phone = ? ");
+	         pstmt.setString(1, email);
+	         pstmt.setString(2, nickname);
+	         pstmt.setString(3, phone );
+	         
+	         ResultSet rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            result = rs.getString("PASSWORD");
+	         }
+	         
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally{
+	          if(rset!=null)
+	             try{
+	                rset.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(pstmt!=null)
+	             try{
+	                pstmt.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(conn!=null)
+	             try{
+	                conn.close();
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          }
+	      
+	      return result;
+	}
+	
+	public int update(Member m) {
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			String sql = "update member set password= ? , nickname= ? , phone= ? , post= ? , address = ? , subaddress = ?  where email= ?  ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  m.getNickname());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getPost());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setString(5, m.getDetailaddress());
+			pstmt.setString(6, m.getEmail());
+			
+			result = pstmt.executeUpdate();
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null)
+				try{
+					pstmt.close();
+				}catch(SQLException ex){
+					ex.printStackTrace();
+				}
+			if(conn != null)
+				try{
+					conn.close();
+				}catch(SQLException ex){ex.printStackTrace();}
+		}
+		return result;
+		
+	}
 }

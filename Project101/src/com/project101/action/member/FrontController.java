@@ -55,7 +55,7 @@ public class FrontController extends HttpServlet {
 				forward.setPath("template.jsp?page=/member/signup.jsp");
 			
 			} else if (command.equals("/mypage.me")) {
-				action = new Mypage();
+				action = new MemberinfoAction();
 				forward = action.execute(request, response);
 			
 			}else if(command.equals("/joinProcess.me")) {
@@ -86,7 +86,45 @@ public class FrontController extends HttpServlet {
 		        }catch(Exception e) {
 		           e.printStackTrace();
 		        }
-		     }	
+		     }else if(command.equals("/find.me")) {
+					forward = new ActionForward();
+					forward.setRedirect(false);
+					forward.setPath("/member/find.jsp");
+				}else if(command.equals("/findIDResult.me")) {
+					action = new FindIDResultAction();
+					try {
+						forward=action.execute(request, response);
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+				}else if(command.equals("/findPWResult.me")) {
+					action = new FindPWResultAction();
+					try {
+						forward=action.execute(request, response);
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+				}else if(command.equals("/mypage.me")) {
+					action = new MemberinfoAction();
+					try {
+						forward=action.execute(request, response);
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+				else if(command.equals("/Updatemember.me")) {
+					action = new UpdatememberAction();
+					try {
+						forward=action.execute(request, response);
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+				}
 
 			if (forward != null) {
 				if (forward.isRedirect()) {

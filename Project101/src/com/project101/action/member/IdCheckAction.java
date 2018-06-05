@@ -17,8 +17,8 @@ public class IdCheckAction implements Action {
 		  ActionForward forward = new ActionForward();
 	      request.setCharacterEncoding("UTF-8");
 	      MemberDAO mdao = new MemberDAO();
-	      String id = request.getParameter("id");
-	      int result = mdao.idcheck(id);
+	      String email = request.getParameter("email");
+	      int result = mdao.idcheck(email);
 	      
 	      response.setContentType("text/html;charset=UTF-8");
 	      PrintWriter out=response.getWriter();
