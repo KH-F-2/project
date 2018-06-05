@@ -6,11 +6,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.bean.ImageBean;
 import com.project101.bean.SellBoardBean;
 import com.project101.bean.SellBoardPageBean;
+import com.project101.dao.ImageDAO;
 import com.project101.dao.SellBoardDAO;
 
 public class SellBoardListAction implements Action {
@@ -22,10 +26,10 @@ public class SellBoardListAction implements Action {
 
 		ActionForward forward = new ActionForward();
 
-		SellBoardDAO sellDAO = new SellBoardDAO();
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
+		SellBoardDAO sellDAO = new SellBoardDAO();
 		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
-		List<ImageBean> imageBeanList = new ArrayList<ImageBean>();
+		JSONArray arr = new JSONArray();
 
 		/*String searchWord = boardPageBean.getSearchWord();
 		String searchItem = boardPageBean.getSearchItem();*/
@@ -58,8 +62,15 @@ public class SellBoardListAction implements Action {
 			listcount = sellDAO.getListCount();
 			boardBeanlist = sellDAO.getBoardList(page, limit);
 		}*/
-		boardBeanlist = sellDAO.getBoardList(page, limit);
-		/*imageBeanList*/
+		arr = sellDAO.getBoardList(page, limit);
+		int size = arr.size();
+		for(int i = 0; i < size; i++) {
+			JSONObject obj = (JSONObject) arr.get(i);
+			String url = obj.get("IMAGE_URL").toString().split(" ")[0];
+			System.out.println(url);
+			obj.put("IMAGE_URL", url);
+			arr.add(obj);
+		}
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		int startpage = ((page - 1) / limit) * limit + 1;
@@ -69,18 +80,19 @@ public class SellBoardListAction implements Action {
 			endpage = maxpage;
 		}
 
-		boardPageBean.setBoardBeanList(boardBeanlist);
-		boardPageBean.setLimit(limit);
+		/*boardPageBean.setLimit(limit);
 		boardPageBean.setPage(page);
 		boardPageBean.setListcount(listcount);
 		boardPageBean.setMaxpage(maxpage);
 		boardPageBean.setStartpage(startpage);
-		boardPageBean.setEndpage(endpage);
+		boardPageBean.setEndpage(endpage);*/
 		
-		request.setAttribute("boardPageBean", boardPageBean);
+		String list = arr.toString();
+		request.setAttribute("arr", list);
+		/*request.setAttribute("boardPageBean", boardPageBean);*/
 		
 		forward.setRedirect(false);
-		forward.setPath("template.jsp?page=sellboard/sblist.jsp");
+		forward.setPath("template.jsp?page=sellboard/sblist2.jsp");
 
 		return forward;
 	}

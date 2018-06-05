@@ -58,8 +58,10 @@ public class SellBoardModifyAction implements Action {
 		if (result2 == 0) {
 			System.out.println("image modify fail!");
 		}
+		
+		System.out.println("result : "+result+" result2 : "+result2);
 
-		if (result == 1 && result2 == 1) {
+		if (result < 0 && result2 < 0) {
 			out.println("<script> alert('게시판 수정 성공!'); location.href='./sbview.sb?num=" + num + "';</script>");
 		} else {
 			out.println("<script> alert('게시판 수정 실패!'); history.back();</script>");

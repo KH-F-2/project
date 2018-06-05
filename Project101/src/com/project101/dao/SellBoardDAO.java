@@ -304,15 +304,17 @@ public class SellBoardDAO {
 	} // getBoardList() ----------
 	
 	
-	public List<SellBoardBean> getBoardList(int page, int limit) {
-		List<SellBoardBean> boardBeanList = new ArrayList<SellBoardBean>();
+	public JSONArray getBoardList(int page, int limit) {
+		JSONArray arr = new JSONArray();
 		int startrow = (page - 1) * limit + 1;
 		int endrow = startrow + limit - 1;
 		try {
 			conn = ds.getConnection();
 
 			String sql = "select * from " + "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
-					+ "SB_READCOUNT, SB_DATE, SB_LAT, SB_LNG from " + "(select * from SELL_BOARD order by SB_NO desc)) "
+					+ "SB_READCOUNT, SB_DATE, SB_HASHTAG, SB_STATE, SB_LAT, SB_LNG, SB_PRICE, IMAGE_URL, BOARD_NAME "
+					+ "from (select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO " 
+					+ "where IMAGE.BOARD_NAME = 'SELL_BOARD')) "
 					+ "where rnum>=? and rnum<=?";
 
 			pstmt = conn.prepareStatement(sql);
@@ -323,15 +325,20 @@ public class SellBoardDAO {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				SellBoardBean boardBean = new SellBoardBean();
-				boardBean.setSB_NO(rset.getInt("SB_NO"));
-				boardBean.setSB_WRITER(rset.getString("SB_WRITER"));
-				boardBean.setSB_TITLE(rset.getString("SB_TITLE"));
-				boardBean.setSB_DATE(rset.getDate("SB_DATE"));
-				boardBean.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
-				boardBean.setSB_LAT(rset.getDouble("SB_LAT"));
-				boardBean.setSB_LNG(rset.getDouble("SB_LNG"));
-				boardBeanList.add(boardBean);
+				JSONObject obj = new JSONObject();
+				obj.put("SB_NO", rset.getInt("SB_NO"));
+				obj.put("SB_WRITER", rset.getString("SB_WRITER"));
+				obj.put("SB_TITLE", rset.getString("SB_TITLE"));
+				obj.put("SB_READCOUNT", rset.getInt("SB_READCOUNT"));
+				obj.put("SB_DATE", rset.getDate("SB_DATE"));
+				obj.put("SB_HASHTAG", rset.getString("SB_HASHTAG"));
+				obj.put("SB_STATE", rset.getString("SB_STATE"));
+				obj.put("SB_LAT", rset.getDouble("SB_LAT"));
+				obj.put("SB_LNG", rset.getDouble("SB_LNG"));
+				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
+				obj.put("IMAGE_URL", rset.getString("IMAGE_URL"));
+				obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
+				arr.add(obj);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -350,7 +357,7 @@ public class SellBoardDAO {
 				e.printStackTrace();
 			}
 		}
-		return boardBeanList;
+		return arr;
 	} // getBoardList() ----------
 
 	public int getListCount(String SB_WRITER) {

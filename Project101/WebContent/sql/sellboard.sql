@@ -20,6 +20,8 @@ SELECT * FROM SELL_BOARD;
 
 select * from image;
 
+select * from IMAGE where BOARD_NO=2 and BOARD_NAME='SELL_BOARD'
+
 delete from SELL_BOARD;
 
 

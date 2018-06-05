@@ -43,13 +43,13 @@ select * from (select rownum rnum, NUM, WRITER, TITLE, READCOUNT, DDATE, PRICE, 
 	(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')))) where rnum >= 1 and rnum <= 5 order by distance
 	
 	
-select * from (select rownum rnum, NUM, WRITER, TITLE, CONTENT, READCOUNT, DDATE, CATEGORY, HASHTAG, STATE, distance, IMAGE_URL, BOARD_NAME from 
-	(select NUM, WRITER, TITLE, CONTENT, READCOUNT, DDATE, CATEGORY, HASHTAG, STATE, distance, IMAGE_URL, BOARD_NAME from 
+select * from (select rownum rnum, NUM, WRITER, TITLE, CONTENT, READCOUNT, DDATE, CATEGORY, HASHTAG, STATE, LAT, LNG, PRICE, distance, IMAGE_URL, BOARD_NAME from 
+	(select NUM, WRITER, TITLE, CONTENT, READCOUNT, DDATE, CATEGORY, HASHTAG, STATE, LAT, LNG, PRICE, distance, IMAGE_URL, BOARD_NAME from 
 	(select SB_NO as NUM, SB_WRITER as WRITER, SB_TITLE as TITLE, SB_CONTENT as CONTENT, SB_READCOUNT as READCOUNT, SB_DATE as DDATE, SB_CATEGORY as CATEGORY, 
-	SB_HASHTAG as HASHTAG, SB_STATE as STATE,  sqrt(power((37.570158-SB_LAT),2) + power((126.982899-SB_LNG),2)) as distance, IMAGE_URL, BOARD_NAME from 
+	SB_HASHTAG as HASHTAG, SB_STATE as STATE, SB_LAT as LAT, SB_LNG as LNG, SB_PRICE as PRICE, sqrt(power((37.570158-SB_LAT),2) + power((126.982899-SB_LNG),2)) as distance, IMAGE_URL, BOARD_NAME from 
 	(select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD'))
 	UNION ALL (select PB_NO as NUM, PB_WRITER as WRITER, PB_TITLE as TITLE, PB_CONTENT as CONTENT, PB_READCOUNT as READCOUNT, PB_DATE as DDATE, PB_CATEGORY as CATEGORY, 
-	PB_HASHTAG as HASHTAG, PB_STATE as STATE, sqrt(power((37.570158-PB_LAT),2) + power((126.982899-PB_LNG),2)) as distance, IMAGE_URL, BOARD_NAME from 
+	PB_HASHTAG as HASHTAG, PB_STATE as STATE, PB_LAT as LAT, PB_LNG as LNG, PB_PRICE as PRICE, sqrt(power((37.570158-PB_LAT),2) + power((126.982899-PB_LNG),2)) as distance, IMAGE_URL, BOARD_NAME from 
 	(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')))) 
 	where rnum >= 1 and rnum <= 5 order by distance
 	
@@ -61,4 +61,12 @@ select * from (select rownum rnum, NUM, WRITER, TITLE, CONTENT, READCOUNT, DDATE
 select * from (select rownum rnum,pb_no ,pb_writer,pb_title, 
 pb_content, pb_file, pb_date,PB_READCOUNT 
 from (select * from PURCHASE_BOARD)) where rnum>=0 and rnum<=10 ; 
+
+select * from (select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, SB_CONTENT, SB_READCOUNT, SB_DATE, SB_CATEGORY, SB_HASHTAG, SB_STATE, SB_LAT, 
+	SB_LNG, SB_PRICE, IMAGE_URL, BOARD_NAME from (select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO 
+	where IMAGE.BOARD_NAME = 'SELL_BOARD')) where rnum >= 1 and rnum <= 5
+	
+select * from (select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO 
+	where IMAGE.BOARD_NAME = 'SELL_BOARD') inner join COMMENTS on SB_NO = COMMENTS.CMT_SUBJECT_NO 
+	where COMMENTS.CMT_BOARD_NAME = 'SELL_BOARD'
 

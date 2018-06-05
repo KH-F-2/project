@@ -10,3 +10,5 @@ CREATE TABLE SELL_HISTORY(
 );
 
 select * from sell_history;
+
+delete from sell_history
