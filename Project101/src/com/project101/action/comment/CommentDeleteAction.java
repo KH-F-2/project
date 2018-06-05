@@ -14,10 +14,10 @@ public class CommentDeleteAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		int cmtNum = Integer.parseInt(request.getParameter("cmtNum"));
-		int num = Integer.parseInt(request.getParameter("num"));
+		int cmtNum = Integer.parseInt(request.getParameter("CMT_NO"));
+		int num = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
 		String board_name = request.getParameter("CMT_BOARD_NAME");
-		String URL = request.getParameter("URL");
+		String URL = request.getParameter("url");
 		
 		int result;
 

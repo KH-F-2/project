@@ -1,6 +1,6 @@
-drop table member12;
+drop table member;
 
-create table member12(
+create table member(
 	id varchar2(15),
 	pass varchar2(15),
 	name varchar2(15),
@@ -12,3 +12,5 @@ create table member12(
 	college varchar2(15),
 	PRIMARY KEY(id)
 );
+
+select * from member;

@@ -7,6 +7,9 @@
 <head>
 <title>구매 작성 페이지</title>
 <style>
+table{
+	margin: 0 auto;
+}
 #title {
 	float: left;
 }
@@ -18,79 +21,86 @@
 #writeDate {
 	float: right;
 }
-header{
-	border: 1px solid black;
-}
-nav{
-	border: 1px solid black;
-}
-aside {
-	float: left;
-	height: 100%;
-	border: 1px solid black;
-}
-section{
-height: 100%;
-}
+
 </style>
+
+<script>
+
+	$(document).ready(function(){
+		$('#cancelBtn').click(function(){
+			history.back();
+		});
+		$("#submit").click(function(){
+			location.href="./pbwriteAction.pb?PB_TITLE="+$('input[name="title"]').val()
+							+"&PB_WRITER="+$('input[name="id"]').val()
+							+"&PB_CONTENT="+$('textarea[name="content"]').val()
+							//+"&PB_LAT="+$()+"&PB_LNG="+$() 아직 설정값 몰라
+							+"&PB_PRICE="+$('input[name="price"]').val()
+							+"&PB_CATEGORY="+$('select[name=category]').val()
+							+"&PB_HASHTAG="+$('input[name="hashtag"]').val()
+							
+		});
+		
+	});
+</script>
 </head>
 <body>
-	<header>
-	헤더
-	</header>
-	
-	<nav>
 		<!-- 맨 윗줄 -->
 		<span id='title'>구매게시판&nbsp;</span>
-		<span id='writeNo'>글 번호</span>
-		<span id='writeDate'>Sysdate</span>
-	</nav>
 	<br>
-	<aside>
-		<select>
-			<option>카테고리</option>
-			<option>의류</option>
-			<option>가구</option>
-		</select>
-	</aside>
-	<section>
-	<form action="./pbwriteAction.pb" method="post" name="purchaseForm"  enctype="Multipart/form-data">
+
+	<form method="post" name="purchaseForm">
+	
 		<table>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name='id' id='id' readOnly type="text" value="로그인 된 ID"></td>
+				<td><input type="text" name='id' id='id' readOnly type="text" value="<%=session.getAttribute("id")%>"></td>
 			</tr>
 			<tr>
 				<td>제목</td>
-				<td><input type="text" name='title' id='title' placeholder="제목을 입력해주세요"></td>
+				<td><input type="text" name='title' id='title' placeholder="제목을 입력해주세요" required></td>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan='2'><textarea name='content' id='content'></textarea></td>	
+				<td colspan='2'><textarea name='content' id='content' required></textarea></td>	
 			</tr>
 			<tr>
 				<td>위치</td>
-				<td>클릭이미지</td>
+				<td>이거를 어떻게 넣겠지?</td>
 			</tr>
 			<tr>
-				<td>첨부파일</td>
-				<td><input type="file" name="upfile" placeholder="파일명"></td>
+				<td>구매가격</td>
+				<td><input type="text" name="price" placeholder="가격이 수정이 안됩니다." required></td>
 			</tr>
 			<tr>
-				<td>태그달기</td>
-				<td><input type="text" placeholder="태그"></td>
+				<td>헤시태그</td>
+				<td><input type="text" name="hashtag" placeholder="태그"></td>
+			</tr>
+			<tr>
+				<td>
+				카테고리
+				</td>
+				<td>
+					<select name="category">
+					<option value="0">의류/패션잡화</option>
+					<option value="1">가구/생활잡화</option>
+					<option value="2">전자기기/게임</option>
+					<option value="3">문화/도서/티켓</option>
+					<option value="4">차량용품/오토바이</option>
+					<option value="5">취미/레저/스포츠</option>
+					<option value="6">기타</option>
+					
+			</select>
+				</td>
 			</tr>	
 			<tr>
 				<td colspan='2'>
-					<input type="submit" name='submit' id='submit' value="등록">
-					<input type="button" name='cancel' id='cancel' value="취소">
+					<input type="button" name='submit' id='submit' value="등록">
+					<input type="button" name='cancelBtn' id='cancelBtn' value="취소">
 				</td>
 			</tr>		
 		</table>
 	</form>
-</section>
+
 </body>
 </html>

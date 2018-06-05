@@ -5,29 +5,27 @@
 <head>
 	<title>뷰 페이지</title>
 	
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	
 	<script>
 		$(document).ready(function () { 
 			
 			$('#modifyBtn').click(function () {			// 수정버튼
-				location.href="./pbmodify.pb?num=${boardBean.num }";
+				location.href="./pbmodify.pb?PB_NO=${boardBean.PB_NO }";
 			});
 			
 			$('#deleteBtn').click(function () {			// 삭제버튼
-				location.href="./pbdeleteAction.pb?num=${boardBean.num }";
+				location.href="./pbdeleteAction.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }";
 			});
 			$('#next').click(function(){				//다음페이지
-				location.href = "./pbview.pb?num=${boardBean.num }&page=" + ${page + 1};
+				location.href = "./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=" + ${page + 1};
 				//다음페이지 이동
 			});
 			$('#back').click(function(){				//이전페이지
-				location.href = "./pbview.pb?num=${boardBean.num }&page=" + ${page - 1};	
+				location.href = "./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=" + ${page - 1};	
 				//이전페이지 이동
 			});
 			
-			$('.cmtDeleteBtn').click(function () {			// 댓글 삭제 버튼
-				location.href="./CommentDeleteAction.cmt?URL=./pbview.pb?num=&CMT_BOARD_NAME=purchaseboard&num=${boardBean.num }&cmtNum=" + $(this).val();
+			$('.cmtDeleteBtn').click(function () {			// 댓글삭제 버튼
+				location.href="./CommentDeleteAction.cmt?url=./pbview.pb?CMT_SUBJECT_NO=&CMT_SUBJECT_NO=${boardBean.PB_NO }&CMT_BOARD_NAME=purchaseboard&CMT_NO=" + $(this).val();
 			});
 			
 			$('#cmtInsertBtn').one("click" , function(){			// 댓글등록버튼
@@ -39,14 +37,17 @@
 						type : "post",
 						dataType : "json",
 						data : {
-								comment_content : $("#comment_content").val(),
-								num : $("PB_NO").val()
+								CMT_CONTENT : $("#comment_content").val(),
+								CMT_SUBJECT_NO : $("PB_NO").val()
 								},
-								url : "./cmtwriteAction.cmt?num=${boardBean.num }&CMT_BOARD_NAME=purchaseboard",
+								url : "./cmtwriteAction.cmt?CMT_SUBJECT_NO=${boardBean.PB_NO }&CMT_BOARD_NAME=purchaseboard",
 						success : function(data){
 							if (data == 1) {
-								location.href='./pbview.pb?num=${boardBean.num }&page=${endPage}';  //등록시 마지막 페이지로
-						
+								if(${endPage}==0){
+									location.href='./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=1';  //등록시 마지막 페이지가 0일경우 1로 고정
+								} else {	
+									location.href='./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=${endPage}';  //등록시 마지막 페이지로
+								}
 								
 							} else {
 								alert("실패" + data);
@@ -70,12 +71,12 @@
 				var a = $(this).val();
 				
 				var reout = "";
-				reout += '<li>';
+				reout += '<li id="rerepage">';
 				reout += '<div>';
-				reout += '<span>답답글 쓰는 id</span>'
-				reout += '<span><input type="text" id="rere_Comment"></span>'
+				reout += '<span><%=session.getAttribute("id")%></span>';
+				reout += '<span><input type="text" id="rere_Comment"></span>';
 				reout += '<span> <button id="rereBtn'+a+'"';
-				reout += ' class="rereBtn" value='+a+'>등록</button> </apsn>'
+				reout += ' class="rereBtn" value='+a+'>등록</button> </apsn>';
 				reout += '</div>';
 				reout += '</li>';
 				
@@ -94,13 +95,13 @@
 						type : "post",
 						dataType : "json",
 						data : {
-								comment_content : $("#rere_Comment").val(),
-								num : $("PB_NO").val()
+								CMT_CONTENT : $("#rere_Comment").val(),
+								CMT_SUBJECT_NO : $("PB_NO").val()
 								},
-						url : "./CommentReplyAction.cmt?CMT_BOARD_NAME=purchaseboard&num=${boardBean.num }&cmtnum="+$(this).val(),
+						url : "./CommentReplyAction.cmt?CMT_BOARD_NAME=purchaseboard&CMT_SUBJECT_NO=${boardBean.PB_NO }&CMT_NO="+$(this).val(),
 						success : function(data){
 							if (data == 1) {
-								location.href='./pbview.pb?num=${boardBean.num }&page=${page}'; //등록시 원문글 페이지로
+								location.href='./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=${page}'; //등록시 원문글 페이지로
 							} else {
 								alert("실패" + data);
 							}
@@ -117,7 +118,7 @@
 			$('#listBtn').click(function () {			// 목록버튼
 				location.href="./pbmain.pb";
 			});
-				
+		
 		});
 		 
 	</script>
@@ -126,6 +127,7 @@
 		table{
 			width: 600px;
 			text-align: center;
+			margin: 0 auto;
 		}
 		td{
 			border:1px solid black;
@@ -143,14 +145,28 @@
   		}
   		#bottompage{		
   			text-align:center;
-  			margin:auto;
+  			margin:0 auto;
   		}
   		#viewtable{
-  			margin:auto;
+  			margin:0 auto;
   		}
-  		#replytable{
-  			algin:center;
-  			margin:auto;
+  		#cmtInsertBtn{
+  			float:right;
+  		}
+  		#replytable{ /* 리플 등록 줄 */
+  	
+  			margin:0 auto;
+  			padding : 0;
+  		}
+  		#insertreplypage{ /* 리플 등록 줄 */
+  			margin: 0 auto;
+  			
+  		}
+  		#replypage{	/* 리플 보여주기 줄*/
+  			margin: 0 auto;
+  		}
+  		#rerepage{ 	/* 답글 입력 줄*/
+  			margin: 0 auto;
   		}
   		
 
@@ -160,7 +176,7 @@
 
 <body>
 
-	<input type="hidden" name="PB_NO" value="${boardBean.num }">
+	<input type="hidden" name="PB_NO" value="${boardBean.PB_NO }">
 	<table id="viewtable">
 		<tr>
 			<th colspan="3">뷰페이지</th>
@@ -170,7 +186,7 @@
 				<div>작성자</div>
 			</td>
 			<td colspan="2">
-				<div>${boardBean.writer }</div>
+				<div>${boardBean.PB_WRITER }</div>
 			</td>
 		</tr>
 		<tr>
@@ -178,7 +194,7 @@
 				<div>제목</div>
 			</td>
 			<td colspan="2">
-				<div>${boardBean.title}</div>
+				<div>${boardBean.PB_TITLE}</div>
 			</td>
 		</tr>
 		<tr>
@@ -186,18 +202,56 @@
 				<div>내용</div>
 			</td>
 			<td colspan="2">
-				<div>${boardBean.content }</div>
+				<div>${boardBean.PB_CONTENT }</div>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<div>첨부파일</div>
+				<div>가격</div>
 			</td>
-			<td colspan="2"><img src=""> ${boardBean.file }</td>
+			<td colspan="2"> ${boardBean.PB_PRICE }</td>
+		</tr>
+		<tr>
+			<td>
+				<div>헤쉬태그</div>
+			</td>
+			<td colspan="2"> ${boardBean.PB_HASHTAG }</td>
+		</tr>
+		<tr>
+			<td>
+				<div>카테고리</div>
+			</td>
+			<td>
+				<c:choose>
+				<c:when test="${boardBean.PB_CATEGORY==0 }">
+				의류/패션잡화
+				</c:when>
+				<c:when test="${boardBean.PB_CATEGORY==1 }">
+				가구/생활잡화
+				</c:when>
+				<c:when test="${boardBean.PB_CATEGORY==2 }">
+				전자기기/게임
+				</c:when>
+				<c:when test="${boardBean.PB_CATEGORY==3 }">
+				문화/도서/티켓
+				</c:when>
+				<c:when test="${boardBean.PB_CATEGORY==4 }">
+				차량용품/오토바이
+				</c:when>
+				<c:when test="${boardBean.PB_CATEGORY==5 }">
+				취미/레저/스포츠
+				</c:when>
+				<c:when test="${boardBean.PB_CATEGORY==6 }">
+				기타
+				</c:when>
+				
+				
+				</c:choose>
+			</td>	
 		</tr>
 		<tr>
 			<td colspan="3" class="center">
-				<c:if test="${boardBean.id == id || id == 'admin' }">
+				<c:if test="${boardBean.PB_WRITER == sessionScope.id || sessionScope.id.equals('admin') }">
 					<button id="modifyBtn">수정</button> &nbsp; &nbsp;
 					<button id="deleteBtn">삭제</button> &nbsp; &nbsp;
 				</c:if>
@@ -211,8 +265,8 @@
 		<!-- --------------------------------------지옥의 댓글 시작------------------------------------------- -->
 
 	<ul id="replytable">
-		<li>
-			<span>로그인 된 id값</span>
+		<li id="insertreplypage">
+			<span><%=session.getAttribute("id")%></span>
 			<span><input type='text' name="comment_content" id="comment_content">
 			<button id=cmtInsertBtn>댓글등록</button></span>
 		</li>
@@ -220,11 +274,10 @@
 			<c:forEach var="comment" items="${requestScope.cmtList}">
 				<!-- 댓글목록 출력반복문 -->
 		
-				<li>
+				<li id="replypage">
 				<div>
-					<span id="cmt_writer">작성자id</span>
+					<span id="cmt_writer">${comment.CMT_WRITER }</span>
 
-					
 						<span>
 							<c:if test="${comment.CMT_RE_LEV !=0 }">
 								<c:forEach var = "a" begin="1" end="${comment.CMT_RE_LEV }" step="1">
@@ -234,12 +287,12 @@
 							
 							${comment.CMT_CONTENT} <font size="2">${comment.CMT_DATE}</font>
 							
-							
 						</span>
-				
-													
+			
+					<c:if test="${comment.CMT_WRITER eq sessionScope.id || sessionScope.id.equals('admin')}"	>						
 						<span class="reBtn"><button id="recmtInsertBtn" class="recmtInsertBtn" value="${comment.CMT_NO }">답글</button></span>
 						<span class="reBtn"><button class="cmtDeleteBtn" value="${comment.CMT_NO }">삭제</button></span>
+					</c:if>
 					</div>
 				</li>
 				<span class="answer" id ="answer${comment.CMT_NO}"></span> <!-- 대댓글 칸 -->
@@ -250,11 +303,13 @@
 		
 		<!-- 새로 입력된 댓글 ajax로 출현 -->
 
-		<li>
-			<div id=bottompage>
+		<c:if test="${cmtList != null }">
+		<li id="bottompage">
+			<div>
 				<c:if test="${page <= 1 }">
 					이전&nbsp;
 				</c:if>
+			
 				<c:if test="${page>1 }">
 					<a id="back">이전</a>
 				</c:if>
@@ -265,18 +320,21 @@
 					</c:if>
 
 					<c:if test="${a != page }">
-						<a href="./pbview.pb?num=${boardBean.num }&page=${a }">${a }</a>
+						<a href="./pbview.pb?CMT_SUBJECT_NO=${boardBean.num }&page=${a }">${a }</a>
 					</c:if>
 				</c:forEach>
-				
+			
 				<c:if test="${page >= endPage }">
 					&nbsp; 다음
 				</c:if>
+				
 				<c:if test="${page < endPage }">
 					<a id="next">다음</a>
 				</c:if>
 			</div>
 		</li>
+		</c:if>
+	
 	</ul>
 
 </body>

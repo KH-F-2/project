@@ -9,6 +9,7 @@ public class CommentBean {
 	private int CMT_RE_REF; // 댓댓글 작성시 참조 글번호
 	private int CMT_RE_LEV; // 댓댓글 깊이
 	private int CMT_RE_SEQ; // 댓글 순서
+	private String CMT_BOARD_NAME; //게시판 이름
 	
 	public int getCMT_NO() {
 		return CMT_NO;
@@ -59,6 +60,12 @@ public class CommentBean {
 	}
 	public void setCMT_RE_SEQ(int cMT_RE_SEQ) {
 		CMT_RE_SEQ = cMT_RE_SEQ;
+	}
+	public String getCMT_BOARD_NAME() {
+		return CMT_BOARD_NAME;
+	}
+	public void setCMT_BOARD_NAME(String cMT_BOARD_NAME) {
+		CMT_BOARD_NAME = cMT_BOARD_NAME;
 	}
 
 }

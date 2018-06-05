@@ -21,10 +21,10 @@ public class CommentReplyAction implements Action {
 		CommentBean cmtBean = new CommentBean();
 		HttpSession session = request.getSession();
 		
-		int comment_boardNO = Integer.parseInt(request.getParameter("num"));
-		int comment_cmtNO = Integer.parseInt(request.getParameter("cmtnum"));
+		int comment_boardNO = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
+		int comment_cmtNO = Integer.parseInt(request.getParameter("CMT_NO"));
 		String board_name = request.getParameter("CMT_BOARD_NAME");
-		String comment_content = request.getParameter("comment_content");
+		String comment_content = request.getParameter("CMT_CONTENT");
 		
 		cmtBean.setCMT_NO(cmtDAO.getSeq());			//댓글 번호
 		cmtBean.setCMT_SUBJECT_NO(comment_boardNO);	//게시글 번호

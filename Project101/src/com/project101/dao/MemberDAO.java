@@ -126,7 +126,7 @@ public class MemberDAO {
 	      int result = 1;
 	      try {
 	         conn=ds.getConnection();
-	         pstmt = conn.prepareStatement("select * from member12 where id = ?");
+	         pstmt = conn.prepareStatement("select * from member where id = ?");
 	         pstmt.setString(1, id);
 	         ResultSet rs = pstmt.executeQuery();
 	         
@@ -158,7 +158,7 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into member12 values(?,?,?,?,?,?,?,?,? ) ";
+			String sql = "insert into member values(?,?,?,?,?,?,?,?,? ) ";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, m.getId());
