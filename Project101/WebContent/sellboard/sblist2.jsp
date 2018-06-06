@@ -6,6 +6,10 @@
 	<head>
 		<title>판매 게시판</title>
         <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        
+         <!-- 지도 API -->
+        <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
+        
         <script type="text/javascript">
 	        $(document).ready(function(){
 	        	$('#a_write').click(function(){
@@ -17,19 +21,84 @@
 	        		}
 	        	});
 	        	
+	        	
+	        	
 	        });
+	        
+	        function initMap() {
+	        	var seoulCityhall = {
+	        		lat : 37.566697,
+	        		lng : 126.978457
+	        	};
+	        	
+
+	        	map = new google.maps.Map(document.getElementById('map'), {
+	        		zoom : 14,
+	        		center : seoulCityhall
+	        	});
+	        	
+	        	clickEvent = map.addListener('click', function(event) {
+	        	    
+	        		placeMarker(event.latLng);
+	        	});
+
+	        	// 검색 자동 완성 기능 구현
+	        	autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
+
+	        	autocomplete.addListener('place_changed', function() {
+	        		var place = autocomplete.getPlace();
+	        		if (place.geometry) {
+	        			map.panTo(place.geometry.location);
+	        			map.setZoom(17);
+	        		} else {
+	        			document.getElementById('autocomplete').placeholder = 'Enter a city';
+	        		}
+	        	});
+	        	
+	        }
+	        function placeMarker(location) {
+	        	marker = new google.maps.Marker({
+	        		position : location,
+	        		map : map,
+	        		draggable: true,
+	        	});
+	        	
+	        	map.setCenter(location);
+	        	$('#markerLat').val(location.lat());
+	        	$('#markerLng').val(location.lng());
+	        	
+	        	addDragEvent(marker);
+	        	google.maps.event.removeListener(clickEvent);
+	        }
+
+	        function addDragEvent(marker) {
+	        	marker.addListener('dragend', function (event) {
+	        		map.setCenter(event.latLng);
+	        		$('#markerLat').val(event.latLng.lat());
+	        		$('#markerLng').val(event.latLng.lng());
+	        	});
+	        }
         </script>
-		<!-- <link href="css/sblist.css" rel="stylesheet" type="text/css"> -->
+		<link href="css/sblist.css" rel="stylesheet" type="text/css">
 		<style>
-			.map{width: 80%; background-color: silver; height: 300px; margin: 0 auto;}
+			#map{
+				width: 80%; 
+				height: 400px; 
+				margin: 0 auto; 
+				margin-top: 20px;
+			}
 			.write{
 				width: 80%;
 				margin: 0 auto;
+				margin-top: 5px;
 				text-align: right;
+				height: 35px;
 			}
 			#a_write{
-				font-size: 12pt;
+				font-size: 18pt;
 				color: #262626;
+				font-weight: bold;
+				line-height: 1.6;
 			}
 			.content_section{
 				width: 80%;
@@ -58,7 +127,8 @@
 				overflow: hidden;
 			}
 			.content_img{
-				width: 100%;
+				min-width: 100%;
+				min-height: 100%;
 			}
 			.card_content{
 				height: 110px;
@@ -80,136 +150,105 @@
 				font-size: 8pt;
 				color: silver;
 			}
+			.list_title{
+				margin: 0 auto;
+				width: 20%;
+				padding: 10px;
+				border-top: 3px solid #526bbe; 
+				border-bottom: 3px solid #526bbe;
+				text-align: center;
+			}
+			.card_a{
+				text-decoration: none;
+				color: black !important;
+			}
+			.card_a:hover{
+				text-shadow: 0 0 3px rgba(0,84,255,0.6);
+			}
+			
+			.write_btn {
+				background-color: #c47135;
+				border: none;
+				color: #ffffff;
+				cursor: pointer;
+				display: inline-block;
+				line-height: 1em;
+				margin: 0 auto;
+				font-size: 9pt;
+				outline: none;
+				padding: 8px 15px;
+				letter-spacing: 2px;
+				position: relative;
+				text-transform: uppercase;
+				font-weight: 700;
+			}
+			.write_btn:before, .write_btn:after {
+				border-color: transparent;
+				-webkit-transition: all 0.25s;
+				transition: all 0.25s;
+				border-style: solid;
+				border-width: 0;
+				content: "";
+				height: 24px;
+				position: absolute;
+				width: 24px;
+			}
+			.write_btn:before {
+				border-color: #c47135;
+				border-right-width: 2px;
+				border-top-width: 2px;
+				right: -5px;
+				top: -5px;
+			}
+			.write_btn:after {
+				border-bottom-width: 2px;
+				border-color: #c47135;
+				border-left-width: 2px;
+				bottom: -5px;
+				left: -5px;
+			}
+			.write_btn:hover, .write_btn.hover {
+				background-color: #c47135;
+			}
+			.write_btn:hover:before, .write_btn.hover:before,
+			.write_btn:hover:after, .write_btn.hover:after {
+				height: 100%;
+				width: 100%;
+			}
 		</style>
 	</head>
 	<body>
-		<h1>판매 게시판</h1>
-		<div class="map">지도~</div>
-		
-		<div class="write">
-			<a style="margin-right:10px;" href="./sbwriteview.sb" id="a_write">글쓰기</a>
+		<div class="list_title">
+			<h1>게시글 리스트</h1>
 		</div>
 		
+		<div id="map">지도~</div>
+		
+		<div class="write">
+			<button type="button" class="write_btn" onclick="location.href='./sbwriteview.sb'">글쓰기</button>
+			<!-- <a style="margin-right:10px;" href="./sbwriteview.sb" id="a_write">글쓰기</a> -->
+		</div>
 		<section class="content_section">
 			<c:forEach var="list" items="${arr}">
 				<div class="card">
-					<div class="card_img">
-						<img class="content_img" src="${list.IMAGE_URL}">
-					</div>
-					<div class="card_content">
-						<span class="content_span_title">${list.SB_TITLE}</span><br>
-						<span class="content_span_price">${list.SB_PRICE}원</span>
-						<br>${list.SB_DATE}
-					</div>
-					<div class="card_bottom">
-						<span class="bottom_span">
-							댓글 0 · 조회수 ${list.SB_READCOUNT}
-						</span>
-						
-					</div>
+					<a class="card_a" href="./sbview.sb?num=${list.SB_NO }">
+						<div class="card_img">
+							<img class="content_img" src="${list.IMAGE_URL}">
+						</div>
+						<div class="card_content">
+							<span class="content_span_title">${list.SB_TITLE}</span><br>
+							<span class="content_span_price">${list.SB_PRICE}원</span>
+							<br>${list.SB_DATE}
+						</div>
+						<div class="card_bottom">
+							<span class="bottom_span">
+								댓글 0 · 조회수 ${list.SB_READCOUNT}
+							</span>
+						</div>
+					</a>
 				</div>
 			</c:forEach>
 		</section>
-		<%-- 
-		<c:set var="b_p" value="${boardPageBean }"/>
-		<table class="sellboard_table">
-			<c:if test="${b_p.listcount>=1}">
-			<thead>
-				<tr>
-					<th colspan="3">판매 게시판 - list</th>
-					<th colspan="2">글 개수 : ${b_p.listcount }</th>
-				</tr>
-				<tr>
-					<th width="8%">번호</th>
-					<th width="50%">제목</th>
-					<th width="14%">작성자</th>
-					<th width="17%">날짜</th>
-					<th width="11%">조회수</th>
-				</tr>
-			</thead>	
-				
-				<c:set var="num" value="${b_p.listcount-(b_p.page-1)*b_p.limit }"/>
-				<tbody>
-					<c:forEach var="boardBean" items="${b_p.boardBeanList }">
-						<tr>
-							<td width="8%">
-								<c:out value="${num }"/>
-								<c:set var="num" value="${num-1 }"/>
-							</td>
-							<td width="50%" align="left">
-								&nbsp;<a href="./sbview.sb?num=${boardBean.SB_NO }">
-									${boardBean.SB_TITLE }
-								</a>
-							</td>
-							<td width="14%">${boardBean.SB_WRITER }</td>
-							<td width="17%">${boardBean.SB_DATE }</td>
-							<td width="11%">${boardBean.SB_READCOUNT }</td>
-						</tr>
-					</c:forEach>
-				
-				
-				<tr>
-					<td colspan="5">
-						<c:if test="${b_p.page<=1 }">
-							이전&nbsp;
-						</c:if>
-						<c:if test="${b_p.page>1 }">
-							<a href="./sbmain.sb?page=${b_p.page-1 }">이전</a>&nbsp;
-						</c:if>
-						
-						<c:forEach var="a" begin="${b_p.startpage }" end="${b_p.endpage }">
-							<c:if test="${a==b_p.page }">
-								${a }
-							</c:if>
-							<c:if test="${a!=b_p.page }">
-								<a href="./sbmain.sb?page=${a }&word=${b_p.searchWord}&item=${b_p.searchItem}">${a }</a>
-							</c:if>
-						</c:forEach>
-						
-						<c:if test="${b_p.page>=b_p.maxpage }">
-							&nbsp;다음
-						</c:if>
-						<c:if test="${b_p.page<b_p.maxpage }">
-							&nbsp;<a href="./sbmain.sb?page=${b_p.page+1}&word=${b_p.searchWord}&item=${b_p.searchItem}">다음</a>
-						</c:if>
-						
-					</td>
-				</tr>
-				</tbody>
-				
-			</c:if>
-			
-			
-			<c:if test="${b_p.listcount==0}">
-			<thead>
-				<tr>
-					<td colspan="5">판매 게시판</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td colspan="5">
-						<font style="margin-right:15px;" size=2>등록된 글이 없습니다.</font>
-					</td>
-				</tr>
-			</tbody>
-			</c:if>
-			<tfoot>
-				<tr>
-					<td colspan="5" style="text-align:right; font-size: 14pt;">
-						<a style="margin-right:10px;" href="./sbwriteview.sb" id="a_write">글쓰기</a>
-					</td>
-				</tr>
-			</tfoot>
-		</table> --%>
-		<!-- <div class="search">
-			<select id="search_sel">
-			    <option value="title" selected="selected">제목</option>
-			    <option value="content">내용</option>
-			    <option value="title_content">제목+내용</option>
-			</select>
-			<input type="text" name="search_input" placeholder="Search..">
-			<button id="search_btn">검색</button>
-		</div> -->
+		
 	</body>
 </html>
