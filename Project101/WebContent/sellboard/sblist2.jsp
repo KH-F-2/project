@@ -12,7 +12,7 @@
         
         <script type="text/javascript">
 	        $(document).ready(function(){
-	        	$('#a_write').click(function(){
+	        	$('.write_btn').click(function(){
 	        		var id=<%=session.getAttribute("id")%>
 	        		if(id==null){
 	        			alert('로그인 후 이용하실 수 있습니다.');
@@ -22,16 +22,14 @@
 	        	});
 	        	
 	        	
-	        	
 	        });
+	        
 	        
 	        function initMap() {
 	        	var seoulCityhall = {
 	        		lat : 37.566697,
 	        		lng : 126.978457
 	        	};
-	        	
-
 	        	map = new google.maps.Map(document.getElementById('map'), {
 	        		zoom : 14,
 	        		center : seoulCityhall
@@ -90,15 +88,9 @@
 			.write{
 				width: 80%;
 				margin: 0 auto;
-				margin-top: 5px;
+				margin-top: 20px;
 				text-align: right;
 				height: 35px;
-			}
-			#a_write{
-				font-size: 18pt;
-				color: #262626;
-				font-weight: bold;
-				line-height: 1.6;
 			}
 			.content_section{
 				width: 80%;
@@ -108,7 +100,7 @@
 				position: relative;
 				width: 200px;
 				height: 340px;
-				margin: 20px 40px 0px 0px;
+				margin: 20px 15px 0px 15px;
 				display: inline-block;
 				border: 1px solid #cdd2d2;
 				border-radius: 10px;
@@ -226,7 +218,6 @@
 		
 		<div class="write">
 			<button type="button" class="write_btn" onclick="location.href='./sbwriteview.sb'">글쓰기</button>
-			<!-- <a style="margin-right:10px;" href="./sbwriteview.sb" id="a_write">글쓰기</a> -->
 		</div>
 		<section class="content_section">
 			<c:forEach var="list" items="${arr}">

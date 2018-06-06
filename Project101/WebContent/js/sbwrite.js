@@ -49,6 +49,10 @@
 	
 	
 	$('#write_submit').submit(function () {
+		if($('#markerLat').val()=='' || $('#markerLng').val()==''){
+            alert('위치를 지정해주세요!');
+            return false;
+        }
 		if($('input[name=SB_TITLE]').val()==''){
         	alert('제목을 입력하세요');
         	$('input[name=SB_TITLE]').focus();
@@ -78,7 +82,7 @@
             return false;
         }
         if($('#img_hidden').val()==''){
-            alert("이미지를 등록해주세요!");
+            alert('이미지를 등록해주세요!');
             return false;
         }
         
