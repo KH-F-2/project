@@ -336,7 +336,7 @@ public class SellBoardDAO {
 				obj.put("SB_LAT", rset.getDouble("SB_LAT"));
 				obj.put("SB_LNG", rset.getDouble("SB_LNG"));
 				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
-				obj.put("IMAGE_URL", rset.getString("IMAGE_URL"));
+				obj.put("IMAGE_URL", rset.getString("IMAGE_URL").split(" ")[0]);
 				obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
 				arr.add(obj);
 			}

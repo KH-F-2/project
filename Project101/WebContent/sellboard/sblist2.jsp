@@ -16,37 +16,54 @@
 	        			return false;
 	        		}
 	        	});
-	        	/* $('#search_btn').click(function(){
-	        		var word=$('input[name=search_input').val();
-	        		var item=$('#search_sel').val();
-	        		location.href='./sbmain.sb?word='+word+'&item='+item;
-	        	}); */
+	        	
 	        });
         </script>
-		<link href="css/sblist.css" rel="stylesheet" type="text/css">
+		<!-- <link href="css/sblist.css" rel="stylesheet" type="text/css"> -->
 		<style>
-			.map{width: 100%; background-color: silver; height: 300px}
+			.map{width: 80%; background-color: silver; height: 300px; margin: 0 auto;}
+			.write{
+				width: 80%;
+				margin: 0 auto;
+				text-align: right;
+			}
+			#a_write{
+				font-size: 12pt;
+				color: #262626;
+			}
 			.content_section{
 				width: 80%;
 				margin: 0 auto;
 			}
 			.card{
+				position: relative;
 				width: 200px;
-				height: 350px;
-				margin: 20px 40px;
+				height: 340px;
+				margin: 20px 40px 0px 0px;
+				display: inline-block;
+				border: 1px solid #cdd2d2;
+				border-radius: 10px;
+				transition: box-shadow .3s;
+				overflow: hidden;
+			}
+			.card:hover{
+				box-shadow: 0 0 13px rgba(33,33,33,0.2); 
+				bottom: 2px;
 			}
 			.card *{
 				width: 100%;
 			}
 			.card_img{
-				height: 180px;
+				height: 200px;
 				overflow: hidden;
 			}
 			.content_img{
 				width: 100%;
 			}
 			.card_content{
-				height: 100px;
+				height: 110px;
+				padding: 10px;
+				border-bottom: 1px solid #cdd2d2;
 			}
 			.content_span_title{
 				font-weight: bold;
@@ -57,6 +74,7 @@
 			}
 			.card_bottom{
 				height: 30px;
+				text-align: center;
 			}
 			.bottom_span{
 				font-size: 8pt;
@@ -68,7 +86,9 @@
 		<h1>판매 게시판</h1>
 		<div class="map">지도~</div>
 		
-		<div class="write"><button type="button">글쓰기</button></div>
+		<div class="write">
+			<a style="margin-right:10px;" href="./sbwriteview.sb" id="a_write">글쓰기</a>
+		</div>
 		
 		<section class="content_section">
 			<c:forEach var="list" items="${arr}">
@@ -77,16 +97,20 @@
 						<img class="content_img" src="${list.IMAGE_URL}">
 					</div>
 					<div class="card_content">
-						<span class="content_span_title">{list.TITLE}</span>
-						<span class="content_span_price">{list.PRICE}원</span>
+						<span class="content_span_title">${list.SB_TITLE}</span><br>
+						<span class="content_span_price">${list.SB_PRICE}원</span>
+						<br>${list.SB_DATE}
 					</div>
 					<div class="card_bottom">
-						<span class="bottom_span">댓글 0 · 조회수 {list.READCOUNT}</span>
+						<span class="bottom_span">
+							댓글 0 · 조회수 ${list.SB_READCOUNT}
+						</span>
+						
 					</div>
 				</div>
 			</c:forEach>
 		</section>
-		
+		<%-- 
 		<c:set var="b_p" value="${boardPageBean }"/>
 		<table class="sellboard_table">
 			<c:if test="${b_p.listcount>=1}">
@@ -177,7 +201,7 @@
 					</td>
 				</tr>
 			</tfoot>
-		</table>
+		</table> --%>
 		<!-- <div class="search">
 			<select id="search_sel">
 			    <option value="title" selected="selected">제목</option>

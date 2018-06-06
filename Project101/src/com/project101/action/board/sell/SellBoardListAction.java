@@ -2,6 +2,7 @@ package com.project101.action.board.sell;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,14 +64,6 @@ public class SellBoardListAction implements Action {
 			boardBeanlist = sellDAO.getBoardList(page, limit);
 		}*/
 		arr = sellDAO.getBoardList(page, limit);
-		int size = arr.size();
-		for(int i = 0; i < size; i++) {
-			JSONObject obj = (JSONObject) arr.get(i);
-			String url = obj.get("IMAGE_URL").toString().split(" ")[0];
-			System.out.println(url);
-			obj.put("IMAGE_URL", url);
-			arr.add(obj);
-		}
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		int startpage = ((page - 1) / limit) * limit + 1;
@@ -87,9 +80,8 @@ public class SellBoardListAction implements Action {
 		boardPageBean.setStartpage(startpage);
 		boardPageBean.setEndpage(endpage);*/
 		
-		String list = arr.toString();
-		request.setAttribute("arr", list);
-		/*request.setAttribute("boardPageBean", boardPageBean);*/
+		request.setAttribute("arr", arr);
+ 		/*request.setAttribute("boardPageBean", boardPageBean);*/
 		
 		forward.setRedirect(false);
 		forward.setPath("template.jsp?page=sellboard/sblist2.jsp");

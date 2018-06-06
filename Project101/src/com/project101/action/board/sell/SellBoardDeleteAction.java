@@ -28,7 +28,7 @@ public class SellBoardDeleteAction implements Action{
 		result = boardDAO.boardDelete(num); 
 		result = imageDAO.imageDelete(num, tableName);
 		
-		if (result == 1) {
+		if (result >= 1) {
 			out.println("<script>alert('삭제되었습니다.');location = './sbmain.sb';</script>");
 		}
 		else {
