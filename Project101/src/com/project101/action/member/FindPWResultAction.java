@@ -24,9 +24,9 @@ public class FindPWResultAction implements Action {
 		System.out.println("findPwresultaction : " + result);
 		if ( result != null) {
 			
-			out.write("�엯�젰�븯�떊 �젙蹂댁� �씪移섑븯�뒗 鍮꾨�踰덊샇�뒗 " +result+ "�엯�땲�떎.");
+			out.write("입력하신정보의비밀번호는 " +result+ "입니다.");
 		}else {
-			out.write("�엯�젰�븯�떊 �젙蹂댁� �씪移섑븯�뒗 �젙蹂닿� �뾾�뒿�땲�떎.");
+			out.write("일치하는정보가없습니다.");
 		}
 		return null;
 	}

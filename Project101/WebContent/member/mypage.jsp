@@ -17,12 +17,14 @@
 <form name="joinform" action="Updatemember.me" method="post">
 	<b>ID</b>
 	<input type="text" name="id" value="${m.id }" readonly><br>
+<b>비밀번호</b>
+<input type="password" name="password" value="${m.password}" ><br>
+<b>닉네임</b>
+<input type="text" name ="nickname" value="${m.nickname }" readonly><br>
 	<b>Email</b>
 	<input type="text" name="email" value="${m.email}" readonly><br> 
-<b>비밀번호</b>
-<input type="password" name="pass" value="${m.password}" ><br>
-<b>닉네임</b>
-<input type="text" name ="nickname" value="${m.nickname }"><br>
+	<b>EmailCheck</b>
+	<input type="text" name="emailcheck" value="${m.emailcheck}" readonly><br> 
 
 <b>연락처</b>
 <input type="text" name="phone" value="${m.phone }"><br>

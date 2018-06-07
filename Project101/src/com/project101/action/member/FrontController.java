@@ -74,10 +74,13 @@ public class FrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 			
-			}else if(command.equals("/emailCheck.me")) {
-				forward = new ActionForward();
-				forward.setRedirect(false);
-				forward.setPath("/member/emailCheck.jsp");
+			}else if(command.equals("/nicknamecheck.me")) {
+				action = new NicknameCheckAction();
+				try {
+					forward=action.execute(request, response);
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
 			
 			}else if(command.equals("/sellerpage/sellerpage_main.seller")) {
 //		        action = new listAddAction();
@@ -90,6 +93,7 @@ public class FrontController extends HttpServlet {
 					forward = new ActionForward();
 					forward.setRedirect(false);
 					forward.setPath("/member/find.jsp");
+					
 				}else if(command.equals("/findIDResult.me")) {
 					action = new FindIDResultAction();
 					try {
@@ -124,8 +128,17 @@ public class FrontController extends HttpServlet {
 					}catch(Exception e) {
 						e.printStackTrace();
 					}
+				}else if(command.equals("/emailconfirm.me")) {
+					action = new ConfirmEmailAction();
+					try {
+						forward=action.execute(request, response);
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
 				}
-
+			
+			
 			if (forward != null) {
 				if (forward.isRedirect()) {
 					response.sendRedirect(forward.getPath());

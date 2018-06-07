@@ -93,13 +93,14 @@ public class MemberDAO {
 			
 			if(rset.next()) {
 				m.setId(rset.getString("id"));
-				m.setEmail(rset.getString(2));
-				m.setPassword(rset.getString(3));
-				m.setNickname(rset.getString(4));
-				m.setPhone(rset.getString(5));
-				m.setPost(rset.getString(6));
-				m.setAddress(rset.getString(7));
-				m.setDetailaddress(rset.getString(8));
+				m.setPassword(rset.getString(2));
+				m.setNickname(rset.getString(3));
+				m.setEmail(rset.getString(4));
+				m.setEmailcheck(rset.getString(5));
+				m.setPhone(rset.getString(6));
+				m.setPost(rset.getString(7));
+				m.setAddress(rset.getString(8));
+				m.setDetailaddress(rset.getString(9));
 			
 			}
 		}catch(Exception e) {
@@ -163,28 +164,28 @@ public class MemberDAO {
 	   }
 
 	public int insert(Member m) {
+		int result = 0;
+		
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into member values(?,?,?,?,?,?,?,?,? ) ";
+			String sql = "insert into member (id, email, password, nickname, phone, post, address, detailaddress) values(?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, m.getId());
-			pstmt.setString(2, m.getEmail() + "@" + m.getDomain());
-			pstmt.setString(3, m.getEmailcheck());
-			pstmt.setString(4, m.getPassword());
-			pstmt.setString(5,  m.getNickname());
-			pstmt.setString(6, m.getPhone());
-			pstmt.setString(7, m.getPost());
-			pstmt.setString(8, m.getAddress());
-			pstmt.setString(9, m.getDetailaddress());
-			
+			pstmt.setString(2, m.getEmail());
+			pstmt.setString(3, m.getPassword());
+			pstmt.setString(4,  m.getNickname());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getPost());
+			pstmt.setString(7, m.getAddress());
+			pstmt.setString(8, m.getDetailaddress());
 			
 			result = pstmt.executeUpdate();
 			
 		}catch(java.sql.SQLIntegrityConstraintViolationException e) {
-			result = -1;
-			System.out.println( "insert �뿉�윭" );
+			System.out.println( "insert 실패" );
+			e.printStackTrace();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -201,6 +202,7 @@ public class MemberDAO {
 					ex.printStackTrace();
 				}
 		}
+		
 		return result;
 	}
 	public List<SellBoardBean> getBoardList(int page, int limit, String SB_WRITER) {
@@ -380,6 +382,69 @@ public class MemberDAO {
 				}catch(SQLException ex){ex.printStackTrace();}
 		}
 		return result;
+		
+	}
+
+	public int emailCheckUpdate(String email) {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "update member set emailcheck=? where email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  "checked");
+			pstmt.setString(2, email);
+			
+			result = pstmt.executeUpdate();
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null)
+				try{
+					pstmt.close();
+				}catch(SQLException ex){
+					ex.printStackTrace();
+				}
+			if(conn != null)
+				try{
+					conn.close();
+				}catch(SQLException ex){ex.printStackTrace();}
+		}
+		return result;
+		
+	}
+
+	public int nicknamecheck(String nickname) {
+		  int result = 1;
+	      try {
+	         conn=ds.getConnection();
+	         pstmt = conn.prepareStatement("select * from member where nickname = ?");
+	         pstmt.setString(1, nickname);
+	         ResultSet rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            result = -1;
+	         }
+	         
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally{
+	          if(rset!=null)
+	             try{
+	                rset.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(pstmt!=null)
+	             try{
+	                pstmt.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(conn!=null)
+	             try{
+	                conn.close();
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          }
+	      
+	      return result;
 		
 	}
 }

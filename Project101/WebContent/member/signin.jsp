@@ -103,7 +103,7 @@
 <body>
 	<div id="signInDiv">
 		<h1>Sign In</h1>
-		<form action="loginprocess.me" name="joinForm" method="post" id="signInForm">
+		<form name="joinForm" method="post" id="signInForm">
 			
 			<div class="ff">
 				<div id="alertId">We cannot find an account with that ID.</div>

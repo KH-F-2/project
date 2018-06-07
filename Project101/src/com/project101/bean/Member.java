@@ -3,7 +3,6 @@ package com.project101.bean;
 public class Member {
 	private String id;
 	private String email;
-	private String domain;
 	private String emailcheck;
 	private String password;
 	private String nickname;
@@ -27,12 +26,6 @@ public class Member {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getDomain() {
-		return domain;
-	}
-	public void setDomain(String domain) {
-		this.domain = domain;
 	}
 	public String getEmailcheck() {
 		return emailcheck;

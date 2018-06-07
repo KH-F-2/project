@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,7 @@
 			$('#brand').val($('#brandsel').val());
 		});
 
-		var id, id2;
+		var id, id2,nickname;
 		
 		$("#idcheck").click(function() {
 			id = $("input[name=id]").val();
@@ -53,67 +54,74 @@
 				}
 			}); //ajax end
 		}) //click end
+		$("#nicknamecheck").click(function() {
+			nickname = $("input[name=nickname]").val();
+
+			if (nickname == '') {
+				alert('닉네임을 입력해주세요')
+				return false;
+			}
+
+			$.ajax({
+				type : "GET",
+				data : {
+					"nickname" : nickname
+				},
+				url : "nicknamecheck.me",
+				success : function(result) {
+					data_check = result;
+					if (result == 1) {
+						$("#nickmessage").html('사용 가능한 닉네임입니다.').css('color', 'blue');
+					}
+					if (result == -1) {
+						$("#nickmessage").html('중복된 닉네임입니다.').css('color', 'red');
+						$("input[name=nickname]").val('');
+						$("input[name=nickname]").focus();
+					}
+				}
+			}); //ajax end
+		}) //click end
+
 
 		$('form').submit(function() {
 			id2 = $("input[name=id]").val();
-
+	
 			if (id != id2) {
 				alert('id중복검사를 해주세요');
 				return false;
 			}
-			var emailconfirm_value;
-			emailconfirm_value =$("input[name=emailconfirm_value]").val();
-			if(emailconfirm_value != 1){
-				alert('email 인증을 해주세요.');
-				return false;
-			}
-		});
-		
-		$(function() { $("#postcodify_search_button").postcodifyPopUp(); });
-		
-		var email;
-		
-		$("#emailcheck").click(function(){
-			email = $("input[name=email]").val() + "@" +$("input[name=domain]").val(); 	
 			
-			if(email == ''){
-				alert("이메일을 입력하세요.");
-				return false;
-			}
-			
-		});
-	})	;
-	
-	function emailcheck(email, domain){
-	    // 유효성 검사
-		if(!joinform.email.value || !joinform.domain.value){ 
-			alert(emailerror);
-			joinform.email.focus();
-			return;
-		}else{
-			if(joinform.email.value){
-				if(joinform.domain.value==0){
-					// 직접입력
-					if(joinform.email.value.indexOf("@")==-1){
-						alert(emailerror);
-						joinform.domain.focus();
-						return false;
-					}
-				}else{
-					// 선택입력
-					if(joinform.email.value.indexOf("@")!=-1){
-						alert(emailerror);
-						joinform.email.focus();
-						return false;
+			if (!joinform.email.value || !joinform.domain.value) {
+				alert(emailerror);
+				joinform.email.focus();
+				return;
+			} else {
+				if (joinform.email.value) {
+					if (joinform.domain.value == 0) {
+						// 직접입력
+						if (joinform.email.value.indexOf("@") == -1) {
+							alert(emailerror);
+							joinform.domain.focus();
+							return false;
+						}
+					} else {
+						// 선택입력
+						if (joinform.email.value.indexOf("@") != -1) {
+							alert(emailerror);
+							joinform.email.focus();
+							return false;
+						}
 					}
 				}
 			}
-		}
-	    // 인증을 위해 새창으로 이동
-		var url="emailCheck.me?email="+email+"&domain="+domain;
-		open(url,"emailwindow", "statusbar=no, scrollbar=no, menubar=no,  width=400, height=200" );
-	}
-		
+		});
+	
+		$(function() {
+			$("#postcodify_search_button").postcodifyPopUp();
+		});
+
+	});
+
 </script>
 
 </head>
@@ -128,8 +136,9 @@
 		<input type="button" id="idcheck" value="ID중복검사">
 		<br>
 		<span id="message"></span><br>
-		<label>E-mail</label> <input type="text" name="email" id="email" placeholder="Enter email" required>@ 
-		<input type="text" name="domain" id="domain"> 
+		<label>E-mail</label>
+		<input type="text" name="email" id="email" placeholder="Enter email" required>
+		@<input type="text" name="domain" id="domain">
 		<select name="sel" id="sel">
 			<option value="">직접입력</option>
 			<option value="naver.com">naver.com</option>
@@ -138,17 +147,10 @@
 			<option value="gmail.com">gmail.com</option>
 		</select> 
 		<br>
-		<span id="message"></span><br>
 		<br>
-		
-		<input type="button" name="emailconfirm_btn" value="인증하기" 
-         			onclick="emailcheck(joinform.email.value,joinform.domain.value)">
-		<input type="hidden" name="emailconfirm_value">
-		<br>
-		
 		
 		<label>비밀번호</label> 
-		<input type="password" name="pass" placeholder="Enter password" required>
+		<input type="password" name="password" placeholder="Enter password" required>
 		<br><br> 
 		
 		<label>비밀번호 확인</label> 
@@ -160,7 +162,10 @@
 		<h1>상세정보</h1>
 		<hr>
 		<label>닉네임</label> <input type="text" name="nickname" placeholder="Enter nickname" required>
-		<br><br><br>
+		<input type="button" id="nicknamecheck" value="닉네임중복검사">
+		<br>
+		<span id="nickmessage"></span><br>
+		<br><br>
 			 
 		<label>통신사</label> <input type="text" name="brand" id="brand" placeholder="통신사" size=2> 
 		<select name="brandsel"	id="brandsel">

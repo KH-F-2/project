@@ -14,9 +14,9 @@ public class MemberinfoAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
 		request.setCharacterEncoding("UTF-8");
-		String email = request.getParameter("email");
+		String id = request.getParameter("id");
 		MemberDAO mdao = new MemberDAO();
-		Member m = mdao.member_info(email);
+		Member m = mdao.member_info(id);
 		
 		forward.setPath("template.jsp?page=/member/mypage.jsp");
 		forward.setRedirect(false);
