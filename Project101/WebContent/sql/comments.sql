@@ -31,4 +31,4 @@ select * from (select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_CONTE
 					order by CMT_RE_REF asc, CMT_NO asc, CMT_RE_SEQ desc, CMT_RE_LEV asc)) 
 					where rnum >= 1 and rnum <= 10
 					
-delete from COMMENTS where CMT_NO=37 and CMT_BOARD_NAME='SELL_BOARD'
+delete from COMMENTS where CMT_SUBJECT_NO>3 and CMT_BOARD_NAME='SELL_BOARD'

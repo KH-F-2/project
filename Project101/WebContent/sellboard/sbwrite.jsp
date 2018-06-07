@@ -21,29 +21,6 @@
         <link href="css/sbwrite.css" rel="stylesheet" type="text/css">
 
 		<script type="text/javascript">
-			/* $(function(){
-				$('#hashtag').on('input', function(){
-					console.log('해시태그 입력');
-					var content = $(this).val();
-					var splitedArray = content.split(' ');
-					var linkedContent = '';
-						
-					for(var word in splitedArray)
-					{
-						console.log(splitedArray);
-						console.log(word);
-						console.log(splitedArray[word]);
-						
-					  word = splitedArray[word];
-					   if(word.indexOf('#') == 0)
-					   {
-					      word = '<span>' + word + '</span>';
-					   }
-					   linkedContent += word;
-					}
-				content = $(this).val(linkedContent);
-				});
-			}); */
 			
 		</script>
 		<style>
