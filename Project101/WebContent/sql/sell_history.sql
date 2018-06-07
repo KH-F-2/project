@@ -12,3 +12,5 @@ CREATE TABLE SELL_HISTORY(
 select * from sell_history;
 
 delete from sell_history
+
+select rownum, SH_BOARD_NO, SH_OPPONENT, SH_DATE, SH_STATE from SELL_HISTORY
