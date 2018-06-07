@@ -13,6 +13,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.project101.bean.SellBoardBean;
 
 public class SellBoardDAO {
@@ -119,47 +122,78 @@ public class SellBoardDAO {
 		return result;
 	}	 // boardInsert() ----------
 	
-	
-	public List<SellBoardBean> getBoardList(int page, int limit) {
-		List<SellBoardBean> list=new ArrayList<SellBoardBean>();
-		int startrow=(page-1)*limit+1;
-		int endrow=startrow+limit-1;
-		try {
-			conn=ds.getConnection();
-			String sql="select * from "
-					+ "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
-					+ "SB_READCOUNT, SB_DATE from "
-					+ "(select * from SELL_BOARD order by SB_NO desc)) "
-					+ "where rnum>=? and rnum<=?";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, startrow);
-			pstmt.setInt(2, endrow);
-			
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				SellBoardBean sellboard=new SellBoardBean();
-				sellboard.setSB_NO(rset.getInt("SB_NO"));
-				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
-				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
-				sellboard.setSB_DATE(rset.getDate("SB_DATE"));
-				sellboard.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
-				list.add(sellboard);
-			}
-			return list;
-			}catch(Exception e){
-				e.printStackTrace();
-			}finally{
-				try {
-					if(pstmt!=null)	pstmt.close();
-					if(conn!=null)		conn.close();
-					if(rset!=null)		rset.close();
-				}catch(Exception e) {e.printStackTrace();}
-			}
-		
-		return null;
-	}	// getBoardList() ----------
+	public JSONArray getBoardList(int page, double lat, double lng) {
+	      JSONArray array = new JSONArray();
+	      int startrow = (page - 1) * 10 + 1;
+	      int endrow = startrow + 10 - 1;
+	      try {
+	         conn = ds.getConnection();
 
+	         String sql = "select * from "
+       		+ "(select rownum rnum, NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, DDATE, CATEGORY, HASHTAG, STATE, lat, lng, distance from "
+	         		+ "(select NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, DDATE, CATEGORY, HASHTAG, STATE, lat, lng, distance from "
+		         		+ "(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT CONTENT, SB_PRICE PRICE, SB_READCOUNT READCOUNT, SB_DATE DDATE, SB_CATEGORY CATEGORY"
+		         		+ ", SB_HASHTAG HASHTAG, SB_STATE STATE, SB_LAT lat, SB_LNG lng,  sqrt(power((? - SB_LAT),2) + power((? - SB_LNG),2)) distance from "
+		         		+ "sell_board) "
+	         		+ "UNION ALL "
+		         		+ "(select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, PB_CONTENT CONTENT, PB_PRICE PRICE, PB_READCOUNT READCOUNT, PB_DATE DDATE, PB_CATEGORY CATEGORY"
+		         		+ ", PB_HASHTAG HASHTAG, PB_STATE STATE,PB_LAT lat, PB_LNG lng, sqrt(power((? - PB_LAT), 2) + power((? - PB_LNG), 2)) distance from "
+		         		+ "purchase_board))) "
+       		+ "where rnum >= ? and rnum <= ? order by distance";
+//	         , IMAGE_URL, BOARD_NAME
+//	         , IMAGE_URL, BOARD_NAME
+//	         , IMAGE_URL, BOARD_NAME
+//	         , IMAGE_URL, BOARD_NAME
+//	         (select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')
+//	         (select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')
+	         pstmt = conn.prepareStatement(sql);
+
+	         pstmt.setDouble(1, lat);
+	         pstmt.setDouble(2, lng);
+	         pstmt.setDouble(3, lat);
+	         pstmt.setDouble(4, lng);
+	         pstmt.setInt(5, startrow);
+	         pstmt.setInt(6, endrow);
+
+	         rset = pstmt.executeQuery();
+
+	         while (rset.next()) {
+	            JSONObject obj = new JSONObject();
+	            obj.put("num", rset.getInt("NUM"));
+//	            obj.put("WRITER", rset.getString("WRITER"));
+	            obj.put("title", rset.getString("TITLE"));
+	            obj.put("content", rset.getString("CONTENT"));
+	            obj.put("price", rset.getInt("PRICE"));
+//	            obj.put("READCOUNT", rset.getInt("READCOUNT"));
+//	            obj.put("DDATE", rset.getDate("DDATE"));
+	            obj.put("lat", rset.getDouble("lat"));
+	            obj.put("lng", rset.getDouble("lng"));
+//	            obj.put("DISTANCE", rset.getDouble("DISTANCE"));
+//	            obj.put("IMAGE_URL", rset.getString("IMAGE_URL"));
+//	            obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
+	            
+	            array.add(obj);
+	         }
+	         
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            if (rset != null) {
+	               rset.close();
+	            }
+	            if (pstmt != null) {
+	               pstmt.close();
+	            }
+	            if (conn != null) {
+	               conn.close();
+	            }
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	      }
+	      return array;
+	   }
 
 	public void setReadCountUpdate(int num) {
 		String sql="";
