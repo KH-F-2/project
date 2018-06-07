@@ -1,14 +1,16 @@
-drop table member12;
+drop table member;
 
-create table member12(
+create table member(
 	id varchar2(15),
-	pass varchar2(15),
-	name varchar2(15),
+	password varchar2(15),
+	nickname varchar2(15) unique,
 	email varchar2(30),
-	tel varchar2(20),
+	emailcheck varchar2(10),
+	phone varchar2(20),
+	post varchar2(15),
 	address varchar2(300),
-	school varchar2(30),
-	major varchar2(30),
-	college varchar2(15),
+	detailaddress varchar2(300),
+	latitude number,
+	longitude number,
 	PRIMARY KEY(id)
 );
