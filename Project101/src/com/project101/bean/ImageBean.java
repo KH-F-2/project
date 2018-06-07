@@ -2,7 +2,7 @@ package com.project101.bean;
 
 public class ImageBean {
 	private int BOARD_NO;
-	private String BOARD_NAME = "SELL_BOARD";
+	private String BOARD_NAME;
 	private String IMAGE_URL;
 
 	public ImageBean() {

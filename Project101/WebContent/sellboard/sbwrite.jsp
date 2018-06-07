@@ -58,8 +58,9 @@
 						    <option value="6">도서/쿠폰</option>
 						</select>
 					</div>
-					<div class="hashtag">
-						<input type="text" id="hashtag" name="SB_HASHTAG" size="50" placeholder="hashtags">
+					<div id="tagSection">
+						<input type="text" id="inputTag" placeholder="hashtags">
+						<input type="hidden" id="hashTag" name="SB_HASHTAG">
 					</div>
 				</li>
 				<li class="write_li">
