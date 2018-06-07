@@ -12,7 +12,11 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.project101.bean.PurchaseBoardBean;
+
 
 public class PurchaseBoardDAO {
 	DataSource ds;
@@ -79,15 +83,17 @@ public class PurchaseBoardDAO {
 
 	// 수정
 	public boolean purchaseModify(PurchaseBoardBean boardBean) {
-		String sql = "update purchase_board set PB_TITLE =?, " + "PB_CONTENT = ? " + "where PB_NO = ? ";
+		String sql = "update purchase_board set PB_TITLE =?, " + "PB_CONTENT = ?, PB_HASHTAG = ?, PB_CATEGORY = ?" + "where PB_NO = ? ";
 
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, boardBean.getTitle());
-			pstmt.setString(2, boardBean.getContent());
-			pstmt.setInt(3, boardBean.getNum());
+			pstmt.setString(1, boardBean.getPB_TITLE());
+			pstmt.setString(2, boardBean.getPB_CONTENT());
+			pstmt.setString(3, boardBean.getPB_HASHTAG());
+			pstmt.setInt(4, boardBean.getPB_CATEGORY());
+			pstmt.setInt(5, boardBean.getPB_NO());
 			
 			int result = pstmt.executeUpdate();
 
@@ -176,13 +182,19 @@ public class PurchaseBoardDAO {
 
 			if (rset.next()) {
 				boardBean = new PurchaseBoardBean();
-				boardBean.setNum(rset.getInt("PB_NO"));
-				boardBean.setWriter(rset.getString("PB_WRITER"));
-				boardBean.setTitle(rset.getString("PB_TITLE"));
-				boardBean.setContent(rset.getString("PB_CONTENT"));
-				boardBean.setFile(rset.getString("PB_FILE"));
-				boardBean.setreadcount(rset.getInt("PB_READCOUNT"));
-				boardBean.setDate(rset.getDate("PB_DATE"));
+				boardBean.setPB_NO(rset.getInt("PB_NO"));
+				boardBean.setPB_WRITER(rset.getString("PB_WRITER"));
+				boardBean.setPB_TITLE(rset.getString("PB_TITLE"));
+				boardBean.setPB_CONTENT(rset.getString("PB_CONTENT"));
+				boardBean.setPB_DATE(rset.getDate("PB_DATE"));
+				boardBean.setPB_CATEGORY(rset.getInt("PB_CATEGORY"));
+				boardBean.setPB_HASHTAG(rset.getString("PB_HASHTAG"));
+				//boardBean.setPB_LAT(rset.getDouble("PB_LAT"));
+				//boardBean.setPB_LNG(rset.getDouble("PB_LNG"));
+				boardBean.setPB_PRICE(rset.getInt("PB_PRICE"));
+				boardBean.setPB_STATE(rset.getInt("PB_STATE"));
+				//readcount 를 제외한 모든 값 추출
+				
 			}
 			
 			return boardBean;
@@ -277,14 +289,14 @@ public class PurchaseBoardDAO {
 
 			if (option == null) {
 				pstmt = conn.prepareStatement("select * from " + "(select rownum rnum,pb_no ,pb_writer, "
-						+ "pb_title, pb_content, pb_file, " + "pb_date,pb_readcount from "
+						+ "pb_title, pb_content, pb_price, " + "pb_date,pb_readcount, PB_CATEGORY,PB_HASHTAG,PB_LAT,PB_LNG,PB_STATE  from "
 						+ "(select * from PURCHASE_BOARD order by PB_NO desc))" + "where rnum>=? and rnum<=?");
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, endRow);
 				System.out.println("노검색");
 			} else if (option.equals("0")) {
 				pstmt = conn.prepareStatement("select * from " + "(select rownum rnum,pb_no ,pb_writer, "
-						+ "pb_title, pb_content, pb_file, " + "pb_date,pb_readcount from "
+						+ "pb_title, pb_content, pb_price, " + "pb_date,pb_readcount, PB_CATEGORY,PB_HASHTAG,PB_LAT,PB_LNG,PB_STATE  from "
 						+ "(select * from PURCHASE_BOARD where PB_WRITER like ? order by PB_NO desc))"
 						+ "where rnum>=? and rnum<=?");
 				pstmt.setString(1, "%" + condition + "%");
@@ -293,7 +305,7 @@ public class PurchaseBoardDAO {
 				System.out.println("작성자 검색");
 			} else if (option.equals("1")) {
 				pstmt = conn.prepareStatement("select * from " + "(select rownum rnum,pb_no ,pb_writer, "
-						+ "pb_title, pb_content, pb_file, " + "pb_date,pb_readcount from "
+						+ "pb_title, pb_content, pb_price, " + "pb_date,pb_readcount, PB_CATEGORY,PB_HASHTAG,PB_LAT,PB_LNG,PB_STATE  from "
 						+ "(select * from PURCHASE_BOARD where PB_TITLE like ? order by PB_NO desc))"
 						+ "where rnum>=? and rnum<=?");
 				pstmt.setString(1, "%" + condition + "%");
@@ -302,7 +314,7 @@ public class PurchaseBoardDAO {
 				System.out.println("제목 검색");
 			} else if (option.equals("2")) {
 				pstmt = conn.prepareStatement("select * from " + "(select rownum rnum,pb_no ,pb_writer, "
-						+ "pb_title, pb_content, pb_file, " + "pb_date,pb_readcount from "
+						+ "pb_title, pb_content, pb_price, " + "pb_date,pb_readcount, PB_CATEGORY,PB_HASHTAG,PB_LAT,PB_LNG,PB_STATE  from "
 						+ "(select * from PURCHASE_BOARD where PB_CONTENT like ? order by PB_NO desc))"
 						+ "where rnum>=? and rnum<=?");
 				pstmt.setString(1, "%" + condition + "%");
@@ -316,13 +328,19 @@ public class PurchaseBoardDAO {
 			// DB에서 가져온 데이터를 VO객체에 담습니다.
 			while (rset.next()) {
 				PurchaseBoardBean boardBean = new PurchaseBoardBean();
-				boardBean.setNum(rset.getInt("pb_no"));
-				boardBean.setWriter(rset.getString("pb_writer"));
-				boardBean.setTitle(rset.getString("pb_title"));
-				boardBean.setContent(rset.getString("pb_content"));
-				boardBean.setFile(rset.getString("pb_file"));
-				boardBean.setreadcount(rset.getInt("pb_readcount"));
-				boardBean.setDate(rset.getDate("pb_date"));
+				boardBean.setPB_NO(rset.getInt("PB_NO"));
+				boardBean.setPB_WRITER(rset.getString("PB_WRITER"));
+				boardBean.setPB_TITLE(rset.getString("PB_TITLE"));
+				boardBean.setPB_CONTENT(rset.getString("PB_CONTENT"));
+				boardBean.setPB_DATE(rset.getDate("PB_DATE"));
+				boardBean.setPB_READCOUNT(rset.getInt("PB_READCOUNT"));
+				boardBean.setPB_CATEGORY(rset.getInt("PB_CATEGORY"));
+				boardBean.setPB_HASHTAG(rset.getString("PB_HASHTAG"));
+				boardBean.setPB_LAT(rset.getDouble("PB_LAT"));
+				boardBean.setPB_LNG(rset.getDouble("PB_LNG"));
+				boardBean.setPB_PRICE(rset.getInt("PB_PRICE"));
+				boardBean.setPB_STATE(rset.getInt("PB_STATE"));
+				
 				
 				boardBeanList.add(boardBean);// 값을 담은 객체를 리스트에 저장합니다.
 			}
@@ -358,7 +376,7 @@ public class PurchaseBoardDAO {
 	}
 
 	// 글 작성
-	public boolean purchaseInsert(PurchaseBoardBean boardBean) {
+	public boolean purchaseInsert(PurchaseBoardBean boardBean, String id, String title, String content, int price, int category, String hashtag) {
 		int num = 0;
 		String sql = "";
 		int result = 0;
@@ -377,20 +395,25 @@ public class PurchaseBoardDAO {
 				num = 1;
 			} // 처음 데이터를 등록하는 경우입니다.
 
-			sql = "INSERT INTO PURCHASE_BOARD " + "(PB_NO, PB_WRITER, PB_PASSWORD, PB_TITLE, PB_CONTENT, "
-					+ "PB_FILE, PB_DATE, PB_READCOUNT) " + "values(?,?,?,?,?,?,sysdate,?)";
+			sql = "INSERT INTO PURCHASE_BOARD " + "(PB_NO, PB_WRITER, PB_TITLE, PB_CONTENT, "
+					+ "PB_DATE, PB_READCOUNT, PB_CATEGORY, PB_HASHTAG, PB_PRICE ,PB_STATE) " 
+					+ "values(?,?,?,?,sysdate,?,?,?,?,?)";
 
 			// 새로운 글을 등록하는 부분입니다.
 
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
-			pstmt.setString(2, boardBean.getId());
-			pstmt.setString(3, boardBean.getPassword());
-			pstmt.setString(4, boardBean.getTitle());
-			pstmt.setString(5, boardBean.getContent());
-			pstmt.setString(6, boardBean.getFile());
-			pstmt.setInt(7, 0);
+			pstmt.setString(2, id);
+			pstmt.setString(3, title);
+			pstmt.setString(4, content);
+			pstmt.setInt(5, 0);  //read count
+			pstmt.setInt(6, category);
+			pstmt.setString(7, hashtag);
+			//pstmt.setDouble(8, lat);
+			//pstmt.setDouble(9, lng);
+			pstmt.setInt(8, price);
+			pstmt.setInt(9, 0);  //거래 상태
 
 			result = pstmt.executeUpdate();
 
@@ -487,21 +510,21 @@ public class PurchaseBoardDAO {
 			String condition = (String) optionList.get("condition"); // 검색내용
 			if (option == null) {
 				pstmt = conn.prepareStatement("select count(*) from " + "(select rownum rnum,pb_no ,pb_writer, "
-						+ "pb_title, pb_content, pb_file, " + "pb_date,pb_readcount from "
+						+ "pb_title, pb_content, pb_price,pb_state, " + "pb_date,pb_readcount from "
 						+ "(select * from PURCHASE_BOARD order by PB_NO desc))");
 			} else if (option.equals("0")) {
 				pstmt = conn.prepareStatement("select count(*) from " + "(select rownum rnum,pb_no ,pb_writer, "
-						+ "pb_title, pb_content, pb_file, " + "pb_date,pb_readcount from "
+						+ "pb_title, pb_content, pb_price,pb_state, " + "pb_date,pb_readcount from "
 						+ "(select * from PURCHASE_BOARD where PB_WRITER like ? order by PB_NO desc))");
 				pstmt.setString(1, "%" + condition + "%");
 			} else if (option.equals("1")) {
 				pstmt = conn.prepareStatement("select count(*) from " + "(select rownum rnum,pb_no ,pb_writer, "
-						+ "pb_title, pb_content, pb_file, " + "pb_date,pb_readcount from "
+						+ "pb_title, pb_content, pb_price,pb_state, " + "pb_date,pb_readcount from "
 						+ "(select * from PURCHASE_BOARD where PB_TITLE like ? order by PB_NO desc))");
 				pstmt.setString(1, "%" + condition + "%");
 			} else if (option.equals("2")) {
 				pstmt = conn.prepareStatement("select count(*) from " + "(select rownum rnum,pb_no ,pb_writer, "
-						+ "pb_title, pb_content, pb_file, " + "pb_date,pb_readcount from "
+						+ "pb_title, pb_content, pb_price,pb_state, " + "pb_date,pb_readcount from "
 						+ "(select * from PURCHASE_BOARD where PB_CONTENT like ? order by PB_NO desc))");
 				pstmt.setString(1, "%" + condition + "%");
 			}
@@ -538,5 +561,136 @@ public class PurchaseBoardDAO {
 		}
 		return result;
 	}
+
+	public JSONArray getSearchCategory(int category, int page) {
+		
+	    JSONArray array = new JSONArray();
+	    int startrow = (page - 1) * 10 + 1;
+	    int endrow = startrow + 10 - 1;
+	    try {
+	    	conn = ds.getConnection();
+	    	
+	    	String sql = "select * from "
+	    			+"(select rownum rnum, NUM, WRITER, TITLE, CONTENT, PRICE, DDATE, CATEGORY, HASHTAG, STATE "
+	    			//+"lat,lng"  이거 추가되면 봉인 해제
+	    			+"from (select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, PB_CONTENT CONTENT, PB_PRICE PRICE "
+	    			+"PB_DATE DDATE, PB_CATEGORY CATEGORY, PB_HASHTAG HASHTAG, PB_STATE STATE from purchase_board) "
+	    			+"UNION ALL "
+	    			+"(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT CONTENT, SB_PRICE PRICE "
+	    			+"SB_DATE DDATE, SB_CATEGORY CATEGORY, SB_HASHTAG HASHTAG, SB_STATE STATE from sell_board)) "
+	    			+"where rnum >= ? and rnum <= ? and CATEGORY = ?"; 
+	    	
+	    	pstmt=conn.prepareStatement(sql);
+	    	
+	    	pstmt.setInt(1, startrow);
+	    	pstmt.setInt(2, endrow);
+	    	pstmt.setInt(3, category);
+	    	
+	    	rset = pstmt.executeQuery();
+	    	
+	         while (rset.next()) {
+		            JSONObject obj = new JSONObject();
+		            obj.put("num", rset.getInt("NUM"));
+		            obj.put("WRITER", rset.getString("WRITER"));
+		            obj.put("title", rset.getString("TITLE"));
+		            obj.put("content", rset.getString("CONTENT"));
+		            obj.put("price", rset.getInt("PRICE"));
+//		            obj.put("lat", rset.getDouble("lat"));
+//		            obj.put("lng", rset.getDouble("lng"));
+		            obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
+		            
+		            array.add(obj);
+	    
+	    } 
+	    } catch(Exception e) {
+	    	System.out.println("getSearchCategory 에러"+e);
+	    } finally {
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		
+		return array;
+	
+	}
+	}
+	/*public List<PurchaseBoardBean> getSearchCategory(int category) {
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement("select * from PURCHASE_BOARD where PB_CATEGORY = ? ");
+			pstmt.setInt(1, category);
+			
+			List<PurchaseBoardBean> categoryList = new ArrayList<PurchaseBoardBean>();
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				PurchaseBoardBean boardBean = new PurchaseBoardBean();
+				boardBean.setPB_NO(rset.getInt("PB_NO"));
+				boardBean.setPB_WRITER(rset.getString("PB_WRITER"));
+				boardBean.setPB_TITLE(rset.getString("PB_TITLE"));
+				boardBean.setPB_CONTENT(rset.getString("PB_CONTENT"));
+				boardBean.setPB_DATE(rset.getDate("PB_DATE"));
+				boardBean.setPB_READCOUNT(rset.getInt("PB_READCOUNT"));
+				boardBean.setPB_CATEGORY(rset.getInt("PB_CATEGORY"));
+				boardBean.setPB_HASHTAG(rset.getString("PB_HASHTAG"));
+				//boardBean.setPB_LAT(rset.getDouble("PB_LAT"));
+				//boardBean.setPB_LNG(rset.getDouble("PB_LNG"));
+				boardBean.setPB_PRICE(rset.getInt("PB_PRICE"));
+				boardBean.setPB_STATE(rset.getInt("PB_STATE"));
+				
+				categoryList.add(boardBean);// 값을 담은 객체를 리스트에 저장합니다.
+			}
+			
+			return categoryList;// 값을 담은 객체를 저장한 리스트를 호출한 곳으로
+			
+		}catch(Exception e) {
+			System.out.println("getSearchCategory 에러" + e);
+		}finally {
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			}
+		}
+		
+		return null;
+	}*/
+
+
 
 }

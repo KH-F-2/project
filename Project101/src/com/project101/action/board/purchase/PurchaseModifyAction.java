@@ -16,7 +16,8 @@ public class PurchaseModifyAction implements Action {
 		request.setCharacterEncoding("utf-8");
 		//글번호와 작성자를 가져온다.
 		int num = Integer.parseInt(request.getParameter("PB_NO"));
-		
+		int categoryNO = Integer.parseInt(request.getParameter("PB_CATEGORY"));
+	
 		//로그인 연동 이후 수정
 		//String id = request.getParameter("PB_WRITER");
 		boolean result = false;
@@ -26,12 +27,16 @@ public class PurchaseModifyAction implements Action {
 		
 		//글쓴이 인지 확인하기 위해 저장된 번호와 작성자를 확인합니다.
 		//로그인 연동 이후 수정
-		//boolean idcheck = buydao.isBuyWriter(num, id);
 		//수정 내용을 설정합니다.
 		
-		boardBean.setNum(num);
-		boardBean.setContent(request.getParameter("PB_CONTENT"));
-		boardBean.setTitle(request.getParameter("PB_TITLE"));
+		boardBean.setPB_NO(num);
+		boardBean.setPB_CONTENT(request.getParameter("PB_CONTENT"));
+		boardBean.setPB_TITLE(request.getParameter("PB_TITLE"));
+		boardBean.setPB_HASHTAG(request.getParameter("PB_HASHTAG"));
+		boardBean.setPB_CATEGORY(categoryNO);
+
+		
+
 		
 		//DAO에서 수정 메서드 호출하여 수정합니다.
 		result = purchaseDAO.purchaseModify(boardBean);
@@ -48,7 +53,7 @@ public class PurchaseModifyAction implements Action {
 		
 		forward.setRedirect(true);
 		//수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정함		
-		forward.setPath("./pbview.pb?num=" + boardBean.getNum()); //경로설정 변경 해야됨.
+		forward.setPath("./pbview.pb?CMT_SUBJECT_NO=" + boardBean.getPB_NO()); //경로설정 변경 해야됨.
     
 		return forward;
 	}

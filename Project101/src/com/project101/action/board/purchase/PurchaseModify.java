@@ -18,7 +18,7 @@ public class PurchaseModify implements Action {
 		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
 		PurchaseBoardBean boardBean = new PurchaseBoardBean();
 
-		int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("PB_NO"));
 
 		boardBean = purchaseDAO.getDetail(num);
 		

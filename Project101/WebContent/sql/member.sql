@@ -14,3 +14,5 @@ create table member(
 	longitude number,
 	PRIMARY KEY(id)
 );
+
+select * from member;

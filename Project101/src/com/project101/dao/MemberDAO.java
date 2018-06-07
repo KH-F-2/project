@@ -168,8 +168,9 @@ public class MemberDAO {
 		
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = "insert into member (id, email, password, nickname, phone, post, address, detailaddress) values(?, ?, ?, ?, ?, ?, ?, ?)";
+
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, m.getId());

@@ -13,6 +13,7 @@ import com.project101.bean.PurchaseBoardBean;
 import com.project101.dao.CommentDAO;
 import com.project101.dao.PurchaseBoardDAO;
 
+
 public class PurchaseView implements Action {
 
 	@Override
@@ -21,14 +22,15 @@ public class PurchaseView implements Action {
 		PurchaseBoardBean boardBean = new PurchaseBoardBean();
 
 		// 글번호 파라미터 값을 num변수에 저장합니다.
-		int num = Integer.parseInt(request.getParameter("num"));
-
+		int num = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
+	
 		// 내용을 확인할 글의 조회수를 증가시킵니다.
 		purchaseDAO.setReadCountUpdate(num);
-
+	
 		// 글의 내용을 DAO에서 읽은 후 얻은 결과를 buydata 객체에 저장합니다.
 		boardBean = purchaseDAO.getDetail(num);
-
+	
+		
 		// DAO에서 글의 내용을 읽지 못했을 경우 null을 반환합니다.
 		if (boardBean == null) {
 			System.out.println("상세보기 실패");
@@ -40,7 +42,8 @@ public class PurchaseView implements Action {
 		////////////////// 댓글 보여주기 칸
 		CommentDAO cmtDAO = new CommentDAO();
 		List<CommentBean> cmtList = new ArrayList<CommentBean>();
-
+		
+	
 		int page = 1;
 		int limit = 10;
 
@@ -73,7 +76,7 @@ public class PurchaseView implements Action {
 		System.out.println("크기" + cmtList.size());
 		if (cmtList.size() > 0) {
 
-			request.setAttribute("cmtlist", cmtList);
+			request.setAttribute("cmtList", cmtList);
 		}
 
 		// buydata 객체를 Request 객체에 저장합니다.
