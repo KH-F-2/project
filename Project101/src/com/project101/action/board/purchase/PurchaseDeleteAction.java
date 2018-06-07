@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
+import com.project101.bean.ImageBean;
+import com.project101.dao.ImageDAO;
 import com.project101.dao.PurchaseBoardDAO;
 
 public class PurchaseDeleteAction implements Action {
@@ -22,8 +24,12 @@ public class PurchaseDeleteAction implements Action {
 		int result;
 		
 		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
+		ImageDAO imageDAO = new ImageDAO();
+		int board_no = num;
+		String tableName = "PURCHASE_BOARD";
 			
 		result = purchaseDAO.purchaseDelete(num);
+		result = imageDAO.imageDelete(board_no, tableName);
 		System.out.println(result);
 		if(result == 1) {
 			

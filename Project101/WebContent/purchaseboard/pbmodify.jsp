@@ -35,14 +35,46 @@ section{
 height: 100%;
 }
 </style>
+<script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
 <script>
 $(document).ready(function() {
 	$('#submit').click(function() { 
 		location.href = "./pbmodifyAction.pb?PB_CATEGORY="
 				+$('#category option:selected').val()+"&PB_NO="+$('#PB_NO').val()+
 				"&PB_TITLE="+$('#PB_TITLE').val()+"&PB_CONTENT="+$('#PB_CONTENT').val()+
-				"&PB_HASHTAG="+$('#PB_HASHTAG').val()
+				"&PB_HASHTAG="+$('#PB_HASHTAG').val()+"&img_hidden="+$('#img_hidden').val()
 	});
+	
+	UPLOADCARE_LOCALE = "ko";
+	   UPLOADCARE_TABS = "file url";
+	   UPLOADCARE_PUBLIC_KEY = "c45d0fc9bcc9538a677e";
+	   UPLOADCARE_LOCALE_TRANSLATIONS = {
+	      buttons: {
+	          cancel: 'Cancel',
+	          remove: 'Remove',
+	          choose: {
+	             images: {
+	              one: '파일 첨부',
+	              other: '파일 첨부'
+	              }
+	         }
+	      }
+	   };
+	   var widget=uploadcare.MultipleWidget('[role=uploadcare-uploader]');
+	   widget.onUploadComplete(function(info){
+	      var url=[];
+	      console.log(info.cdnUrl);
+	      $('#showImage').empty();
+	      $('#img_hidden').attr('value', '');
+	      var length=info.cdnUrl.charAt(info.cdnUrl.length-2);
+	      for(var i=0;i<length;i++){
+	         url[i]=info.cdnUrl+"nth/"+i+"/";
+	         $('#showImage').append('<img src="'+url[i]+'-/resize/x100/"/>');
+	         url[i]+="-/resize/500x/ ";
+	         var val=$('#img_hidden').attr('value');
+	         $('#img_hidden').attr('value', val+url[i]);
+	      }
+	   });
 	
 });
 
@@ -72,6 +104,16 @@ $(document).ready(function() {
 			<tr>
 				<td>위치</td>
 				<td>클릭이미지</td>
+			</tr>
+			<tr>
+				<td>첨부사진</td>
+				<td class="image">
+					
+					<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
+				
+				<div id="showImage"></div>
+				  <input type="hidden" id="img_hidden" name="img_hidden" value="">
+				</td>	
 			</tr>
 			<tr>
 				<td>가격</td>

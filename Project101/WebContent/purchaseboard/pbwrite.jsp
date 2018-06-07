@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<%@ page import="com.oreilly.servlet.MultipartRequest"%>
-<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+
 
 <html>
 <head>
@@ -23,7 +22,7 @@ table{
 }
 
 </style>
-
+ <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
 <script>
 
 	$(document).ready(function(){
@@ -37,11 +36,44 @@ table{
 							//+"&PB_LAT="+$()+"&PB_LNG="+$() 아직 설정값 몰라
 							+"&PB_PRICE="+$('input[name="price"]').val()
 							+"&PB_CATEGORY="+$('select[name=category]').val()
-							+"&PB_HASHTAG="+$('input[name="hashtag"]').val()
-							
+							+"&PB_HASHTAG="+$('input[name="hashtag"]').val()	
+							+"&img_hidden="+$('#img_hidden').val()
 		});
 		
+		UPLOADCARE_LOCALE = "ko";
+		   UPLOADCARE_TABS = "file url";
+		   UPLOADCARE_PUBLIC_KEY = "c45d0fc9bcc9538a677e";
+		   UPLOADCARE_LOCALE_TRANSLATIONS = {
+		      buttons: {
+		          cancel: 'Cancel',
+		          remove: 'Remove',
+		          choose: {
+		             images: {
+		              one: '파일 첨부',
+		              other: '파일 첨부'
+		              }
+		         }
+		      }
+		   };
+		   var widget=uploadcare.MultipleWidget('[role=uploadcare-uploader]');
+		   widget.onUploadComplete(function(info){
+		      var url=[];
+		      console.log(info.cdnUrl);
+		      $('#showImage').empty();
+		      $('#img_hidden').attr('value', '');
+		      var length=info.cdnUrl.charAt(info.cdnUrl.length-2);
+		      for(var i=0;i<length;i++){
+		         url[i]=info.cdnUrl+"nth/"+i+"/";
+		         $('#showImage').append('<img src="'+url[i]+'-/resize/x100/"/>');
+		         url[i]+="-/resize/500x/ ";
+		         var val=$('#img_hidden').attr('value');
+		         $('#img_hidden').attr('value', val+url[i]);
+		      }
+		   });
+		   
 	});
+	
+	
 </script>
 </head>
 <body>
@@ -67,6 +99,15 @@ table{
 			<tr>
 				<td>위치</td>
 				<td>이거를 어떻게 넣겠지?</td>
+			</tr>
+			<tr>
+				<td>첨부사진</td>
+				<td class="image">
+					<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
+				
+				<div id="showImage"></div>
+				  <input type="hidden" id="img_hidden" name="img_hidden" value="">
+				</td>	
 			</tr>
 			<tr>
 				<td>구매가격</td>

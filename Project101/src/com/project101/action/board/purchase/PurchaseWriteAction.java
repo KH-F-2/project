@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
+import com.project101.bean.ImageBean;
 import com.project101.bean.PurchaseBoardBean;
+import com.project101.dao.ImageDAO;
 import com.project101.dao.PurchaseBoardDAO;
 
 public class PurchaseWriteAction implements Action {
@@ -15,6 +17,8 @@ public class PurchaseWriteAction implements Action {
 
 		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
 		PurchaseBoardBean boardBean = new PurchaseBoardBean();
+		ImageDAO imageDAO = new ImageDAO();
+		ImageBean imageBean = new ImageBean();
 		ActionForward forward = new ActionForward();
 
 		boolean result = false;
@@ -51,6 +55,20 @@ public class PurchaseWriteAction implements Action {
 
 			forward.setRedirect(true);
 			forward.setPath("./pbmain.pb");
+			
+			///////이미지/////////////
+			
+			int BOARD_NO = purchaseDAO.getMaxCount();
+			String tableName = "PURCHASE_BOARD";
+		    String url = request.getParameter("img_hidden");
+		    
+		    imageBean.setBOARD_NO(BOARD_NO);
+		    imageBean.setIMAGE_URL(url);
+		   
+		      int result2 = imageDAO.imageInsert(imageBean, tableName);
+		      if (result2 == 0) {
+		         System.out.println("image insert fail!");
+		      }
 
 		} catch (Exception e) {
 			e.printStackTrace();

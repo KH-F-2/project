@@ -82,7 +82,7 @@ public class PurchaseBoardDAO {
 	}
 
 	// 수정
-	public boolean purchaseModify(PurchaseBoardBean boardBean) {
+	public int purchaseModify(PurchaseBoardBean boardBean) {
 		String sql = "update purchase_board set PB_TITLE =?, " + "PB_CONTENT = ?, PB_HASHTAG = ?, PB_CATEGORY = ?" + "where PB_NO = ? ";
 
 		try {
@@ -98,7 +98,7 @@ public class PurchaseBoardDAO {
 			int result = pstmt.executeUpdate();
 
 			if (result == 1) {
-				return true;
+				return 1;
 			}
 		} catch (Exception e) {
 			System.out.println("buyModify 에러 : " + e);
@@ -125,7 +125,7 @@ public class PurchaseBoardDAO {
 				}
 			}
 		}
-		return false;
+		return 0;
 	}
 
 	// 조회수 readcount 추가
@@ -340,7 +340,6 @@ public class PurchaseBoardDAO {
 				boardBean.setPB_LNG(rset.getDouble("PB_LNG"));
 				boardBean.setPB_PRICE(rset.getInt("PB_PRICE"));
 				boardBean.setPB_STATE(rset.getInt("PB_STATE"));
-				
 				
 				boardBeanList.add(boardBean);// 값을 담은 객체를 리스트에 저장합니다.
 			}
@@ -562,23 +561,23 @@ public class PurchaseBoardDAO {
 		return result;
 	}
 
-	public JSONArray getSearchCategory(int category, int page) {
+	public JSONArray getSearchCategory(int page, int category) {
 		
-	    JSONArray array = new JSONArray();
+		JSONArray array = new JSONArray();
 	    int startrow = (page - 1) * 10 + 1;
 	    int endrow = startrow + 10 - 1;
 	    try {
 	    	conn = ds.getConnection();
 	    	
-	    	String sql = "select * from "
-	    			+"(select rownum rnum, NUM, WRITER, TITLE, CONTENT, PRICE, DDATE, CATEGORY, HASHTAG, STATE "
-	    			//+"lat,lng"  이거 추가되면 봉인 해제
-	    			+"from (select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, PB_CONTENT CONTENT, PB_PRICE PRICE "
-	    			+"PB_DATE DDATE, PB_CATEGORY CATEGORY, PB_HASHTAG HASHTAG, PB_STATE STATE from purchase_board) "
+	    	String sql = "select * from ("
+	    			+"select rownum rnum, NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, CATEGORY, HASHTAG, STATE, DDATE, IMAGE_URL, BOARD_NAME from("
+	    			+"select NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, CATEGORY, HASHTAG, STATE, DDATE, IMAGE_URL, BOARD_NAME from "
+	    			+"(select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, PB_CONTENT CONTENT, PB_PRICE PRICE, PB_READCOUNT READCOUNT, "
+	    			+" PB_CATEGORY CATEGORY, PB_HASHTAG HASHTAG, PB_STATE STATE, TO_CHAR(PB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, BOARD_NAME from purchase_board inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')"
 	    			+"UNION ALL "
-	    			+"(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT CONTENT, SB_PRICE PRICE "
-	    			+"SB_DATE DDATE, SB_CATEGORY CATEGORY, SB_HASHTAG HASHTAG, SB_STATE STATE from sell_board)) "
-	    			+"where rnum >= ? and rnum <= ? and CATEGORY = ?"; 
+	    			+"(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT CONTENT, SB_PRICE PRICE, SB_READCOUNT READCOUNT, "
+	    			+" SB_CATEGORY CATEGORY, SB_HASHTAG HASHTAG, SB_STATE STATE, TO_CHAR(SB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, BOARD_NAME from sell_board inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')))"
+	    			+"where rnum >= ? and rnum <= ? and category = ?";
 	    	
 	    	pstmt=conn.prepareStatement(sql);
 	    	
@@ -591,13 +590,16 @@ public class PurchaseBoardDAO {
 	         while (rset.next()) {
 		            JSONObject obj = new JSONObject();
 		            obj.put("num", rset.getInt("NUM"));
-		            obj.put("WRITER", rset.getString("WRITER"));
+		            obj.put("writer", rset.getString("WRITER"));
 		            obj.put("title", rset.getString("TITLE"));
 		            obj.put("content", rset.getString("CONTENT"));
 		            obj.put("price", rset.getInt("PRICE"));
+		            obj.put("image_url", rset.getString("IMAGE_URL").split(" ")[0]);
+		            obj.put("board_name", rset.getString("BOARD_NAME"));
+		            obj.put("readcount", rset.getInt("READCOUNT"));
+		            obj.put("date", rset.getString("DDATE"));
 //		            obj.put("lat", rset.getDouble("lat"));
 //		            obj.put("lng", rset.getDouble("lng"));
-		            obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
 		            
 		            array.add(obj);
 	    
@@ -631,65 +633,27 @@ public class PurchaseBoardDAO {
 	
 	}
 	}
-	/*public List<PurchaseBoardBean> getSearchCategory(int category) {
+	
+	public int getMaxCount() {
+		int num = 0;
+	
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement("select * from PURCHASE_BOARD where PB_CATEGORY = ? ");
-			pstmt.setInt(1, category);
-			
-			List<PurchaseBoardBean> categoryList = new ArrayList<PurchaseBoardBean>();
-			rset = pstmt.executeQuery();
-			
-			while (rset.next()) {
-				PurchaseBoardBean boardBean = new PurchaseBoardBean();
-				boardBean.setPB_NO(rset.getInt("PB_NO"));
-				boardBean.setPB_WRITER(rset.getString("PB_WRITER"));
-				boardBean.setPB_TITLE(rset.getString("PB_TITLE"));
-				boardBean.setPB_CONTENT(rset.getString("PB_CONTENT"));
-				boardBean.setPB_DATE(rset.getDate("PB_DATE"));
-				boardBean.setPB_READCOUNT(rset.getInt("PB_READCOUNT"));
-				boardBean.setPB_CATEGORY(rset.getInt("PB_CATEGORY"));
-				boardBean.setPB_HASHTAG(rset.getString("PB_HASHTAG"));
-				//boardBean.setPB_LAT(rset.getDouble("PB_LAT"));
-				//boardBean.setPB_LNG(rset.getDouble("PB_LNG"));
-				boardBean.setPB_PRICE(rset.getInt("PB_PRICE"));
-				boardBean.setPB_STATE(rset.getInt("PB_STATE"));
-				
-				categoryList.add(boardBean);// 값을 담은 객체를 리스트에 저장합니다.
-			}
-			
-			return categoryList;// 값을 담은 객체를 저장한 리스트를 호출한 곳으로
-			
-		}catch(Exception e) {
-			System.out.println("getSearchCategory 에러" + e);
-		}finally {
-			if (rset != null) {
-				try {
-					rset.close();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-
-			}
-		}
+			String max_sql = "select max(PB_NO) from PURCHASE_BOARD";
+			pstmt = conn.prepareStatement(max_sql);
 		
-		return null;
-	}*/
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				num = rset.getInt(1); // 최대값보다 1만큼 큰 값 지정
+			} else {
+				num = 1;
+			}
+	}catch(Exception e) {
+		System.out.println("getMaxCount에러"+e);
+	}
+		return num;
+	}
 
 
 

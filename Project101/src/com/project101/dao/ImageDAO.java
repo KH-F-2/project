@@ -3,8 +3,7 @@ package com.project101.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,122 +12,162 @@ import javax.sql.DataSource;
 import com.project101.bean.ImageBean;
 
 public class ImageDAO {
-	DataSource ds;
-	Connection conn;
-	PreparedStatement pstmt;
-	ResultSet rset;
-	int result;
+   DataSource ds;
+   Connection conn;
+   PreparedStatement pstmt;
+   ResultSet rset;
+   int result;
 
-	public ImageDAO() {
-		try {
+   public ImageDAO() {
+      try {
+         Context init = new InitialContext();
+         ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
+      } catch (Exception e) {
+         System.out.println("DB 연결 실패 : " + e);
+         return;
+      }
+   }
 
-			Context init = new InitialContext();
-			ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
-		} catch (Exception e) {
+   public int imageInsert(ImageBean imageBean, String tableName) {
+      try {
+         conn = ds.getConnection();
 
-			System.out.println("DB 연결 실패 : " + e);
-			return;
-		}
-	}
-	
-	/*public List<CommentBean> getBoardList(int no) {
-		List<CommentBean> list=new ArrayList<CommentBean>();
-		try {
-			conn=ds.getConnection();
-			String sql="select * from "
-					+ "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
-					+ "SB_READCOUNT, SB_DATE from "
-					+ "(select * from SELL_BOARD order by SB_NO desc)) "
-					+ "where rnum>=? and rnum<=?";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, startrow);
-			pstmt.setInt(2, endrow);
-			
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				SellBoardBean sellboard=new SellBoardBean();
-				sellboard.setSB_NO(rset.getInt("SB_NO"));
-				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
-				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
-				sellboard.setSB_DATE(rset.getDate("SB_DATE"));
-				sellboard.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
-				list.add(sellboard);
-			}
-			return list;
-			}catch(Exception e){
-				e.printStackTrace();
-			}finally{
-				try {
-					if(pstmt!=null)	pstmt.close();
-					if(conn!=null)		conn.close();
-					if(rset!=null)		rset.close();
-				}catch(Exception e) {e.printStackTrace();}
-			}
-		
-		return null;
-	}*/
-	
-	public int imageInsert(ImageBean image, String tableName) {
-		String sql="";
-		try {
-			conn=ds.getConnection();
-			
-			sql="insert into IMAGE "
-					+ "values(?, 'SELL_BOARD', ?)";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, image.getBOARD_NO());
-			pstmt.setString(2, image.getIMAGE_URL());
-			
-			result=pstmt.executeUpdate();
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rset!=null)	rset.close();
-				if(pstmt!=null)	pstmt.close();
-				if(conn!=null)		conn.close();
-			}catch(Exception e) {e.printStackTrace();}
-		}
-		
-		return result;
-	}
-	
-	public List<ImageBean> getImage(int num, String tableName) {
-		List<ImageBean> imagelist=new ArrayList<ImageBean>();
-		try {
-			conn=ds.getConnection();
-			String sql="select * from IMAGE where BOARD_NO=? and BOARD_NAME='SELL_BOARD'";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				ImageBean image=new ImageBean();
-				image.setBOARD_NO(rset.getInt("BOARD_NO"));
-				image.setBOARD_NAME(rset.getString("BOARD_NAME"));
-				image.setIMAGE_URL(rset.getString("IMAGE_URL"));
-				imagelist.add(image);
-				System.out.println("getImage rsnext ");
-			}
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rset!=null)	rset.close();
-				if(pstmt!=null)	pstmt.close();
-				if(conn!=null)		conn.close();
-			}catch(Exception e) {e.printStackTrace();}
-		}
-		
-		return imagelist;
-	}
+         String sql = "insert into IMAGE " + "values(?, ?, ?)";
+         
+         pstmt = conn.prepareStatement(sql);
+         
+         pstmt.setInt(1, imageBean.getBOARD_NO());
+         pstmt.setString(2, tableName);
+         pstmt.setString(3, imageBean.getIMAGE_URL());
 
-	public void imageDelete(int num, String tableName) {
-		// TODO Auto-generated method stub
-		
-	}
+         result = pstmt.executeUpdate();
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            if (rset != null) {
+               rset.close();
+            }
+            if (pstmt != null) {
+               pstmt.close();
+            }
+            if (conn != null) {
+               conn.close();
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+      return result;
+   }
+
+   public ImageBean getImage(int num, String tableName) {
+      ImageBean imageBean = new ImageBean();
+      try {
+         conn = ds.getConnection();
+         
+         String sql = "select * from IMAGE where BOARD_NO=? and BOARD_NAME=?";
+         
+         pstmt = conn.prepareStatement(sql);
+         
+         pstmt.setInt(1, num);
+         pstmt.setString(2, tableName);
+
+         rset = pstmt.executeQuery();
+
+         if (rset.next()) {
+            imageBean.setBOARD_NO(rset.getInt("BOARD_NO"));
+            imageBean.setBOARD_NAME(rset.getString("BOARD_NAME"));
+            imageBean.setIMAGE_URL(rset.getString("IMAGE_URL"));
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            if (rset != null) {
+               rset.close();
+            }
+            if (pstmt != null) {
+               pstmt.close();
+            }
+            if (conn != null) {
+               conn.close();
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+      return imageBean;
+   }
+
+   public int imageDelete(int board_no, String tableName) {
+      try {
+         conn = ds.getConnection();
+
+         String sql = "delete from IMAGE where BOARD_NO=? and BOARD_NAME=?";
+         
+         pstmt = conn.prepareStatement(sql);
+         
+         pstmt.setInt(1, board_no);
+         pstmt.setString(2, tableName);
+
+         result = pstmt.executeUpdate();
+         
+         if (result == 0) {
+            System.out.println("imageDelete() fail");
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            if (rset != null) {
+               rset.close();
+            }
+            if (pstmt != null) {
+               pstmt.close();
+            }
+            if (conn != null) {
+               conn.close();
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+      return result;
+   }
+
+   public int imageModify(ImageBean imageBean, String tableName) {
+      try {
+         conn = ds.getConnection();
+
+         String sql = "update IMAGE set IMAGE_URL = ? where BOARD_NO = ? and BOARD_NAME = ?";
+         
+         pstmt = conn.prepareStatement(sql);
+         
+         pstmt.setString(1, imageBean.getIMAGE_URL());
+         pstmt.setInt(2, imageBean.getBOARD_NO());
+         pstmt.setString(3, tableName);
+
+         result = pstmt.executeUpdate();
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            if (rset != null) {
+               rset.close();
+            }
+            if (pstmt != null) {
+               pstmt.close();
+            }
+            if (conn != null) {
+               conn.close();
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+      return result;
+   }
+   
+   
 }

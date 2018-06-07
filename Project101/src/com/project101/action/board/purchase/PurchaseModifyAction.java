@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
+import com.project101.bean.ImageBean;
 import com.project101.bean.PurchaseBoardBean;
+import com.project101.dao.ImageDAO;
 import com.project101.dao.PurchaseBoardDAO;
 
 public class PurchaseModifyAction implements Action {
@@ -20,29 +22,36 @@ public class PurchaseModifyAction implements Action {
 	
 		//로그인 연동 이후 수정
 		//String id = request.getParameter("PB_WRITER");
-		boolean result = false;
+		int result = 0;
 		
 		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
 		PurchaseBoardBean boardBean = new PurchaseBoardBean();
 		
 		//글쓴이 인지 확인하기 위해 저장된 번호와 작성자를 확인합니다.
 		//로그인 연동 이후 수정
-		//수정 내용을 설정합니다.
+		//수정 내용을 설정합니다.		
+		//DAO에서 수정 메서드 호출하여 수정합니다.
+		result = purchaseDAO.purchaseModify(boardBean);
+		
 		
 		boardBean.setPB_NO(num);
 		boardBean.setPB_CONTENT(request.getParameter("PB_CONTENT"));
 		boardBean.setPB_TITLE(request.getParameter("PB_TITLE"));
 		boardBean.setPB_HASHTAG(request.getParameter("PB_HASHTAG"));
 		boardBean.setPB_CATEGORY(categoryNO);
-
 		
-
+		ImageDAO imageDAO = new ImageDAO();
+		ImageBean imageBean = new ImageBean();
+		String tableName = "PURCHASE_BOARD";
 		
-		//DAO에서 수정 메서드 호출하여 수정합니다.
-		result = purchaseDAO.purchaseModify(boardBean);
+		imageBean.setBOARD_NO(num);
+		String url = request.getParameter("img_hidden");
+		imageBean.setIMAGE_URL(url);
+		
+		result = imageDAO.imageModify(imageBean, tableName);
 
 		//수정에 실패한 경우
-		if(result == false) {
+		if(result == 0) {
 			
 			System.out.println("게시판 수정 실패");
 			return null;
