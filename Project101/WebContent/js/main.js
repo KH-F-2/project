@@ -9,35 +9,25 @@ $(document).ready(function() {
 		'line-height' : $(window).height() - 70 + 'px'
 	});
 
-<<<<<<< HEAD
 	// 페이지 로드 후 5초 뒤 현재위치에서 조회 실행
 	window.setTimeout(function () {
 		checkCurrentPosition()
 	}, 5000);
-	
+
 	$('#checkCurrentPosition').click(function () {
 		checkCurrentPosition();
-		
+
 		window.setTimeout(function() {
 			$("html, body").animate({
 				scrollTop: $(window).height() - 70
 			}, 700);
 		}, 3000);
 	});
-	
+
 	$('#seeMoreBtn').click(function () {
 		location.href = './sbmain.sb?centerLat=' + centerLat + '&centerLng=' + centerLng;
-=======
-	// 페이지 로드 후 1초 뒤 현재위치에서 조회 실행
-	window.setTimeout(function () {
-		checkCurrentPosition()
-	}, 1000);
-	
-	$('#checkCurrentPosition').click(function () {
-		checkCurrentPosition();
->>>>>>> jusung
 	});
-	
+
 });
 
 // 맵 필드 변수 설정
@@ -56,25 +46,16 @@ function initMap() {
 		lat : 37.566697,
 		lng : 126.978457
 	};
-	
+
 	// 구글 맵 객체 생성하고 센터, 줌 초기 설정
-<<<<<<< HEAD
-=======
-	map = new google.maps.Map(document.getElementById('map'), {
-		zoom : 14,
-		center : seoulCityhall
-	});
-	
->>>>>>> jusung
 	// 현재 위치 정보를 가져와서 지도 이동시킴
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			var currentPosition = {
-<<<<<<< HEAD
 					lat : position.coords.latitude,
 					lng : position.coords.longitude
 			};
-			
+
 			map = new google.maps.Map(document.getElementById('map'), {
 				zoom : 14,
 				center : currentPosition
@@ -85,19 +66,6 @@ function initMap() {
 			zoom : 14,
 			center : seoulCityhall
 		});
-=======
-				lat : position.coords.latitude,
-				lng : position.coords.longitude
-			};
-
-			map.setCenter(currentPosition);
-		}, function() {
-			handleLocationError(true, infoWindow, map.getCenter());
-		});
-	} else {
-		// Browser doesn't support Geolocation
-		handleLocationError(false, infoWindow, map.getCenter());
->>>>>>> jusung
 	}
 
 
@@ -113,7 +81,7 @@ function initMap() {
 			document.getElementById('autocomplete').placeholder = 'Enter a city';
 		}
 	});
-	
+
 }
 
 // 현재 위치에서 조회
@@ -127,13 +95,13 @@ function checkCurrentPosition() {
 	centerLng = map.center.lng();
 	console.log(centerLat);
 	console.log(centerLng);
-	
+
 	viewMarkers();
 }
 
 // ajax로 DB에서 json 받아 marker 생성
 function viewMarkers() {
-	
+
 	if (centerLat) {
 		$.ajax({
 			type : "POST",
@@ -142,43 +110,29 @@ function viewMarkers() {
 			url : "./getmarkers.map",
 			 // 조회 전 기존 마커 제거
 			beforeSend : function() {
-				
+
 				removeMarkers();
 			},
 			// json 받아 마커 생성 & 마커 클러스터 생성 & 마커 이벤트 추가
 			success : function(json) {
 
-<<<<<<< HEAD
 				getBoardListUsingCurrentPosition(json);
-				
+
 				for (var i = 0; i < json.length; i++) {
 					var title = json[i].title;
 					var infoContent = '<h3><a href="sbview.sb?num=' + json[i].num + '">'
 						+ title + '</a></h3>' + '<br><b>가격</b> : '
 						+ json[i].price + '<br><b>설명</b> : ' + json[i].content;
-=======
-				for (var i = 0; i < json.length; i++) {
-					var title = json[i].sb_TITLE;
-					var infoContent = '<h3><a href="sbview.sb?num=' + json[i].SB_NO + '">'
-						+ title + '</a></h3>' + '<br><b>가격</b> : '
-						+ json[i].SB_PRICE + '<br><b>설명</b> : ' + '블라블라';
->>>>>>> jusung
 					infoContentArr.push(infoContent);
-					
+
 					addMarkerWithTimeout(json[i], i, title);
 				}
-				
+
 				console.log("현재 화면에 " + json.length + "개의 마커가 로드됨");
 			},
-<<<<<<< HEAD
 			error: function(request,status,error){
 			    alert("code:"+request.status+"\n"+"error:"+error+"message:"+request.responseText+"\n");
 			   }
-=======
-			error: function () {
-				console.log('error');
-			}
->>>>>>> jusung
 		});
 	}
 }
@@ -205,22 +159,11 @@ function addMarkerWithTimeout(position, i, title) {
 				text : title,
 			},
 			icon : {
-<<<<<<< HEAD
 				labelOrigin : new google.maps.Point(11, 45),
 				url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blueP.png',
 			}
 		}));
-	
-=======
-				labelOrigin : new google.maps.Point(11, 50),
-				url : './image/ryan.png',
-				size : new google.maps.Size(24, 40),
-				origin : new google.maps.Point(0, 0),
-				anchor : new google.maps.Point(11, 40),
-			}
-		}));
-		
->>>>>>> jusung
+
 		markers[i].addListener('click', function() {
 			var infoWindow = new google.maps.InfoWindow({
 				content : infoContentArr[i],
@@ -229,23 +172,18 @@ function addMarkerWithTimeout(position, i, title) {
 
 			infoWindow.open(markers[i].get('map'), markers[i]);
 		});
-		
-<<<<<<< HEAD
+
 	}, i * 100);
-=======
-	}, i * 200);
->>>>>>> jusung
 }
 
 // 현재 위치정보 가져올 때 예외처리
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 	infoWindow.setPosition(pos);
-	infoWindow.setContent(browserHasGeolocation ? 
+	infoWindow.setContent(browserHasGeolocation ?
 			'Error: The Geolocation service failed.'
 			: 'Error: Your browser doesn\'t support geolocation.');
 }
 
-<<<<<<< HEAD
 function getBoardListUsingCurrentPosition(json) {
 	$.ajax({
 		type: "post",
@@ -267,5 +205,3 @@ function getBoardListUsingCurrentPosition(json) {
 		}
 	});
 }
-=======
->>>>>>> jusung
