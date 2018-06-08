@@ -10,87 +10,198 @@ $(document).ready(function() {
 			$('#domain').val($(this).val());
 		}
 	});
+	
+	$('#brandsel').change(function() {
+		$('#brand').val($('#brandsel').val());
+	});
 
 	$('#postcode').click(function() {
 		window.open("post.html", "post", 'width=300, height=250')
-
+	});
+	
+	$(function() {
+		$("#postcodify_search_button").postcodifyPopUp();
+	});
+	
+	$('input').keyup(function () {
+		$(this).css('border-bottom', '1px solid black');
+	});
+	$('#sel').change(function () {
+		$('#domain').css('border-bottom', '1px solid black');
 	});
 
 	$('form').submit(function() {
 		if ($('#id').val() == '') {
-			alert("ID를 입력하세요");
+			$('html').scrollTop($('#id').offset().top - 100);
 			$('#id').focus();
+			$('#id').css('border-bottom', '1px solid red');
+			$('#id').attr('placeholder', 'ID를 입력하세요.');
 			return false;
 		}
-
-		if ($('#pass').val() == '') {
-			alert("pass를 입력하세요");
-			$('#pass').focus();
+		
+		if ($('#nickname').val() == '') {
+			$('html').scrollTop($('#nickname').offset().top - 100);
+			$('#nickname').focus();
+			$('#nickname').css('border-bottom', '1px solid red');
+			$('#nickname').attr('placeholder', '닉네임을 입력하세요.');
 			return false;
 		}
-
-
+		
 		if ($('#email').val() == '') {
-			alert("EMAIL을 입력하세요");
+			$('html').scrollTop($('#email').offset().top - 100);
 			$('#email').focus();
+			$('#email').css('border-bottom', '1px solid red');
+			$('#email').attr('placeholder', '이메일을 입력하세요.');
 			return false;
 		}
+		
 		if ($('#domain').val() == '') {
-			alert("domain을 입력하세요");
+			$('html').scrollTop($('#domain').offset().top - 100);
 			$('#domain').focus();
+			$('#domain').css('border-bottom', '1px solid red');
+			$('#domain').attr('placeholder', '도메인을 입력하세요.');
+			return false;
+		}
+
+		if ($('#password').val() == '') {
+			$('html').scrollTop($('#password').offset().top - 100);
+			$('#password').focus();
+			$('#password').css('border-bottom', '1px solid red');
+			alert('비밀번호를 입력하세요.');
+			return false;
+		}
+
+		if ($('#passcheck').val() == '') {
+			$('html').scrollTop($('#passcheck').offset().top - 100);
+			$('#passcheck').focus();
+			$('#passcheck').css('border-bottom', '1px solid red');
+			alert('비밀번호를 다시한번 입력하세요.');
+			return false;
+		} else {
+			if ($('#password').val() != $('#passcheck').val()) {
+				$('html').scrollTop($('#passcheck').offset().top - 100);
+				$('#passcheck').val('');
+				$('#passcheck').focus();
+				$('#passcheck').css('border-bottom', '1px solid red');
+				alert('비밀번호를 동일하게 입력하세요.');
+				return false;
+			}
+		}
+		
+		if ($('#phone').val() == '') {
+			$('html').scrollTop($('#phone').offset().top - 100);
+			$('#phone').focus();
+			$('#phone').css('border-bottom', '1px solid red');
+			$('#phone').attr('placeholder', '연락처를 입력하세요.');
 			return false;
 		}
 
 		if ($('#post').val() == '') {
-			alert("우편번호 앞자리를 입력하세요");
+			$('html').scrollTop($('#post').offset().top - 100);
 			$('#post').focus();
+			$('#post').css('border-bottom', '1px solid red');
+			$('#post').attr('placeholder', '우편번호를 입력하세요.');
 			return false;
 		}
-
-
 
 		if ($('#address').val() == '') {
-			alert("주소를 입력하세요");
+			$('html').scrollTop($('#address').offset().top - 100);
 			$('#address').focus();
+			$('#address').css('border-bottom', '1px solid red');
+			$('#address').attr('placeholder', '주소를 입력하세요.');
 			return false;
 		}
 
-		if ($('#school').val() == '') {
-			alert("학교를 입력하세요");
-			$('#school').focus();
+		if ($('#markerLat').val() == '') {
+			$('html').scrollTop($('#locationField').offset().top - 100);
+			alert('지도에서 기본 위치를 설정하세요.');
 			return false;
 		}
 
-		if ($('#major').val() == '') {
-			alert("학번을 입력하세요");
-			$('#major').focus();
+		if (idDuplicateCheckResult == false) {
+			alert('아이디 중복체크를 실행하세요.');
+			$('#id').focus();
 			return false;
 		}
 
-		if ($('#college').val() == '') {
-			alert("학과를 입력하세요");
-			$('#college').focus();
+		if (nickDuplicateCheckResult == false) {
+			alert('닉네임 중복체크를 실행하세요.');
+			$('#nickname').focus();
 			return false;
 		}
-
-		if ($('#pass').val() == '') {
-			alert("비밀번호를 입력하세요");
-			$('#pass').focus();
-			return false;
-		}
-		if ($('#pass').val() != $('#passcheck').val()) {
-			alert("비밀번호를 동일하게 입력하세요");
-			return false;
-		}
-
 
 	});
+	
+	var id, id2, nickname;
+	var idDuplicateCheckResult = false;
+	var nickDuplicateCheckResult = false;
+	
+	$("#idcheck").click(function() {
+		id = $("input[name=id]").val();
+		
+		if (id == '') {
+			alert('아이디를 입력해주세요')
+			return false;
+		}
+		
+		$.ajax({
+			type : "GET",
+			data : {
+				"id" : id
+			},
+			url : "idcheck.me",
+			success : function(result) {
+				console.log(result);
+				if (result == 1) {
+					$("#message").html('사용 가능한 아이디입니다.').css('color', 'blue');
+					$('#id').attr('readonly');
+					idDuplicateCheckResult = true;
+				}
+				if (result == -1) {
+					$("#message").html('중복된 아이디입니다.').css('color', 'red');
+					$("input[name=id]").val('');
+					$("input[name=id]").focus();
+				}
+			}
+		}); //ajax end
+	}) //click end
+	
+	$("#nicknamecheck").click(function() {
+		nickname = $("input[name=nickname]").val();
+		
+		if (nickname == '') {
+			alert('닉네임을 입력해주세요')
+			return false;
+		}
+		
+		$.ajax({
+			type : "GET",
+			data : {
+				"nickname" : nickname
+			},
+			url : "nicknamecheck.me",
+			success : function(result) {
+				console.log(result);
+				if (result == 1) {
+					$("#nickmessage").html('사용 가능한 닉네임입니다.').css('color', 'blue');
+					$('#nickname').attr('readonly');
+					nickDuplicateCheckResult = true;
+				}
+				if (result == -1) {
+					$("#nickmessage").html('중복된 닉네임입니다.').css('color', 'red');
+					$("input[name=nickname]").val('');
+					$("input[name=nickname]").focus();
+				}
+			}
+		}); //ajax end
+	}) //click end
 
 	$('select').prettyDropdown({
 		height: 25
 	});
 	
 	$(document).on('click', '#check1', function () {
+		console.log($(this).val());
 		if ($(this).val() == '') {
 			$('.check').each(function () {
 				$(this).html('&#xe800;');
@@ -101,6 +212,16 @@ $(document).ready(function() {
 				$(this).html('&#xe801;');
 				$(this).val('');
 			});
+		}
+	});
+	
+	$('.check.sub').click(function () {
+		if ($(this).val() == '') {
+			$(this).html('&#xe800;');
+			$(this).val('checked');
+		} else {
+			$(this).html('&#xe801;');
+			$(this).val('');
 		}
 	});
 	

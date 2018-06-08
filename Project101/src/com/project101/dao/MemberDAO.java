@@ -144,6 +144,7 @@ public class MemberDAO {
 	         }
 	         
 	      } catch(Exception e) {
+	    	  result = 0;
 	         e.printStackTrace();
 	      } finally{
 	          if(rset!=null)
@@ -428,6 +429,7 @@ public class MemberDAO {
 	         }
 	         
 	      } catch(Exception e) {
+	    	  result = 0;
 	         e.printStackTrace();
 	      } finally{
 	          if(rset!=null)
