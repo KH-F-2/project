@@ -31,10 +31,19 @@
 }
 
 #chkBtnDiv {
+<<<<<<< HEAD
 	position: absolute;
 	width: 100%;
 	font-size: 25px;
 	z-index: 1;
+=======
+	display: block;
+	height: 150px;
+	width: 100%;
+	font-size: 25px;
+	text-align: center;
+	line-height: 150px;
+>>>>>>> jusung
 }
 
 #container {

@@ -42,9 +42,74 @@
 
 <div id="map"></div>
 
+<<<<<<< HEAD
 <div id="container"></div>
 
 <div id="main_bottom">
 	<input type="button" id="seeMoreBtn" value="더보기">
 	<input type="button" id="writeBtn" value="글 쓰러 가기">
 </div>
+=======
+<div id="chkBtnDiv">
+	<input type="button" id="checkCurrentPosition" value="현재위치에서 조회">
+</div>
+
+<div id="container">
+	<div class="content">
+		<img src="./image/koala.jpg">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+		<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			Magnam nam iste velit aut dolores praesentium corporis quasi,
+			laboriosam porro ab.</span>
+	</div>
+	<div class="content">
+		<img src="./image/koala.jpg">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+		<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			Magnam nam iste velit aut dolores praesentium corporis quasi,
+			laboriosam porro ab.</span>
+	</div>
+	<div class="content">
+		<img src="./image/koala.jpg">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+		<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			Magnam nam iste velit aut dolores praesentium corporis quasi,
+			laboriosam porro ab.</span>
+	</div>
+	<div class="content">
+		<img src="./image/koala.jpg">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+		<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			Magnam nam iste velit aut dolores praesentium corporis quasi,
+			laboriosam porro ab.</span>
+	</div>
+	<div class="content">
+		<img src="./image/koala.jpg">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+		<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			Magnam nam iste velit aut dolores praesentium corporis quasi,
+			laboriosam porro ab.</span>
+	</div>
+	<div class="content">
+		<img src="./image/koala.jpg">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+		<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			Magnam nam iste velit aut dolores praesentium corporis quasi,
+			laboriosam porro ab.</span>
+	</div>
+	<div class="content">
+		<img src="./image/koala.jpg">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+		<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			Magnam nam iste velit aut dolores praesentium corporis quasi,
+			laboriosam porro ab.</span>
+	</div>
+	<div class="content">
+		<img src="./image/koala.jpg">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+		<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			Magnam nam iste velit aut dolores praesentium corporis quasi,
+			laboriosam porro ab.</span>
+	</div>
+</div>
+>>>>>>> jusung

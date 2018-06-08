@@ -1,9 +1,7 @@
 package com.project101.action.board.sell;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,14 +25,19 @@ public class SellBoardListAction implements Action {
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
 		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
 
-		String searchWord = boardPageBean.getSearchWord();
-		String searchItem = boardPageBean.getSearchItem();
+		/*String searchWord = boardPageBean.getSearchWord();
+		String searchItem = boardPageBean.getSearchItem();*/
 		int page = boardPageBean.getPage();
 		int limit = boardPageBean.getLimit();
+<<<<<<< HEAD
 		int listcount = 0;
 		
 		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
 		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
+=======
+		int listcount = sellDAO.getListCount();
+		System.out.println("listcount : " + listcount);
+>>>>>>> jusung
 
 		
 		if (request.getParameter("page") != null) {
@@ -42,7 +45,7 @@ public class SellBoardListAction implements Action {
 		}
 		System.out.println("넘어온 페이지 : " + page);
 
-		if (request.getParameter("word") != null) {
+		/*if (request.getParameter("word") != null) {
 			searchWord = request.getParameter("word");
 			searchItem = request.getParameter("item");
 		}
@@ -58,10 +61,16 @@ public class SellBoardListAction implements Action {
 			boardPageBean.setSearchWord(searchWord);
 		} else {
 			listcount = sellDAO.getListCount();
+<<<<<<< HEAD
 			boardBeanlist = sellDAO.getBoardList(page, centerLat, centerLng);
 		}
 		System.out.println("listcount : " + listcount);
 
+=======
+			boardBeanlist = sellDAO.getBoardList(page, limit);
+		}*/
+		boardBeanlist = sellDAO.getBoardList(page, limit);
+>>>>>>> jusung
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		int startpage = ((page - 1) / limit) * limit + 1;
@@ -71,7 +80,7 @@ public class SellBoardListAction implements Action {
 			endpage = maxpage;
 		}
 
-		boardPageBean.setboardList(boardBeanlist);
+		boardPageBean.setBoardBeanList(boardBeanlist);
 		boardPageBean.setLimit(limit);
 		boardPageBean.setPage(page);
 		boardPageBean.setListcount(listcount);

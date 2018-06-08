@@ -5,13 +5,17 @@ import java.sql.Date;
 public class SellBoardBean {
 	private int SB_NO;
 	private String SB_WRITER;
-	private Date SB_PDATE;
-	private Date SB_MDATE;
+	private Date SB_PURCHASE_DATE;
 	private String SB_TITLE;
 	private String SB_CONTENT;
 	private int SB_PRICE;
 	private Date SB_DATE;
 	private int SB_READCOUNT;
+	private double SB_LAT;
+	private double SB_LNG;
+	private int SB_STATE;
+	private int SB_CATEGORY;
+	private String SB_HASHTAG;
 
 	public SellBoardBean() {
 		super();
@@ -33,20 +37,12 @@ public class SellBoardBean {
 		SB_WRITER = sB_WRITER;
 	}
 
-	public Date getSB_PDATE() {
-		return SB_PDATE;
+	public Date getSB_PURCHASE_DATE() {
+		return SB_PURCHASE_DATE;
 	}
 
-	public void setSB_PDATE(Date sB_PDATE) {
-		SB_PDATE = sB_PDATE;
-	}
-
-	public Date getSB_MDATE() {
-		return SB_MDATE;
-	}
-
-	public void setSB_MDATE(Date sB_MDATE) {
-		SB_MDATE = sB_MDATE;
+	public void setSB_PURCHASE_DATE(Date sB_PURCHASE_DATE) {
+		SB_PURCHASE_DATE = sB_PURCHASE_DATE;
 	}
 
 	public String getSB_TITLE() {
@@ -89,4 +85,45 @@ public class SellBoardBean {
 		SB_READCOUNT = sB_READCOUNT;
 	}
 
+	public double getSB_LAT() {
+		return SB_LAT;
+	}
+
+	public void setSB_LAT(double sB_LAT) {
+		SB_LAT = sB_LAT;
+	}
+
+	public double getSB_LNG() {
+		return SB_LNG;
+	}
+
+	public void setSB_LNG(double sB_LNG) {
+		SB_LNG = sB_LNG;
+	}
+
+	public int getSB_STATE() {
+		return SB_STATE;
+	}
+
+	public void setSB_STATE(int sB_STATE) {
+		SB_STATE = sB_STATE;
+	}
+	
+	public int getSB_CATEGORY() {
+		return SB_CATEGORY;
+	}
+
+	public void setSB_CATEGORY(int sB_CATEGORY) {
+		SB_CATEGORY = sB_CATEGORY;
+	}
+
+	public String getSB_HASHTAG() {
+		return SB_HASHTAG;
+	}
+
+	public void setSB_HASHTAG(String sB_HASHTAG) {
+		SB_HASHTAG = sB_HASHTAG;
+	}
+
+	
 }

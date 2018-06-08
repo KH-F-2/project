@@ -34,6 +34,7 @@ public class MapDAO {
 
 		try {
 			conn = ds.getConnection();
+<<<<<<< HEAD
 			String sql = "select sb_no, sb_writer, sb_date, sb_title, sb_content, sb_price, sb_date, sb_readcount, sb_lat, sb_lng"
 					+ ", sqrt(power((? - sb_lat), 2) + power((? - sb_lng), 2)) as distance"
 					+ " from (select * from sell_board where SB_LAT between ? and ?) where SB_LNG between ? and ?"
@@ -47,6 +48,16 @@ public class MapDAO {
 			pstmt.setDouble(5, startLng);
 			pstmt.setDouble(6, endLng);
 			
+=======
+			String sql = "select * from (select * from sell_board where SB_LAT between ? and ?) where SB_LNG between ? and ?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setDouble(1, startLat);
+			pstmt.setDouble(2, endLat);
+			pstmt.setDouble(3, startLng);
+			pstmt.setDouble(4, endLng);
+
+>>>>>>> jusung
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {

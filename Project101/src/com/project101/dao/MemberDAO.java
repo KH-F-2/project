@@ -14,6 +14,8 @@ import javax.sql.DataSource;
 import com.project101.bean.Member;
 import com.project101.bean.SellBoardBean;
 
+
+
 public class MemberDAO {
 
 	DataSource ds;
@@ -210,6 +212,7 @@ public class MemberDAO {
 		
 		return result;
 	}
+<<<<<<< HEAD
 	public List<SellBoardBean> getBoardList(int page, int limit, String SB_WRITER) {
 		List<SellBoardBean> list=new ArrayList<SellBoardBean>();
 		int startrow=(page-1)*limit+1;
@@ -454,4 +457,6 @@ public class MemberDAO {
 	      return result;
 		
 	}
+=======
+>>>>>>> jusung
 }

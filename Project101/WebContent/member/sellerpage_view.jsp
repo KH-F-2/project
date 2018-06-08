@@ -15,7 +15,7 @@
 			<tr>
 				<td>글번호 : ${boardBean.SB_NO}</td>
 			</tr>		
-			<tr><a href="./sellerpageView.seller?num=${boardBean.SB_NO }">
+			<tr>
 				<td>제목 : ${boardBean.SB_TITLE}</td>			
 			</tr>	
 			<tr>

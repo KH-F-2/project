@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
+import com.project101.bean.SignEpilAction;
 
 @WebServlet("*.me")
 public class FrontController extends HttpServlet {
@@ -82,13 +83,14 @@ public class FrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 			
-			}else if(command.equals("/sellerpage/sellerpage_main.seller")) {
-//		        action = new listAddAction();
+			}else if(command.equals("/sellerpage_main.me")) {
+				action = new listAddAction();
 		        try {
 		           forward = action.execute(request, response);
 		        }catch(Exception e) {
 		           e.printStackTrace();
 		        }
+<<<<<<< HEAD
 		     }else if(command.equals("/find.me")) {
 					forward = new ActionForward();
 					forward.setRedirect(false);
@@ -139,6 +141,17 @@ public class FrontController extends HttpServlet {
 				}
 			
 			
+=======
+		     }else if(command.equals("/signepil.me")) {
+					action = new SignEpilAction();
+			        try {
+			           forward = action.execute(request, response);
+			        }catch(Exception e) {
+			           e.printStackTrace();
+			        }
+			     }	
+
+>>>>>>> jusung
 			if (forward != null) {
 				if (forward.isRedirect()) {
 					response.sendRedirect(forward.getPath());
