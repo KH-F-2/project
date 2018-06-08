@@ -16,11 +16,10 @@ public class FindPWResultAction implements Action {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		String id = request.getParameter("id");
-		String nickname = request.getParameter("nickname");
 		String email = request.getParameter("email");
 		MemberDAO mdao = new MemberDAO();
 		
-		String result = mdao.findPW(id, nickname, email);
+		String result = mdao.findPW(id, email);
 		System.out.println("findPwresultaction : " + result);
 		if ( result != null) {
 			

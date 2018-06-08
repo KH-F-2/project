@@ -23,6 +23,8 @@ public class UpdatememberAction implements Action {
 		String post = request.getParameter("post");
 		String address = request.getParameter("address");
 		String detailaddress = request.getParameter("detailaddress");
+		double latitude = Double.parseDouble(request.getParameter("latitude"));
+		double longitude = Double.parseDouble(request.getParameter("longitude"));
 		
 		
 		Member m = new Member();
@@ -35,6 +37,8 @@ public class UpdatememberAction implements Action {
 		m.setPost(post);
 		m.setAddress(address);
 		m.setDetailaddress(detailaddress);
+		m.setLatitude(latitude);
+		m.setLongitude(longitude);
 	
 		
 		response.setCharacterEncoding("text/html;charset=UTF-8");

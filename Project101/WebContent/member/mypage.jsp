@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<link href="./css/mypage.css" rel="stylesheet">
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <script>
 	$(document).ready(function(){
@@ -14,6 +14,9 @@
 	});
 </script>
 	<c:set var="m"	value="${memberinfo }"/>
+<div id = "memberinfo">	
+<h1>회원 정보수정</h1>
+	
 <form name="joinform" action="Updatemember.me" method="post">
 	<b>ID</b>
 	<input type="text" name="id" value="${m.id }" readonly><br>
@@ -35,10 +38,15 @@
 <input type="text" name="address"  size=40 class="postcodify_address" value="${m.address }"><br>
 <b>상세주소</b>
 <input type="text" name="detailaddress" size=40 value="${m.detailaddress}"><br>
-
+<b>위도</b>
+<input type="text" name="latitude" value="${m.latitude }"><br>
+<b>경도</b>
+<input type="text" name="longitude" value="${m.longitude }"><br>
 <div class="clearfix">
 <button type="submit" class="submitbtn">정보수정 </button>
 <button type="reset" class="cancelbtn">다시작성</button>
 </div>
+
 </form>
+</div>	
 
