@@ -43,12 +43,12 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
 				if (rset.getString("password").equals(password)) {
-					result = 1; // 아이디와 비밀번호가 일치하는 경우
+					result = 1; // �븘�씠�뵒�� 鍮꾨�踰덊샇媛� �씪移섑븯�뒗 寃쎌슦
 				} else {
-					result = 0; // 비밀번호가 일치하지 않는 경우
+					result = 0; // 鍮꾨�踰덊샇媛� �씪移섑븯吏� �븡�뒗 寃쎌슦
 				}
 			} else {
-				result = -1; // 아이디가 없는 경우
+				result = -1; // �븘�씠�뵒媛� �뾾�뒗 寃쎌슦
 			}
 		} catch (SQLException e) {
 			e.getStackTrace();
@@ -80,23 +80,32 @@ public class MemberDAO {
 		return result;
 	}
 	
-	//마이페이지
+	//留덉씠�럹�씠吏�
 	public Member member_info(String id) {
 		Member m = new Member();
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "select * from member where id = ?";
+			String sql = "select * from member where id = ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				m.setId(rset.getString("id"));
+				m.setPassword(rset.getString(2));
+				m.setNickname(rset.getString(3));
+				m.setEmail(rset.getString(4));
+				m.setEmailcheck(rset.getString(5));
+				m.setPhone(rset.getString(6));
+				m.setPost(rset.getString(7));
+				m.setAddress(rset.getString(8));
+				m.setDetailaddress(rset.getString(9));
+			
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("member_info 오류 :" + e);
+			System.out.println("member_info �삤瑜� :" + e);
 		}finally {			
 			}if(rset!=null) {
 				try {
@@ -126,7 +135,7 @@ public class MemberDAO {
 	      int result = 1;
 	      try {
 	         conn=ds.getConnection();
-	         pstmt = conn.prepareStatement("select * from member12 where id = ?");
+	         pstmt = conn.prepareStatement("select * from member where id = ?");
 	         pstmt.setString(1, id);
 	         ResultSet rs = pstmt.executeQuery();
 	         
@@ -135,6 +144,7 @@ public class MemberDAO {
 	         }
 	         
 	      } catch(Exception e) {
+	    	  result = 0;
 	         e.printStackTrace();
 	      } finally{
 	          if(rset!=null)
@@ -155,27 +165,28 @@ public class MemberDAO {
 	   }
 
 	public int insert(Member m) {
+		int result = 0;
+		
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into member12 values(?,?,?,?,?,?,?,?,? ) ";
+			String sql = "insert into member (id, email, password, nickname, phone, post, address, detailaddress) values(?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, m.getId());
-			pstmt.setString(2, m.getPassword());
-			pstmt.setString(3,  m.getName());
-			pstmt.setString(4, m.getEmail());
-			pstmt.setString(5, m.getTel());
-			pstmt.setString(6, m.getAddress());
-			pstmt.setString(7, m.getSchool());
-			pstmt.setString(8, m.getMajor());
-			pstmt.setString(9, m.getCollege());
+			pstmt.setString(2, m.getEmail());
+			pstmt.setString(3, m.getPassword());
+			pstmt.setString(4,  m.getNickname());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getPost());
+			pstmt.setString(7, m.getAddress());
+			pstmt.setString(8, m.getDetailaddress());
 			
 			result = pstmt.executeUpdate();
 			
 		}catch(java.sql.SQLIntegrityConstraintViolationException e) {
-			result = -1;
-			System.out.println( "insert 에러" );
+			System.out.println( "insert 실패" );
+			e.printStackTrace();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -192,6 +203,7 @@ public class MemberDAO {
 					ex.printStackTrace();
 				}
 		}
+		
 		return result;
 	}
 	public List<SellBoardBean> getBoardList(int page, int limit, String SB_WRITER) {
@@ -271,5 +283,170 @@ public class MemberDAO {
 		return null;
 	}	// getDetail() -----------
 	
+	public String findID(String nickname, String email) {
+		  String result = null;
+		  
+	      try {
+	         conn = ds.getConnection();
+	         pstmt = conn.prepareStatement("select * from member where nickname = ? and email = ? ");
+	         pstmt.setString(1, nickname);
+	         pstmt.setString(2, email);
+	         
+	         ResultSet rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            result = rs.getString("ID");
+	         }
+	         
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally{
+	          if(rset!=null)
+	             try{
+	                rset.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(pstmt!=null)
+	             try{
+	                pstmt.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(conn!=null)
+	             try{
+	                conn.close();
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          }
+	      
+	      return result;
+	}
 	
+	public String findPW(String id, String nickname, String email) {
+		String result = null;
+		try {
+	         conn = ds.getConnection();
+	         pstmt = conn.prepareStatement("select * from member where id = ? and nickname = ? and email = ? ");
+	         pstmt.setString(1, id );
+	         pstmt.setString(2, nickname);
+	         pstmt.setString(3, email);
+	         
+	         ResultSet rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            result = rs.getString("PASSWORD");
+	         }
+	         
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally{
+	          if(rset!=null)
+	             try{
+	                rset.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(pstmt!=null)
+	             try{
+	                pstmt.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(conn!=null)
+	             try{
+	                conn.close();
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          }
+	      
+	      return result;
+	}
+	
+	public int update(Member m) {
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			String sql = "update member set password= ? , nickname= ? , phone= ? , post= ? , address = ? , subaddress = ?  where id= ?  ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  m.getNickname());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getPost());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setString(5, m.getDetailaddress());
+			pstmt.setString(6, m.getId());
+			
+			result = pstmt.executeUpdate();
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null)
+				try{
+					pstmt.close();
+				}catch(SQLException ex){
+					ex.printStackTrace();
+				}
+			if(conn != null)
+				try{
+					conn.close();
+				}catch(SQLException ex){ex.printStackTrace();}
+		}
+		return result;
+		
+	}
+
+	public int emailCheckUpdate(String email) {
+		int result = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "update member set emailcheck=? where email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  "checked");
+			pstmt.setString(2, email);
+			
+			result = pstmt.executeUpdate();
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null)
+				try{
+					pstmt.close();
+				}catch(SQLException ex){
+					ex.printStackTrace();
+				}
+			if(conn != null)
+				try{
+					conn.close();
+				}catch(SQLException ex){ex.printStackTrace();}
+		}
+		return result;
+		
+	}
+
+	public int nicknamecheck(String nickname) {
+		  int result = 1;
+	      try {
+	         conn=ds.getConnection();
+	         pstmt = conn.prepareStatement("select * from member where nickname = ?");
+	         pstmt.setString(1, nickname);
+	         ResultSet rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	            result = -1;
+	         }
+	         
+	      } catch(Exception e) {
+	    	  result = 0;
+	         e.printStackTrace();
+	      } finally{
+	          if(rset!=null)
+	             try{
+	                rset.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(pstmt!=null)
+	             try{
+	                pstmt.close(); 
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          if(conn!=null)
+	             try{
+	                conn.close();
+	             } catch(SQLException ex){ex.printStackTrace();}
+	          }
+	      
+	      return result;
+		
+	}
 }

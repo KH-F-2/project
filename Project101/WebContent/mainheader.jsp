@@ -9,7 +9,7 @@
 
 <div id="header">
 	<div id="sec1">
-		<button id="menuBtn">&#xe800;</button>
+		<button id="menuBtn">&#xf0ca;</button>
 	</div>
 	
 	<div id="sec2">

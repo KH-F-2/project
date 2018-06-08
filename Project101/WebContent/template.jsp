@@ -26,7 +26,7 @@
 <body>
 
 	<div class="ui left vertical menu sidebar">
-		<h1 id="navTitle">&#xe801;  우리지금만나</h1>
+		<h1 id="navTitle">&#xe802;  우리지금만나</h1>
 		<h2>Category</h2>
 		<a class="item" href="./pbmain.pb">구매게시판</a>
 		<a class="item" href="./sbmain.sb">판매게시판</a>

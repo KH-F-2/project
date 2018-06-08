@@ -10,7 +10,7 @@
 					<img src="./image/koala.jpg">
 					<p>${item.title }</p>
 				</a>
-				<span>${item.price }원</span>
+				<span>${item.price }원</span><br>
 				<span>${item.content }</span>
 			</div>
 		</c:forEach>
