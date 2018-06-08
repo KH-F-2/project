@@ -23,10 +23,27 @@ $(document).ready(function(){
 			error: function() {
 				alert("error");
 			}
+			
 		}); // ajax
 	}); // click()
 	
+	$(".div_writer").hide();
+    $(".a_writer").click(function () {
+		var id = $(this).attr('id');
+		$("#div_writer"+id).toggle(); 
+		$("#div_writer"+id).css({
+			'top': '7em',
+			'left': '8em'
+		});
+    });
+	
 	$('#comment_content').click(function(){
+		if(id == null || id == ''){
+			alert('로그인 후 작성하실 수 있습니다.');
+			location.href='./signin.me';
+		}
+	});
+	$('#comment_reply_content').click(function(){
 		if(id == null || id == ''){
 			alert('로그인 후 작성하실 수 있습니다.');
 			location.href='./signin.me';
@@ -62,7 +79,7 @@ $(document).ready(function(){
 				console.log(data.length);
 				// 판매완료되었습니다 가 뜰시 후기작성으로 이동
 				if(data.length < 13){
-					location.href = "./signepil.me?name="+name;
+					location.href = "./signepil.me?writer="+name;
 				}
 			},
 			error: function() {

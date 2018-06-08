@@ -11,8 +11,15 @@
         <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
         
         <script type="text/javascript">
-        	$(function(){
-		        var id = '<%=session.getAttribute("id")%>';
+        	$(document).ready(function(){
+		        $('.write_btn').click(function(){
+			        var id = <%=session.getAttribute("id")%>;
+		    		if(id==null){
+		    			alert('로그인 후 이용하실 수 있습니다.');
+		    			location.href='./signin.me';
+		    			return false;
+		    		}
+		    	});
         	});
         </script>
         <script src="js/sblist.js"></script>
@@ -36,13 +43,21 @@
 							<img class="content_img" src="${list.IMAGE_URL}">
 						</div>
 						<div class="card_content">
-							<span class="content_span_title">${list.SB_TITLE}</span><br>
-							<span class="content_span_price">${list.SB_PRICE}원</span>
-							<br>${list.SB_DATE}
+							<div class="content_title">
+								<span class="content_span_title">${list.SB_TITLE}</span>
+								<br>
+								<span class="content_span_price">${list.SB_PRICE}원</span>
+							</div>
+							<div class="content_board">
+								<span class="content_span_board">
+									<c:if test="${list.BOARD_NAME eq 'SELL_BOARD'}">판매</c:if>
+									<c:if test="${list.BOARD_NAME eq 'PURCHASE_BOARD'}">구매</c:if>
+								</span>
+							</div>
 						</div>
 						<div class="card_bottom">
 							<span class="bottom_span">
-								댓글 0 · 조회수 ${list.SB_READCOUNT}
+								${list.SB_DATE} · 조회수 ${list.SB_READCOUNT}
 							</span>
 						</div>
 					</a>

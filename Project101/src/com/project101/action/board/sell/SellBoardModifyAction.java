@@ -1,8 +1,6 @@
 package com.project101.action.board.sell;
 
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,10 +20,6 @@ public class SellBoardModifyAction implements Action {
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = format.parse(request.getParameter("SB_PURCHASE_DATE"));
-		Date pdate = new Date(date.getTime());
-
 		SellBoardDAO sellDAO = new SellBoardDAO();
 		SellBoardBean boardBean = new SellBoardBean();
 		ImageBean imageBean = new ImageBean();
@@ -36,14 +30,13 @@ public class SellBoardModifyAction implements Action {
 
 		boardBean.setSB_NO(num);
 		boardBean.setSB_WRITER(session.getAttribute("id").toString());
-		boardBean.setSB_TITLE(request.getParameter("SB_TITLE"));
-		boardBean.setSB_CONTENT(request.getParameter("SB_CONTENT"));
-		boardBean.setSB_PURCHASE_DATE(pdate);
-		boardBean.setSB_PRICE(Integer.parseInt(request.getParameter("SB_PRICE").toString()));
+		boardBean.setSB_TITLE(request.getParameter("TITLE"));
+		boardBean.setSB_CONTENT(request.getParameter("CONTENT"));
+		boardBean.setSB_PRICE(Integer.parseInt(request.getParameter("PRICE").toString()));
 		boardBean.setSB_LAT(Double.parseDouble(request.getParameter("markerLat")));
 		boardBean.setSB_LNG(Double.parseDouble(request.getParameter("markerLng")));
-		boardBean.setSB_CATEGORY(Integer.parseInt(request.getParameter("SB_CATEGORY")));
-		boardBean.setSB_HASHTAG(request.getParameter("SB_HASHTAG"));
+		boardBean.setSB_CATEGORY(Integer.parseInt(request.getParameter("CATEGORY")));
+		boardBean.setSB_HASHTAG(request.getParameter("HASHTAG"));
 
 		int result = sellDAO.boardModify(boardBean);
 		PrintWriter out = response.getWriter();

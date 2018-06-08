@@ -110,24 +110,23 @@ public class SellBoardDAO {
 		try {
 			conn = ds.getConnection();
 
-			String sql = "insert into SELL_BOARD " + "(SB_NO, SB_WRITER, SB_PURCHASE_DATE, SB_TITLE, "
+			String sql = "insert into SELL_BOARD " + "(SB_NO, SB_WRITER, SB_TITLE, "
 					+ "SB_CONTENT, SB_PRICE, SB_DATE, SB_READCOUNT, SB_LAT, SB_LNG, SB_STATE, "
-					+ "SB_CATEGORY, SB_HASHTAG) " + "values(?, ?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?, ?, ?)";
+					+ "SB_CATEGORY, SB_HASHTAG) " + "values(?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?, ?, ?)";
 
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, boardBean.getSB_NO());
 			pstmt.setString(2, boardBean.getSB_WRITER());
-			pstmt.setDate(3, boardBean.getSB_PURCHASE_DATE());
-			pstmt.setString(4, boardBean.getSB_TITLE());
-			pstmt.setString(5, boardBean.getSB_CONTENT());
-			pstmt.setInt(6, boardBean.getSB_PRICE());
-			pstmt.setInt(7, 0);
-			pstmt.setDouble(8, boardBean.getSB_LAT());
-			pstmt.setDouble(9, boardBean.getSB_LNG());
-			pstmt.setInt(10, 0);
-			pstmt.setInt(11, boardBean.getSB_CATEGORY());
-			pstmt.setString(12, boardBean.getSB_HASHTAG());
+			pstmt.setString(3, boardBean.getSB_TITLE());
+			pstmt.setString(4, boardBean.getSB_CONTENT());
+			pstmt.setInt(5, boardBean.getSB_PRICE());
+			pstmt.setInt(6, 0);
+			pstmt.setDouble(7, boardBean.getSB_LAT());
+			pstmt.setDouble(8, boardBean.getSB_LNG());
+			pstmt.setInt(9, 0);
+			pstmt.setInt(10, boardBean.getSB_CATEGORY());
+			pstmt.setString(11, boardBean.getSB_HASHTAG());
 
 			result = pstmt.executeUpdate();
 			
@@ -312,7 +311,7 @@ public class SellBoardDAO {
 			conn = ds.getConnection();
 
 			String sql = "select * from " + "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
-					+ "SB_READCOUNT, SB_DATE, SB_HASHTAG, SB_STATE, SB_LAT, SB_LNG, SB_PRICE, IMAGE_URL, BOARD_NAME "
+					+ "SB_READCOUNT, TO_CHAR(SB_DATE, 'YYYY-MM-DD HH24:MI') as SB_DATE, SB_HASHTAG, SB_STATE, SB_LAT, SB_LNG, SB_PRICE, IMAGE_URL, BOARD_NAME "
 					+ "from (select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO " 
 					+ "where IMAGE.BOARD_NAME = 'SELL_BOARD')) "
 					+ "where rnum>=? and rnum<=?";
@@ -330,9 +329,9 @@ public class SellBoardDAO {
 				obj.put("SB_WRITER", rset.getString("SB_WRITER"));
 				obj.put("SB_TITLE", rset.getString("SB_TITLE"));
 				obj.put("SB_READCOUNT", rset.getInt("SB_READCOUNT"));
-				obj.put("SB_DATE", rset.getDate("SB_DATE"));
+				obj.put("SB_DATE", rset.getString("SB_DATE"));
 				obj.put("SB_HASHTAG", rset.getString("SB_HASHTAG"));
-				obj.put("SB_STATE", rset.getString("SB_STATE"));
+				obj.put("SB_STATE", rset.getInt("SB_STATE"));
 				obj.put("SB_LAT", rset.getDouble("SB_LAT"));
 				obj.put("SB_LNG", rset.getDouble("SB_LNG"));
 				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
@@ -440,7 +439,6 @@ public class SellBoardDAO {
 			if (rset.next()) {
 				obj.put("SB_NO", rset.getInt("SB_NO"));
 				obj.put("SB_WRITER", rset.getString("SB_WRITER"));
-				obj.put("SB_PURCHASE_DATE", rset.getDate("SB_PURCHASE_DATE"));
 				obj.put("SB_TITLE", rset.getString("SB_TITLE"));
 				obj.put("SB_CONTENT", rset.getString("SB_CONTENT"));
 				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
@@ -513,21 +511,20 @@ public class SellBoardDAO {
 		try {
 			conn = ds.getConnection();
 
-			String sql = "update SELL_BOARD " + "set SB_WRITER=?, SB_PURCHASE_DATE=?, SB_TITLE=?, SB_CONTENT=?, "
+			String sql = "update SELL_BOARD " + "set SB_WRITER=?, SB_TITLE=?, SB_CONTENT=?, "
 					+ "SB_PRICE=?, SB_LAT=?, SB_LNG=?, SB_CATEGORY=?, SB_HASHTAG=? " + "where SB_NO=?";
 
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, boardBean.getSB_WRITER());
-			pstmt.setDate(2, boardBean.getSB_PURCHASE_DATE());
-			pstmt.setString(3, boardBean.getSB_TITLE());
-			pstmt.setString(4, boardBean.getSB_CONTENT());
-			pstmt.setInt(5, boardBean.getSB_PRICE());
-			pstmt.setDouble(6, boardBean.getSB_LAT());
-			pstmt.setDouble(7, boardBean.getSB_LNG());
-			pstmt.setInt(8, boardBean.getSB_CATEGORY());
-			pstmt.setString(9, boardBean.getSB_HASHTAG());
-			pstmt.setInt(10, boardBean.getSB_NO());
+			pstmt.setString(2, boardBean.getSB_TITLE());
+			pstmt.setString(3, boardBean.getSB_CONTENT());
+			pstmt.setInt(4, boardBean.getSB_PRICE());
+			pstmt.setDouble(5, boardBean.getSB_LAT());
+			pstmt.setDouble(6, boardBean.getSB_LNG());
+			pstmt.setInt(7, boardBean.getSB_CATEGORY());
+			pstmt.setString(8, boardBean.getSB_HASHTAG());
+			pstmt.setInt(9, boardBean.getSB_NO());
 
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {

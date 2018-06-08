@@ -1,6 +1,6 @@
 .sbview_ul{
 	margin: 0 auto;
-	width: 70%;
+	width: 65%;
 	font-family: "fontello";
 	border: solid 1px #cdd2d2;
 	border-radius: 10px;
@@ -46,7 +46,7 @@
 	display: inline-block;
 	clear: left;
 }
-.category, .hashtag, .pdate{
+.category, .hashtag{
 	display: inline-block;
 	color: gray;
 	font-size: 10pt;
@@ -58,6 +58,9 @@
 	font-size: 16pt;
 	height: 25px;
 }
+.a_writer{
+	color: black;
+}
 .price{
 	display: inline-block;
 	color: #007ee6;
@@ -67,6 +70,9 @@
     margin-bottom: 10px;
     width: 100%;
     text-align: center;
+}
+.content{
+	margin-top: 2em;
 }
 #trade{
 	background: #1AAB8A;
@@ -82,7 +88,7 @@
 }
 .menu_bar{
 	text-align: right;
-	width: 70%;
+	width: 65%;
 	margin: 0 auto;
 }
 
@@ -90,12 +96,11 @@ ul{
 	list-style: none;
 }
 .comment_div{
-	width: 70%;
+	width: 65%;
 	margin: 0 auto;
 }
 .comment_div ul, .comment_view{
 	padding: 0;
-	width: 100%;
 }
 .comment_textarea, .comment_reply_textarea{
 	width: 100%;
@@ -112,7 +117,7 @@ ul{
 #comment_reply_content{
 	margin-top: 1%;
 	width: 80%;
-	height: 100px;
+	height: 80px;
 }
 #counter{
 	position: absolute;
@@ -136,6 +141,7 @@ ul{
 	transition:800ms ease all;
 	outline:none;
 	bottom: 70px;
+	margin-left: 1em;
 }
 #comment_reply_btn{
 	background:#1AAB8A;
@@ -151,6 +157,7 @@ ul{
 	outline:none;
 	top: 50px;
 	float: right;
+	margin-right: 0.5em;
 }
 #comment_btn:hover, #comment_reply_btn:hover{
   background:#fff;
@@ -177,13 +184,16 @@ ul{
   transition:800ms ease all;
 }
 .comment_view{
-	width: 70%;
+	width: 65%;
 	margin: 0 auto;
-	background-color: #eeeeee;
 }
 .comment_view>li{
 	width: 100%;
-	height: 130px;
+	height: 100px;
+	border-top: 2px solid #dcdcdc;
+	border-left: 2px solid #dcdcdc;
+	border-right: 2px solid #dcdcdc;
+    border-radius: 10px;
 }
 .comment_view>li:last-child{
 	width: 100%;
@@ -194,8 +204,8 @@ ul{
 }
 .comment_top{
 	width: 100%;
-	height: 25%;
-	background-color: #e3e3e3;
+	height: 30%;
+	padding: 5px 8px;
 }
 .comment_writer{
 	width: 15%;
@@ -207,8 +217,7 @@ ul{
 }
 .comment_bottom{
 	width: 100%;
-	height: 75%;
-	vertical-align: middle;
+	height: 70%;
 }
 .comment_text{
 	width: 89%;
@@ -225,7 +234,13 @@ ul{
 .comment_paging{
 	width: 100%;
 	text-align: center;
-	background-color: rgba(26,171,138,0.1);
+	background-color: rgba(26,171,138,0.2);
+}
+.material-icons{
+	font-size:36px;
+	margin-left:4%;
+	position: relative;
+	bottom: 0.5em;
 }
 
 
@@ -276,7 +291,6 @@ a.animated-button.victoria-one {
     height: 25px;
     padding: 2px 0px 2px 0px;
     margin: 0 auto;
-    top: 25%;
 }
 a.animated-button.victoria-one:after {
     background: #D24D57;
@@ -324,11 +338,11 @@ a.animated-button.victoria-one:after {
 	width: auto;
 	margin-top: -22px;
 	padding: 16px;
-	color: white;
+	color: black;
 	font-weight: bold;
 	font-size: 18px;
 	transition: 0.6s ease;
-	background-color: rgba(26,171,138,0.6);
+	border: 1px solid black;
 }
 .dot_div{
 	position: absolute;
@@ -340,11 +354,11 @@ a.animated-button.victoria-one:after {
 /* Position the "next button" to the right */
 .prev {
   left: -45px;
-  border-radius: 5px 0 0 5px;
+  border-radius: 10px 0 0 10px;
 }
 .next {
   right: -45px;
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 10px 10px 0;
 }
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
@@ -397,3 +411,52 @@ a.animated-button.victoria-one:after {
   from {opacity: .4} 
   to {opacity: 1}
 }
+
+
+/* 주성이형꺼 */
+.div_writer {
+	overflow:hidden;
+	clear:both;
+	border:1px solid #b6b6b6;
+	background-color:#fff;
+	text-align:left;
+	display: block;
+	position: absolute; 
+	width: 109px; 
+	z-index: 1000; 
+	top: 7em; 
+	left: 8em;
+}
+.div_writer ul {
+	overflow:hidden;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+.div_writer li {
+	width:100%;
+	height:25px;
+	margin:0;
+	padding:0;
+	vertical-align:top;
+}
+.div_writer li.line {
+	border-top:1px solid #ebebeb;
+}
+.div_writer li a {
+	display:block;
+	width:100%;
+	height:25px;
+	background-color:#fff;
+	color:#4c4c4c;
+	text-decoration:none;
+}
+.div_writer li span {
+	display:block;
+	padding:7px 0 0 8px;
+	cursor:pointer;
+}
+.div_writer li a:hover {
+	background-color:#f4f4f4 !important;
+}
+

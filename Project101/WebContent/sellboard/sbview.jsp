@@ -51,13 +51,26 @@
 					<div class="hashtag">
 						${boardBean.SB_HASHTAG}
 					</div>
-					<div class="pdate">
-						구입일 ${boardBean.SB_PURCHASE_DATE }
-					</div>
 					
 					<div class="writer">
-						<a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a>
+						<%-- <a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a> --%>
+						<a href="#" class="a_writer" id="${boardBean.SB_NO}">${boardBean.SB_WRITER}</a>
 						<input type="hidden" id="SB_WRITER" value="${boardBean.SB_WRITER}">
+					</div>
+					
+					<div id="div_writer${boardBean.SB_NO}" class="div_writer">
+						<ul>
+							<li>
+								<a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}"><span>정보보기</span></a>
+							</li>               
+							<hr>         
+							<li>
+								<a href="./msmessagewrite.ms?num=${boardBean.SB_NO}
+									&writer=${boardBean.SB_WRITER }">
+								<span>쪽지보내기</span>
+								</a>
+							</li>
+						</ul>
 					</div>
 					
 					<div class="price">${boardBean.SB_PRICE } 원</div>

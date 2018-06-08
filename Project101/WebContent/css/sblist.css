@@ -18,7 +18,7 @@
 .card{
 	position: relative;
 	width: 200px;
-	height: 340px;
+	height: 300px;
 	margin: 20px 15px 0px 15px;
 	display: inline-block;
 	border: 1px solid #cdd2d2;
@@ -42,24 +42,44 @@
 	min-height: 100%;
 }
 .card_content{
-	height: 110px;
-	padding: 10px;
+	height: 70px;
+	padding: 10px 5px 5px 10px;
 	border-bottom: 1px solid #cdd2d2;
+}
+.content_title{
+	display: inline-block;
+	width: 80%;
+	height: 60px;
+}
+.content_board{
+	display: inline-block;
+	width: 19%;
+	position: absolute;
+	height: 60px;
+	text-align: right;
 }
 .content_span_title{
 	font-weight: bold;
 	font-size: 15pt;
 }
-content_span_price{
-	color: skyblue;
+
+.content_span_board{
+	margin-right: 3px;
+	color: #4183C4;
+}
+.content_span_price{
+	position: absolute;
+	bottom: 30px;
+	font-weight: bold;
 }
 .card_bottom{
 	height: 30px;
 	text-align: center;
 }
 .bottom_span{
-	font-size: 8pt;
-	color: silver;
+	font-size: 0.82em;
+	line-height: 2.3;
+	color: #101010;
 }
 .list_title{
 	margin: 0 auto;

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -29,7 +30,6 @@ public class SellBoardListAction implements Action {
 
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
 		SellBoardDAO sellDAO = new SellBoardDAO();
-		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
 		JSONArray arr = new JSONArray();
 
 		/*String searchWord = boardPageBean.getSearchWord();
