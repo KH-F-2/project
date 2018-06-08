@@ -16,11 +16,11 @@ public class FindIDResultAction implements Action {
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		String nickname = request.getParameter("nickname");
+		
 		String email	 = request.getParameter("email");
 		MemberDAO mdao = new MemberDAO();
 		
-		String result = mdao.findID(nickname,email);
+		String result = mdao.findID(email);
 		System.out.println("findidresultaction : " + result);
 		if(result != null) {
 			

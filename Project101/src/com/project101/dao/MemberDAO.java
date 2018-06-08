@@ -101,6 +101,8 @@ public class MemberDAO {
 				m.setPost(rset.getString(7));
 				m.setAddress(rset.getString(8));
 				m.setDetailaddress(rset.getString(9));
+				m.setLatitude(rset.getDouble(10));
+				m.setLongitude(rset.getDouble(11));
 			
 			}
 		}catch(Exception e) {
@@ -169,7 +171,7 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into member (id, email, password, nickname, phone, post, address, detailaddress) values(?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "insert into member  values(?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, m.getId());
@@ -180,6 +182,8 @@ public class MemberDAO {
 			pstmt.setString(6, m.getPost());
 			pstmt.setString(7, m.getAddress());
 			pstmt.setString(8, m.getDetailaddress());
+			pstmt.setDouble(9, m.getLatitude());
+			pstmt.setDouble(10, m.getLongitude() );
 			
 			result = pstmt.executeUpdate();
 			
@@ -282,14 +286,14 @@ public class MemberDAO {
 		return null;
 	}	// getDetail() -----------
 	
-	public String findID(String nickname, String email) {
+	public String findID( String email) {
 		  String result = null;
 		  
 	      try {
 	         conn = ds.getConnection();
-	         pstmt = conn.prepareStatement("select * from member where nickname = ? and email = ? ");
-	         pstmt.setString(1, nickname);
-	         pstmt.setString(2, email);
+	         pstmt = conn.prepareStatement("select * from member where email = ? ");
+	        
+	         pstmt.setString(1, email);
 	         
 	         ResultSet rs = pstmt.executeQuery();
 	         
@@ -317,14 +321,13 @@ public class MemberDAO {
 	      return result;
 	}
 	
-	public String findPW(String id, String nickname, String email) {
+	public String findPW(String id,String email) {
 		String result = null;
 		try {
 	         conn = ds.getConnection();
-	         pstmt = conn.prepareStatement("select * from member where id = ? and nickname = ? and email = ? ");
+	         pstmt = conn.prepareStatement("select * from member where id = ? and email = ? ");
 	         pstmt.setString(1, id );
-	         pstmt.setString(2, nickname);
-	         pstmt.setString(3, email);
+	         pstmt.setString(2, email);
 	         
 	         ResultSet rs = pstmt.executeQuery();
 	         
@@ -356,7 +359,7 @@ public class MemberDAO {
 		int result = 0;
 		try {
 			conn = ds.getConnection();
-			String sql = "update member set password= ? , nickname= ? , phone= ? , post= ? , address = ? , subaddress = ?  where id= ?  ";
+			String sql = "update member set password= ? , nickname= ? , phone= ? , post= ? , address = ? , subaddress = ? , latitude = ? , longitude = ? where id= ?  ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,  m.getNickname());
 			pstmt.setString(2, m.getPhone());
@@ -364,6 +367,8 @@ public class MemberDAO {
 			pstmt.setString(4, m.getAddress());
 			pstmt.setString(5, m.getDetailaddress());
 			pstmt.setString(6, m.getId());
+			pstmt.setDouble(7, m.getLatitude());
+			pstmt.setDouble(8, m.getLongitude());
 			
 			result = pstmt.executeUpdate();
 		}catch(Exception e){

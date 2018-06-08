@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+#findform {
+	width: 75%;
+	display: block;
+	margin: 0 auto;
+	box-sizing: border-box;
+	margin-top: 100px;
+}
+
+#findid , #findPW{
+	padding-left:0px;
+}
+#hidden_id , #hidden_pw{
+	color : black;
+	font-size:20px;
+	magin:42px 0 21px;
+	padding-bottom: 10px;
+	text-transform: uppercase;
+	font-weight: 600;
+	display:block;
+}
+
+
+#findid li, #findPW li{
+	 list-style-type : none;
+}
+
+
+#findid input[type=text], #findPW input[type=text] {
+	border-color: transparent;
+	box-shadow: none;
+	outline-style: none;
+	border: 0;
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+	margin: 20px;
+	display: inline-block;
+}
+
+#findform_id, #findform_pw {
+	display: inline-block;
+	width: 40%;
+	float: left;
+}
+
+#findid label, #findPW label{
+	color: lightgray; font-size : 15px;
+	magin: 42px 0 21px;
+	padding-bottom: 10px;
+	text-transform: uppercase;
+	font-weight: 600;
+	display: inline-block;
+	
+}
+#findid input[type='button'], #findPW input[type=button] {
+	margin: 20px;
+	border-color: transparent;
+	box-shadow: none;
+	outline-style: none;
+	background-color: black;
+	color: white;
+	width: 180px;
+	height: 50px;
+	font-size: 13px;
+	margin-left: 10px;
+}

@@ -36,6 +36,8 @@ public class JoinProcessAction implements Action {
 		String post = request.getParameter("post");
 		String address = request.getParameter("address");
 		String detailaddress = request.getParameter("detailaddress");
+		double longitude = Double.parseDouble(request.getParameter("markerLng"));
+		double latitude = Double.parseDouble(request.getParameter("markerLat"));
 	
 		
 		Member m = new Member();
@@ -48,6 +50,8 @@ public class JoinProcessAction implements Action {
 		m.setPost(post);
 		m.setAddress(address);
 		m.setDetailaddress(detailaddress);
+		m.setLatitude(latitude);
+		m.setLongitude(longitude);
 		
 		MemberDAO mdao = new MemberDAO();
 		
