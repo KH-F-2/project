@@ -77,12 +77,7 @@ public class CommentDAO {
 
 	}
 
-<<<<<<< HEAD
 	public int commentInsert(CommentBean commentBean, String BOARD_NAME) {
-=======
-	public boolean cmtInsert(CommentBean cmtdata, String board_name) {
-
->>>>>>> younsik
 		int num = 0;
 		try {
 			conn = ds.getConnection();
@@ -99,7 +94,6 @@ public class CommentDAO {
 			
 			pstmt.close();
 
-<<<<<<< HEAD
 			pstmt = conn.prepareStatement("insert into COMMENTS values("
 					+ "?, ?, ?, ?, sysdate, ?, ?, ?, ?)");
 
@@ -115,31 +109,6 @@ public class CommentDAO {
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("commentInsert에러 : " + e);
-=======
-			pstmt = conn.prepareStatement("insert into COMMENTS "
-					+ "(CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ, CMT_BOARD_NAME) "
-					+ "values(?,?,?,sysdate,?,?,?,?,?)");
-
-			pstmt.setInt(1, num);
-			pstmt.setInt(2, cmtdata.getCMT_SUBJECT_NO());
-			pstmt.setString(3, cmtdata.getCMT_WRITER());
-			pstmt.setString(4, cmtdata.getCMT_CONTENT());
-			pstmt.setInt(5, num);
-			pstmt.setInt(6, 0);
-			pstmt.setInt(7, 0);
-			pstmt.setString(8, board_name);
-
-			result = pstmt.executeUpdate();
-
-			if (result == 0) {
-				return false;
-			} else {
-				return true;
-			}
-
-		} catch (Exception e) {
-			System.out.println("CommentInsert에러 : " + e);
->>>>>>> younsik
 		} finally {
 			if (rset != null) {
 				try {
@@ -162,11 +131,6 @@ public class CommentDAO {
 					ex.printStackTrace();
 				}
 			}
-<<<<<<< HEAD
-=======
-		
-
->>>>>>> younsik
 		}
 		return result;
 	}
@@ -179,7 +143,6 @@ public class CommentDAO {
 		
 		try {
 			conn = ds.getConnection();
-<<<<<<< HEAD
 			
 			String sql = "select * from " 
 						+ "(select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_CONTENT, "
@@ -192,13 +155,6 @@ public class CommentDAO {
 			
 			pstmt = conn.prepareStatement(sql);
 			
-=======
-			pstmt = conn.prepareStatement(
-					"select CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ from "
-							+ "(select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ "
-							+ "FROM (SELECT * FROM COMMENTS where CMT_SUBJECT_NO = ? order by CMT_RE_REF asc, CMT_RE_SEQ asc )) "
-							+ "where rnum>= ? and rnum<= ? ");
->>>>>>> younsik
 			pstmt.setInt(1, num);
 			pstmt.setString(2, BOARD_NAME);
 			pstmt.setInt(3, startrow);
@@ -207,7 +163,6 @@ public class CommentDAO {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-<<<<<<< HEAD
 				CommentBean commentBean = new CommentBean();
 				commentBean.setCMT_NO(rset.getInt("CMT_NO"));
 				commentBean.setCMT_SUBJECT_NO(rset.getInt("CMT_SUBJECT_NO"));
@@ -220,19 +175,6 @@ public class CommentDAO {
 				commentBean.setCMT_BOARD_NAME(rset.getString("CMT_BOARD_NAME"));
 				list.add(commentBean);
 				
-=======
-				CommentBean cmtList = new CommentBean();
-				cmtList.setCMT_NO(rset.getInt("CMT_NO"));
-				cmtList.setCMT_SUBJECT_NO(rset.getInt("CMT_SUBJECT_NO"));
-				cmtList.setCMT_WRITER(rset.getString("CMT_WRITER"));
-				cmtList.setCMT_CONTENT(rset.getString("CMT_CONTENT"));
-				cmtList.setCMT_DATE(rset.getString("CMT_DATE"));
-				cmtList.setCMT_RE_REF(rset.getInt("CMT_RE_REF"));
-				cmtList.setCMT_RE_LEV(rset.getInt("CMT_RE_LEV"));
-				cmtList.setCMT_RE_SEQ(rset.getInt("CMT_RE_SEQ"));
-				list.add(cmtList);
-
->>>>>>> younsik
 			}
 			
 			return list;
@@ -265,7 +207,6 @@ public class CommentDAO {
 		return null;
 	}
 
-<<<<<<< HEAD
 	public CommentBean getCommentDetail(int num, String board_name) {
 		CommentBean commentBean = new CommentBean();
 		try {
@@ -290,30 +231,6 @@ public class CommentDAO {
 				commentBean.setCMT_RE_LEV(rset.getInt(7));
 				commentBean.setCMT_RE_SEQ(rset.getInt(8));
 				commentBean.setCMT_BOARD_NAME(rset.getString(9));
-=======
-	public CommentBean getDetail(int comment_cmtNO) {
-
-		CommentBean cmtdata = null;
-
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement("select * from COMMENTS where CMT_NO = ?");
-
-			pstmt.setInt(1, comment_cmtNO);
-			rset = pstmt.executeQuery();
-
-			if (rset.next()) {
-				cmtdata = new CommentBean();
-				cmtdata.setCMT_NO(rset.getInt(1));
-				cmtdata.setCMT_SUBJECT_NO(rset.getInt(2));
-				cmtdata.setCMT_WRITER(rset.getString(3));
-				cmtdata.setCMT_CONTENT(rset.getString(5));
-				cmtdata.setCMT_DATE(rset.getString(4));
-				cmtdata.setCMT_RE_REF(rset.getInt(6));
-				cmtdata.setCMT_RE_LEV(rset.getInt(7));
-				cmtdata.setCMT_RE_SEQ(rset.getInt(8));
-
->>>>>>> younsik
 			}
 		}catch(Exception e) {
 			System.out.println("reply getDetail 에러 :" + e);
@@ -383,7 +300,6 @@ public class CommentDAO {
 		return x;
 	}
 
-<<<<<<< HEAD
 	public int commentDelete(int num, String board_name) {
 		try {
 			conn = ds.getConnection();
@@ -432,60 +348,6 @@ public class CommentDAO {
 			
 			pstmt = conn.prepareStatement("select max(CMT_NO) from COMMENTS");
 			
-=======
-	public int cmtDelete(int cmtNum, String board_name) {
-
-		int result = 0;
-
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement("DELETE FROM COMMENTS WHERE CMT_NO = ?");
-			pstmt.setInt(1, cmtNum);
-			//쿼리문 바꿔야지/////////////////////////
-			result = pstmt.executeUpdate();
-
-			if (result == 1) {
-				result = 1;
-			}
-
-		} catch (Exception e) {
-			System.out.println("cmtDelete 에러 " + e);
-		} finally {
-			if (rset != null) {
-				try {
-					rset.close();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-
-			}
-		}
-		return result;
-
-	}
-
-	public boolean cmtReplyInsert(CommentBean cmtBean, int comment_boardNO, int comment_cmtNO, String board_name) {
-
-		int num = 0;
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement("select max(CMT_NO) from COMMENTS");
->>>>>>> younsik
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -499,20 +361,14 @@ public class CommentDAO {
 			pstmt.close();
 			
 			pstmt = conn.prepareStatement("update COMMENTS set CMT_RE_SEQ = CMT_RE_SEQ +1 where CMT_RE_REF = ? and CMT_RE_SEQ > ?");
-<<<<<<< HEAD
 			pstmt.setInt(1, commentBean.getCMT_RE_REF());
 			pstmt.setInt(2, commentBean.getCMT_RE_SEQ());
-=======
-			pstmt.setInt(1, cmtBean.getCMT_RE_REF());
-			pstmt.setInt(2, cmtBean.getCMT_RE_SEQ());
->>>>>>> younsik
 			
 			result = pstmt.executeUpdate();
 			
 			pstmt.close();
 
 			pstmt = conn.prepareStatement("insert into COMMENTS "
-<<<<<<< HEAD
 					+ "(CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_CONTENT, CMT_DATE, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ, CMT_BOARD_NAME) "
 					+ "values(?,?,?,?,sysdate,?,?,?,?)");
 
@@ -526,27 +382,6 @@ public class CommentDAO {
 			pstmt.setString(8, board_name);
 
 			result = pstmt.executeUpdate();
-=======
-					+ "(CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ, CMT_BOARD_NAME) "
-					+ "values(?,?,?,sysdate,?,?,?,?,?)");
-
-			pstmt.setInt(1, num);
-			pstmt.setInt(2, cmtBean.getCMT_SUBJECT_NO());
-			pstmt.setString(3, cmtBean.getCMT_WRITER());
-			pstmt.setString(4, cmtBean.getCMT_CONTENT());
-			if(cmtBean.getCMT_RE_SEQ()==0) {
-			pstmt.setInt(5, comment_cmtNO);
-			}else {
-				pstmt.setInt(5, cmtBean.getCMT_RE_REF());
-				
-			}
-			pstmt.setInt(6, cmtBean.getCMT_RE_LEV() + 1);
-			pstmt.setInt(7, cmtBean.getCMT_RE_SEQ() + 1);
-			pstmt.setString(8, board_name);
-
-			result = pstmt.executeUpdate();
-			
->>>>>>> younsik
 		
 			if (result == 0) {
 				return false;
@@ -571,10 +406,6 @@ public class CommentDAO {
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
-<<<<<<< HEAD
-=======
-
->>>>>>> younsik
 			}
 			if (conn != null) {
 				try {
@@ -582,20 +413,9 @@ public class CommentDAO {
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
-<<<<<<< HEAD
 			}
-=======
-
-			}
-
->>>>>>> younsik
 		}
 
 		return true;
 	}
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> younsik
 }

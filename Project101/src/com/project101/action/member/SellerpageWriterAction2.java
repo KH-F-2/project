@@ -5,16 +5,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.bean.SellBoardBean;
 import com.project101.bean.SellBoardPageBean;
-<<<<<<< HEAD:Project101/src/com/project101/action/member/listAddAction.java
-import com.project101.dao.MemberDAO;
-=======
->>>>>>> origin/yeunju:Project101/src/com/project101/action/member/SellerpageWriterAction2.java
 import com.project101.dao.SellBoardDAO;
 
 public class SellerpageWriterAction2 implements Action {

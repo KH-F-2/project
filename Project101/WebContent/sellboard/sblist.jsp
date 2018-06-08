@@ -1,49 +1,4 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<link href="/Project101/sellboard/css/sblist.css" rel="stylesheet" type="text/css">
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#a_write').click(function() {
-			var id = <%=session.getAttribute("id")%>;
-			if (id == null) {
-				alert('로그인 후 이용하실 수 있습니다.');
-				return false;
-			}
-		});
-		
-		$('#search_btn').click(function() {
-			var word = $('input[name=search_input').val();
-			var item = $('#search_sel').val();
-			location.href = './sbmain.sb?word=' + word + '&item=' + item;
-		});
-	});
-</script>
-
-<div id="container">
-		<c:forEach var="item" items="${boardPageBean.boardList }" begin="0" end="9">
-			<div class="content">
-				<a href="sbview.sb?num=${item.num }&boardname=${item.boardName }">
-					<img src="./image/koala.jpg">
-					<p>${item.title }</p>
-				</a>
-				<p>${item.price }원</p>
-				<p>${item.content }</p>
-			</div>
-		</c:forEach>
-</div>
-
-<div class="search">
-	<select id="search_sel">
-		<option value="title" selected="selected">제목</option>
-		<option value="content">내용</option>
-		<option value="title_content">제목+내용</option>
-	</select> <input type="text" name="search_input" placeholder="Search..">
-	<button id="search_btn">검색</button>
-</div>
-=======
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -81,9 +36,7 @@
         </script>
 		<link href="css/sblist.css" rel="stylesheet" type="text/css">
 		<style>
-<<<<<<< HEAD
 			.map{width: 100%; background-color: silver; height: 300px}
-=======
 		/* 작성자 클릭했을때 나오는 정보보기,쪽지보내기 */		
 		.div_writer {overflow:hidden;clear:both;border:1px solid #b6b6b6;background-color:#fff;text-align:left}
 		.div_writer ul {overflow:hidden;width:100%;margin:0}
@@ -97,7 +50,6 @@
 		.div_writer li {width:100%;height:25px;margin:0;padding:0;vertical-align:top}
 		.div_writer li a {display:block;width:100%;height:25px;color:#4c4c4c;background-color:#fff}
 		.div_writer li a:hover {background-color:#f4f4f4 !important;text-decoration:none}
->>>>>>> origin/yeunju
 		</style>
 	</head>
 	<body>
@@ -238,4 +190,3 @@
 			
 	</body>
 </html>
->>>>>>> jusung

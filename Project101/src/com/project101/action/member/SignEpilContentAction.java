@@ -19,18 +19,11 @@ public class SignEpilContentAction implements Action {
 			ActionForward forward = new ActionForward();
 	      request.setCharacterEncoding("utf-8");
 	      EpilDAO epDAO = new EpilDAO();
-<<<<<<< HEAD
-	      String name = request.getParameter("name"); 
-	      
-		  ArrayList<Epil> list = epDAO.getEpilList(name);
-		  request.setAttribute("list", list);
-=======
 	      HttpSession session = request.getSession();
 	      String name = session.getAttribute("id").toString().trim(); 
 	      System.out.println("name = " + name);
 	      String writer = request.getParameter("writer");
 	      System.out.println("zzzz : " + writer);
->>>>>>> origin/yeunju
 	      
 		  ArrayList<Epil> list = epDAO.getEpilList(writer);
 		  request.setAttribute("list", list);

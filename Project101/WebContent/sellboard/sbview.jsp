@@ -165,13 +165,6 @@
 				
 			</ul>
 			
-<<<<<<< HEAD
-			
-			
-			
-			
-=======
->>>>>>> origin/yeunju
 			<div class="menu_bar">
 				<ul>
 					<li>

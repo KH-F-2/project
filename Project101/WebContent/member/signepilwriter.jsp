@@ -6,11 +6,7 @@ $(document).ready(function() {
 	$("#li_epil").click(function() {
 		$.ajax({
 			type : "POST",
-<<<<<<< HEAD
-			url : "signepil.mem",
-=======
 			url : "signepilcontent.me",
->>>>>>> origin/yeunju
 			data : {"state" : "ajax"},
 			success : function(data) {
 					$(".li_content").html(data);									
@@ -35,22 +31,12 @@ $(document).ready(function() {
     
 <section id="user-filter">
 	<ul>
-<<<<<<< HEAD
-		<li>회원아이디 : </li>
-	</ul>
-
-    <ul>
-      <li><a class="" id="" href="">판매 물품 (31)</a></li>
-      <li><a class="active" id="li_epil"  href="">거래 후기 (2)</a></li>
-      <!-- href="./signepil.mem" -->
-=======
 		<li>회원아이디 : ${id}</li>
 	</ul>
 
     <ul>
       <li><a class="active" id="li_epil"  href="">
       	거래 후기</a></li>
->>>>>>> origin/yeunju
     </ul>
     
     <ul>

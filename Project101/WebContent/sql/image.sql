@@ -15,15 +15,7 @@ DROP TABLE IMAGE;
 CREATE TABLE IMAGE(
 	BOARD_NO		NUMBER NOT NULL,
 	BOARD_NAME	VARCHAR2(20) NOT NULL,
-<<<<<<< HEAD
-<<<<<<< HEAD
-	IMAGE_URL VARCHAR2(150)
-=======
 	IMAGE_URL VARCHAR2(1000)
->>>>>>> younsik
-=======
-	IMAGE_URL VARCHAR2(1000)
->>>>>>> origin/seungwoo
 );
 
 <<<<<<< HEAD
@@ -33,7 +25,7 @@ insert into image values(3, 'PURCHASE_BOARD', 'hjifgoihkfiogjhiofgh');
 =======
 select sb_no from sell_board where sb_writer = 'admin'
 
-select image_url 
+select image_url
 from image
 where board_no in(select sb_no from sell_board where sb_writer = 'admin')
 

@@ -174,11 +174,7 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-<<<<<<< HEAD
 			String sql = "insert into member  values(?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-=======
-			String sql = "insert into member values(?,?,?,?,?,?,?,?,? ) ";
->>>>>>> younsik
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, m.getId());
@@ -216,7 +212,7 @@ public class MemberDAO {
 		
 		return result;
 	}
-<<<<<<< HEAD
+
 	public List<SellBoardBean> getBoardList(int page, int limit, String SB_WRITER) {
 		List<SellBoardBean> list=new ArrayList<SellBoardBean>();
 		int startrow=(page-1)*limit+1;
@@ -271,8 +267,7 @@ public class MemberDAO {
 			if(rset.next()) {
 				sellboard.setSB_NO(rset.getInt("SB_NO"));
 				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
-				sellboard.setSB_PDATE(rset.getDate("SB_PDATE"));
-				sellboard.setSB_MDATE(rset.getDate("SB_MDATE"));
+				sellboard.setSB_DATE(rset.getDate("SB_PDATE"));
 				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
 				sellboard.setSB_CONTENT(rset.getString("SB_CONTENT"));
 				sellboard.setSB_PRICE(rset.getInt("SB_PRICE"));
@@ -461,6 +456,4 @@ public class MemberDAO {
 	      return result;
 		
 	}
-=======
->>>>>>> jusung
 }

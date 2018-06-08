@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
-		<title>우리지금만나 글수정</title>
-=======
-		<title>Insert title here</title>
-		
->>>>>>> origin/yeunju
 
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		
@@ -77,8 +67,6 @@
 				});
 			}
 		</script>
-	</head>
-	<body>	
 	
 		<div class="header"><h1>게시판 수정</h1></div>
 		<form action="" method="post" id="write_submit">
@@ -155,5 +143,3 @@
 			</ul>
 			
 		</form>
-	</body>
-</html>

@@ -76,25 +76,17 @@ public class EpilDAO {
 		return result;
 	}
 
-<<<<<<< HEAD
-	public ArrayList<Epil> getEpilList(String epname) {
-=======
+
 	public ArrayList<Epil> getEpilList(String writer) {
->>>>>>> origin/yeunju
 		ArrayList<Epil> list = new ArrayList<Epil>();
 		
 		try {
 			conn = ds.getConnection();
-<<<<<<< HEAD
 			
 			String sql = "select * from epil where EP_NAME=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,epname);
-=======
-			String sql = "select * from epil where EP_NAME=?";
-			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,writer);
->>>>>>> origin/yeunju
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

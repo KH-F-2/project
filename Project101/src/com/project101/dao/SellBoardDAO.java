@@ -13,14 +13,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.json.simple.JSONArray;
-=======
->>>>>>> jusung
-=======
-import org.json.simple.JSONArray;
->>>>>>> origin/seungwoo
 import org.json.simple.JSONObject;
 
 import com.project101.bean.ImageBean;
@@ -181,82 +174,6 @@ public class SellBoardDAO {
 			}
 		}
 		return result;
-<<<<<<< HEAD
-	}	 // boardInsert() ----------
-	
-	public JSONArray getBoardList(int page, double lat, double lng) {
-	      JSONArray array = new JSONArray();
-	      int startrow = (page - 1) * 10 + 1;
-	      int endrow = startrow + 10 - 1;
-	      try {
-	         conn = ds.getConnection();
-
-	         String sql = "select * from "
-       		+ "(select rownum rnum, NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, DDATE, CATEGORY, HASHTAG, STATE, lat, lng, distance from "
-	         		+ "(select NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, DDATE, CATEGORY, HASHTAG, STATE, lat, lng, distance from "
-		         		+ "(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT CONTENT, SB_PRICE PRICE, SB_READCOUNT READCOUNT, SB_DATE DDATE, SB_CATEGORY CATEGORY"
-		         		+ ", SB_HASHTAG HASHTAG, SB_STATE STATE, SB_LAT lat, SB_LNG lng,  sqrt(power((? - SB_LAT),2) + power((? - SB_LNG),2)) distance from "
-		         		+ "sell_board) "
-	         		+ "UNION ALL "
-		         		+ "(select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, PB_CONTENT CONTENT, PB_PRICE PRICE, PB_READCOUNT READCOUNT, PB_DATE DDATE, PB_CATEGORY CATEGORY"
-		         		+ ", PB_HASHTAG HASHTAG, PB_STATE STATE,PB_LAT lat, PB_LNG lng, sqrt(power((? - PB_LAT), 2) + power((? - PB_LNG), 2)) distance from "
-		         		+ "purchase_board))) "
-       		+ "where rnum >= ? and rnum <= ? order by distance";
-//	         , IMAGE_URL, BOARD_NAME
-//	         , IMAGE_URL, BOARD_NAME
-//	         , IMAGE_URL, BOARD_NAME
-//	         , IMAGE_URL, BOARD_NAME
-//	         (select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')
-//	         (select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')
-	         pstmt = conn.prepareStatement(sql);
-
-	         pstmt.setDouble(1, lat);
-	         pstmt.setDouble(2, lng);
-	         pstmt.setDouble(3, lat);
-	         pstmt.setDouble(4, lng);
-	         pstmt.setInt(5, startrow);
-	         pstmt.setInt(6, endrow);
-
-	         rset = pstmt.executeQuery();
-
-	         while (rset.next()) {
-	            JSONObject obj = new JSONObject();
-	            obj.put("num", rset.getInt("NUM"));
-//	            obj.put("WRITER", rset.getString("WRITER"));
-	            obj.put("title", rset.getString("TITLE"));
-	            obj.put("content", rset.getString("CONTENT"));
-	            obj.put("price", rset.getInt("PRICE"));
-//	            obj.put("READCOUNT", rset.getInt("READCOUNT"));
-//	            obj.put("DDATE", rset.getDate("DDATE"));
-	            obj.put("lat", rset.getDouble("lat"));
-	            obj.put("lng", rset.getDouble("lng"));
-//	            obj.put("DISTANCE", rset.getDouble("DISTANCE"));
-//	            obj.put("IMAGE_URL", rset.getString("IMAGE_URL"));
-//	            obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
-	            
-	            array.add(obj);
-	         }
-	         
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	      } finally {
-	         try {
-	            if (rset != null) {
-	               rset.close();
-	            }
-	            if (pstmt != null) {
-	               pstmt.close();
-	            }
-	            if (conn != null) {
-	               conn.close();
-	            }
-	         } catch (Exception e) {
-	            e.printStackTrace();
-	         }
-	      }
-	      return array;
-	   }
-=======
 	} // boardInsert() ----------
 
 	public JSONArray getBoardList(int page, double lat, double lng) {
@@ -404,7 +321,6 @@ public class SellBoardDAO {
 			pstmt.setInt(1, startrow);
 			pstmt.setInt(2, endrow);
 
-<<<<<<< HEAD
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -442,10 +358,7 @@ public class SellBoardDAO {
 		}
 		return arr;
 	} // getBoardList() ----------
-
-=======
 	
->>>>>>> origin/yeunju
 	public int getListCount(String SB_WRITER) {
 		int x = 0;
 		try {
@@ -475,19 +388,9 @@ public class SellBoardDAO {
 					ex.printStackTrace();
 				}
 			}
-<<<<<<< HEAD
-
 		}
 		return x;
 	}
->>>>>>> jusung
-=======
-	
-	
-		}
-		return x;
-		}
->>>>>>> origin/yeunju
 
 	public void setReadCountUpdate(int num) {
 		try {
@@ -734,62 +637,6 @@ public class SellBoardDAO {
 		}
 		return map;
 	}
-<<<<<<< HEAD
-	
-	
-	public int tradeItem(int SB_NO, String id) {
-		int state = 1;
-		try {
-			conn = ds.getConnection();
-			
-			pstmt = conn.prepareStatement("select SB_STATE from SELL_BOARD where SB_NO = ?");
-			pstmt.setInt(1, SB_NO);
-			rset = pstmt.executeQuery();
-			
-			if (rset.next()) {
-				state = rset.getInt(1);
-			}
-			
-			// 구매 신청이 완료된 게시물 일시 return 0
-			if(state == 1) {
-				return 0;
-			}
-			
-			pstmt = conn.prepareStatement("update SELL_BOARD set SB_STATE=1 where SB_NO=?");
-			pstmt.setInt(1, SB_NO);
-			
-			result = pstmt.executeUpdate();
-			pstmt.close();
-			
-			pstmt = conn.prepareStatement("update SELL_HISTORY set SH_STATE=1, "
-					+ "SH_OPPONENT=? where SH_BOARD_NO=?");
-			
-			pstmt.setString(1, id);
-			pstmt.setInt(2, SB_NO);
-			
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rset != null) {
-					rset.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
-}
-=======
 
 	public ArrayList<SellBoardBean> getimage(String id) {
 		ArrayList<SellBoardBean> getimage = new ArrayList<SellBoardBean>();
@@ -880,5 +727,3 @@ public class SellBoardDAO {
 	   }
 
 	}
-
->>>>>>> origin/yeunju

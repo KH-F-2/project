@@ -36,15 +36,10 @@ public class SellBoardListAction implements Action {
 		String searchItem = boardPageBean.getSearchItem();*/
 		int page = boardPageBean.getPage();
 		int limit = boardPageBean.getLimit();
-<<<<<<< HEAD
 		int listcount = 0;
 		
 		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
 		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
-=======
-		int listcount = sellDAO.getListCount();
-		System.out.println("listcount : " + listcount);
->>>>>>> jusung
 
 		
 		if (request.getParameter("page") != null) {
@@ -68,20 +63,14 @@ public class SellBoardListAction implements Action {
 			boardPageBean.setSearchWord(searchWord);
 		} else {
 			listcount = sellDAO.getListCount();
-<<<<<<< HEAD
 			boardBeanlist = sellDAO.getBoardList(page, centerLat, centerLng);
 		}
 		System.out.println("listcount : " + listcount);
 
-=======
 			boardBeanlist = sellDAO.getBoardList(page, limit);
 		}*/
-<<<<<<< HEAD
-		boardBeanlist = sellDAO.getBoardList(page, limit);
->>>>>>> jusung
-=======
+		
 		arr = sellDAO.getBoardList(page, limit);
->>>>>>> origin/seungwoo
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		int startpage = ((page - 1) / limit) * limit + 1;
@@ -97,27 +86,13 @@ public class SellBoardListAction implements Action {
 		boardPageBean.setMaxpage(maxpage);
 		boardPageBean.setStartpage(startpage);
 		boardPageBean.setEndpage(endpage);*/
-		
-<<<<<<< HEAD
-		request.setAttribute("boardPageBean", boardPageBean);
-		request.setAttribute("centerLat", Double.parseDouble(request.getParameter("centerLat")));
-		request.setAttribute("centerLng", Double.parseDouble(request.getParameter("centerLng")));
-		
-		forward.setRedirect(false);
-		if (request.getParameter("state") != null) {
-			
-			forward.setPath("./sellboard/ajaxcontainer.jsp");
-		} else {
-			
-			forward.setPath("template.jsp?page=sellboard/sblist2.jsp");
-		}
-=======
+
+
 		request.setAttribute("arr", arr);
  		/*request.setAttribute("boardPageBean", boardPageBean);*/
 		
 		forward.setRedirect(false);
 		forward.setPath("template.jsp?page=sellboard/sblist2.jsp");
->>>>>>> origin/seungwoo
 
 		return forward;
 	}

@@ -10,14 +10,7 @@ import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.bean.SellBoardBean;
 import com.project101.bean.SellBoardPageBean;
-<<<<<<< HEAD:Project101/src/com/project101/action/member/listAddAction2.java
-import com.project101.dao.MemberDAO;
 import com.project101.dao.SellBoardDAO;
-=======
->>>>>>> origin/yeunju:Project101/src/com/project101/action/member/SellerpageListAddAction.java
-
-import com.project101.dao.SellBoardDAO;
-
 
 
 public class SellerpageListAddAction implements Action {
