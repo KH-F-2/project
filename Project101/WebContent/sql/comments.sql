@@ -15,6 +15,7 @@ CREATE TABLE COMMENTS(
 SELECT * FROM COMMENTS;
 
 CREATE SEQUENCE comment_seq start with 1 increment by 1;
+drop sequence comment_seq;
 
 
 select * from (select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_CONTENT, 

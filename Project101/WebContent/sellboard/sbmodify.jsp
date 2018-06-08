@@ -5,7 +5,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<<<<<<< HEAD
 		<title>우리지금만나 글수정</title>
+=======
+		<title>Insert title here</title>
+		
+>>>>>>> origin/yeunju
 
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		

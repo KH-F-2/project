@@ -11,6 +11,8 @@ import javax.sql.DataSource;
 
 import com.project101.bean.NoticeBean;
 
+
+
 public class NoticeDao {
 	DataSource ds;
 	Connection con;
@@ -28,14 +30,14 @@ public class NoticeDao {
 		}
 	}
 	
-	public List<NoticeBean> getBoardList(int notice_no){
+	public List<NoticeBean> getBoardList(int notice_category){
 		List<NoticeBean> list = new ArrayList<NoticeBean>();
 		try {
 			
 			con = ds.getConnection();
 			String sql = "select * from notice where notice_category = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, notice_no);
+			pstmt.setInt(1, notice_category);
 			
 			rs = pstmt.executeQuery();
 			while (rs.next()) {

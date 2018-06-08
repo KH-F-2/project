@@ -41,7 +41,11 @@
 	
 	<body>
 	<h1>후기목록</h1>
+<<<<<<< HEAD
 		<h2 style="text-align: center;">${list.get(0).EP_NAME }님의 후기</h2>
+=======
+		<h2 style="text-align: center;">${writer }님의 후기</h2>
+>>>>>>> origin/yeunju
 		<ul class="epil_ul">
 		
 			<c:forEach var="ep" items="${list}">

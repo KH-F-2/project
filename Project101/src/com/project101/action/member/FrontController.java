@@ -84,12 +84,13 @@ public class FrontController extends HttpServlet {
 				}
 			
 			}else if(command.equals("/sellerpage_main.me")) {
-				action = new listAddAction();
+				action = new SellerpageListAddAction();
 		        try {
 		           forward = action.execute(request, response);
 		        }catch(Exception e) {
 		           e.printStackTrace();
 		        }
+<<<<<<< HEAD
 <<<<<<< HEAD
 		     }else if(command.equals("/find.me")) {
 					forward = new ActionForward();
@@ -152,6 +153,35 @@ public class FrontController extends HttpServlet {
 			     }	
 
 >>>>>>> jusung
+=======
+		     }else if (command.equals("/sellerpage_main_ajax.me")) {
+	               action = new SellerpageWriterAction();
+	               forward = action.execute(request, response);
+	         }else if (command.equals("/sellerpage_main2_ajax.me")) {
+		               action = new SellerpageWriterAction2();
+		               forward = action.execute(request, response);
+		         }else if(command.equals("/signepil.me")) {
+	               action = new SignEpilAction();
+	                 try {
+	                    forward = action.execute(request, response);
+	                 }catch(Exception e) {
+	                    e.printStackTrace();
+	                 }
+	              }
+	           else if (command.equals("/signaddaction.me")) {
+	               action = new SignEpilAddAction();
+	               forward = action.execute(request, response);
+	            }
+	           else if (command.equals("/signepilwriter.me")) {
+	               action = new SignEpilWriterAction();
+	               forward = action.execute(request, response);
+	            }
+	           else if (command.equals("/signepilcontent.me")) {
+	               action = new SignEpilContentAction();
+	               forward = action.execute(request, response);
+	            }
+
+>>>>>>> origin/yeunju
 			if (forward != null) {
 				if (forward.isRedirect()) {
 					response.sendRedirect(forward.getPath());

@@ -20,6 +20,13 @@ public class SellBoardModifyAction implements Action {
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 
+<<<<<<< HEAD
+=======
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = format.parse(request.getParameter("SB_PURCHASE_DATE"));
+		Date pdate = new Date(date.getTime());
+
+>>>>>>> origin/yeunju
 		SellBoardDAO sellDAO = new SellBoardDAO();
 		SellBoardBean boardBean = new SellBoardBean();
 		ImageBean imageBean = new ImageBean();

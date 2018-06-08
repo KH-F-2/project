@@ -24,6 +24,7 @@ CREATE TABLE COMMENTS(
 >>>>>>> younsik
 );
 
+<<<<<<< HEAD
 SELECT * FROM COMMENTS;
 
 CREATE SEQUENCE comment_seq start with 1 increment by 1;
@@ -34,3 +35,8 @@ select CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CM
 (select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_DATE, CMT_CONTENT, CMT_RE_REF, CMT_RE_LEV, CMT_RE_SEQ 
 FROM (SELECT * FROM COMMENTS where CMT_SUBJECT_NO = 6 order by CMT_RE_REF asc, CMT_RE_SEQ asc )) 
 where rnum>= 1 and rnum<= 10 
+=======
+DROP TABLE BOARD_COMMENT;
+select * from BOARD_COMMENT;
+ALTER TABLE BOARD_COMMENT MODIFY(COMMENT_CONTENT VARCHAR2(300));
+>>>>>>> origin/yeunju

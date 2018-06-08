@@ -5,16 +5,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.bean.SellBoardBean;
 import com.project101.bean.SellBoardPageBean;
+<<<<<<< HEAD:Project101/src/com/project101/action/member/listAddAction.java
 import com.project101.dao.MemberDAO;
+=======
+>>>>>>> origin/yeunju:Project101/src/com/project101/action/member/SellerpageWriterAction2.java
 import com.project101.dao.SellBoardDAO;
 
-
-public class listAddAction2 implements Action {
+public class SellerpageWriterAction2 implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -76,9 +79,9 @@ public class listAddAction2 implements Action {
 		boardpage.setStartpage(startpage);
 		boardpage.setEndpage(endpage);
 		request.setAttribute("boardpage", boardpage);
-		
+		request.setAttribute("writer", writer);
 		forward.setRedirect(false);
-		forward.setPath("template.jsp?page=/member/sellerpage_main2.jsp");
+		forward.setPath("sellboard/sellerpagelist2.jsp");
 		return forward;
 	}
 

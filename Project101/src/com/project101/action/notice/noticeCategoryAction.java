@@ -13,19 +13,28 @@ import com.project101.dao.NoticeDao;
 
 
 
-public class listAddAction implements Action {
 
-	
+
+public class noticeCategoryAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
+        
 		NoticeDao noticedao = new NoticeDao();
 		List<NoticeBean> list = new ArrayList<NoticeBean>();
-		int no = Integer.parseInt(request.getParameter("notice_category"));
-		list = noticedao.getBoardList(no);
-		request.setAttribute("list", list);
-		
+		NoticeBean noticebean = new NoticeBean();
 		ActionForward forward = new ActionForward();
+		
+		String noticeCategory = request.getParameter("notice_category");
+		System.out.println("noticeCategory=" + noticeCategory);
+		
+		list=noticedao.getBoardList(Integer.parseInt(noticeCategory));
+	
+        request.setAttribute("noticeCategory", list);
+        
 		forward.setRedirect(false);
 		forward.setPath("/noticeboard/notice_view.jsp");
 		return forward;

@@ -4,36 +4,44 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width" , initial-scale="1">
-		<link rel="stylesheet" href="../css/bootstrap.css">
+
 		<title>고객센터</title>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		
+		<script>
+		
+		
+		function search(e){
+			
+			var notice_category = e;
+			
+			$.ajax({
+				type:"POST",
+				url : "noticeCategory.notice?notice_category="+notice_category,
+				data : {"notice_category" : notice_category},
+				success : function(data) {
+					
+					
+					$("#abc").empty().append(data);
+				}
+			})
+		}
+	</script>
 	</head>
 	<body>
-
-		<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-		</div> 
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-					
-				<li><a href = "./notice_board_list.notice?no=1">이용제재</a>	</li>
-				<li><a href = "./notice_board_list.notice?no=2">계정/인증</a>	</li>
-				<li><a href = "./notice_board_list.notice?no=3">구매/판매</a>	</li>
-				<li><a href = "./notice_board_list.notice?no=4">거래품목</a>	</li>
-				<li><a href = "./notice_board_list.notice?no=5">거래매너</a>	</li>
-			</ul>
+		
+			<div id = "list_category">
+				<button value="1" onclick="search(this.value)">이용제재</button>
+				<button value="2" onclick="search(this.value)">계정/인증</button>
+				<button value="3" onclick="search(this.value)">구매/판매</button>
+				<button value="4" onclick="search(this.value)">거래품목</button>
+				<button value="5" onclick="search(this.value)">거래매너</button>
+			</div>
 			
-		</div>
-	</nav>
+			<div id="abc">
+			</div>
 	
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<script src="../js/bootstrap.js"></script>
+	
+	
 	</body>
 </html>

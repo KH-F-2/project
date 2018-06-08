@@ -27,6 +27,30 @@
 					alert("삭제가 취소됨!!");
 				}
         </script>
+        <script>$(document).ready(function(){
+        $('#trade').click(function(){
+            var data = $('#SB_NO').val();
+            var name = $('#SB_WRITER').val();
+            $.ajax({
+               type : "POST",
+               contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+               data : {"SB_NO" : data},
+               url : "./sbtradeaction.sb",
+               success: function(data){
+                  alert(data);
+                  console.log(data.length);
+                  // 판매완료되었습니다 가 뜰시 후기작성으로 이동
+                  if(data.length < 13){
+                     location.href = "./signepil.me?name="+name;
+                  }
+               },
+               error: function() {
+                  alert("error");
+               }
+            }); // ajax
+         });
+        });
+        </script>
         
         <script src="js/sbview.js"></script>
         <link href="css/sbview.css" rel="stylesheet" type="text/css">
@@ -141,10 +165,13 @@
 				
 			</ul>
 			
+<<<<<<< HEAD
 			
 			
 			
 			
+=======
+>>>>>>> origin/yeunju
 			<div class="menu_bar">
 				<ul>
 					<li>
