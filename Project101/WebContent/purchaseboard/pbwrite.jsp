@@ -1,147 +1,103 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
-<head>
-<title>구매 작성 페이지</title>
-<style>
-table{
-	margin: 0 auto;
-}
-#title {
-	float: left;
-}
-
-#writeNo {
-	float: left;
-}
-
-#writeDate {
-	float: right;
-}
-
-</style>
- <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
-<script>
-
-	$(document).ready(function(){
-		$('#cancelBtn').click(function(){
-			history.back();
-		});
-		$("#submit").click(function(){
-			location.href="./pbwriteAction.pb?PB_TITLE="+$('input[name="title"]').val()
-							+"&PB_WRITER="+$('input[name="id"]').val()
-							+"&PB_CONTENT="+$('textarea[name="content"]').val()
-							//+"&PB_LAT="+$()+"&PB_LNG="+$() 아직 설정값 몰라
-							+"&PB_PRICE="+$('input[name="price"]').val()
-							+"&PB_CATEGORY="+$('select[name=category]').val()
-							+"&PB_HASHTAG="+$('input[name="hashtag"]').val()	
-							+"&img_hidden="+$('#img_hidden').val()
-		});
+	<head>
+		<title>Insert title here</title>
 		
-		UPLOADCARE_LOCALE = "ko";
-		   UPLOADCARE_TABS = "file url";
-		   UPLOADCARE_PUBLIC_KEY = "c45d0fc9bcc9538a677e";
-		   UPLOADCARE_LOCALE_TRANSLATIONS = {
-		      buttons: {
-		          cancel: 'Cancel',
-		          remove: 'Remove',
-		          choose: {
-		             images: {
-		              one: '파일 첨부',
-		              other: '파일 첨부'
-		              }
-		         }
-		      }
-		   };
-		   var widget=uploadcare.MultipleWidget('[role=uploadcare-uploader]');
-		   widget.onUploadComplete(function(info){
-		      var url=[];
-		      console.log(info.cdnUrl);
-		      $('#showImage').empty();
-		      $('#img_hidden').attr('value', '');
-		      var length=info.cdnUrl.charAt(info.cdnUrl.length-2);
-		      for(var i=0;i<length;i++){
-		         url[i]=info.cdnUrl+"nth/"+i+"/";
-		         $('#showImage').append('<img src="'+url[i]+'-/resize/x100/"/>');
-		         url[i]+="-/resize/500x/ ";
-		         var val=$('#img_hidden').attr('value');
-		         $('#img_hidden').attr('value', val+url[i]);
-		      }
-		   });
-		   
-	});
-	
-	
-</script>
-</head>
-<body>
-		<!-- 맨 윗줄 -->
-		<span id='title'>구매게시판&nbsp;</span>
-	<br>
 
-	<form method="post" name="purchaseForm">
-	
-		<table>
-			<tr>
-				<td>작성자</td>
-				<td><input type="text" name='id' id='id' readOnly type="text" value="<%=session.getAttribute("id")%>"></td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name='title' id='title' placeholder="제목을 입력해주세요" required></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td colspan='2'><textarea name='content' id='content' required></textarea></td>	
-			</tr>
-			<tr>
-				<td>위치</td>
-				<td>이거를 어떻게 넣겠지?</td>
-			</tr>
-			<tr>
-				<td>첨부사진</td>
-				<td class="image">
-					<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		
+		<!-- 이미지 업로드 API -->
+        <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
+        
+        <!-- 지도 API -->
+        <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
+
+        <script src="js/boardwrite.js"></script>
+        <link href="css/boardwrite.css" rel="stylesheet" type="text/css">
+
+		<script type="text/javascript">
+			
+		</script>
+	</head>
+	<body>	
+		<div class="header"><h1>판매게시판 글쓰기</h1></div>
+		<form action="" method="post" id="write_submit">
+			<ul class="write_ul">
 				
-				<div id="showImage"></div>
-				  <input type="hidden" id="img_hidden" name="img_hidden" value="">
-				</td>	
-			</tr>
-			<tr>
-				<td>구매가격</td>
-				<td><input type="text" name="price" placeholder="가격이 수정이 안됩니다." required></td>
-			</tr>
-			<tr>
-				<td>헤시태그</td>
-				<td><input type="text" name="hashtag" placeholder="태그"></td>
-			</tr>
-			<tr>
-				<td>
-				카테고리
-				</td>
-				<td>
-					<select name="category">
-					<option value="0">의류/패션잡화</option>
-					<option value="1">가구/생활잡화</option>
-					<option value="2">전자기기/게임</option>
-					<option value="3">문화/도서/티켓</option>
-					<option value="4">차량용품/오토바이</option>
-					<option value="5">취미/레저/스포츠</option>
-					<option value="6">기타</option>
-					
-			</select>
-				</td>
-			</tr>	
-			<tr>
-				<td colspan='2'>
-					<input type="button" name='submit' id='submit' value="등록">
-					<input type="button" name='cancelBtn' id='cancelBtn' value="취소">
-				</td>
-			</tr>		
-		</table>
-	</form>
-
-</body>
+				<li class="write_li">
+					<div id="locationField">
+						<input type="text" placeholder="검색할 장소를 입력하세요." id="autocomplete">
+					</div>
+					<div id="map"></div>
+					<input type="hidden" name="markerLat" id="markerLat">
+					<input type="hidden" name="markerLng" id="markerLng">
+				</li>
+			
+				<li class="write_li">
+					<div class="board_type">
+						<input type="radio" id="purchase" name="board_radio" value="1" checked>
+					       <label for="radio1">구매</label>
+					    <input type="radio" id="sell" name="board_radio" value="2">
+					       <label for="radio2">판매</label>
+					</div>
+					<div class="title">
+						<img src="image/document.png" alt="document">
+						<input name="TITLE" type="text" size="50" maxlength="100" placeholder="제목을 입력하세요">
+					</div>
+				</li>
+				
+				<li class="write_li">
+					<div id="tagSection">
+						<img src="image/hashtag.png" alt="hashtag">
+						<input type="text" id="inputTag" placeholder="hashtags">
+						<input type="hidden" id="hashTag" name="HASHTAG">
+					</div>
+				</li>
+				
+				<li class="write_li">
+					<div class="category">
+						<select name="CATEGORY">
+							<option value="0" selected>카테고리</option>
+						    <option value="1">의류/잡화</option>
+						    <option value="2">뷰티</option>
+						    <option value="3">식품/생활/유아동</option>
+						    <option value="4">가구</option>
+						    <option value="5">가전/디지털</option>
+						    <option value="6">도서/쿠폰</option>
+						</select>
+					</div>
+					<div class="price">
+						<img src="image/money.png" alt="money">
+						<input name = "PRICE" type="text" size="50" maxlength="50" placeholder="가격을 입력하세요">
+					</div>
+				</li>
+				
+				<li class="write_li">
+					<div class="content">
+						<textarea name="CONTENT" cols="65" rows="15"></textarea>
+					</div>
+				</li>
+				
+				<li class="write_li">
+					<div class="image">
+						<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
+						<div id="showImage"></div>
+						<input type="hidden" id="img_hidden" name="img_hidden" value="">
+					</div>
+				</li>
+				
+				<li class="btn_li">
+					<div>
+						<button type="submit" id="submit_btn" class="write_btn">등록</button>
+						<button type="reset" id="cancle_btn" class="write_btn" onclick='history.go(-1)'>취소</button>
+					</div>
+				</li>
+				
+			</ul>
+			
+		</form>	
+	</body>
 </html>

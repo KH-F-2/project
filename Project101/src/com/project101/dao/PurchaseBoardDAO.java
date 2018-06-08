@@ -82,8 +82,8 @@ public class PurchaseBoardDAO {
 	}
 
 	// 수정
-	public int purchaseModify(PurchaseBoardBean boardBean) {
-		String sql = "update purchase_board set PB_TITLE =?, " + "PB_CONTENT = ?, PB_HASHTAG = ?, PB_CATEGORY = ?" + "where PB_NO = ? ";
+	public int purchaseModify(PurchaseBoardBean boardBean, int num) {
+		String sql = "update purchase_board set PB_TITLE =?, " + "PB_CONTENT = ?, PB_HASHTAG = ?, PB_CATEGORY = ?, PB_LAT = ?, PB_LNG = ? " + "where PB_NO = ? ";
 
 		try {
 			conn = ds.getConnection();
@@ -93,7 +93,9 @@ public class PurchaseBoardDAO {
 			pstmt.setString(2, boardBean.getPB_CONTENT());
 			pstmt.setString(3, boardBean.getPB_HASHTAG());
 			pstmt.setInt(4, boardBean.getPB_CATEGORY());
-			pstmt.setInt(5, boardBean.getPB_NO());
+			pstmt.setDouble(5, boardBean.getPB_LAT());
+			pstmt.setDouble(6, boardBean.getPB_LNG());
+			pstmt.setInt(7, num);
 			
 			int result = pstmt.executeUpdate();
 
@@ -125,7 +127,7 @@ public class PurchaseBoardDAO {
 				}
 			}
 		}
-		return 0;
+		return result;
 	}
 
 	// 조회수 readcount 추가
@@ -189,8 +191,8 @@ public class PurchaseBoardDAO {
 				boardBean.setPB_DATE(rset.getDate("PB_DATE"));
 				boardBean.setPB_CATEGORY(rset.getInt("PB_CATEGORY"));
 				boardBean.setPB_HASHTAG(rset.getString("PB_HASHTAG"));
-				//boardBean.setPB_LAT(rset.getDouble("PB_LAT"));
-				//boardBean.setPB_LNG(rset.getDouble("PB_LNG"));
+				boardBean.setPB_LAT(rset.getDouble("PB_LAT"));
+				boardBean.setPB_LNG(rset.getDouble("PB_LNG"));
 				boardBean.setPB_PRICE(rset.getInt("PB_PRICE"));
 				boardBean.setPB_STATE(rset.getInt("PB_STATE"));
 				//readcount 를 제외한 모든 값 추출
@@ -375,7 +377,7 @@ public class PurchaseBoardDAO {
 	}
 
 	// 글 작성
-	public boolean purchaseInsert(PurchaseBoardBean boardBean, String id, String title, String content, int price, int category, String hashtag) {
+	public int purchaseInsert(PurchaseBoardBean boardBean) {
 		int num = 0;
 		String sql = "";
 		int result = 0;
@@ -395,31 +397,31 @@ public class PurchaseBoardDAO {
 			} // 처음 데이터를 등록하는 경우입니다.
 
 			sql = "INSERT INTO PURCHASE_BOARD " + "(PB_NO, PB_WRITER, PB_TITLE, PB_CONTENT, "
-					+ "PB_DATE, PB_READCOUNT, PB_CATEGORY, PB_HASHTAG, PB_PRICE ,PB_STATE) " 
-					+ "values(?,?,?,?,sysdate,?,?,?,?,?)";
+					+ "PB_DATE, PB_READCOUNT, PB_CATEGORY, PB_HASHTAG, PB_PRICE ,PB_STATE, PB_LAT, PB_LNG) " 
+					+ "values(?,?,?,?,sysdate,?,?,?,?,?,?,?)";
 
 			// 새로운 글을 등록하는 부분입니다.
 
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
-			pstmt.setString(2, id);
-			pstmt.setString(3, title);
-			pstmt.setString(4, content);
+			pstmt.setString(2, boardBean.getPB_WRITER());
+			pstmt.setString(3, boardBean.getPB_TITLE());
+			pstmt.setString(4, boardBean.getPB_CONTENT());
 			pstmt.setInt(5, 0);  //read count
-			pstmt.setInt(6, category);
-			pstmt.setString(7, hashtag);
-			//pstmt.setDouble(8, lat);
-			//pstmt.setDouble(9, lng);
-			pstmt.setInt(8, price);
-			pstmt.setInt(9, 0);  //거래 상태
+			pstmt.setInt(6, boardBean.getPB_CATEGORY());
+			pstmt.setString(7, boardBean.getPB_HASHTAG());
+			pstmt.setInt(8, boardBean.getPB_PRICE());
+			pstmt.setInt(9, 0);  
+			pstmt.setDouble(10, boardBean.getPB_LAT());
+			pstmt.setDouble(11, boardBean.getPB_LNG());
 
 			result = pstmt.executeUpdate();
 
 			if (result == 0) {
-				return false;
+				return 0;
 			} else {
-				return true;
+				return 1;
 			}
 
 		} catch (Exception e) {
@@ -449,8 +451,7 @@ public class PurchaseBoardDAO {
 
 			}
 		}
-
-		return false;
+		return 1;
 
 	}
 

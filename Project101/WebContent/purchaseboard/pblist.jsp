@@ -60,10 +60,19 @@ table {
 				<td colspan="5" style="text-align: right">
 					<button id="writeBtn">글쓰기</button>
 				</td>
-			</tr>
+			</tr>	
 		</c:if>	
+		<c:if test="${sessionScope.id == null }">
+				<tr>
+					<td colspan="5" align="center">
+						<b>로그인 후 글 쓰기가 가능합니다.</b>
+					</td>
+				</tr>
+		</c:if>
 		
 		</c:when>
+		
+		
 		<c:when test="${searchResultCount == 0 }">
 			<tr>
 				<td colspan="4">구매 게시판</td>
@@ -75,12 +84,18 @@ table {
 				<td colspan="5" style="text-align: right">
 					<c:if test="${sessionScope.id != null }">
 						<button id="writeBtn">글쓰기</button>
-					</c:if>		
 						<button id="backBtn">목록으로 돌아가기</button>
-			
+					</c:if>	
+					<c:if test="${sessionScope.id == null }">
+						<tr>
+							<td colspan="5" align="center">
+								<b>로그인 후 글 쓰기가 가능합니다.</b>
+								<button id="backBtn">목록으로 돌아가기</button>
+							</td>
+						</tr>
+					</c:if>	
 				</td>
 			</tr>
-			
 		</c:when>
 	</c:choose>
 
@@ -116,13 +131,22 @@ table {
 				<td><c:out value="${b.PB_READCOUNT }" /></td>
 			</tr>
 		</c:forEach>
-		<c:if test="${sessionScope.id != null }">
-		<tr>
-			<td colspan="5" align="right">
-				<button id="writeBtn">글쓰기</button>
-			</td>
-		</tr>
-		</c:if>
+
+			<c:if test="${sessionScope.id != null }">
+				<tr>
+					<td colspan="5" align="right">
+						<button id="writeBtn">글쓰기</button>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${sessionScope.id == null }">
+				<tr>
+					<td colspan="5" align="center">
+						<b>로그인 후 글 쓰기가 가능합니다.</b>
+					</td>
+				</tr>
+			</c:if>
+
 		<tr>
 			<td colspan="5">
 				<div>

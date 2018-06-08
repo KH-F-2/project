@@ -327,22 +327,19 @@
 			<div class="image">
                   <c:if test="${imageBeanList.size()>0}">
                      <div class="slideshow-container">
-                        <c:forEach var="image" items="${imageBeanList}" varStatus="i">
-                           <div class="mySlides fade">
-                              <div class="numbertext">${i.index+1} / ${imageBeanList.size()}</div>
+                        <c:forEach var="image" items="${imageBeanList}">
+                          
                               <img src="${image.IMAGE_URL}" class="img_slide">
-                           </div>
+                       
                         </c:forEach>
                         <a class="prev" onclick="plusSlides(-1)" style="left:-45px;">&#10094;</a>
                         <a class="next" onclick="plusSlides(1)">&#10095;</a>
                         
                         <div style="text-align:center" class="dot_div">
-                           <c:forEach var="image" items="${imageBeanList}" varStatus="i">
-                              <span class="dot" onclick="currentSlide(${i.index+1})"></span> 
-                           </c:forEach>
+              
                         </div>
                      </div>
-                     <script>
+                  	 <script>
                         function plusSlides(n) {
                              showSlides(slideIndex += n);
                           }

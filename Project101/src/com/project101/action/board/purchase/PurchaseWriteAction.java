@@ -2,6 +2,7 @@ package com.project101.action.board.purchase;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
@@ -21,11 +22,11 @@ public class PurchaseWriteAction implements Action {
 		ImageBean imageBean = new ImageBean();
 		ActionForward forward = new ActionForward();
 
-		boolean result = false;
+		int result;
 
 		try {
 			request.setCharacterEncoding("UTF-8");
-			String id = request.getParameter("PB_WRITER");
+		/*	String id = request.getParameter("PB_WRITER");
 			String title = request.getParameter("PB_TITLE");
 			String content = request.getParameter("PB_CONTENT");
 			//정해지면 봉인 헤제
@@ -33,20 +34,22 @@ public class PurchaseWriteAction implements Action {
 			//Double lng = Double.parseDouble(request.getParameter("PB_LNG"));
 			int price = Integer.parseInt(request.getParameter("PB_PRICE"));
 			int category = Integer.parseInt(request.getParameter("PB_CATEGORY"));
-			String hashtag = request.getParameter("PB_HASHTAG");
+			String hashtag = request.getParameter("PB_HASHTAG");*/
 			
-			boardBean.setPB_WRITER(id);
-			boardBean.setPB_TITLE(title);
-			boardBean.setPB_CONTENT(content);
-			boardBean.setPB_PRICE(price);
-			//boardBean.setPB_LAT(lat);  //이걸 넣으려면 아래 insert메소드와 dao의 insert 손봐야한다 
-			//boardBean.setPB_LNG(lng);
-			boardBean.setPB_CATEGORY(category);
-			boardBean.setPB_HASHTAG(hashtag);
+			HttpSession session = request.getSession();
+			
+			boardBean.setPB_WRITER(session.getAttribute("id").toString());
+			boardBean.setPB_TITLE(request.getParameter("TITLE"));
+			boardBean.setPB_CONTENT(request.getParameter("CONTENT"));
+			boardBean.setPB_CATEGORY(Integer.parseInt(request.getParameter("CATEGORY")));
+			boardBean.setPB_PRICE(Integer.parseInt(request.getParameter("PRICE")));
+			boardBean.setPB_HASHTAG(request.getParameter("HASHTAG"));
+			boardBean.setPB_LAT(Double.parseDouble(request.getParameter("markerLat")));  
+			boardBean.setPB_LNG(Double.parseDouble(request.getParameter("markerLng")));
 
-			result = purchaseDAO.purchaseInsert(boardBean, id, title, content, price, category, hashtag);
+			result = purchaseDAO.purchaseInsert(boardBean);
 
-			if (result == false) {
+			if (result == 0) {
 				System.out.println("게시판 등록 실패");
 				return null;
 			} else {
