@@ -174,7 +174,11 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
+<<<<<<< HEAD
 			String sql = "insert into member  values(?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+=======
+			String sql = "insert into member values(?,?,?,?,?,?,?,?,? ) ";
+>>>>>>> younsik
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, m.getId());

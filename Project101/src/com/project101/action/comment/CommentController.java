@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
 
-
 @WebServlet("*.cmt")
 public class CommentController extends javax.servlet.http.HttpServlet {
 
@@ -33,13 +32,19 @@ public class CommentController extends javax.servlet.http.HttpServlet {
 				e.printStackTrace();
 			}
 
+<<<<<<< HEAD
 		}else if (command.equals("/cmtdelete.cmt")) {
 			action = new CommentDeleteAction();// 다형성에 의한 업캐스팅
+=======
+		} else if (command.equals("/CommentDeleteAction.cmt")) {
+		 	action = new CommentDeleteAction();// 다형성에 의한 업캐스팅
+>>>>>>> younsik
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+<<<<<<< HEAD
 
 		}else if (command.equals("/cmtreply.cmt")) {
 			action = new CommentReplyAction();// 다형성에 의한 업캐스팅
@@ -50,7 +55,19 @@ public class CommentController extends javax.servlet.http.HttpServlet {
 			}
 
 		}
+=======
+>>>>>>> younsik
 			
+		} else if (command.equals("/CommentReplyAction.cmt")) {
+			action = new CommentReplyAction();// 다형성에 의한 업캐스팅
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
@@ -60,7 +77,6 @@ public class CommentController extends javax.servlet.http.HttpServlet {
 			}
 		}
 	}
-		
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -73,3 +89,4 @@ public class CommentController extends javax.servlet.http.HttpServlet {
 	}
 
 }
+

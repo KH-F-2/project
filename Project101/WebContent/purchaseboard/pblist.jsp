@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <script>
 	$(document).ready(function() {
 		$('#searchBtn').click(function() { //검색버튼
@@ -40,6 +41,7 @@
 <style>
 table {
 	text-align: center;
+	margin: 0 auto;
 }
 </style>
 
@@ -53,22 +55,45 @@ table {
 				<td style="text-align: right"><font size=2>등록된 글이 없습니다.</font>
 				</td>
 			</tr>
+		<c:if test="${sessionScope.id != null }">
 			<tr>
 				<td colspan="5" style="text-align: right">
 					<button id="writeBtn">글쓰기</button>
 				</td>
-			</tr>
+			</tr>	
+		</c:if>	
+		<c:if test="${sessionScope.id == null }">
+				<tr>
+					<td colspan="5" align="center">
+						<b>로그인 후 글 쓰기가 가능합니다.</b>
+					</td>
+				</tr>
+		</c:if>
+		
 		</c:when>
+		
+		
 		<c:when test="${searchResultCount == 0 }">
 			<tr>
 				<td colspan="4">구매 게시판</td>
 				<td style="text-align: right"><font size=2>검색결과가 없습니다.</font>
 				</td>
 			</tr>
+			
 			<tr>
 				<td colspan="5" style="text-align: right">
-					<button id="writeBtn">글쓰기</button>
-					<button id="backBtn">목록으로 돌아가기</button>
+					<c:if test="${sessionScope.id != null }">
+						<button id="writeBtn">글쓰기</button>
+						<button id="backBtn">목록으로 돌아가기</button>
+					</c:if>	
+					<c:if test="${sessionScope.id == null }">
+						<tr>
+							<td colspan="5" align="center">
+								<b>로그인 후 글 쓰기가 가능합니다.</b>
+								<button id="backBtn">목록으로 돌아가기</button>
+							</td>
+						</tr>
+					</c:if>	
 				</td>
 			</tr>
 		</c:when>
@@ -92,25 +117,36 @@ table {
 		<c:forEach var="b" items="${boardBeanList}">
 			<tr>
 				<td>
-					<c:out value="${num }" />
-					<c:set var="num" value="${num - 1 }" /> <%--num=num-1 --%>
+					<c:out value="${b.PB_NO }" />
+					<c:set var="num" value="${b.PB_NO - 1 }" /> <%--num=num-1 --%>
 				</td>
 				<td>
 					<div>
-						<a href="./pbview.pb?num=${b.num }">
-						<c:out value="${b.title }" /></a>
+						<a href="./pbview.pb?CMT_SUBJECT_NO=${b.PB_NO }">
+						<c:out value="${b.PB_TITLE }" /></a>
 					</div>
 				</td>
-				<td><c:out value="${b.writer }" /></td>
-				<td><c:out value="${b.date }" /></td>
-				<td><c:out value="${b.readcount }" /></td>
+				<td><c:out value="${b.PB_WRITER }" /></td>
+				<td><c:out value="${b.PB_DATE }" /></td>
+				<td><c:out value="${b.PB_READCOUNT }" /></td>
 			</tr>
 		</c:forEach>
-		<tr>
-			<td colspan="5" align="right">
-				<button id="writeBtn">글쓰기</button>
-			</td>
-		</tr>
+
+			<c:if test="${sessionScope.id != null }">
+				<tr>
+					<td colspan="5" align="right">
+						<button id="writeBtn">글쓰기</button>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${sessionScope.id == null }">
+				<tr>
+					<td colspan="5" align="center">
+						<b>로그인 후 글 쓰기가 가능합니다.</b>
+					</td>
+				</tr>
+			</c:if>
+
 		<tr>
 			<td colspan="5">
 				<div>

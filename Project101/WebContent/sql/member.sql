@@ -14,4 +14,9 @@ create table member(
 	longitude number,
 	PRIMARY KEY(id)
 );
+<<<<<<< HEAD
 select * from MEMBER;
+=======
+
+select * from member;
+>>>>>>> younsik

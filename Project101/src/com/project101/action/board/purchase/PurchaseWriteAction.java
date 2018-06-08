@@ -1,14 +1,14 @@
 package com.project101.action.board.purchase;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
+import com.project101.bean.ImageBean;
 import com.project101.bean.PurchaseBoardBean;
+import com.project101.dao.ImageDAO;
 import com.project101.dao.PurchaseBoardDAO;
 
 public class PurchaseWriteAction implements Action {
@@ -18,33 +18,38 @@ public class PurchaseWriteAction implements Action {
 
 		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
 		PurchaseBoardBean boardBean = new PurchaseBoardBean();
+		ImageDAO imageDAO = new ImageDAO();
+		ImageBean imageBean = new ImageBean();
 		ActionForward forward = new ActionForward();
 
-		String realFolder = "";
-		String saveFolder = "boardupload";
-		int fileSize = 5 * 1024 * 1024;
-		boolean result = false;
-
-		ServletContext sc = request.getServletContext();
-		realFolder = sc.getRealPath(saveFolder);
-		System.out.println("realFolder= " + realFolder);
+		int result;
 
 		try {
-			MultipartRequest multi = null;
-			multi = new MultipartRequest(request, realFolder, fileSize, "utf-8", new DefaultFileRenamePolicy());
-
-			boardBean.setId(multi.getParameter("id"));
-			boardBean.setTitle(multi.getParameter("title"));
-			boardBean.setContent(multi.getParameter("content"));
-			boardBean.setFile(multi.getFilesystemName((String) multi.getFileNames().nextElement()));
+			request.setCharacterEncoding("UTF-8");
+		/*	String id = request.getParameter("PB_WRITER");
+			String title = request.getParameter("PB_TITLE");
+			String content = request.getParameter("PB_CONTENT");
+			//정해지면 봉인 헤제
+			//Double lat = Double.parseDouble(request.getParameter("PB_LAT"));
+			//Double lng = Double.parseDouble(request.getParameter("PB_LNG"));
+			int price = Integer.parseInt(request.getParameter("PB_PRICE"));
+			int category = Integer.parseInt(request.getParameter("PB_CATEGORY"));
+			String hashtag = request.getParameter("PB_HASHTAG");*/
+			
+			HttpSession session = request.getSession();
+			
+			boardBean.setPB_WRITER(session.getAttribute("id").toString());
+			boardBean.setPB_TITLE(request.getParameter("TITLE"));
+			boardBean.setPB_CONTENT(request.getParameter("CONTENT"));
+			boardBean.setPB_CATEGORY(Integer.parseInt(request.getParameter("CATEGORY")));
+			boardBean.setPB_PRICE(Integer.parseInt(request.getParameter("PRICE")));
+			boardBean.setPB_HASHTAG(request.getParameter("HASHTAG"));
+			boardBean.setPB_LAT(Double.parseDouble(request.getParameter("markerLat")));  
+			boardBean.setPB_LNG(Double.parseDouble(request.getParameter("markerLng")));
 
 			result = purchaseDAO.purchaseInsert(boardBean);
 
-			String fullPath = realFolder + "\\"
-					+ multi.getFilesystemName(multi.getFilesystemName((String) multi.getFileNames().nextElement()));
-			System.out.println("fullpath==" + fullPath);
-
-			if (result == false) {
+			if (result == 0) {
 				System.out.println("게시판 등록 실패");
 				return null;
 			} else {
@@ -53,6 +58,20 @@ public class PurchaseWriteAction implements Action {
 
 			forward.setRedirect(true);
 			forward.setPath("./pbmain.pb");
+			
+			///////이미지/////////////
+			
+			int BOARD_NO = purchaseDAO.getMaxCount();
+			String tableName = "PURCHASE_BOARD";
+		    String url = request.getParameter("img_hidden");
+		    
+		    imageBean.setBOARD_NO(BOARD_NO);
+		    imageBean.setIMAGE_URL(url);
+		   
+		      int result2 = imageDAO.imageInsert(imageBean, tableName);
+		      if (result2 == 0) {
+		         System.out.println("image insert fail!");
+		      }
 
 		} catch (Exception e) {
 			e.printStackTrace();
