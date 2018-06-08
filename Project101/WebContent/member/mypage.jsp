@@ -9,7 +9,7 @@
 		});
 		
 		$(".cancelbtn").click(function(){
-			location.href="main.me"
+			location.href="main.map"
 		});
 	});
 </script>

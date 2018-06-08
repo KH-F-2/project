@@ -77,7 +77,7 @@
 					</div>
 					
 					<div class="writer">
-						<%-- <a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a> --%>
+						<%-- <a href="./sellerpage_main.map?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a> --%>
 						<a href="#" class="a_writer" id="${boardBean.SB_NO}">${boardBean.SB_WRITER}</a>
 						<input type="hidden" id="SB_WRITER" value="${boardBean.SB_WRITER}">
 					</div>
@@ -85,7 +85,7 @@
 					<div id="div_writer${boardBean.SB_NO}" class="div_writer">
 						<ul>
 							<li>
-								<a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}"><span>정보보기</span></a>
+								<a href="./sellerpage_main.map?writer=${boardBean.SB_WRITER}"><span>정보보기</span></a>
 							</li>               
 							<hr>         
 							<li>

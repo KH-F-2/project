@@ -32,12 +32,7 @@ public class FrontController extends HttpServlet {
 
 		try {
 
-			if (command.equals("/main.me")) {
-				forward = new ActionForward();
-				forward.setRedirect(false);
-				forward.setPath("template.jsp");
-
-			} else if (command.equals("/signin.me")) {
+			if (command.equals("/signin.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("template.jsp?page=member/signin.jsp");
@@ -83,7 +78,7 @@ public class FrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 
-			} else if (command.equals("/sellerpage_main.me")) {
+			} else if (command.equals("/sellerpage_main.map")) {
 				action = new SellerpageListAddAction();
 				try {
 					forward = action.execute(request, response);

@@ -2,14 +2,14 @@ DROP TABLE PURCHASE_BOARD;
 
 CREATE TABLE PURCHASE_BOARD(
 	PB_NO NUMBER,							/* 글번호 */
-	PB_WRITER VARCHAR2(30),					/* 작성자 */
-	PB_TITLE VARCHAR2(300),					/* 제목 */
-	PB_CONTENT VARCHAR2(4000),				/* 내용 */
+	PB_WRITER VARCHAR2(100),					/* 작성자 */
+	PB_TITLE VARCHAR2(500),					/* 제목 */
+	PB_CONTENT VARCHAR2(3000),				/* 내용 */
 	PB_PRICE NUMBER,						/* 가격*/
 	PB_READCOUNT NUMBER,					/* 조회수 */
 	PB_DATE DATE,							/* 작성일 */
 	PB_CATEGORY NUMBER,						/* 카테고리*/
-	PB_HASHTAG VARCHAR2(30),				/* 헤쉬테그*/
+	PB_HASHTAG VARCHAR2(500),				/* 헤쉬테그*/
 	PB_STATE NUMBER,						/* 거래상태*/
 	PB_LAT NUMBER,							/* 위도*/
 	PB_LNG NUMBER							/* 경도*/

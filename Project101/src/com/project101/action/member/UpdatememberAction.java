@@ -49,7 +49,7 @@ public class UpdatememberAction implements Action {
 		
 		if(result == 1 ) {
 			out.println("alert(' �쉶�썝 �젙蹂닿� �닔�젙�릺�뿀�뒿�땲�떎.') ;");
-			out.println("location.href='main.me'; ");
+			out.println("location.href='main.map'; ");
 		}else {
 			out.println("alert(' �떎�떆�엯�젰�빐二쇱꽭�슂 ' ); ");
 			out.println("history.back()");

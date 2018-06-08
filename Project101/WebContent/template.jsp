@@ -16,7 +16,7 @@
 	<script>
 		$(document).ready(function () {
 			$('#navTitle').click(function () {
-				location.href = 'main.me';
+				location.href = 'main.map';
 			});
 		});
 	</script>
