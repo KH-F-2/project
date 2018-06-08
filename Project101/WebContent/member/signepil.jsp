@@ -30,13 +30,15 @@
 <script>
 	$(
 	function() {
-		$(".button-register").click(
-		function() {
-			var review = $("#textarea-review").val()
-			var star = ($(".selected").text().split("점").length - 1) * 20
-				location.href = 'signepilcontent.mem?review='
-					+ review + '&star=' + star;
-		})
+		$(".button-register").click(function(){
+			var star = $(".selected").text().split("점").length - 1;
+			var content = $('.textarea-review').val();
+			var name = $('input[name="EP_NAME"]').val();			
+			location.href = 'signaddaction.me?&star=' + star + '&content='
+					+ content + '&name=' + name;
+			
+		});
+		
 	})
 </script>
 <style>
@@ -277,6 +279,7 @@ input#upfile.photo {
 		<!--  수정일 경우 'review-edit'클래스 추가 -->
 		<div class="title">
 			<h1>구매후기 작성</h1>
+			<input type="text" name="EP_NAME" value="${name }">
 			<!-- 수정일 경우 '구매후기 수정'으로 변경 -->
 		</div>
 
@@ -285,12 +288,9 @@ input#upfile.photo {
 				<div class="score">
 					<!-- 읽기 전용일 경우 'readonly' class추가 -->
 
-					<span class="signname">${signname }</span> <span>님 상품은
-						만족스러우셨나요?</span> <span class="score-star"> <a class="">1점</a> <a
+					<span>${id}님 상품은 만족스러우셨나요?</span> <span class="score-star"> <a class="">1점</a> <a
 						class="">2점</a> <a class="">3점</a> <a class="">4점</a> <a class="">5점</a>
 					</span>
-					<!-- 선택 경우 점수에 따라 텍스트 변경  -->
-					<!-- <span class="score-text">괜찮아요</span> -->
 				</div>
 			</div>
 		</div>
@@ -304,31 +304,9 @@ input#upfile.photo {
 			<span class="byte">(0/500자)</span>
 		</div>
 
-		<!-- 사진 있을 경우 - 없으면 img, a태그 삭제-->
-		<!-- 사진 첨부 -->
-		<div class="photo-wrap">
-			<input type="file" id="upfile" class="photo">
-			<!-- <img id="img_preview" width="60" height="60" style="display:none;">
-				<div id="div_preview"></div>
-				<img id="gimg" style="display:none;">
-				<button class="delete" style="display:none;">삭제</button>
-			</div>
-			<form id="uploadForm" method="post" enctype="multipart/form-data" action="./signfileadd.mem">
-				<p class="photo-attach">
-					2MB 이하의 jpeg, jpg, png 파일 1개만 첨부 가능합니다.
-					<span class="button-attach">
-		                <input type="file" name="file" id="photo_file">
-		                <span class="button-file">사진첨부</span>
-		                input type="submit" name="action" value="Upload" /
-		                <iframe id="uploadIframe" name="uploadIframe" style="display:none;visibility:hidden;"></iframe>
-		            </span>
-				</p>
-			</form> -->
-		</div>
-
 		<div class="button-wrap">
 			<span> <!-- 구매 작성 일 경우 -->
-				<button class="button-register">등록</button> <!-- 구매 수정 일 경우 --> <!-- <button class="button-edit">수정</button> -->
+				<button class="button-register">등록</button>
 
 				<button class="button-cancel" onclick="window.history.go(-1)">취소</button>
 			</span>
