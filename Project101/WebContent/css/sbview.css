@@ -1,70 +1,89 @@
 .sbview_ul{
-	margin: 0 auto;
-	width: 65%;
-	font-family: "fontello";
-	border: solid 1px #cdd2d2;
-	border-radius: 10px;
-	padding: 0;
-	min-height: 800px;
-	position: relative;
+   margin: 0 auto;
+   width: 70%;
+   font-family: "fontello";
+   border: solid 1px #cdd2d2;
+   border-radius: 10px;
+   padding: 0;
+   min-height: 800px;
+   position: relative;
 }
 .sbview_li{
-	list-style: none;
-	width: 100%;
-	padding: 10px 30px;
-	border-bottom: 1px solid #cdd2d2;
+   list-style: none;
+   width: 100%;
+   padding: 10px 30px;
+   border-bottom: 1px solid #cdd2d2;
 }
 .sbview_li_last{
-	list-style: none;
-	width: 100%;
-	padding: 10px 30px;
+   list-style: none;
+   width: 100%;
+   padding: 10px 30px;
 }
 #map {
 	width: 100%;
 	height: 400px;
 }
 .sbview_li div{
-	-webkit-box-sizing: border-box;
-  			-moz-box-sizing: border-box;
-	box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+   box-sizing: border-box;
 }
 
 .title{
-	width: 75%;
-	font-weight: bold;
-	font-size: 21pt;
-	text-align: left;
-	line-height: 1.5;
-	display: inline-block;
-	float: left;
+   width: 75%;
+   font-weight: bold;
+   font-size: 21pt;
+   text-align: left;
+   line-height: 1.5;
+   display: inline-block;
+   float: left;
 }
 .date{
-	width: 25%;
-	text-align: right;
-	color: gray;
-	font-size: 10pt;
-	display: inline-block;
-	clear: left;
+   width: 25%;
+   text-align: right;
+   color: gray;
+   font-size: 10pt;
+   display: inline-block;
+   clear: left;
 }
-.category, .hashtag{
-	display: inline-block;
-	color: gray;
-	font-size: 10pt;
-	margin-right: 20px;
+
+.category, .hashtag, .pdate{
+   display: inline-block;
+   color: gray;
+   font-size: 10pt;
+   margin-right: 20px;
 }
 .writer{
-	margin-top: 10px;
-	font-weight: bold;
-	font-size: 16pt;
-	height: 25px;
+   margin-top: 10px;
+   font-weight: bold;
+   font-size: 16pt;
+   height: 25px;
 }
 .a_writer{
 	color: black;
 }
 .price{
-	display: inline-block;
-	color: #007ee6;
-	font-weight: bold;
+   display: inline-block;
+   color: #007ee6;
+   font-weight: bold;
+}
+.btn_li{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+#trade{
+   background: #1AAB8A;
+    color: #fff;
+    border: none;
+    height: 30px;
+    font-size: 9pt;
+    width: 80px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
 }
 .btn_li{
     margin-bottom: 10px;
@@ -87,77 +106,76 @@
     outline: none;
 }
 .menu_bar{
-	text-align: right;
-	width: 65%;
-	margin: 0 auto;
+   text-align: right;
+   width: 70%;
+   margin: 0 auto;
 }
 
 ul{
-	list-style: none;
+   list-style: none;
 }
 .comment_div{
-	width: 65%;
-	margin: 0 auto;
+   width: 70%;
+   margin: 0 auto;
 }
 .comment_div ul, .comment_view{
-	padding: 0;
+   padding: 0;
+   width: 100%;
 }
 .comment_textarea, .comment_reply_textarea{
-	width: 100%;
-	position: relative;
+   width: 100%;
+   position: relative;
 }
 #comment_content, #comment_reply_content{
-	width: 85%;
-	height: 150px;
+   width: 85%;
+   height: 150px;
 }
 .reply{
-	display: none;
-	background-color: white;
+   display: none;
+   background-color: white;
 }
 #comment_reply_content{
-	margin-top: 1%;
-	width: 80%;
-	height: 80px;
+   margin-top: 1%;
+   width: 80%;
+   height: 100px;
 }
 #counter{
-	position: absolute;
-	background:rgba(26,171,138,0.5);
-	border-radius: 0.5em;
-	padding: 0 .5em 0 .5em;
-	font-size: 0.75em;
-	bottom: 15%;
-	left: 75%;
+   position: absolute;
+   background:rgba(26,171,138,0.5);
+   border-radius: 0.5em;
+   padding: 0 .5em 0 .5em;
+   font-size: 0.75em;
+   bottom: 15%;
+   left: 75%;
 }
 #comment_btn{
-	background:#1AAB8A;
-	color:#fff;
-	border:none;
-	position:relative;
-	height:60px;
-	width: 90px;
-	font-size:0.8em;
-	padding:0 2em;
-	cursor:pointer;
-	transition:800ms ease all;
-	outline:none;
-	bottom: 70px;
-	margin-left: 1em;
+   background:#1AAB8A;
+   color:#fff;
+   border:none;
+   position:relative;
+   height:60px;
+   width: 90px;
+   font-size:0.8em;
+   padding:0 2em;
+   cursor:pointer;
+   transition:800ms ease all;
+   outline:none;
+   bottom: 70px;
 }
 #comment_reply_btn{
-	background:#1AAB8A;
-	color:#fff;
-	border:none;
-	position:relative;
-	height: 30px;
-	width: 70px;
-	font-size:0.8em;
-	padding:0 2em;
-	cursor:pointer;
-	transition:800ms ease all;
-	outline:none;
-	top: 50px;
-	float: right;
-	margin-right: 0.5em;
+   background:#1AAB8A;
+   color:#fff;
+   border:none;
+   position:relative;
+   height: 30px;
+   width: 70px;
+   font-size:0.8em;
+   padding:0 2em;
+   cursor:pointer;
+   transition:800ms ease all;
+   outline:none;
+   top: 50px;
+   float: right;
 }
 #comment_btn:hover, #comment_reply_btn:hover{
   background:#fff;
@@ -184,47 +202,45 @@ ul{
   transition:800ms ease all;
 }
 .comment_view{
-	width: 65%;
-	margin: 0 auto;
+   width: 70%;
+   margin: 0 auto;
+   background-color: #eeeeee;
 }
 .comment_view>li{
-	width: 100%;
-	height: 100px;
-	border-top: 2px solid #dcdcdc;
-	border-left: 2px solid #dcdcdc;
-	border-right: 2px solid #dcdcdc;
-    border-radius: 10px;
+   width: 100%;
+   height: 130px;
 }
 .comment_view>li:last-child{
-	width: 100%;
-	height: 19px;
+   width: 100%;
+   height: 19px;
 }
 .comment_view>li div{
-	display: inline-block;
+   display: inline-block;
 }
 .comment_top{
-	width: 100%;
-	height: 30%;
-	padding: 5px 8px;
+   width: 100%;
+   height: 25%;
+   background-color: #e3e3e3;
 }
 .comment_writer{
-	width: 15%;
-	font-weight: bold;
+   width: 15%;
+   font-weight: bold;
 }
 .comment_date{
-	color: #adadad;
-	font-size: 9pt;
+   color: #adadad;
+   font-size: 9pt;
 }
 .comment_bottom{
-	width: 100%;
-	height: 70%;
+   width: 100%;
+   height: 75%;
+   vertical-align: middle;
 }
 .comment_text{
-	width: 89%;
-	overflow: hidden;
-	font-size: 10.5pt;
-	padding: 5px;
-	float: left;
+   width: 89%;
+   overflow: hidden;
+   font-size: 10.5pt;
+   padding: 5px;
+   float: left;
 }
 .comment_btn2{
 	width: 10%;
@@ -232,17 +248,20 @@ ul{
 	text-align: center;
 }
 .comment_paging{
-	width: 100%;
-	text-align: center;
-	background-color: rgba(26,171,138,0.2);
+   width: 100%;
+   text-align: center;
+   background-color: rgba(26,171,138,0.1);
 }
 .material-icons{
 	font-size:36px;
 	margin-left:4%;
 	position: relative;
 	bottom: 0.5em;
+   width: 10%;
+   height: 100%;
+   text-align: center;
+   padding-top: 10px;
 }
-
 
 /* 댓글 삭제 버튼 */
 a.animated-button:link, a.animated-button:visited {
@@ -304,52 +323,52 @@ a.animated-button.victoria-one:after {
 /* 이미지 CSS */
 /* Slideshow container */
 .slideshow-container {
-	max-width: 500px;
-	width: 500px;
-	max-height: 500px;
-	height: 500px;
-	position: relative;
-	margin: auto;
-	background-color: black;
+   max-width: 500px;
+   width: 500px;
+   max-height: 500px;
+   height: 500px;
+   position: relative;
+   margin: auto;
+   background-color: black;
 }
 /* Hide the images by default */
 .mySlides {
-	width: 500px;
-	height: 100%;
+   width: 500px;
+   height: 100%;
     display: none;
     overflow: hidden;
     position: relative;
 }
 .img_slide{
-	position: absolute;
-	width: 100%;
-	top: 0;
-	bottom: 0;
-	margin: auto;
+   position: absolute;
+   width: 100%;
+   top: 0;
+   bottom: 0;
+   margin: auto;
 }
 .zoomContainer{
-	left: 115.5px; top: 223px; height: 500px; overflow: hidden;
+   left: 115.5px; top: 223px; height: 500px; overflow: hidden;
 }
 /* Next & previous buttons */
 .prev, .next {
-	cursor: pointer;
-	position: absolute;
-	top: 50%;
-	width: auto;
-	margin-top: -22px;
-	padding: 16px;
-	color: black;
-	font-weight: bold;
-	font-size: 18px;
-	transition: 0.6s ease;
-	border: 1px solid black;
+   cursor: pointer;
+   position: absolute;
+   top: 50%;
+   width: auto;
+   margin-top: -22px;
+   padding: 16px;
+   color: white;
+   font-weight: bold;
+   font-size: 18px;
+   transition: 0.6s ease;
+   background-color: rgba(26,171,138,0.6);
 }
 .dot_div{
-	position: absolute;
-	top: 96%;
-	left: 0;
-	right: 0;
-	margin: auto;
+   position: absolute;
+   top: 96%;
+   left: 0;
+   right: 0;
+   margin: auto;
 }
 /* Position the "next button" to the right */
 .prev {

@@ -110,7 +110,7 @@ h2{
       </tr>
       <tr>
          <td>
-         <a href="main.me">리스트로 돌아가기</a></td>
+         <a href="main.map">리스트로 돌아가기</a></td>
          <td>
          <a href="#" onclick="location.href='signepil.me?name=${m.name}'">후기작성하기</a></td>
       </tr>

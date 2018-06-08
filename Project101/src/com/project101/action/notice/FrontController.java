@@ -13,6 +13,7 @@ import com.project101.action.Action;
 import com.project101.action.ActionForward;
 
 
+
 @WebServlet("*.notice")
 public class FrontController extends HttpServlet {
        
@@ -46,7 +47,14 @@ public class FrontController extends HttpServlet {
         }catch(Exception e) {
            e.printStackTrace();
         }
-     }
+     }else if(command.equals("/noticeboard/noticeCategory.notice")) {
+			action = new noticeCategoryAction();
+			try {
+				forward=action.execute(request, response);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
      if(forward != null) {
         if(forward.isRedirect()){//리다이렉트됩니다.
            response.sendRedirect(forward.getPath());
@@ -56,7 +64,8 @@ public class FrontController extends HttpServlet {
         }
      }
      
- }
+     }
+    }
 
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       

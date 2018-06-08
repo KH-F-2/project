@@ -88,7 +88,6 @@
         
     });
 	
-	
 	// 해시태그 입력 공간 너비 초기 조정
 	$('#inputTag').css('width', $('#tagSection').width());
 	
@@ -216,6 +215,7 @@ function initMap() {
 	});
 	
 }
+
 function placeMarker(location) {
 	marker = new google.maps.Marker({
 		position : location,

@@ -358,7 +358,7 @@ public class SellBoardDAO {
 		}
 		return arr;
 	} // getBoardList() ----------
-
+	
 	public int getListCount(String SB_WRITER) {
 		int x = 0;
 		try {
@@ -388,7 +388,6 @@ public class SellBoardDAO {
 					ex.printStackTrace();
 				}
 			}
-
 		}
 		return x;
 	}
@@ -638,57 +637,93 @@ public class SellBoardDAO {
 		}
 		return map;
 	}
-	
-	
-	public int tradeItem(int SB_NO, String id) {
-		int state = 1;
+
+	public ArrayList<SellBoardBean> getimage(String id) {
+		ArrayList<SellBoardBean> getimage = new ArrayList<SellBoardBean>();
 		try {
-			conn = ds.getConnection();
+			conn=ds.getConnection();
+			String sql="select B.SB_TITLE, B.SB_CONTENT, A.IMAGE_URL, B.SB_NO " + 
+					"from image A, sell_board B " + 
+					"where B.sb_no = A.board_no and B.sb_writer = ? ";
+					
+			pstmt=conn.prepareStatement(sql);
 			
-			pstmt = conn.prepareStatement("select SB_STATE from SELL_BOARD where SB_NO = ?");
-			pstmt.setInt(1, SB_NO);
-			rset = pstmt.executeQuery();
+			pstmt.setString(1,id);
 			
-			if (rset.next()) {
-				state = rset.getInt(1);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				SellBoardBean boardBean=new SellBoardBean();
+				boardBean.setSB_NO(rset.getInt("SB_NO"));
+				boardBean.setSB_CONTENT(rset.getString("SB_CONTENT"));
+				boardBean.setSB_TITLE(rset.getString("SB_TITLE"));
+				boardBean.setIMAGE_URL(rset.getString("IMAGE_URL"));
+				getimage.add(boardBean);
 			}
 			
-			// 구매 신청이 완료된 게시물 일시 return 0
-			if(state == 1) {
-				return 0;
-			}
-			
-			pstmt = conn.prepareStatement("update SELL_BOARD set SB_STATE=1 where SB_NO=?");
-			pstmt.setInt(1, SB_NO);
-			
-			result = pstmt.executeUpdate();
-			pstmt.close();
-			
-			pstmt = conn.prepareStatement("update SELL_HISTORY set SH_STATE=1, "
-					+ "SH_OPPONENT=? where SH_BOARD_NO=?");
-			
-			pstmt.setString(1, id);
-			pstmt.setInt(2, SB_NO);
-			
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rset != null) {
-					rset.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (Exception e) {
+			}catch(Exception e){
 				e.printStackTrace();
+			}finally{
+				try {
+					if(pstmt!=null)	pstmt.close();
+					if(conn!=null)		conn.close();
+					if(rset!=null)		rset.close();
+				}catch(Exception e) {e.printStackTrace();}
 			}
-		}
 		
-		return result;
+		return getimage;
 	}
-}
+
+	public int tradeItem(int SB_NO, String id) {
+	      int state = 1;
+	      try {
+	         conn = ds.getConnection();
+	         
+	         pstmt = conn.prepareStatement("select SB_STATE from SELL_BOARD where SB_NO = ?");
+	         pstmt.setInt(1, SB_NO);
+	         rset = pstmt.executeQuery();
+	         
+	         if (rset.next()) {
+	            state = rset.getInt(1);
+	         }
+	         
+	         // 구매 신청이 완료된 게시물 일시 return 0
+	         if(state == 1) {
+	            return 0;
+	         }
+	         
+	         pstmt = conn.prepareStatement("update SELL_BOARD set SB_STATE=1 where SB_NO=?");
+	         pstmt.setInt(1, SB_NO);
+	         
+	         result = pstmt.executeUpdate();
+	         pstmt.close();
+	         
+	         pstmt = conn.prepareStatement("update SELL_HISTORY set SH_STATE=1, "
+	               + "SH_OPPONENT=? where SH_BOARD_NO=?");
+	         
+	         pstmt.setString(1, id);
+	         pstmt.setInt(2, SB_NO);
+	         
+	         result = pstmt.executeUpdate();
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            if (rset != null) {
+	               rset.close();
+	            }
+	            if (pstmt != null) {
+	               pstmt.close();
+	            }
+	            if (conn != null) {
+	               conn.close();
+	            }
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         }
+	      }
+	      
+	      return result;
+	   }
+
+	}

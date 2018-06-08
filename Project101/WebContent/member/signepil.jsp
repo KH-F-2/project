@@ -33,8 +33,8 @@
 		$(".button-register").click(function(){
 			var star = $(".selected").text().split("점").length - 1;
 			var content = $('.textarea-review').val();
-			var name = $('input[name="EP_NAME"]').val();
-			location.href = 'signaddaction.mem?&star=' + star + '&content='
+			var name = $('input[name="EP_NAME"]').val();			
+			location.href = 'signaddaction.me?&star=' + star + '&content='
 					+ content + '&name=' + name;
 			
 		});

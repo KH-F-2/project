@@ -65,7 +65,6 @@ public class PurchaseFrontController extends javax.servlet.http.HttpServlet {
 			forward = new ActionForward();
 			forward.setRedirect(false);
 			forward.setPath("template.jsp?page=./purchaseboard/pbwrite.jsp");
-			System.out.println("on Boardwrite aaa");
 		} else if (command.equals("/pbmodify.pb")) { // 수정보기
 			action = new PurchaseModify();
 			try {
@@ -90,7 +89,15 @@ public class PurchaseFrontController extends javax.servlet.http.HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}    	
+		} else if (command.equals("/pbsearchAction.pb")) { // 삭제
+			action = new PurchaseSearchAction();
+			try {
+				forward = action.execute(request, response);
+	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
 
 		if (forward != null) {
 			if (forward.isRedirect()) { // 리다이렉트
@@ -101,6 +108,7 @@ public class PurchaseFrontController extends javax.servlet.http.HttpServlet {
 			}
 
 		}
+		
 	}
 
 	// doProcess(request,response)메서드를 구현하여 요청이 GET방식이든 POST방식으든 같은 메서드에서 요청을 처라

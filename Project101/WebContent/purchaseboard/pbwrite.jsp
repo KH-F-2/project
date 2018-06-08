@@ -1,96 +1,103 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<%@ page import="com.oreilly.servlet.MultipartRequest"%>
-<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
-<head>
-<title>구매 작성 페이지</title>
-<style>
-#title {
-	float: left;
-}
+	<head>
+		<title>Insert title here</title>
+		
 
-#writeNo {
-	float: left;
-}
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		
+		<!-- 이미지 업로드 API -->
+        <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
+        
+        <!-- 지도 API -->
+        <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
 
-#writeDate {
-	float: right;
-}
-header{
-	border: 1px solid black;
-}
-nav{
-	border: 1px solid black;
-}
-aside {
-	float: left;
-	height: 100%;
-	border: 1px solid black;
-}
-section{
-height: 100%;
-}
-</style>
-</head>
-<body>
-	<header>
-	헤더
-	</header>
-	
-	<nav>
-		<!-- 맨 윗줄 -->
-		<span id='title'>구매게시판&nbsp;</span>
-		<span id='writeNo'>글 번호</span>
-		<span id='writeDate'>Sysdate</span>
-	</nav>
-	<br>
-	<aside>
-		<select>
-			<option>카테고리</option>
-			<option>의류</option>
-			<option>가구</option>
-		</select>
-	</aside>
-	<section>
-	<form action="./pbwriteAction.pb" method="post" name="purchaseForm"  enctype="Multipart/form-data">
-		<table>
-			<tr>
-				<td>작성자</td>
-				<td><input type="text" name='id' id='id' readOnly type="text" value="로그인 된 ID"></td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name='title' id='title' placeholder="제목을 입력해주세요"></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan='2'><textarea name='content' id='content'></textarea></td>	
-			</tr>
-			<tr>
-				<td>위치</td>
-				<td>클릭이미지</td>
-			</tr>
-			<tr>
-				<td>첨부파일</td>
-				<td><input type="file" name="upfile" placeholder="파일명"></td>
-			</tr>
-			<tr>
-				<td>태그달기</td>
-				<td><input type="text" placeholder="태그"></td>
-			</tr>	
-			<tr>
-				<td colspan='2'>
-					<input type="submit" name='submit' id='submit' value="등록">
-					<input type="button" name='cancel' id='cancel' value="취소">
-				</td>
-			</tr>		
-		</table>
-	</form>
-</section>
-</body>
+        <script src="js/boardwrite.js"></script>
+        <link href="css/boardwrite.css" rel="stylesheet" type="text/css">
+
+		<script type="text/javascript">
+			
+		</script>
+	</head>
+	<body>	
+		<div class="header"><h1>판매게시판 글쓰기</h1></div>
+		<form action="" method="post" id="write_submit">
+			<ul class="write_ul">
+				
+				<li class="write_li">
+					<div id="locationField">
+						<input type="text" placeholder="검색할 장소를 입력하세요." id="autocomplete">
+					</div>
+					<div id="map"></div>
+					<input type="hidden" name="markerLat" id="markerLat">
+					<input type="hidden" name="markerLng" id="markerLng">
+				</li>
+			
+				<li class="write_li">
+					<div class="board_type">
+						<input type="radio" id="purchase" name="board_radio" value="1" checked>
+					       <label for="radio1">구매</label>
+					    <input type="radio" id="sell" name="board_radio" value="2">
+					       <label for="radio2">판매</label>
+					</div>
+					<div class="title">
+						<img src="image/document.png" alt="document">
+						<input name="TITLE" type="text" size="50" maxlength="100" placeholder="제목을 입력하세요">
+					</div>
+				</li>
+				
+				<li class="write_li">
+					<div id="tagSection">
+						<img src="image/hashtag.png" alt="hashtag">
+						<input type="text" id="inputTag" placeholder="hashtags">
+						<input type="hidden" id="hashTag" name="HASHTAG">
+					</div>
+				</li>
+				
+				<li class="write_li">
+					<div class="category">
+						<select name="CATEGORY">
+							<option value="0" selected>카테고리</option>
+						    <option value="1">의류/잡화</option>
+						    <option value="2">뷰티</option>
+						    <option value="3">식품/생활/유아동</option>
+						    <option value="4">가구</option>
+						    <option value="5">가전/디지털</option>
+						    <option value="6">도서/쿠폰</option>
+						</select>
+					</div>
+					<div class="price">
+						<img src="image/money.png" alt="money">
+						<input name = "PRICE" type="text" size="50" maxlength="50" placeholder="가격을 입력하세요">
+					</div>
+				</li>
+				
+				<li class="write_li">
+					<div class="content">
+						<textarea name="CONTENT" cols="65" rows="15"></textarea>
+					</div>
+				</li>
+				
+				<li class="write_li">
+					<div class="image">
+						<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
+						<div id="showImage"></div>
+						<input type="hidden" id="img_hidden" name="img_hidden" value="">
+					</div>
+				</li>
+				
+				<li class="btn_li">
+					<div>
+						<button type="submit" id="submit_btn" class="write_btn">등록</button>
+						<button type="reset" id="cancle_btn" class="write_btn" onclick='history.go(-1)'>취소</button>
+					</div>
+				</li>
+				
+			</ul>
+			
+		</form>	
+	</body>
 </html>

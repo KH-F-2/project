@@ -36,8 +36,10 @@ public class SellBoardListAction implements Action {
 		String searchItem = boardPageBean.getSearchItem();*/
 		int page = boardPageBean.getPage();
 		int limit = boardPageBean.getLimit();
-		int listcount = sellDAO.getListCount();
-		System.out.println("listcount : " + listcount);
+		int listcount = 0;
+		
+		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
+		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
 
 		
 		if (request.getParameter("page") != null) {
@@ -61,8 +63,13 @@ public class SellBoardListAction implements Action {
 			boardPageBean.setSearchWord(searchWord);
 		} else {
 			listcount = sellDAO.getListCount();
+			boardBeanlist = sellDAO.getBoardList(page, centerLat, centerLng);
+		}
+		System.out.println("listcount : " + listcount);
+
 			boardBeanlist = sellDAO.getBoardList(page, limit);
 		}*/
+		
 		arr = sellDAO.getBoardList(page, limit);
 		
 		int maxpage = (listcount + limit - 1) / limit;
@@ -79,7 +86,8 @@ public class SellBoardListAction implements Action {
 		boardPageBean.setMaxpage(maxpage);
 		boardPageBean.setStartpage(startpage);
 		boardPageBean.setEndpage(endpage);*/
-		
+
+
 		request.setAttribute("arr", arr);
  		/*request.setAttribute("boardPageBean", boardPageBean);*/
 		

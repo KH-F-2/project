@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="javax.sql.*"%>
-<%@ page import="javax.naming.*"%>
-<%@ page import="java.io.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script>
@@ -41,7 +37,7 @@
 	
 	<body>
 	<h1>후기목록</h1>
-		<h2 style="text-align: center;">${list.get(0).EP_NAME }님의 후기</h2>
+		<h2 style="text-align: center;">${writer }님의 후기</h2>
 		<ul class="epil_ul">
 		
 			<c:forEach var="ep" items="${list}">

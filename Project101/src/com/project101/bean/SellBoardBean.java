@@ -15,6 +15,15 @@ public class SellBoardBean {
 	private int SB_STATE;
 	private int SB_CATEGORY;
 	private String SB_HASHTAG;
+	private String IMAGE_URL;
+
+	public String getIMAGE_URL() {
+		return IMAGE_URL;
+	}
+
+	public void setIMAGE_URL(String iMAGE_URL) {
+		IMAGE_URL = iMAGE_URL;
+	}
 
 	public SellBoardBean() {
 		super();

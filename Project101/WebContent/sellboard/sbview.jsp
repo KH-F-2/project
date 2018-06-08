@@ -27,6 +27,30 @@
 					alert("삭제가 취소됨!!");
 				}
         </script>
+        <script>$(document).ready(function(){
+        $('#trade').click(function(){
+            var data = $('#SB_NO').val();
+            var name = $('#SB_WRITER').val();
+            $.ajax({
+               type : "POST",
+               contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+               data : {"SB_NO" : data},
+               url : "./sbtradeaction.sb",
+               success: function(data){
+                  alert(data);
+                  console.log(data.length);
+                  // 판매완료되었습니다 가 뜰시 후기작성으로 이동
+                  if(data.length < 13){
+                     location.href = "./signepil.me?name="+name;
+                  }
+               },
+               error: function() {
+                  alert("error");
+               }
+            }); // ajax
+         });
+        });
+        </script>
         
         <script src="js/sbview.js"></script>
         <link href="css/sbview.css" rel="stylesheet" type="text/css">
@@ -53,7 +77,7 @@
 					</div>
 					
 					<div class="writer">
-						<%-- <a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a> --%>
+						<%-- <a href="./sellerpage_main.map?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a> --%>
 						<a href="#" class="a_writer" id="${boardBean.SB_NO}">${boardBean.SB_WRITER}</a>
 						<input type="hidden" id="SB_WRITER" value="${boardBean.SB_WRITER}">
 					</div>
@@ -61,7 +85,7 @@
 					<div id="div_writer${boardBean.SB_NO}" class="div_writer">
 						<ul>
 							<li>
-								<a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}"><span>정보보기</span></a>
+								<a href="./sellerpage_main.map?writer=${boardBean.SB_WRITER}"><span>정보보기</span></a>
 							</li>               
 							<hr>         
 							<li>
@@ -140,10 +164,6 @@
 				</li>
 				
 			</ul>
-			
-			
-			
-			
 			
 			<div class="menu_bar">
 				<ul>
