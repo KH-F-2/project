@@ -11,8 +11,13 @@
 		<!-- Icon link -->
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		
+		<!-- 지도 API -->
+        <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
+		
         <script type="text/javascript">
 			var id='${sessionScope.id}';
+			var sb_lat = ${boardBean.SB_LAT};
+			var sb_lng = ${boardBean.SB_LNG};
 				function deleteConfirm(){
 				   	ans=confirm("삭제하시겠습니까?");
 				   	if(ans){
@@ -46,13 +51,26 @@
 					<div class="hashtag">
 						${boardBean.SB_HASHTAG}
 					</div>
-					<div class="pdate">
-						구입일 ${boardBean.SB_PURCHASE_DATE }
-					</div>
 					
 					<div class="writer">
-						<a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a>
+						<%-- <a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a> --%>
+						<a href="#" class="a_writer" id="${boardBean.SB_NO}">${boardBean.SB_WRITER}</a>
 						<input type="hidden" id="SB_WRITER" value="${boardBean.SB_WRITER}">
+					</div>
+					
+					<div id="div_writer${boardBean.SB_NO}" class="div_writer">
+						<ul>
+							<li>
+								<a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}"><span>정보보기</span></a>
+							</li>               
+							<hr>         
+							<li>
+								<a href="./msmessagewrite.ms?num=${boardBean.SB_NO}
+									&writer=${boardBean.SB_WRITER }">
+								<span>쪽지보내기</span>
+								</a>
+							</li>
+						</ul>
 					</div>
 					
 					<div class="price">${boardBean.SB_PRICE } 원</div>
@@ -61,11 +79,7 @@
 				</li>
 				
 				<li class="sbview_li 3">
-					<div class="lat_lng">
-						위도 ${boardBean.SB_LAT}
-						경도 ${boardBean.SB_LNG}
-					</div>
-					
+					<div id="map"></div>
 				</li>
 			
 				<li class="sbview_li_last 4">

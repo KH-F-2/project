@@ -2,14 +2,21 @@ package com.project101.action.board.sell;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
+import com.project101.bean.ImageBean;
 import com.project101.bean.SellBoardBean;
 import com.project101.bean.SellBoardPageBean;
+import com.project101.dao.ImageDAO;
 import com.project101.dao.SellBoardDAO;
 
 public class SellBoardListAction implements Action {
@@ -21,9 +28,9 @@ public class SellBoardListAction implements Action {
 
 		ActionForward forward = new ActionForward();
 
-		SellBoardDAO sellDAO = new SellBoardDAO();
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
-		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
+		SellBoardDAO sellDAO = new SellBoardDAO();
+		JSONArray arr = new JSONArray();
 
 		/*String searchWord = boardPageBean.getSearchWord();
 		String searchItem = boardPageBean.getSearchItem();*/
@@ -69,8 +76,12 @@ public class SellBoardListAction implements Action {
 =======
 			boardBeanlist = sellDAO.getBoardList(page, limit);
 		}*/
+<<<<<<< HEAD
 		boardBeanlist = sellDAO.getBoardList(page, limit);
 >>>>>>> jusung
+=======
+		arr = sellDAO.getBoardList(page, limit);
+>>>>>>> origin/seungwoo
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		int startpage = ((page - 1) / limit) * limit + 1;
@@ -80,14 +91,14 @@ public class SellBoardListAction implements Action {
 			endpage = maxpage;
 		}
 
-		boardPageBean.setBoardBeanList(boardBeanlist);
-		boardPageBean.setLimit(limit);
+		/*boardPageBean.setLimit(limit);
 		boardPageBean.setPage(page);
 		boardPageBean.setListcount(listcount);
 		boardPageBean.setMaxpage(maxpage);
 		boardPageBean.setStartpage(startpage);
-		boardPageBean.setEndpage(endpage);
+		boardPageBean.setEndpage(endpage);*/
 		
+<<<<<<< HEAD
 		request.setAttribute("boardPageBean", boardPageBean);
 		request.setAttribute("centerLat", Double.parseDouble(request.getParameter("centerLat")));
 		request.setAttribute("centerLng", Double.parseDouble(request.getParameter("centerLng")));
@@ -100,6 +111,13 @@ public class SellBoardListAction implements Action {
 			
 			forward.setPath("template.jsp?page=sellboard/sblist2.jsp");
 		}
+=======
+		request.setAttribute("arr", arr);
+ 		/*request.setAttribute("boardPageBean", boardPageBean);*/
+		
+		forward.setRedirect(false);
+		forward.setPath("template.jsp?page=sellboard/sblist2.jsp");
+>>>>>>> origin/seungwoo
 
 		return forward;
 	}

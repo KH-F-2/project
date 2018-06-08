@@ -21,7 +21,13 @@
 		
 		<!-- 이미지 업로드 API -->
         <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
+<<<<<<< HEAD
 >>>>>>> jusung
+=======
+        
+        <!-- 지도 API -->
+        <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
+>>>>>>> origin/seungwoo
 
         <script src="js/sbwrite.js"></script>
         <link href="css/sbwrite.css" rel="stylesheet" type="text/css">
@@ -106,35 +112,26 @@
 </form>
 =======
 		<script type="text/javascript">
-			/* $(function(){
-				$('#hashtag').on('input', function(){
-					console.log('해시태그 입력');
-					var content = $(this).val();
-					var splitedArray = content.split(' ');
-					var linkedContent = '';
-						
-					for(var word in splitedArray)
-					{
-						console.log(splitedArray);
-						console.log(word);
-						console.log(splitedArray[word]);
-						
-					  word = splitedArray[word];
-					   if(word.indexOf('#') == 0)
-					   {
-					      word = '<span>' + word + '</span>';
-					   }
-					   linkedContent += word;
-					}
-				content = $(this).val(linkedContent);
-				});
-			}); */
+			
 		</script>
+		<style>
+			
+		</style>
 	</head>
 	<body>	
 		<div class="header"><h1>판매게시판 글쓰기</h1></div>
 		<form action="./sbwriteaction.sb" method="post" id="write_submit">
 			<ul class="sbwrite_ul">
+				
+				<li class="write_li">
+					<div id="locationField">
+						<input type="text" placeholder="검색할 장소를 입력하세요." id="autocomplete">
+					</div>
+					<div id="map"></div>
+					<input type="hidden" name="markerLat" id="markerLat">
+					<input type="hidden" name="markerLng" id="markerLng">
+				</li>
+			
 				<li class="write_li">
 					<div class="title">
 						<input name="SB_TITLE" type="text" size="50" maxlength="100" placeholder="제목을 입력하세요">
@@ -152,8 +149,9 @@
 						    <option value="6">도서/쿠폰</option>
 						</select>
 					</div>
-					<div class="hashtag">
-						<input type="text" id="hashtag" name="SB_HASHTAG" size="50" placeholder="hashtags">
+					<div id="tagSection">
+						<input type="text" id="inputTag" placeholder="hashtags">
+						<input type="hidden" id="hashTag" name="SB_HASHTAG">
 					</div>
 				</li>
 				<li class="write_li">

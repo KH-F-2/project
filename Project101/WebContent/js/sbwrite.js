@@ -49,6 +49,10 @@
 	
 	
 	$('#write_submit').submit(function () {
+		if($('#markerLat').val()=='' || $('#markerLng').val()==''){
+            alert('위치를 지정해주세요!');
+            return false;
+        }
 		if($('input[name=SB_TITLE]').val()==''){
         	alert('제목을 입력하세요');
         	$('input[name=SB_TITLE]').focus();
@@ -77,9 +81,17 @@
             alert("내용을 입력하세요");
             return false;
         }
+        if($('#img_hidden').val()==''){
+            alert('이미지를 등록해주세요!');
+            return false;
+        }
         
     });
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> origin/seungwoo
 	// 해시태그 입력 공간 너비 초기 조정
 	$('#inputTag').css('width', $('#tagSection').width());
 	
@@ -207,7 +219,10 @@ function initMap() {
 	});
 	
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/seungwoo
 function placeMarker(location) {
 	marker = new google.maps.Marker({
 		position : location,

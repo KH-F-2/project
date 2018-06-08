@@ -14,11 +14,16 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.json.simple.JSONArray;
 =======
 >>>>>>> jusung
+=======
+import org.json.simple.JSONArray;
+>>>>>>> origin/seungwoo
 import org.json.simple.JSONObject;
 
+import com.project101.bean.ImageBean;
 import com.project101.bean.SellBoardBean;
 
 public class SellBoardDAO {
@@ -112,24 +117,23 @@ public class SellBoardDAO {
 		try {
 			conn = ds.getConnection();
 
-			String sql = "insert into SELL_BOARD " + "(SB_NO, SB_WRITER, SB_PURCHASE_DATE, SB_TITLE, "
+			String sql = "insert into SELL_BOARD " + "(SB_NO, SB_WRITER, SB_TITLE, "
 					+ "SB_CONTENT, SB_PRICE, SB_DATE, SB_READCOUNT, SB_LAT, SB_LNG, SB_STATE, "
-					+ "SB_CATEGORY, SB_HASHTAG) " + "values(?, ?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?, ?, ?)";
+					+ "SB_CATEGORY, SB_HASHTAG) " + "values(?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?, ?, ?)";
 
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, boardBean.getSB_NO());
 			pstmt.setString(2, boardBean.getSB_WRITER());
-			pstmt.setDate(3, boardBean.getSB_PURCHASE_DATE());
-			pstmt.setString(4, boardBean.getSB_TITLE());
-			pstmt.setString(5, boardBean.getSB_CONTENT());
-			pstmt.setInt(6, boardBean.getSB_PRICE());
-			pstmt.setInt(7, 0);
-			pstmt.setDouble(8, boardBean.getSB_LAT());
-			pstmt.setDouble(9, boardBean.getSB_LNG());
-			pstmt.setInt(10, 0);
-			pstmt.setInt(11, boardBean.getSB_CATEGORY());
-			pstmt.setString(12, boardBean.getSB_HASHTAG());
+			pstmt.setString(3, boardBean.getSB_TITLE());
+			pstmt.setString(4, boardBean.getSB_CONTENT());
+			pstmt.setInt(5, boardBean.getSB_PRICE());
+			pstmt.setInt(6, 0);
+			pstmt.setDouble(7, boardBean.getSB_LAT());
+			pstmt.setDouble(8, boardBean.getSB_LNG());
+			pstmt.setInt(9, 0);
+			pstmt.setInt(10, boardBean.getSB_CATEGORY());
+			pstmt.setString(11, boardBean.getSB_HASHTAG());
 
 			result = pstmt.executeUpdate();
 			
@@ -255,35 +259,67 @@ public class SellBoardDAO {
 =======
 	} // boardInsert() ----------
 
-	public List<SellBoardBean> getBoardList(int page, int limit) {
-		List<SellBoardBean> boardBeanList = new ArrayList<SellBoardBean>();
-		int startrow = (page - 1) * limit + 1;
-		int endrow = startrow + limit - 1;
+	public JSONArray getBoardList(int page, double lat, double lng) {
+		JSONArray array = new JSONArray();
+		int startrow = (page - 1) * 10 + 1;
+		int endrow = startrow + 10 - 1;
 		try {
 			conn = ds.getConnection();
 
-			String sql = "select * from " + "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
+			String sql = "select * from (select rownum rnum, NUM, WRITER, TITLE, READCOUNT, DDATE, distance, IMAGE_URL, BOARD_NAME from "
+					+ "(select NUM, WRITER, TITLE, READCOUNT, DDATE, distance, IMAGE_URL, BOARD_NAME from " 
+					+ "(select SB_NO as NUM, SB_WRITER as WRITER, SB_TITLE as TITLE, SB_READCOUNT as READCOUNT, SB_DATE as DDATE, "
+					+ "sqrt(power((?-SB_LAT),2) + power((?-SB_LNG),2)) as distance, IMAGE_URL, BOARD_NAME from " 
+					+ "(select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD'))" 
+					+ "UNION ALL (select PB_NO as NUM, PB_WRITER as WRITER, PB_TITLE as TITLE, PB_READCOUNT as READCOUNT, PB_DATE as DDATE, "
+					+ "sqrt(power((?-PB_LAT),2) + power((?-PB_LNG),2)) as distance, IMAGE_URL, BOARD_NAME from " 
+					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')))) "
+					+ "where rnum >= ? and rnum <= ? order by distance";
+			
+			/*String sql = "select * from " + "(select rownum rnum, SB_NO, SB_TITLE, "
 					+ "SB_READCOUNT, SB_DATE, SB_LAT, SB_LNG from " + "(select * from SELL_BOARD order by SB_NO desc)) "
-					+ "where rnum>=? and rnum<=?";
+					+ "where rnum>=? and rnum<=?";*/
 
 			pstmt = conn.prepareStatement(sql);
 
+			pstmt.setDouble(1, lat);
+			pstmt.setDouble(2, lng);
+			pstmt.setDouble(3, lat);
+			pstmt.setDouble(4, lng);
 			pstmt.setInt(1, startrow);
 			pstmt.setInt(2, endrow);
 
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				SellBoardBean boardBean = new SellBoardBean();
-				boardBean.setSB_NO(rset.getInt("SB_NO"));
-				boardBean.setSB_WRITER(rset.getString("SB_WRITER"));
-				boardBean.setSB_TITLE(rset.getString("SB_TITLE"));
-				boardBean.setSB_DATE(rset.getDate("SB_DATE"));
-				boardBean.setSB_READCOUNT(rset.getInt("SB_READCOUNT"));
-				boardBean.setSB_LAT(rset.getDouble("SB_LAT"));
-				boardBean.setSB_LNG(rset.getDouble("SB_LNG"));
-				boardBeanList.add(boardBean);
+				JSONObject obj = new JSONObject();
+				obj.put("NUM", rset.getInt("NUM"));
+				obj.put("WRITER", rset.getString("WRITER"));
+				obj.put("TITLE", rset.getString("TITLE"));
+				obj.put("READCOUNT", rset.getInt("READCOUNT"));
+				obj.put("DDATE", rset.getDate("DDATE"));
+				obj.put("DISTANCE", rset.getDouble("DISTANCE"));
+				obj.put("IMAGE_URL", rset.getString("IMAGE_URL"));
+				obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
+				
+				array.add(obj);
 			}
+			
+			/*rset.close();
+			pstmt.close();
+			
+			pstmt = conn.prepareStatement("select * from IMAGE where BOARD_NO = ?, BOARD_NAME = 'SELL_BOARD'");
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				ImageBean imageBean = new ImageBean();
+				imageBean.setBOARD_NO(rset.getInt("BOARD_NO"));
+				imageBean.setBOARD_NAME(rset.getString("BOARD_NAME"));
+				imageBean.setIMAGE_URL(rset.getString("IMAGE_URL"));
+				imageBeanList.add(imageBean);
+			}*/
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -301,7 +337,7 @@ public class SellBoardDAO {
 				e.printStackTrace();
 			}
 		}
-		return boardBeanList;
+		return array;
 	} // getBoardList() ----------
 
 	public List<SellBoardBean> getBoardList(int page, int limit, String SB_WRITER) {
@@ -347,6 +383,63 @@ public class SellBoardDAO {
 		}
 
 		return list;
+	} // getBoardList() ----------
+	
+	
+	public JSONArray getBoardList(int page, int limit) {
+		JSONArray arr = new JSONArray();
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		try {
+			conn = ds.getConnection();
+
+			String sql = "select * from " + "(select rownum rnum, SB_NO, SB_WRITER, SB_TITLE, "
+					+ "SB_READCOUNT, TO_CHAR(SB_DATE, 'YYYY-MM-DD HH24:MI') as SB_DATE, SB_HASHTAG, SB_STATE, SB_LAT, SB_LNG, SB_PRICE, IMAGE_URL, BOARD_NAME "
+					+ "from (select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO " 
+					+ "where IMAGE.BOARD_NAME = 'SELL_BOARD')) "
+					+ "where rnum>=? and rnum<=?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("SB_NO", rset.getInt("SB_NO"));
+				obj.put("SB_WRITER", rset.getString("SB_WRITER"));
+				obj.put("SB_TITLE", rset.getString("SB_TITLE"));
+				obj.put("SB_READCOUNT", rset.getInt("SB_READCOUNT"));
+				obj.put("SB_DATE", rset.getString("SB_DATE"));
+				obj.put("SB_HASHTAG", rset.getString("SB_HASHTAG"));
+				obj.put("SB_STATE", rset.getInt("SB_STATE"));
+				obj.put("SB_LAT", rset.getDouble("SB_LAT"));
+				obj.put("SB_LNG", rset.getDouble("SB_LNG"));
+				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
+				obj.put("IMAGE_URL", rset.getString("IMAGE_URL").split(" ")[0]);
+				obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
+				arr.add(obj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rset != null) {
+					rset.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return arr;
 	} // getBoardList() ----------
 
 	public int getListCount(String SB_WRITER) {
@@ -430,7 +523,6 @@ public class SellBoardDAO {
 			if (rset.next()) {
 				obj.put("SB_NO", rset.getInt("SB_NO"));
 				obj.put("SB_WRITER", rset.getString("SB_WRITER"));
-				obj.put("SB_PURCHASE_DATE", rset.getDate("SB_PURCHASE_DATE"));
 				obj.put("SB_TITLE", rset.getString("SB_TITLE"));
 				obj.put("SB_CONTENT", rset.getString("SB_CONTENT"));
 				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
@@ -503,21 +595,20 @@ public class SellBoardDAO {
 		try {
 			conn = ds.getConnection();
 
-			String sql = "update SELL_BOARD " + "set SB_WRITER=?, SB_PURCHASE_DATE=?, SB_TITLE=?, SB_CONTENT=?, "
+			String sql = "update SELL_BOARD " + "set SB_WRITER=?, SB_TITLE=?, SB_CONTENT=?, "
 					+ "SB_PRICE=?, SB_LAT=?, SB_LNG=?, SB_CATEGORY=?, SB_HASHTAG=? " + "where SB_NO=?";
 
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, boardBean.getSB_WRITER());
-			pstmt.setDate(2, boardBean.getSB_PURCHASE_DATE());
-			pstmt.setString(3, boardBean.getSB_TITLE());
-			pstmt.setString(4, boardBean.getSB_CONTENT());
-			pstmt.setInt(5, boardBean.getSB_PRICE());
-			pstmt.setDouble(6, boardBean.getSB_LAT());
-			pstmt.setDouble(7, boardBean.getSB_LNG());
-			pstmt.setInt(8, boardBean.getSB_CATEGORY());
-			pstmt.setString(9, boardBean.getSB_HASHTAG());
-			pstmt.setInt(10, boardBean.getSB_NO());
+			pstmt.setString(2, boardBean.getSB_TITLE());
+			pstmt.setString(3, boardBean.getSB_CONTENT());
+			pstmt.setInt(4, boardBean.getSB_PRICE());
+			pstmt.setDouble(5, boardBean.getSB_LAT());
+			pstmt.setDouble(6, boardBean.getSB_LNG());
+			pstmt.setInt(7, boardBean.getSB_CATEGORY());
+			pstmt.setString(8, boardBean.getSB_HASHTAG());
+			pstmt.setInt(9, boardBean.getSB_NO());
 
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
