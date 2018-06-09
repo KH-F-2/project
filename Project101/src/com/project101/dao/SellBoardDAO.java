@@ -180,16 +180,17 @@ public class SellBoardDAO {
 		JSONArray array = new JSONArray();
 		int startrow = (page - 1) * 10 + 1;
 		int endrow = startrow + 10 - 1;
+		
 		try {
 			conn = ds.getConnection();
 
-			String sql = "select * from (select rownum rnum, NUM, WRITER, TITLE, READCOUNT, DDATE, distance, IMAGE_URL, BOARD_NAME from "
-					+ "(select NUM, WRITER, TITLE, READCOUNT, DDATE, distance, IMAGE_URL, BOARD_NAME from " 
-					+ "(select SB_NO as NUM, SB_WRITER as WRITER, SB_TITLE as TITLE, SB_READCOUNT as READCOUNT, SB_DATE as DDATE, "
-					+ "sqrt(power((?-SB_LAT),2) + power((?-SB_LNG),2)) as distance, IMAGE_URL, BOARD_NAME from " 
+			String sql = "select * from (select rownum rnum, NUM, WRITER, TITLE, content, price, READCOUNT, DDATE, distance, lat, lng, IMAGE_URL, BOARD_NAME from "
+					+ "(select NUM, WRITER, TITLE, content, price, READCOUNT, DDATE, distance, lat, lng, IMAGE_URL, BOARD_NAME from " 
+					+ "(select SB_NO as NUM, SB_WRITER as WRITER, SB_TITLE as TITLE, SB_CONTENT content, sb_price price, SB_READCOUNT as READCOUNT, SB_DATE as DDATE, "
+					+ "sqrt(power((?-SB_LAT),2) + power((?-SB_LNG),2)) as distance, sb_lat lat, sb_lng lng, IMAGE_URL, BOARD_NAME from " 
 					+ "(select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD'))" 
-					+ "UNION ALL (select PB_NO as NUM, PB_WRITER as WRITER, PB_TITLE as TITLE, PB_READCOUNT as READCOUNT, PB_DATE as DDATE, "
-					+ "sqrt(power((?-PB_LAT),2) + power((?-PB_LNG),2)) as distance, IMAGE_URL, BOARD_NAME from " 
+					+ "UNION ALL (select PB_NO as NUM, PB_WRITER as WRITER, PB_TITLE as TITLE, pb_content content, pb_price price, PB_READCOUNT as READCOUNT, PB_DATE as DDATE, "
+					+ "sqrt(power((?-PB_LAT),2) + power((?-PB_LNG),2)) as distance, pb_lat lat, pb_lng lng, IMAGE_URL, BOARD_NAME from " 
 					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')))) "
 					+ "where rnum >= ? and rnum <= ? order by distance";
 			
@@ -203,8 +204,8 @@ public class SellBoardDAO {
 			pstmt.setDouble(2, lng);
 			pstmt.setDouble(3, lat);
 			pstmt.setDouble(4, lng);
-			pstmt.setInt(1, startrow);
-			pstmt.setInt(2, endrow);
+			pstmt.setInt(5, startrow);
+			pstmt.setInt(6, endrow);
 
 			rset = pstmt.executeQuery();
 
@@ -213,9 +214,13 @@ public class SellBoardDAO {
 				obj.put("NUM", rset.getInt("NUM"));
 				obj.put("WRITER", rset.getString("WRITER"));
 				obj.put("TITLE", rset.getString("TITLE"));
+				obj.put("CONTENT", rset.getString("content"));
+				obj.put("PRICE", rset.getInt("price"));
 				obj.put("READCOUNT", rset.getInt("READCOUNT"));
-				obj.put("DDATE", rset.getDate("DDATE"));
+				obj.put("DDATE", rset.getDate("DDATE").toString());
 				obj.put("DISTANCE", rset.getDouble("DISTANCE"));
+				obj.put("LAT", rset.getDouble("lat"));
+				obj.put("LNG", rset.getDouble("lng"));
 				obj.put("IMAGE_URL", rset.getString("IMAGE_URL"));
 				obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
 				

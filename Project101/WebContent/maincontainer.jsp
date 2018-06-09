@@ -3,15 +3,15 @@
 
 <c:choose>
 	<c:when test="${!empty jsonArr }">
-		<h3>내 주변에 등록된 상품이 ${jsonArr.size() }개 있습니다.</h3>
+		<h3 id="container-header">내 주변에 등록된 상품이 ${jsonArr.size() }개 있습니다.</h3>
 		<c:forEach var="item" items="${jsonArr }" begin="0" end="9">
 			<div class="content">
-				<a href="sbview.sb?num=${item.num }">
-					<img src="./image/koala.jpg">
-					<p>${item.title }</p>
+				<a href="sbview.sb?num=${item.NUM }">
+					<img src="${item.IMAGE_URL }">
+					<p>${item.TITLE }</p>
 				</a>
-				<span>${item.price }원</span><br>
-				<span>${item.content }</span>
+				<span>${item.PRICE }원</span><br>
+				<span>${item.CONTENT }</span>
 			</div>
 		</c:forEach>
 	</c:when>

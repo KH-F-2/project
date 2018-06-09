@@ -6,7 +6,7 @@ $(document).ready(function() {
 	$('#container').css('height', $(window).height() - 70);
 	$('#main_bottom').css({
 		'height' : $(window).height() - 70 + 'px',
-		'line-height' : $(window).height() - 70 + 'px'
+//		'line-height' : $(window).height() - 70 + 'px'
 	});
 
 	// 페이지 로드 후 5초 뒤 현재위치에서 조회 실행
@@ -34,6 +34,7 @@ $(document).ready(function() {
 var map;
 var markers = [];
 var infoContentArr = [];
+var infoWindowArr = [];
 
 var startLat = null;
 var startLng = null;
@@ -82,6 +83,9 @@ function initMap() {
 		}
 	});
 
+	
+
+
 }
 
 // 현재 위치에서 조회
@@ -110,19 +114,24 @@ function viewMarkers() {
 			url : "./getmarkers.map",
 			 // 조회 전 기존 마커 제거
 			beforeSend : function() {
+				console.log('before');
 
 				removeMarkers();
 			},
 			// json 받아 마커 생성 & 마커 클러스터 생성 & 마커 이벤트 추가
 			success : function(json) {
+				console.log('success : ' + json);
 
 				getBoardListUsingCurrentPosition(json);
 
 				for (var i = 0; i < json.length; i++) {
-					var title = json[i].title;
-					var infoContent = '<h3><a href="sbview.sb?num=' + json[i].num + '">'
-						+ title + '</a></h3>' + '<br><b>가격</b> : '
-						+ json[i].price + '<br><b>설명</b> : ' + json[i].content;
+					var title = json[i].TITLE;
+					
+					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].NUM + '">' + title + '</a>'
+												+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].PRICE + '원</div>'
+												+ '<img src="' + json[i].IMAGE_URL + '" alt="./image/koala.jpg" height="115" width="83">'
+												+ '<p>' + json[i].CONTENT + '</p></div><div class="iw-bottom-gradient"></div></div>';
+					
 					infoContentArr.push(infoContent);
 
 					addMarkerWithTimeout(json[i], i, title);
@@ -130,9 +139,9 @@ function viewMarkers() {
 
 				console.log("현재 화면에 " + json.length + "개의 마커가 로드됨");
 			},
-			error: function(request,status,error){
-			    alert("code:"+request.status+"\n"+"error:"+error+"message:"+request.responseText+"\n");
-			   }
+			error : function(request, status, error){
+			    alert("code:" + request.status + "\n" + "error:" + error + "message:" + request.responseText + "\n");
+		   }
 		});
 	}
 }
@@ -150,7 +159,7 @@ function removeMarkers() {
 function addMarkerWithTimeout(position, i, title) {
 	window.setTimeout(function() {
 		markers.push(new google.maps.Marker({
-			position : new google.maps.LatLng(position.lat, position.lng),
+			position : new google.maps.LatLng(position.LAT, position.LNG),
 			animation : google.maps.Animation.DROP,
 			map: map,
 			label : {
@@ -167,10 +176,34 @@ function addMarkerWithTimeout(position, i, title) {
 		markers[i].addListener('click', function() {
 			var infoWindow = new google.maps.InfoWindow({
 				content : infoContentArr[i],
-				maxWidth: 200
+				maxWidth: 350
 			});
+			
+			infoWindowArr.push(infoWindow);
 
 			infoWindow.open(markers[i].get('map'), markers[i]);
+			
+			google.maps.event.addListener(map, 'click', function() {
+				infoWindow.close();
+			});
+			
+			google.maps.event.addListener(infoWindow, 'domready', function() {
+			    var iwOuter = $('.gm-style-iw');
+			    var iwBackground = iwOuter.prev();
+
+			    iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+			    iwBackground.children(':nth-child(3)').css({'z-index' : '1000'});
+			    iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+
+			    var iwCloseBtn = iwOuter.next();
+
+			    iwCloseBtn.css({right: '38px', top: '3px', border: '7px solid black', 'border-radius': '13px', 'box-shadow': '0 0 5px gray'});
+
+			    iwCloseBtn.mouseout(function(){
+			      $(this).css({opacity: '1'});
+			    });
+			  });
+			
 		});
 
 	}, i * 100);

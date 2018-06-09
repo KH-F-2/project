@@ -32,6 +32,9 @@ public class SellBoardAddAction implements Action {
 
 
 		int BOARD_NO = sellDAO.getNextBoardNo();
+		System.out.println("다음 글 번호 : " + BOARD_NO);
+		System.out.println("글 쓴 사람 : " + session.getAttribute("id"));
+		System.out.println("글 쓴 사람 : " + session.getAttribute("id").toString());
 
 		boardBean.setSB_NO(BOARD_NO);
 		boardBean.setSB_WRITER(session.getAttribute("id").toString());
