@@ -418,5 +418,4 @@ public class CommentDAO {
 
 		return true;
 	}
-	
 }

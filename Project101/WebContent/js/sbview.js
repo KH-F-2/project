@@ -1,4 +1,5 @@
 $(document).ready(function(){
+<<<<<<< HEAD
 	$("#comment_btn").click(function(){
 		var content=$('#comment_content').val();
 		
@@ -23,10 +24,27 @@ $(document).ready(function(){
 			error: function() {
 				alert("error");
 			}
+			
 		}); // ajax
 	}); // click()
 	
+	$(".div_writer").hide();
+    $(".a_writer").click(function () {
+		var id = $(this).attr('id');
+		$("#div_writer"+id).toggle(); 
+		$("#div_writer"+id).css({
+			'top': '7em',
+			'left': '8em'
+		});
+    });
+	
 	$('#comment_content').click(function(){
+		if(id == null || id == ''){
+			alert('로그인 후 작성하실 수 있습니다.');
+			location.href='./signin.me';
+		}
+	});
+	$('#comment_reply_content').click(function(){
 		if(id == null || id == ''){
 			alert('로그인 후 작성하실 수 있습니다.');
 			location.href='./signin.me';
@@ -62,7 +80,7 @@ $(document).ready(function(){
 				console.log(data.length);
 				// 판매완료되었습니다 가 뜰시 후기작성으로 이동
 				if(data.length < 13){
-					location.href = "./signepil.me?name="+name;
+					location.href = "./signepil.me?writer="+name;
 				}
 			},
 			error: function() {
@@ -71,86 +89,136 @@ $(document).ready(function(){
 		}); // ajax
 	});
 	
+=======
+   $("#comment_btn").click(function(){
+      var content=$('#comment_content').val();
+      
+      $('#comment_content').val('');
+      $('#counter').html('0/300');
+      
+      var id=$('#SB_WRITER').val();
+      var SB_NO=$('#SB_NO').val();
+      var data={"id" : id, "content" : content, "SB_NO" : SB_NO};
+      $.ajax({
+         type : "POST",
+         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+         data : data,
+         url : "./sbcommentaddaction.sb",
+         success: function(data){
+            console.log(data.length);
+            $('.comment_view').empty().append(data);
+            if(data.length > 100) {
+               $('#comment_count').text($('#comment_count').text()*1+1);
+            }
+         },
+         error: function() {
+            alert("error");
+         }
+      }); // ajax
+   }); // click()
+   
+   $('#comment_content').click(function(){
+      if(id == null || id == ''){
+         alert('로그인 후 작성하실 수 있습니다.');
+         location.href='./signin.me';
+      }
+   });
+   $(document).on('click', '#comment_reply_content', function(){
+      if(id == null || id == ''){
+         alert('로그인 후 작성하실 수 있습니다.');
+         location.href='./signin.me';
+      }
+   });
+   
+   // 댓글 삭제버튼 CSS
+   $('.comment_li').each(function(){
+      var cmt_writer=$(this).attr('id');
+      
+      if(id != cmt_writer){
+         $('a[id="comment_delete"]').eq($(this).index()/2).css('display', 'none');
+      }
+   });
+>>>>>>> origin/yeunju
 });
 
 // ajax로 불러온 댓글 삭제버튼 CSS 적용
 $(document).ajaxSuccess(function(){
-	$('.comment_li').each(function(){
-		var cmt_writer=$(this).attr('id');
-		
-		if(id != cmt_writer){
-			$('a[id="comment_delete"]').eq($(this).index()/2).css('display', 'none');
-		}
-	});
-});	
+   $('.comment_li').each(function(){
+      var cmt_writer=$(this).attr('id');
+      
+      if(id != cmt_writer){
+         $('a[id="comment_delete"]').eq($(this).index()/2).css('display', 'none');
+      }
+   });
+});   
 
 
 function commentDelete(CMT_NO){
-	ans=confirm("삭제하시겠습니까?");
-	var SB_NO=$('#SB_NO').val();
-   	if(ans){
-   		$.ajax({
-			type : "POST",
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			data : {"CMT_SUBJECT_NO" : SB_NO, "CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax=", 
-				"CMT_BOARD_NAME" : "SELL_BOARD"},
-			url : "./cmtdelete.cmt",
-			success: function(data){
-				console.log(data.length)
-				$('.comment_view').empty().append(data);
-				if(data.length > 5){
-					$('#comment_count').text($('#comment_count').text()*1-1);
-				}
-			},
-			error: function() {
-				alert("error");
-			}
-		});
-   		return;
-   	}
+   ans=confirm("삭제하시겠습니까?");
+   var SB_NO=$('#SB_NO').val();
+      if(ans){
+         $.ajax({
+         type : "POST",
+         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+         data : {"CMT_SUBJECT_NO" : SB_NO, "CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax=", 
+            "CMT_BOARD_NAME" : "SELL_BOARD"},
+         url : "./cmtdelete.cmt",
+         success: function(data){
+            console.log(data.length)
+            $('.comment_view').empty().append(data);
+            if(data.length > 5){
+               $('#comment_count').text($('#comment_count').text()*1-1);
+            }
+         },
+         error: function() {
+            alert("error");
+         }
+      });
+         return;
+      }
 }
 
 
 function replyView(CMT_NO){
-	$.ajax({
-		type : "POST",
-		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-		data : {"CMT_NO" : CMT_NO},
-		url : "./sellboard/sbcommentreply.jsp",
-		success: function(data){
-			console.log(data);
-			$('.reply').empty();
-			$('.reply').css("display", "none");
-			$('.r'+CMT_NO).append(data);
-			$('.r'+CMT_NO).css("display", "list-item");
-		},
-		error: function() {
-			alert("error");
-		}
-	});
+   $.ajax({
+      type : "POST",
+      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+      data : {"CMT_NO" : CMT_NO},
+      url : "./sellboard/sbcommentreply.jsp",
+      success: function(data){
+         console.log(data);
+         $('.reply').empty();
+         $('.reply').css("display", "none");
+         $('.r'+CMT_NO).append(data);
+         $('.r'+CMT_NO).css("display", "list-item");
+      },
+      error: function() {
+         alert("error");
+      }
+   });
 }
 
 function commentReply(CMT_NO){
-	var content=$('#comment_reply_content').val();
-	var SB_NO=$('#SB_NO').val();
-	var data={"CMT_CONTENT" : content, "CMT_SUBJECT_NO" : SB_NO, "CMT_BOARD_NAME" : "SELL_BOARD", 
-				"CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax="};
-	
-	$.ajax({
-		type : "POST",
-		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-		data : data,
-		url : "./cmtreply.cmt",
-		success: function(data){
-			$('.comment_view').empty().append(data);
-			if(data.length > 100){
-				$('#comment_count').text($('#comment_count').text()*1+1);
-			}
-		},
-		error: function() {
-			alert("error");
-		}
-	});
+   var content=$('#comment_reply_content').val();
+   var SB_NO=$('#SB_NO').val();
+   var data={"CMT_CONTENT" : content, "CMT_SUBJECT_NO" : SB_NO, "CMT_BOARD_NAME" : "SELL_BOARD", 
+            "CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax="};
+   
+   $.ajax({
+      type : "POST",
+      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+      data : data,
+      url : "./cmtreply.cmt",
+      success: function(data){
+         $('.comment_view').empty().append(data);
+         if(data.length > 100){
+            $('#comment_count').text($('#comment_count').text()*1+1);
+         }
+      },
+      error: function() {
+         alert("error");
+      }
+   });
 }
 
 // 댓글입력창 글자수 카운팅
@@ -183,4 +251,22 @@ function chkword(obj, maxByte) {
        obj.value = str2;
        chkword(obj, 4000);
    }
+}
+
+function initMap() {
+	var centerLocation = {
+		lat : sb_lat,
+		lng : sb_lng
+	};
+	console.log(centerLocation)
+
+	map = new google.maps.Map(document.getElementById('map'), {
+		zoom : 17,
+		center : centerLocation
+	});
+	
+	marker = new google.maps.Marker({
+		position : centerLocation,
+		map : map
+	});
 }

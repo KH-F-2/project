@@ -5,7 +5,6 @@ import java.sql.Date;
 public class SellBoardBean {
 	private int SB_NO;
 	private String SB_WRITER;
-	private Date SB_PURCHASE_DATE;
 	private String SB_TITLE;
 	private String SB_CONTENT;
 	private int SB_PRICE;
@@ -16,6 +15,15 @@ public class SellBoardBean {
 	private int SB_STATE;
 	private int SB_CATEGORY;
 	private String SB_HASHTAG;
+	private String IMAGE_URL;
+
+	public String getIMAGE_URL() {
+		return IMAGE_URL;
+	}
+
+	public void setIMAGE_URL(String iMAGE_URL) {
+		IMAGE_URL = iMAGE_URL;
+	}
 
 	public SellBoardBean() {
 		super();
@@ -35,14 +43,6 @@ public class SellBoardBean {
 
 	public void setSB_WRITER(String sB_WRITER) {
 		SB_WRITER = sB_WRITER;
-	}
-
-	public Date getSB_PURCHASE_DATE() {
-		return SB_PURCHASE_DATE;
-	}
-
-	public void setSB_PURCHASE_DATE(Date sB_PURCHASE_DATE) {
-		SB_PURCHASE_DATE = sB_PURCHASE_DATE;
 	}
 
 	public String getSB_TITLE() {

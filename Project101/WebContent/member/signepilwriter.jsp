@@ -6,7 +6,7 @@ $(document).ready(function() {
 	$("#li_epil").click(function() {
 		$.ajax({
 			type : "POST",
-			url : "signepil.mem",
+			url : "signepilcontent.me",
 			data : {"state" : "ajax"},
 			success : function(data) {
 					$(".li_content").html(data);									
@@ -31,13 +31,12 @@ $(document).ready(function() {
     
 <section id="user-filter">
 	<ul>
-		<li>회원아이디 : </li>
+		<li>회원아이디 : ${id}</li>
 	</ul>
 
     <ul>
-      <li><a class="" id="" href="">판매 물품 (31)</a></li>
-      <li><a class="active" id="li_epil"  href="">거래 후기 (2)</a></li>
-      <!-- href="./signepil.mem" -->
+      <li><a class="active" id="li_epil"  href="">
+      	거래 후기</a></li>
     </ul>
     
     <ul>

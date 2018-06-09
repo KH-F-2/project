@@ -10,12 +10,10 @@ import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.bean.SellBoardBean;
 import com.project101.bean.SellBoardPageBean;
-import com.project101.dao.MemberDAO;
 import com.project101.dao.SellBoardDAO;
 
 
-
-public class listAddAction implements Action {
+public class SellerpageListAddAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -69,6 +67,7 @@ public class listAddAction implements Action {
         list = sellerdao.getBoardList(page,limit,writer);
         request.setAttribute("list", list);
         
+        
         boardpage.setLimit(limit);
 		boardpage.setPage(page);
 		boardpage.setListcount(listcount);
@@ -79,8 +78,15 @@ public class listAddAction implements Action {
 		request.setAttribute("boardpage", boardpage);
 		request.setAttribute("writer", writer);
 		
+		//dao에서 IMAGE_URL을 구해옵니다.
+	    //String getimageurl = dao.geturl();
+		ArrayList<SellBoardBean> getimage = new ArrayList<SellBoardBean>();
+		javax.servlet.http.HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		getimage = sellerdao.getimage(writer);
+		request.setAttribute("getimage", getimage);
 		forward.setRedirect(false);
-		forward.setPath("template.jsp?page=/member/sellerpage_main.jsp");
+		forward.setPath("template.jsp?page=/sellboard/sellerpage_main.jsp");
 		return forward;
 	}
 

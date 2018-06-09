@@ -40,7 +40,7 @@ public class SellBoardFrontController extends HttpServlet {
 			else if(command.equals("/sbwriteview.sb")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
-				forward.setPath("template.jsp?page=/sellboard/sbwrite.jsp");
+				forward.setPath("template.jsp?page=/sellboard/boardwrite.jsp");
 			}
 			else if(command.equals("/sbwriteaction.sb")) {
 				action = new SellBoardAddAction();

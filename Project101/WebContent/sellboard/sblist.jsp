@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,16 +17,68 @@
 	        			return false;
 	        		}
 	        	});
-	        	/* $('#search_btn').click(function(){
-	        		var word=$('input[name=search_input').val();
-	        		var item=$('#search_sel').val();
-	        		location.href='./sbmain.sb?word='+word+'&item='+item;
-	        	}); */
 	        });
         </script>
+        <script>
+        	$(document).ready(function() {
+        	$(".div_writer").hide();
+        		$(".a_writer").click(function () {
+        			var id = $(this).attr('id');
+        			var top = $(this).offset().top + 25;
+        			var left = $(this).offset().left;
+        			$("#div_writer"+id).toggle(); 
+        			$("#div_writer"+id).css({
+        				'top': top,
+        				'left': left
+        			})
+        		})
+        	})
+        </script>
 		<link href="css/sblist.css" rel="stylesheet" type="text/css">
+		<style>
+			.map{width: 100%; background-color: silver; height: 300px}
+		/* 작성자 클릭했을때 나오는 정보보기,쪽지보내기 */		
+		.div_writer {overflow:hidden;clear:both;border:1px solid #b6b6b6;background-color:#fff;text-align:left}
+		.div_writer ul {overflow:hidden;width:100%;margin:0}
+		.div_writer li {width:100%;height:25px;margin:0;padding:0;vertical-align:top}
+		.div_writer li.line {border-top:1px solid #ebebeb}
+		.div_writer li a {display:block;width:100%;height:25px;background-color:#fff;color:#4c4c4c}
+		.div_writer li span {display:block;padding:7px 0 0 8px;cursor:pointer}
+		.div_writer li a:hover {background-color:#f4f4f4;text-decoration:none}
+		.div_writer {clear:both;border:1px solid #888;background-color:#FFF;overflow:hidden}
+		.div_writer ul {width:100%;margin:0;padding:0;overflow:hidden}
+		.div_writer li {width:100%;height:25px;margin:0;padding:0;vertical-align:top}
+		.div_writer li a {display:block;width:100%;height:25px;color:#4c4c4c;background-color:#fff}
+		.div_writer li a:hover {background-color:#f4f4f4 !important;text-decoration:none}
+		</style>
 	</head>
 	<body>
+		<%-- <c:set var="b_p" value="${boardPageBean }"/>
+		<h1>판매 게시판</h1>
+		<div class="map">지도~</div>
+		
+		<div class="write"><button type="button">글쓰기</button></div>
+		<c:set var="num" value="${b_p.listcount-(b_p.page-1)*b_p.limit }"/>
+		
+		<c:forEach var="boardBean" items="${b_p.boardBeanList }">
+			<div class="content">
+				
+			</div>
+			<tr>
+				<td width="8%">
+					<c:out value="${num }"/>
+					<c:set var="num" value="${num-1 }"/>
+				</td>
+				<td width="50%" align="left">
+					&nbsp;<a href="./sbview.sb?num=${boardBean.SB_NO }">
+						${boardBean.SB_TITLE }
+					</a>
+				</td>
+				<td width="14%">${boardBean.SB_WRITER }</td>
+				<td width="17%">${boardBean.SB_DATE }</td>
+				<td width="11%">${boardBean.SB_READCOUNT }</td>
+			</tr>
+		</c:forEach> --%>
 		<c:set var="b_p" value="${boardPageBean }"/>
 		<table class="sellboard_table">
 			<c:if test="${b_p.listcount>=1}">
@@ -56,13 +109,30 @@
 									${boardBean.SB_TITLE }
 								</a>
 							</td>
-							<td width="14%">${boardBean.SB_WRITER }</td>
+							<td width="14%">
+							<a href="#" class="a_writer" id="${boardBean.SB_NO}">
+							${boardBean.SB_WRITER }</a>
+							</td>							
+							
 							<td width="17%">${boardBean.SB_DATE }</td>
 							<td width="11%">${boardBean.SB_READCOUNT }</td>
 						</tr>
+		<div id="div_writer${boardBean.SB_NO}" class="div_writer" style="display: block;position: absolute; width: 109px; z-index: 1000; top: 845px; left: 559px;">
+			<ul>
+				<li>
+					<a href="#"><span>정보보기</span></a>
+				</li>					
+				<hr>			
+				<li>
+					<a href="./msmessagewrite.ms?num=${boardBean.SB_NO}
+												&writer=${boardBean.SB_WRITER }">
+					<span>쪽지보내기</span>
+					</a>
+				</li>
+			</ul>
+		</div>	
 					</c:forEach>
-				
-				
+									
 				<tr>
 					<td colspan="5">
 						<c:if test="${b_p.page<=1 }">
@@ -117,14 +187,6 @@
 				</tr>
 			</tfoot>
 		</table>
-		<!-- <div class="search">
-			<select id="search_sel">
-			    <option value="title" selected="selected">제목</option>
-			    <option value="content">내용</option>
-			    <option value="title_content">제목+내용</option>
-			</select>
-			<input type="text" name="search_input" placeholder="Search..">
-			<button id="search_btn">검색</button>
-		</div> -->
+			
 	</body>
 </html>

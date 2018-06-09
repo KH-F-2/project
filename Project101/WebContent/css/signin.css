@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+#signInDiv {
+	width: 75%;
+	display: block;
+	margin: 0 auto;
+	box-sizing: border-box;
+	margin-top: 100px;
+}
+
+#alertId, #alertPassword {
+	display: none;
+}
+
+.ff b {
+	color: lightgray; font-size : 20px;
+	magin: 42px 0 21px;
+	padding-bottom: 10px;
+	text-transform: uppercase;
+	font-weight: 600;
+	display: block;
+	font-size: 20px;
+}
+
+.ff input[type=text], input[type=password] {
+	border-color: transparent;
+	box-shadow: none;
+	outline-style: none;
+	border: 0;
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+	margin: 20px;
+	display: block;
+}
+
+.clearfix input[type='button'], input[type=submit] {
+	margin: 20px;
+	border-color: transparent;
+	box-shadow: none;
+	outline-style: none;
+	background-color: black;
+	color: white;
+	width: 180px;
+	height: 50px;
+	font-size: 13px;
+	margin-left: 10px;
+}
+
+.form_div1, .form_div2 {
+	display: inline-block;
+	width: 40%;
+	float: left;
+}
+
+#signup {
+	width: 100%;
+	height: 100%;
+}
+
+#signup input[type=button] {
+	margin: 20px;
+	border-color: transparent;
+	box-shadow: none;
+	outline-style: none;
+	background-color: black;
+	color: white;
+	width: 180px;
+	height: 50px;
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+.ff input[type=checkbox]{
+	display: none;
+}
+.ff input[type=checkbox] + label::before{
+		content: ' '; 
+        display: inline-block; 
+        width: 21px; 
+        height: 18px;
+        vertical-align: middle;    /* img 아이콘 항상 세로정렬을 하기 위함 */
+        margin: -5px 5px 0 0; 
+        background: url('../image/checked2.png');    /* 하위 브라우저용 img */
+        background: url('../image/checked2.png');    /* svg 파일 적용 */
+}
+.ff input[type=checkbox]:checked + label::before {    /* 가짜 체크박스 체크했을 때 */
+        background: url('../image/checked.png');    /* 하위 브라우저용 img */
+        background: url('../image/checked.png');    /* svg 파일 적용 */
+        background-position: 21px 0;
+}

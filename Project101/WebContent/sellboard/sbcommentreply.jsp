@@ -4,7 +4,7 @@
 <% String cmt_no = request.getParameter("CMT_NO"); %>
 
 <div class="comment_reply_textarea">
-	<i class="material-icons" style="font-size:36px;margin-left:4%;position: relative;bottom: 10px;">navigate_next</i>
+	<i class="material-icons">navigate_next</i>
 	<textarea rows="3" cols="75" style="resize: none;" id="comment_reply_content" placeholder="내용은 300자까지 입력가능합니다."></textarea>
 	<button id="comment_reply_btn" onclick='commentReply(<%=cmt_no %>)'>작성</button>
 </div>

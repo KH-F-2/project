@@ -2,14 +2,21 @@ package com.project101.action.board.sell;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
+import com.project101.bean.ImageBean;
 import com.project101.bean.SellBoardBean;
 import com.project101.bean.SellBoardPageBean;
+import com.project101.dao.ImageDAO;
 import com.project101.dao.SellBoardDAO;
 
 public class SellBoardListAction implements Action {
@@ -21,16 +28,18 @@ public class SellBoardListAction implements Action {
 
 		ActionForward forward = new ActionForward();
 
-		SellBoardDAO sellDAO = new SellBoardDAO();
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
-		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
+		SellBoardDAO sellDAO = new SellBoardDAO();
+		JSONArray arr = new JSONArray();
 
 		/*String searchWord = boardPageBean.getSearchWord();
 		String searchItem = boardPageBean.getSearchItem();*/
 		int page = boardPageBean.getPage();
 		int limit = boardPageBean.getLimit();
-		int listcount = sellDAO.getListCount();
-		System.out.println("listcount : " + listcount);
+		int listcount = 0;
+		
+		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
+		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
 
 		
 		if (request.getParameter("page") != null) {
@@ -54,9 +63,14 @@ public class SellBoardListAction implements Action {
 			boardPageBean.setSearchWord(searchWord);
 		} else {
 			listcount = sellDAO.getListCount();
+			boardBeanlist = sellDAO.getBoardList(page, centerLat, centerLng);
+		}
+		System.out.println("listcount : " + listcount);
+
 			boardBeanlist = sellDAO.getBoardList(page, limit);
 		}*/
-		boardBeanlist = sellDAO.getBoardList(page, limit);
+		
+		arr = sellDAO.getBoardList(page, limit);
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		int startpage = ((page - 1) / limit) * limit + 1;
@@ -66,18 +80,19 @@ public class SellBoardListAction implements Action {
 			endpage = maxpage;
 		}
 
-		boardPageBean.setBoardBeanList(boardBeanlist);
-		boardPageBean.setLimit(limit);
+		/*boardPageBean.setLimit(limit);
 		boardPageBean.setPage(page);
 		boardPageBean.setListcount(listcount);
 		boardPageBean.setMaxpage(maxpage);
 		boardPageBean.setStartpage(startpage);
-		boardPageBean.setEndpage(endpage);
-		
-		request.setAttribute("boardPageBean", boardPageBean);
+		boardPageBean.setEndpage(endpage);*/
+
+
+		request.setAttribute("arr", arr);
+ 		/*request.setAttribute("boardPageBean", boardPageBean);*/
 		
 		forward.setRedirect(false);
-		forward.setPath("template.jsp?page=sellboard/sblist.jsp");
+		forward.setPath("template.jsp?page=sellboard/sblist2.jsp");
 
 		return forward;
 	}

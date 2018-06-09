@@ -76,7 +76,8 @@ public class EpilDAO {
 		return result;
 	}
 
-	public ArrayList<Epil> getEpilList(String epname) {
+
+	public ArrayList<Epil> getEpilList(String writer) {
 		ArrayList<Epil> list = new ArrayList<Epil>();
 		
 		try {
@@ -84,7 +85,8 @@ public class EpilDAO {
 			
 			String sql = "select * from epil where EP_NAME=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,epname);
+			pstmt.setString(1,writer);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

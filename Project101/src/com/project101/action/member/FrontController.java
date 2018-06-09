@@ -32,69 +32,136 @@ public class FrontController extends HttpServlet {
 
 		try {
 
-			if (command.equals("/main.me")) {
-				forward = new ActionForward();
-				forward.setRedirect(false);
-				forward.setPath("template.jsp");
-
-			} else if (command.equals("/signin.me")) {
+			if (command.equals("/signin.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("template.jsp?page=member/signin.jsp");
-			
+
 			} else if (command.equals("/signinprocess.me")) {
 				action = new SignInProcessAction();
 				forward = action.execute(request, response);
-			
+
 			} else if (command.equals("/signout.me")) {
 				action = new SignOutProcessAction();
 				forward = action.execute(request, response);
-			
+
 			} else if (command.equals("/signup.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("template.jsp?page=/member/signup.jsp");
-			
+
 			} else if (command.equals("/mypage.me")) {
-				action = new Mypage();
+				action = new MemberinfoAction();
 				forward = action.execute(request, response);
-			
-			}else if(command.equals("/joinProcess.me")) {
+
+			} else if (command.equals("/joinProcess.me")) {
 				action = new JoinProcessAction();
 				try {
-					forward=action.execute(request, response);
-				}catch(Exception e) {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			
-			}else if(command.equals("/idcheck.me")) {
+
+			} else if (command.equals("/idcheck.me")) {
 				action = new IdCheckAction();
 				try {
-					forward=action.execute(request, response);
-				}catch(Exception e) {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			
-			}else if(command.equals("/emailCheck.me")) {
+
+			} else if (command.equals("/nicknamecheck.me")) {
+				action = new NicknameCheckAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			} else if (command.equals("/sellerpage_main.map")) {
+				action = new SellerpageListAddAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (command.equals("/find.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
-				forward.setPath("/member/emailCheck.jsp");
-			
-			}else if(command.equals("/sellerpage_main.me")) {
-				action = new listAddAction();
-		        try {
-		           forward = action.execute(request, response);
-		        }catch(Exception e) {
-		           e.printStackTrace();
-		        }
-		     }else if(command.equals("/signepil.me")) {
-					action = new SignEpilAction();
-			        try {
-			           forward = action.execute(request, response);
-			        }catch(Exception e) {
-			           e.printStackTrace();
-			        }
-			     }	
+				forward.setPath("/member/find.jsp");
+
+			} else if (command.equals("/findIDResult.me")) {
+				action = new FindIDResultAction();
+				try {
+					forward = action.execute(request, response);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (command.equals("/findPWResult.me")) {
+				action = new FindPWResultAction();
+				try {
+					forward = action.execute(request, response);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (command.equals("/mypage.me")) {
+				action = new MemberinfoAction();
+				try {
+					forward = action.execute(request, response);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			else if (command.equals("/Updatemember.me")) {
+				action = new UpdatememberAction();
+				try {
+					forward = action.execute(request, response);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (command.equals("/emailconfirm.me")) {
+				action = new ConfirmEmailAction();
+				try {
+					forward = action.execute(request, response);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (command.equals("/signepil.me")) {
+				action = new SignEpilAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (command.equals("/sellerpage_main_ajax.me")) {
+				action = new SellerpageWriterAction();
+				forward = action.execute(request, response);
+			} else if (command.equals("/sellerpage_main2_ajax.me")) {
+				action = new SellerpageWriterAction2();
+				forward = action.execute(request, response);
+			} else if (command.equals("/signepil.me")) {
+				action = new SignEpilAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (command.equals("/signaddaction.me")) {
+				action = new SignEpilAddAction();
+				forward = action.execute(request, response);
+			} else if (command.equals("/signepilwriter.me")) {
+				action = new SignEpilWriterAction();
+				forward = action.execute(request, response);
+			} else if (command.equals("/signepilcontent.me")) {
+				action = new SignEpilContentAction();
+				forward = action.execute(request, response);
+			}
 
 			if (forward != null) {
 				if (forward.isRedirect()) {
