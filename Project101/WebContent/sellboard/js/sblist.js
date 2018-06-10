@@ -40,6 +40,16 @@ $(window).load(function () {
 		checkCurrentPosition();
 	});
 	
+	$('#moveTop').css({
+		'cursor' : 'pointer',
+		'position' : 'fixed',
+		'left' : $(window).width() - 70,
+		'top' : $(window).height() - 70,
+	}).click(function () {
+		$('body, html').animate({
+			scrollTop : 0
+		}, 500);
+	});
 	
 });
 

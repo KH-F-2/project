@@ -4,6 +4,11 @@
 	height: 500px;
 }
 
+#moveTop {
+	position: fixed;
+	font-size: 40px;
+}
+
 #mapControler {
 	position: absolute;
 	display: block;

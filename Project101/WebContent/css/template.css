@@ -25,6 +25,7 @@ body {
 	font-size: 30px;
 	font-family: "fontello";
 	font-style: normal;
+	cursor: pointer;
 }
 
 .sidebar h2 {

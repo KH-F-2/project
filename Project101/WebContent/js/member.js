@@ -259,6 +259,7 @@ function initMap() {
 		var place = autocomplete.getPlace();
 		if (place.geometry) {
 			removeMarkers();
+			google.maps.event.removeListener(clickEvent);
 			clickEvent = map.addListener('click', function(event) {
 			    
 				placeMarker(event.latLng);
@@ -278,6 +279,7 @@ function placeMarker(location) {
 		map : map,
 		draggable: true,
 	});
+	markers.push(marker);
 	
 	map.setCenter(location);
 	$('#markerLat').val(location.lat());

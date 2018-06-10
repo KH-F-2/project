@@ -184,12 +184,14 @@
 	
 });
 
+var map;
+var markers = [];
+
 function initMap() {
 	var seoulCityhall = {
 		lat : 37.566697,
 		lng : 126.978457
 	};
-	
 
 	map = new google.maps.Map(document.getElementById('map'), {
 		zoom : 14,
@@ -207,6 +209,12 @@ function initMap() {
 	autocomplete.addListener('place_changed', function() {
 		var place = autocomplete.getPlace();
 		if (place.geometry) {
+			removeMarkers();
+			google.maps.event.removeListener(clickEvent);
+			clickEvent = map.addListener('click', function(event) {
+			    
+				placeMarker(event.latLng);
+			});
 			map.panTo(place.geometry.location);
 			map.setZoom(17);
 		} else {
@@ -222,6 +230,7 @@ function placeMarker(location) {
 		map : map,
 		draggable: true,
 	});
+	markers.push(marker);
 	
 	map.setCenter(location);
 	$('#markerLat').val(location.lat());
@@ -237,4 +246,13 @@ function addDragEvent(marker) {
 		$('#markerLat').val(event.latLng.lat());
 		$('#markerLng').val(event.latLng.lng());
 	});
+}
+
+//마커 제거 함수
+function removeMarkers() {
+	console.log('삭제');
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(null);
+	}
+	markers = [];
 }

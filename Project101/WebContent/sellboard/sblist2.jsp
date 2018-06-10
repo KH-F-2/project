@@ -63,4 +63,5 @@
 		</c:forEach>
 </div>
 
-<div id="moveTop"></div>
+<div id="moveTop">&#xf139;</div>
+
