@@ -1,5 +1,4 @@
 $(document).ready(function(){
-<<<<<<< HEAD
 	$("#comment_btn").click(function(){
 		var content=$('#comment_content').val();
 		
@@ -89,7 +88,6 @@ $(document).ready(function(){
 		}); // ajax
 	});
 	
-=======
    $("#comment_btn").click(function(){
       var content=$('#comment_content').val();
       
@@ -138,7 +136,6 @@ $(document).ready(function(){
          $('a[id="comment_delete"]').eq($(this).index()/2).css('display', 'none');
       }
    });
->>>>>>> origin/yeunju
 });
 
 // ajax로 불러온 댓글 삭제버튼 CSS 적용

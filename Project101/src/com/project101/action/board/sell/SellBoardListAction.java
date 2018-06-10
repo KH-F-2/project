@@ -38,8 +38,8 @@ public class SellBoardListAction implements Action {
 		int limit = boardPageBean.getLimit();
 		int listcount = 0;
 		
-		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
-		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
+		/*double centerLat = Double.parseDouble(request.getParameter("centerLat"));
+		double centerLng = Double.parseDouble(request.getParameter("centerLng"));*/
 
 		
 		if (request.getParameter("page") != null) {
