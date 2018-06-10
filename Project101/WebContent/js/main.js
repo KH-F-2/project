@@ -11,8 +11,23 @@ $(document).ready(function() {
 
 	// 페이지 로드 후 5초 뒤 현재위치에서 조회 실행
 	window.setTimeout(function () {
-		checkCurrentPosition()
-	}, 5000);
+		// 구글 맵 객체 생성하고 센터, 줌 초기 설정
+		// 현재 위치 정보를 가져와서 지도 이동시킴
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function (position) {
+				var currentPosition = {
+						lat : position.coords.latitude,
+						lng : position.coords.longitude
+				};
+
+				map.panTo(currentPosition);
+				checkCurrentPosition()
+			});
+		} else {
+			checkCurrentPosition()
+		}
+		
+	}, 1000);
 
 	$('#checkCurrentPosition').click(function () {
 		checkCurrentPosition();
@@ -48,27 +63,10 @@ function initMap() {
 		lng : 126.978457
 	};
 
-	// 구글 맵 객체 생성하고 센터, 줌 초기 설정
-	// 현재 위치 정보를 가져와서 지도 이동시킴
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
-			var currentPosition = {
-					lat : position.coords.latitude,
-					lng : position.coords.longitude
-			};
-
-			map = new google.maps.Map(document.getElementById('map'), {
-				zoom : 14,
-				center : currentPosition
-			});
-		});
-	} else {
-		map = new google.maps.Map(document.getElementById('map'), {
-			zoom : 14,
-			center : seoulCityhall
-		});
-	}
-
+	map = new google.maps.Map(document.getElementById('map'), {
+		zoom : 14,
+		center : seoulCityhall
+	});
 
 	// 검색 자동 완성 기능 구현
 	autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));

@@ -126,13 +126,13 @@
 		</div>
 		
 		<div class="form-row last-row">
-			<span class="check" id="check1">&#xe801;</span>
+			<span class="check" id="check1">&#xe803;</span>
 			<h3>모든 항목에 체크하기</h3><br>
-			<span class="check sub" id="check2">&#xe801;</span>
+			<span class="check sub" id="check2">&#xe803;</span>
 			<h3>* 개인정보의 수집 및 이용에 대한 동의 자세히 보기</h3><br>
-			<span class="check sub" id="check3">&#xe801;</span>
+			<span class="check sub" id="check3">&#xe803;</span>
 			<h3>* 개인정보의 국외 이전에 대한 동의 자세히 보기</h3><br>
-			<span class="check sub" id="check4">&#xe801;</span>
+			<span class="check sub" id="check4">&#xe803;</span>
 			<h3>뉴스레터 구독을 위한 개인정보의 수집 및 이용에 대한 동의 자세히 보기</h3>
 		</div>
 		

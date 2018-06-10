@@ -88,6 +88,7 @@
 	width: 200px;
 	height: 280px;
 	margin: 0 15px 50px 15px;
+	text-align: left;
 }
 
 .content img {
@@ -101,7 +102,7 @@
 	font-weight: bold;
 	font-size: 15px;
 	display: inline-block;
-	width: 150px;
+	width: 190px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -114,12 +115,23 @@
 .content span {
 	font-size: 11px;
 	display: inline-block;
-	width: 150px;
+	width: 190px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
+#contentInfoSection {
+	display: block;
+	width: 100%;
+}
+
+.contentInfo {
+	display: inline-block;
+	width: 30%;
+	color: #BDBDBD;
+	font-size: 12px;
+}
 
 /*  Map에 InfoWindow CSS 지정  */
 #map img {

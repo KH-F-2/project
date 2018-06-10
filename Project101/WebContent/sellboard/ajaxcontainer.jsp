@@ -9,8 +9,13 @@
 					<img src="${item.IMAGE_URL }">
 					<p>${item.TITLE }</p>
 				</a>
-				<span>${item.PRICE }원</span>
+				<span>&#xf159; ${item.PRICE }원</span>
 				<span>${item.CONTENT }</span>
+				<div id="contentInfoSection">
+					<div class="contentInfo">&#xe80b; 0</div>
+					<div class="contentInfo">&#xe816; 0</div>
+					<div class="contentInfo">&#xe80d; ${item.READCOUNT }</div>
+				</div>
 			</div>
 		</c:forEach>
 	</c:when>	
