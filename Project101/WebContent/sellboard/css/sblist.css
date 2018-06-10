@@ -1,24 +1,7 @@
-@charset "UTF-8";
 
 #map {
 	width: 100%;
-}
-
-#main_head span {
-	display: block;
-	margin: 0 auto;
-	font-size: 40px;
-	text-align: center;
-	line-height: 200px;
-}
-
-#main_head h3 {
-	font-size: 15px;
-	display: block;
-	font-weight: normal;
-	width: 500px;
-	text-align: center;
-	margin: 0 auto;
+	height: 500px;
 }
 
 #mapControler {
@@ -137,53 +120,6 @@
 	white-space: nowrap;
 }
 
-#main_bottom {
-	width: 100%;
-	text-align: center;
-	display: table;
-}
-
-#main_bottom #wrap1 {
-	display: table-cell;
-	width: 80%;
-	height: 700px;
-	margin: 0 auto;
-	text-align: center;
-	vertical-align: middle;
-}
-
-#main_bottom #wrap2 {
-	display: inline-block;
-	width: 35%;
-	height: 500px;
-	margin-right: 100px;
-}
-
-#main_bottom #wrap3 {
-	display: inline-block;
-	width: 35%;
-	height: 500px;
-}
-
-#wrap1 h2 {
-	font-size: 25px;
-	margin: 30px 0;
-}
-
-#wrap1 input[type="button"] {
-	border-color: transparent;
-	box-shadow: none;
-	outline-style: none;
-	width: 400px;
-	height: 50px;
-	border: 1px solid black;
-	margin-top: 100px;
-}
-
-#wrap1 input[type="button"]:hover {
-	background-color: black;
-	color: white;
-}
 
 /*  Map에 InfoWindow CSS 지정  */
 #map img {

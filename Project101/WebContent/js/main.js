@@ -157,21 +157,42 @@ function removeMarkers() {
 
 // 시간 차 를 두고 마커 생성 & 이벤트 추가
 function addMarkerWithTimeout(position, i, title) {
+	
 	window.setTimeout(function() {
-		markers.push(new google.maps.Marker({
-			position : new google.maps.LatLng(position.LAT, position.LNG),
-			animation : google.maps.Animation.DROP,
-			map: map,
-			label : {
-				color : 'black',
-				fontWeight : 'bold',
-				text : title,
-			},
-			icon : {
-				labelOrigin : new google.maps.Point(11, 45),
-				url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blueP.png',
-			}
-		}));
+		
+		if (position.BOARD_NAME == 'SELL_BOARD') {
+			console.log('sell');
+			markers.push(new google.maps.Marker({
+				position : new google.maps.LatLng(position.LAT, position.LNG),
+				animation : google.maps.Animation.DROP,
+				map: map,
+				label : {
+					color : 'black',
+					fontWeight : 'bold',
+					text : title,
+				},
+				icon : {
+					labelOrigin : new google.maps.Point(11, 45),
+					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blueP.png',
+				}
+			}));
+		} else {
+			console.log('purchase');
+			markers.push(new google.maps.Marker({
+				position : new google.maps.LatLng(position.LAT, position.LNG),
+				animation : google.maps.Animation.DROP,
+				map: map,
+				label : {
+					color : 'black',
+					fontWeight : 'bold',
+					text : title,
+				},
+				icon : {
+					labelOrigin : new google.maps.Point(11, 45),
+					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_redS.png',
+				}
+			}));
+		}
 
 		markers[i].addListener('click', function() {
 			var infoWindow = new google.maps.InfoWindow({

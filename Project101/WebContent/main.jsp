@@ -56,7 +56,7 @@
 			<input type="button" id="seeMoreBtn" value="더보기">
 		</div>
 		<div id="wrap3">
-			<h2>상품을 팔고 싶으신가요?</h2>
+			<h2>상품을 판매하고 싶으신가요?</h2>
 			<h2>더이상 필요없는 물건을 빠르게 판매해보세요.</h2>
 			<input type="button" id="writeBtn" value="글 쓰러 가기">
 		</div>
