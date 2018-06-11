@@ -50,8 +50,11 @@
 						[${boardBean.CATEGORY}]
 					</div>
 					<div class="hashtag">
-						${boardBean.HASHTAG}
+						<input type="hidden" id="tagVal" value="${boardBean.SB_HASHTAG }">
 					</div>
+					<%-- <div class="hashtag">
+						${boardBean.HASHTAG}
+					</div> --%>
 					
 					<div class="writer">
 						<%-- <a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a> --%>

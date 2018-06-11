@@ -31,7 +31,7 @@
 					$('#purchase').attr('checked', 'checked');
 				}
 				
-				var cate = '${boardBean.SB_CATEGORY}';
+				var cate = '${boardBean.CATEGORY}';
 				$('.cate_option').each(function(){
 					if ($(this).text() == cate) {
 						$(this).attr('selected', 'selected');
@@ -134,6 +134,7 @@
 						    <option class="cate_option" value="4">가구</option>
 						    <option class="cate_option" value="5">가전/디지털</option>
 						    <option class="cate_option" value="6">도서/쿠폰</option>
+						    <option class="cate_option" value="7">기타</option>
 						</select>
 					</div>
 					<div class="price">

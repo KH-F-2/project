@@ -63,7 +63,7 @@ public class SellBoardAddAction implements Action {
 			purchaseBoardBean.setPB_HASHTAG(request.getParameter("HASHTAG"));
 			purchaseBoardBean.setPB_LAT(Double.parseDouble(request.getParameter("markerLat")));  
 			purchaseBoardBean.setPB_LNG(Double.parseDouble(request.getParameter("markerLng")));
-
+			
 			result = purchaseDAO.purchaseInsert(purchaseBoardBean);
 			BOARD_NUM = BOARD_NO;
 		}

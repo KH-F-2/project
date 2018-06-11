@@ -31,7 +31,7 @@ public class CommentDeleteAction implements Action {
 		ActionForward forward = new ActionForward();
 		
 		forward.setRedirect(false);
-		forward.setPath(url + CMT_SUBJECT_NO);
+		forward.setPath(url + CMT_SUBJECT_NO + "&board_name=" + board_name);
 		return forward;
 	}
 

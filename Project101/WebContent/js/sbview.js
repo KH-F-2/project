@@ -1,4 +1,31 @@
 $(document).ready(function(){
+	$("#comment_btn").click(function(){
+	      var content=$('#comment_content').val();
+	      
+	      $('#comment_content').val('');
+	      $('#counter').html('0/300');
+	      
+	      var id=$('#WRITER').val();
+	      var NO=$('#NO').val();
+	      var data={"id" : id, "content" : content, "NO" : NO, "board_name" : board_name};
+	      $.ajax({
+	         type : "POST",
+	         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+	         data : data,
+	         url : "./sbcommentaddaction.sb",
+	         success: function(data){
+	            console.log(data.length);
+	            $('.comment_view').empty().append(data);
+	            if(data.length > 100) {
+	               $('#comment_count').text($('#comment_count').text()*1+1);
+	            }
+	         },
+	         error: function() {
+	            alert("error");
+	         }
+	      }); // ajax
+	}); // click()
+	
 	$(".div_writer").hide();
     $(".a_writer").click(function () {
 		var id = $(this).attr('id');
@@ -49,7 +76,7 @@ $(document).ready(function(){
 			success: function(data){
 				alert(data);
 				console.log(data.length);
-				// 거래완료되었습니다 가 뜰시 후기작성으로 이동
+				// 판매완료되었습니다 가 뜰시 후기작성으로 이동
 				if(data.length < 13){
 					location.href = "./signepil.me?writer="+name;
 				}
@@ -60,55 +87,13 @@ $(document).ready(function(){
 		}); // ajax
 	});
 	
+	tagArr = $('#tagVal').val().split(' ');
 	
-   $("#comment_btn").click(function(){
-      var content=$('#comment_content').val();
-      
-      $('#comment_content').val('');
-      $('#counter').html('0/300');
-      
-      var id=$('#WRITER').val();
-      var NO=$('#NO').val();
-      var data={"id" : id, "content" : content, "NO" : NO, "board_name" : board_name};
-      $.ajax({
-         type : "POST",
-         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-         data : data,
-         url : "./sbcommentaddaction.sb",
-         success: function(data){
-            console.log(data.length);
-            $('.comment_view').empty().append(data);
-            if(data.length > 100) {
-               $('#comment_count').text($('#comment_count').text()*1+1);
-            }
-         },
-         error: function() {
-            alert("error");
-         }
-      }); // ajax
-   }); // click()
+	for (var i = 0; i < tagArr.length; i++) {
+		$('.hashtag').append('<a href="./sbmain.sb?word=' + tagArr[i].split('#')[1] + '&item=hashtag">' + tagArr[i] + '</a> ');
+	}
    
-   $('#comment_content').click(function(){
-      if(id == null || id == ''){
-         alert('로그인 후 작성하실 수 있습니다.');
-         location.href='./signin.me';
-      }
-   });
-   $(document).on('click', '#comment_reply_content', function(){
-      if(id == null || id == ''){
-         alert('로그인 후 작성하실 수 있습니다.');
-         location.href='./signin.me';
-      }
-   });
-   
-   // 댓글 삭제버튼 CSS
-   $('.comment_li').each(function(){
-      var cmt_writer=$(this).attr('id');
-      
-      if(id != cmt_writer){
-         $('a[id="comment_delete"]').eq($(this).index()/2).css('display', 'none');
-      }
-   });
+	
 });
 
 // ajax로 불러온 댓글 삭제버튼 CSS 적용
@@ -125,7 +110,7 @@ $(document).ajaxSuccess(function(){
 
 function commentDelete(CMT_NO){
    ans=confirm("삭제하시겠습니까?");
-   var NO=$('#SB_NO').val();
+   var NO=$('#NO').val();
       if(ans){
          $.ajax({
          type : "POST",

@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.bean.SellBoardBean;
@@ -25,7 +27,7 @@ public class SellBoardListAction implements Action {
 
 		SellBoardDAO sellDAO = new SellBoardDAO();
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
-		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
+		JSONArray boardBeanlist = new JSONArray();
 
 		String searchWord = boardPageBean.getSearchWord();
 		String searchItem = boardPageBean.getSearchItem();
@@ -49,12 +51,12 @@ public class SellBoardListAction implements Action {
 		}
 
 		if (!searchWord.equals("")) {
-			Map<String, Object> map = new HashMap<String, Object>();
 			
-			map = sellDAO.getSearchList(page, limit, searchWord, searchItem);
+			Map<String, Object> map = sellDAO.getSearchList(page, searchWord, searchItem, centerLat, centerLng);
+			
 			listcount = (int) map.get("listcount");
 			
-			boardBeanlist = (List<SellBoardBean>) map.get("boardBeanList");
+			boardBeanlist = (JSONArray) map.get("jsonArr");
 			boardPageBean.setSearchItem(searchItem);
 			boardPageBean.setSearchWord(searchWord);
 		} else {
@@ -75,15 +77,15 @@ public class SellBoardListAction implements Action {
 			endpage = maxpage;
 		}
 
-		boardPageBean.setBoardBeanList(boardBeanlist);
+		/*boardPageBean.setBoardBeanList(boardBeanlist);
 		boardPageBean.setLimit(limit);
 		boardPageBean.setPage(page);
 		boardPageBean.setListcount(listcount);
 		boardPageBean.setMaxpage(maxpage);
 		boardPageBean.setStartpage(startpage);
-		boardPageBean.setEndpage(endpage);
+		boardPageBean.setEndpage(endpage);*/
 		
-		request.setAttribute("boardPageBean", boardPageBean);
+		request.setAttribute("boardBeanlist", boardBeanlist);
 		request.setAttribute("centerLat", Double.parseDouble(request.getParameter("centerLat")));
 		request.setAttribute("centerLng", Double.parseDouble(request.getParameter("centerLng")));
 
