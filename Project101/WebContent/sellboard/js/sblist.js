@@ -6,7 +6,7 @@ $(window).load(function () {
 	console.log(docHeight - winHeight);
 	var page = 1;
 	
-	$(window).scroll(function () {
+	var infiniteScroll = $(window).scroll(function () {
 		console.log($(window).scrollTop());
 		if ($(window).scrollTop() == (docHeight - winHeight)) {
 			++page;
@@ -36,6 +36,24 @@ $(window).load(function () {
 		}
 	});
 	
+//	function onElementHeightChange(elm, callback){
+//		var lastHeight = elm.clientHeight, newHeight;
+//		(function run(){
+//			newHeight = elm.clientHeight;
+//			if( lastHeight != newHeight )
+//				callback();
+//			lastHeight = newHeight;
+//
+//	        if( elm.onElementHeightChangeTimer )
+//	          clearTimeout(elm.onElementHeightChangeTimer);
+//
+//			elm.onElementHeightChangeTimer = setTimeout(run, 200);
+//		})();
+//	}
+//
+//
+//	onElementHeightChange(document.body, infiniteScroll);
+	
 	$('#checkCurrentPosition').click(function () {
 		checkCurrentPosition();
 	});
@@ -50,6 +68,38 @@ $(window).load(function () {
 			scrollTop : 0
 		}, 500);
 	});
+	
+
+	$('#search_input').keyup(function() {
+		page = 1;
+		var word = $('input[name=search_input').val();
+		var item = $('#search_sel').val();
+		
+		$.ajax({
+			type: 'post',
+			data: {
+				'page' : page,
+				'centerLat' : location.search.split('&')[0].split('=')[1],
+				'centerLng' : location.search.split('&')[1].split('=')[1],
+				'word' : word,
+				'item' : item,
+				'state' : 'ajax',
+			},
+			url: './sbmain.sb',
+			headers: {
+				"cache-control": "no-cache",
+				"pragma": "no-cache"
+			},
+			success: function (json) {
+				console.log('검색 ajax 실행');
+				$('#container').empty().append(json);
+			},
+			error: function () {
+				console.log('error');
+			}
+		});
+	});
+	
 	
 });
 
@@ -128,12 +178,12 @@ function viewMarkers() {
 				getBoardListUsingCurrentPosition(json);
 
 				for (var i = 0; i < json.length; i++) {
-					var title = json[i].TITLE;
+					var title = json[i].title;
 					
-					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].NUM + '">' + title + '</a>'
-												+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].PRICE + '원</div>'
-												+ '<img src="' + json[i].IMAGE_URL + '" alt="./image/koala.jpg" height="115" width="83">'
-												+ '<p>' + json[i].CONTENT + '</p></div><div class="iw-bottom-gradient"></div></div>';
+					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '">' + title + '</a>'
+												+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
+												+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
+												+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';
 					
 					infoContentArr.push(infoContent);
 
@@ -161,10 +211,10 @@ function removeMarkers() {
 // 시간 차 를 두고 마커 생성 & 이벤트 추가
 function addMarkerWithTimeout(position, i, title) {
 	window.setTimeout(function() {
-		if (position.BOARD_NAME == 'SELL_BOARD') {
+		if (position.board_name == 'SELL_BOARD') {
 			console.log('sell');
 			markers.push(new google.maps.Marker({
-				position : new google.maps.LatLng(position.LAT, position.LNG),
+				position : new google.maps.LatLng(position.lat, position.lng),
 				animation : google.maps.Animation.DROP,
 				map: map,
 				label : {
@@ -180,7 +230,7 @@ function addMarkerWithTimeout(position, i, title) {
 		} else {
 			console.log('purchase');
 			markers.push(new google.maps.Marker({
-				position : new google.maps.LatLng(position.LAT, position.LNG),
+				position : new google.maps.LatLng(position.lat, position.lng),
 				animation : google.maps.Animation.DROP,
 				map: map,
 				label : {
