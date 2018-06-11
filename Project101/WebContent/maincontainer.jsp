@@ -6,7 +6,7 @@
 		<h3 id="container-header">내 주변에 등록된 상품이 ${jsonArr.size() }개 이상 있습니다.</h3>
 		<c:forEach var="item" items="${jsonArr }" begin="0" end="9">
 			<div class="content">
-				<a href="sbview.sb?num=${item.NUM }">
+				<a href="sbview.sb?num=${item.NUM }&boardname=${item.BOARD_NAME }">
 					<img src="${item.IMAGE_URL }">
 					<p>${item.TITLE }</p>
 				</a>

@@ -23,6 +23,14 @@
 					$('#tagSection').append('<div class="tag"><span>' + $('#hashTag').val().split(" ")[i] + '</span><a href="#" class="close"> X </a></div>');
 				}
 				
+				$('input[type=radio]').attr('disabled', 'disabled');
+				const name = '${imageBean.BOARD_NAME}';
+				if(name == 'SELL_BOARD'){
+					$('#sell').attr('checked', 'checked');
+				}else{
+					$('#purchase').attr('checked', 'checked');
+				}
+				
 				var cate = '${boardBean.SB_CATEGORY}';
 				$('.cate_option').each(function(){
 					if ($(this).text() == cate) {
@@ -33,11 +41,11 @@
 			});
 			
 			function initMap2() {
-				var sb_lat = ${boardBean.SB_LAT};
-				var sb_lng = ${boardBean.SB_LNG};
+				var lat = ${boardBean.LAT};
+				var lng = ${boardBean.LNG};
 				var mak = {
-					lat : sb_lat,
-					lng : sb_lng
+					lat : lat,
+					lng : lng
 				};
 
 				map = new google.maps.Map(document.getElementById('map'), {
@@ -81,7 +89,7 @@
 	
 		<div class="header"><h1>게시판 수정</h1></div>
 		<form action="" method="post" id="write_submit">
-			<input type="hidden" name="SB_NO" value="${boardBean.SB_NO}">
+			<input type="hidden" name="NO" value="${boardBean.NO}">
 			<ul class="write_ul">
 			
 				<li class="write_li">
@@ -89,20 +97,20 @@
 						<input type="text" placeholder="검색할 장소를 입력하세요." id="autocomplete">
 					</div>
 					<div id="map"></div>
-					<input type="hidden" name="markerLat" id="markerLat" value="${boardBean.SB_LAT}">
-					<input type="hidden" name="markerLng" id="markerLng" value="${boardBean.SB_LNG}">
+					<input type="hidden" name="markerLat" id="markerLat" value="${boardBean.LAT}">
+					<input type="hidden" name="markerLng" id="markerLng" value="${boardBean.LNG}">
 				</li>
 				
 				<li class="write_li">
 					<div class="board_type">
-						<input type="radio" id="purchase" name="iCheck" value="3" checked>
+						<input type="radio" id="purchase" name="iCheck" value="3">
 							<label class="radio_label" id="radio1" for="purchase">구매</label>
 						<input type="radio" id="sell" name="iCheck" value="4">
 							<label class="radio_label" id="radio2" for="sell">판매</label>
 					</div>
 					<div class="title">
 						<img src="image/document.png" alt="document" class="write_img">
-						<input name="TITLE" type="text" size="50" maxlength="100" value="${boardBean.SB_TITLE}" placeholder="제목을 입력하세요">
+						<input name="TITLE" type="text" size="50" maxlength="100" value="${boardBean.TITLE}" placeholder="제목을 입력하세요">
 					</div>
 				</li>
 				
@@ -110,7 +118,7 @@
 					<div id="tagSection">
 						<img src="image/hashtag.png" alt="hashtag" class="write_img">
 						<input type="text" id="inputTag" placeholder="hashtags">
-						<input type="hidden" id="hashTag" name="HASHTAG" value="${boardBean.SB_HASHTAG}">
+						<input type="hidden" id="hashTag" name="HASHTAG" value="${boardBean.HASHTAG}">
 					</div>
 					
 				</li>
@@ -130,13 +138,13 @@
 					</div>
 					<div class="price">
 						<img src="image/money.png" alt="money" class="write_img">
-						<input name = "PRICE" type="text" size="50" maxlength="50" value="${boardBean.SB_PRICE}" placeholder="가격">
+						<input name = "PRICE" type="text" size="50" maxlength="50" value="${boardBean.PRICE}" placeholder="가격">
 					</div>
 				</li>
 				
 				<li class="write_li">
 					<div class="content">
-						<textarea name="CONTENT" cols="65" rows="15">${boardBean.SB_CONTENT}</textarea>
+						<textarea name="CONTENT" cols="65" rows="15">${boardBean.CONTENT}</textarea>
 					</div>
 				</li>
 				

@@ -1,13 +1,13 @@
 package com.project101.action.comment;
 
-import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project101.action.*;
-import com.project101.bean.*;
-import com.project101.dao.*;
+import com.project101.action.Action;
+import com.project101.action.ActionForward;
+import com.project101.bean.CommentBean;
+import com.project101.dao.CommentDAO;
 
 public class CommentReplyAction implements Action {
 
@@ -15,7 +15,6 @@ public class CommentReplyAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-
 		ActionForward forward = new ActionForward();
 		HttpSession session = request.getSession();
 		
@@ -47,7 +46,7 @@ public class CommentReplyAction implements Action {
 		}
 
 		forward.setRedirect(false);
-		forward.setPath(url + CMT_SUBJECT_NO);
+		forward.setPath(url + CMT_SUBJECT_NO + "&board_name=" + board_name);
 		
 		return forward;
 	}

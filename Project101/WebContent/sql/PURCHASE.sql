@@ -79,7 +79,7 @@ select * from (select rownum rnum, NUM, WRITER, TITLE, CONTENT, READCOUNT, DDATE
 	UNION ALL (select PB_NO as NUM, PB_WRITER as WRITER, PB_TITLE as TITLE, PB_CONTENT as CONTENT, PB_READCOUNT as READCOUNT, PB_DATE as DDATE, PB_CATEGORY as CATEGORY,
 	PB_HASHTAG as HASHTAG, PB_STATE as STATE, PB_LAT as LAT, PB_LNG as LNG, PB_PRICE as PRICE, sqrt(power((37.570158-PB_LAT),2) + power((126.982899-PB_LNG),2)) as distance, IMAGE_URL, BOARD_NAME from
 	(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD'))))
-	where rnum >= 1 and rnum <= 5 order by distance
+	where rnum >= 1 and rnum <= 35 order by distance
 
 select * from (
 select rownum rnum, NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, CATEGORY, HASHTAG, STATE, DDATE, IMAGE_URL, BOARD_NAME from(

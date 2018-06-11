@@ -65,7 +65,6 @@ public class SellBoardListAction implements Action {
 
 		
 		
-		arr = sellDAO.getBoardList(page, limit);
 
 		
 		int maxpage = (listcount + limit - 1) / limit;
@@ -89,11 +88,6 @@ public class SellBoardListAction implements Action {
 		request.setAttribute("centerLng", Double.parseDouble(request.getParameter("centerLng")));
 
 
-		request.setAttribute("centerLat", centerLat);
-		request.setAttribute("centerLng", centerLng);
-		request.setAttribute("arr", arr);
-
-		
 		forward.setRedirect(false);
 		if (request.getParameter("state") != null) {
 			

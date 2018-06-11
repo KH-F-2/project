@@ -34,9 +34,9 @@
 	$('#write_submit').submit(function () {
 		board_type = $('input[type="radio"]:checked').val();
 		if(board_type == 1){
-			$('#write_submit').attr('action', "./pbwriteAction.pb");
+			$('#write_submit').attr('action', "./sbwriteaction.sb?board_name=PURCHASE_BOARD");
 		} else if(board_type == 2){
-			$('#write_submit').attr('action', "./sbwriteaction.sb");
+			$('#write_submit').attr('action', "./sbwriteaction.sb?board_name=SELL_BOARD");
 		} else if(board_type == 3){
 			$('#write_submit').attr('action', "./sbwriteaction.sb");
 		} else if(board_type == 4){

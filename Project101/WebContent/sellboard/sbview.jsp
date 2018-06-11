@@ -16,12 +16,13 @@
 		
         <script type="text/javascript">
 			var id='${sessionScope.id}';
-			var sb_lat = ${boardBean.SB_LAT};
-			var sb_lng = ${boardBean.SB_LNG};
+			const lat = ${boardBean.LAT};
+			const lng = ${boardBean.LNG};
+			const board_name = '${boardBean.board_name}';
 				function deleteConfirm(){
 				   	ans=confirm("삭제하시겠습니까?");
 				   	if(ans){
-				   		location.href="<c:url value='/sbdelete.sb?num=${boardBean.SB_NO}'/>";
+				   		location.href="<c:url value='/sbdelete.sb?num=${boardBean.NO}&centerLat=${boardBean.LAT}&centerLng=${boardBean.LNG}&board_name=${boardBean.board_name}'/>";
 				  	return;
 				   	}
 					alert("삭제가 취소됨!!");
@@ -36,44 +37,44 @@
 			
 				<li class="sbview_li 1">
 					<div class="title">
-						${boardBean.SB_TITLE}
+						${boardBean.TITLE}
 					</div>
 					<div class="date">
-						글번호 ${boardBean.SB_NO}<input type="hidden" id="SB_NO" value="${boardBean.SB_NO}"><br>
-						등록 ${boardBean.SB_DATE}
+						글번호 ${boardBean.NO}<input type="hidden" id="NO" value="${boardBean.NO}"><br>
+						등록 ${boardBean.DATE}
 					</div>
 				</li>
 				
 				<li class="sbview_li 2">
 					<div class="category">
-						[${boardBean.SB_CATEGORY}]
+						[${boardBean.CATEGORY}]
 					</div>
 					<div class="hashtag">
-						${boardBean.SB_HASHTAG}
+						${boardBean.HASHTAG}
 					</div>
 					
 					<div class="writer">
 						<%-- <a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a> --%>
-						<a href="#" class="a_writer" id="${boardBean.SB_NO}">${boardBean.SB_WRITER}</a>
-						<input type="hidden" id="SB_WRITER" value="${boardBean.SB_WRITER}">
+						<a href="#" class="a_writer" id="${boardBean.NO}">${boardBean.WRITER}</a>
+						<input type="hidden" id="WRITER" value="${boardBean.WRITER}">
 					</div>
 					
-					<div id="div_writer${boardBean.SB_NO}" class="div_writer">
+					<div id="div_writer${boardBean.NO}" class="div_writer">
 						<ul>
 							<li>
-								<a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}"><span>정보보기</span></a>
+								<a href="./sellerpage_main.me?writer=${boardBean.WRITER}"><span>정보보기</span></a>
 							</li>               
 							<hr>         
 							<li>
-								<a href="./msmessagewrite.ms?num=${boardBean.SB_NO}
-									&writer=${boardBean.SB_WRITER }">
+								<a href="./msmessagewrite.ms?num=${boardBean.NO}
+									&writer=${boardBean.WRITER }">
 								<span>쪽지보내기</span>
 								</a>
 							</li>
 						</ul>
 					</div>
 					
-					<div class="price">${boardBean.SB_PRICE } 원</div>
+					<div class="price">${boardBean.PRICE } 원</div>
 					
 					
 				</li>
@@ -132,11 +133,13 @@
 					</div>
 					
 					<div class="content">
-						${boardBean.SB_CONTENT }
+						${boardBean.CONTENT }
 					</div>
 				</li>
 				<li class="btn_li">
-					<button type="button" id="trade">구매 신청</button>
+					<c:if test="${boardBean.board_name eq 'SELL_BOARD'}">
+						<button type="button" id="trade">구매 신청</button>
+					</c:if>
 				</li>
 				
 			</ul>
@@ -148,15 +151,15 @@
 			<div class="menu_bar">
 				<ul>
 					<li>
-						<c:if test="${id=='admin'||id==boardBean.SB_WRITER}">
-					    	<a href="<c:url value='/sbmodifyview.sb?num=${boardBean.SB_NO}'/>">
+						<c:if test="${id=='admin'||id==boardBean.WRITER}">
+					    	<a href="<c:url value='/sbmodifyview.sb?num=${boardBean.NO}&board_name=${boardBean.board_name}'/>">
 								<img src="image/update.png">
 							</a> &nbsp;
 							<a href="javascript:deleteConfirm()">
 								<img src="image/delete.png">
 							</a> &nbsp;
 						</c:if>
-						<a href="<c:url value='/sbmain.sb'/>">
+						<a href="<c:url value='/sbmain.sb?centerLat=${boardBean.LAT}&centerLng=${boardBean.LNG}'/>">
 							<img src="image/list.png">
 						</a>
 					</li>
@@ -208,7 +211,7 @@
 									이전&nbsp;
 								</c:if>
 								<c:if test="${b_p.page>1 }">
-									<a href="./sbview.sb?page=${b_p.page-1}&num=${boardBean.SB_NO}">이전</a>&nbsp;
+									<a href="./sbview.sb?page=${b_p.page-1}&num=${boardBean.NO}">이전</a>&nbsp;
 								
 								</c:if>
 								<c:forEach var="a" begin="${b_p.startpage }" end="${b_p.endpage }">
@@ -216,7 +219,7 @@
 										${a }
 									</c:if>
 									<c:if test="${a!=b_p.page }">
-										<a href="./sbview.sb?page=${a }&num=${boardBean.SB_NO}">${a }</a>
+										<a href="./sbview.sb?page=${a }&num=${boardBean.NO}">${a }</a>
 									</c:if>
 								
 								</c:forEach>
@@ -224,7 +227,7 @@
 									&nbsp;다음
 								</c:if>
 								<c:if test="${b_p.page<b_p.maxpage }">
-									&nbsp;<a href="./sbview.sb?page=${b_p.page+1 }&num=${boardBean.SB_NO}">다음</a>
+									&nbsp;<a href="./sbview.sb?page=${b_p.page+1 }&num=${boardBean.NO}">다음</a>
 								</c:if>
 							</div>
 						</li>

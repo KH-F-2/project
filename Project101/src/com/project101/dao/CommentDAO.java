@@ -260,13 +260,14 @@ public class CommentDAO {
 		return commentBean;
 	}
 
-	public int getCommentListCount(int num) {
+	public int getCommentListCount(int num,String board_name) {
 		int x = 0;
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement("select count(*) from COMMENTS where CMT_SUBJECT_NO = ?");
+			pstmt = conn.prepareStatement("select count(*) from COMMENTS where CMT_SUBJECT_NO = ? and CMT_BOARD_NAME = ?");
 
 			pstmt.setInt(1, num);
+			pstmt.setString(2, board_name);
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {

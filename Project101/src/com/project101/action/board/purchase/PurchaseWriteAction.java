@@ -17,7 +17,7 @@ public class PurchaseWriteAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
-		PurchaseBoardBean boardBean = new PurchaseBoardBean();
+		PurchaseBoardBean purchaseBoardBean = new PurchaseBoardBean();
 		ImageDAO imageDAO = new ImageDAO();
 		ImageBean imageBean = new ImageBean();
 		ActionForward forward = new ActionForward();
@@ -38,16 +38,16 @@ public class PurchaseWriteAction implements Action {
 			
 			HttpSession session = request.getSession();
 			
-			boardBean.setPB_WRITER(session.getAttribute("id").toString());
-			boardBean.setPB_TITLE(request.getParameter("TITLE"));
-			boardBean.setPB_CONTENT(request.getParameter("CONTENT"));
-			boardBean.setPB_CATEGORY(Integer.parseInt(request.getParameter("CATEGORY")));
-			boardBean.setPB_PRICE(Integer.parseInt(request.getParameter("PRICE")));
-			boardBean.setPB_HASHTAG(request.getParameter("HASHTAG"));
-			boardBean.setPB_LAT(Double.parseDouble(request.getParameter("markerLat")));  
-			boardBean.setPB_LNG(Double.parseDouble(request.getParameter("markerLng")));
+			purchaseBoardBean.setPB_WRITER(session.getAttribute("id").toString());
+			purchaseBoardBean.setPB_TITLE(request.getParameter("TITLE"));
+			purchaseBoardBean.setPB_CONTENT(request.getParameter("CONTENT"));
+			purchaseBoardBean.setPB_CATEGORY(Integer.parseInt(request.getParameter("CATEGORY")));
+			purchaseBoardBean.setPB_PRICE(Integer.parseInt(request.getParameter("PRICE")));
+			purchaseBoardBean.setPB_HASHTAG(request.getParameter("HASHTAG"));
+			purchaseBoardBean.setPB_LAT(Double.parseDouble(request.getParameter("markerLat")));  
+			purchaseBoardBean.setPB_LNG(Double.parseDouble(request.getParameter("markerLng")));
 
-			result = purchaseDAO.purchaseInsert(boardBean);
+			result = purchaseDAO.purchaseInsert(purchaseBoardBean);
 
 			if (result == 0) {
 				System.out.println("게시판 등록 실패");

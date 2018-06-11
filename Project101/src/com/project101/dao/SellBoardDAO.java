@@ -192,7 +192,7 @@ public class SellBoardDAO {
 					+ "UNION ALL (select PB_NO as NUM, PB_WRITER as WRITER, PB_TITLE as TITLE, pb_content content, pb_price price, PB_READCOUNT as READCOUNT, PB_DATE as DDATE, "
 					+ "sqrt(power((?-PB_LAT),2) + power((?-PB_LNG),2)) as distance, pb_lat lat, pb_lng lng, IMAGE_URL, BOARD_NAME from " 
 					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')))) "
-					+ "where rnum >= ? and rnum <= ? order by distance";
+					+ "where rnum >= ? and rnum <= ? order by distance, NUM desc";
 			
 			/*String sql = "select * from " + "(select rownum rnum, SB_NO, SB_TITLE, "
 					+ "SB_READCOUNT, SB_DATE, SB_LAT, SB_LNG from " + "(select * from SELL_BOARD order by SB_NO desc)) "
@@ -221,7 +221,7 @@ public class SellBoardDAO {
 				obj.put("DISTANCE", rset.getDouble("DISTANCE"));
 				obj.put("LAT", rset.getDouble("lat"));
 				obj.put("LNG", rset.getDouble("lng"));
-				obj.put("IMAGE_URL", rset.getString("IMAGE_URL"));
+				obj.put("IMAGE_URL", rset.getString("IMAGE_URL").split(" ")[0]);
 				obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
 				
 				array.add(obj);
@@ -441,18 +441,18 @@ public class SellBoardDAO {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				obj.put("SB_NO", rset.getInt("SB_NO"));
-				obj.put("SB_WRITER", rset.getString("SB_WRITER"));
-				obj.put("SB_TITLE", rset.getString("SB_TITLE"));
-				obj.put("SB_CONTENT", rset.getString("SB_CONTENT"));
-				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
-				obj.put("SB_DATE", rset.getDate("SB_DATE"));
-				obj.put("SB_READCOUNT", rset.getInt("SB_READCOUNT"));
-				obj.put("SB_LAT", rset.getDouble("SB_LAT"));
-				obj.put("SB_LNG", rset.getDouble("SB_LNG"));
-				obj.put("SB_STATE", rset.getInt("SB_STATE"));
-				obj.put("SB_CATEGORY", rset.getString("CATEGORY_NAME"));
-				obj.put("SB_HASHTAG", rset.getString("SB_HASHTAG"));
+				obj.put("NO", rset.getInt("SB_NO"));
+				obj.put("WRITER", rset.getString("SB_WRITER"));
+				obj.put("TITLE", rset.getString("SB_TITLE"));
+				obj.put("CONTENT", rset.getString("SB_CONTENT"));
+				obj.put("PRICE", rset.getInt("SB_PRICE"));
+				obj.put("DATE", rset.getDate("SB_DATE"));
+				obj.put("READCOUNT", rset.getInt("SB_READCOUNT"));
+				obj.put("LAT", rset.getDouble("SB_LAT"));
+				obj.put("LNG", rset.getDouble("SB_LNG"));
+				obj.put("STATE", rset.getInt("SB_STATE"));
+				obj.put("CATEGORY", rset.getString("CATEGORY_NAME"));
+				obj.put("HASHTAG", rset.getString("SB_HASHTAG"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

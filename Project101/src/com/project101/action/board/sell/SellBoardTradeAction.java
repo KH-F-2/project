@@ -22,7 +22,7 @@ public class SellBoardTradeAction implements Action {
       
       SellBoardDAO sellDAO = new SellBoardDAO();
       String id = session.getAttribute("id").toString();
-      int SB_NO = Integer.parseInt(request.getParameter("SB_NO"));
+      int SB_NO = Integer.parseInt(request.getParameter("NO"));
       
       int result = sellDAO.tradeItem(SB_NO, id);
       

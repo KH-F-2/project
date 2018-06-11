@@ -1,32 +1,4 @@
 $(document).ready(function(){
-	$("#comment_btn").click(function(){
-		var content=$('#comment_content').val();
-		
-		$('#comment_content').val('');
-		$('#counter').html('0/300');
-		
-		var id=$('#SB_WRITER').val();
-		var SB_NO=$('#SB_NO').val();
-		var data={"id" : id, "content" : content, "SB_NO" : SB_NO};
-		$.ajax({
-			type : "POST",
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			data : data,
-			url : "./sbcommentaddaction.sb",
-			success: function(data){
-				console.log(data.length);
-				$('.comment_view').empty().append(data);
-				if(data.length > 100) {
-					$('#comment_count').text($('#comment_count').text()*1+1);
-				}
-			},
-			error: function() {
-				alert("error");
-			}
-			
-		}); // ajax
-	}); // click()
-	
 	$(".div_writer").hide();
     $(".a_writer").click(function () {
 		var id = $(this).attr('id');
@@ -67,17 +39,17 @@ $(document).ready(function(){
 	
 	// 구매신청 버튼
 	$('#trade').click(function(){
-		var data = $('#SB_NO').val();
-		var name = $('#SB_WRITER').val();
+		var data = $('#NO').val();
+		var name = $('#WRITER').val();
 		$.ajax({
 			type : "POST",
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			data : {"SB_NO" : data},
+			data : {"NO" : data},
 			url : "./sbtradeaction.sb",
 			success: function(data){
 				alert(data);
 				console.log(data.length);
-				// 판매완료되었습니다 가 뜰시 후기작성으로 이동
+				// 거래완료되었습니다 가 뜰시 후기작성으로 이동
 				if(data.length < 13){
 					location.href = "./signepil.me?writer="+name;
 				}
@@ -88,15 +60,16 @@ $(document).ready(function(){
 		}); // ajax
 	});
 	
+	
    $("#comment_btn").click(function(){
       var content=$('#comment_content').val();
       
       $('#comment_content').val('');
       $('#counter').html('0/300');
       
-      var id=$('#SB_WRITER').val();
-      var SB_NO=$('#SB_NO').val();
-      var data={"id" : id, "content" : content, "SB_NO" : SB_NO};
+      var id=$('#WRITER').val();
+      var NO=$('#NO').val();
+      var data={"id" : id, "content" : content, "NO" : NO, "board_name" : board_name};
       $.ajax({
          type : "POST",
          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -152,13 +125,13 @@ $(document).ajaxSuccess(function(){
 
 function commentDelete(CMT_NO){
    ans=confirm("삭제하시겠습니까?");
-   var SB_NO=$('#SB_NO').val();
+   var NO=$('#SB_NO').val();
       if(ans){
          $.ajax({
          type : "POST",
          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-         data : {"CMT_SUBJECT_NO" : SB_NO, "CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax=", 
-            "CMT_BOARD_NAME" : "SELL_BOARD"},
+         data : {"CMT_SUBJECT_NO" : NO, "CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax=", 
+            "CMT_BOARD_NAME" : board_name},
          url : "./cmtdelete.cmt",
          success: function(data){
             console.log(data.length)
@@ -197,8 +170,8 @@ function replyView(CMT_NO){
 
 function commentReply(CMT_NO){
    var content=$('#comment_reply_content').val();
-   var SB_NO=$('#SB_NO').val();
-   var data={"CMT_CONTENT" : content, "CMT_SUBJECT_NO" : SB_NO, "CMT_BOARD_NAME" : "SELL_BOARD", 
+   var NO=$('#NO').val();
+   var data={"CMT_CONTENT" : content, "CMT_SUBJECT_NO" : NO, "CMT_BOARD_NAME" : board_name, 
             "CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax="};
    
    $.ajax({
@@ -252,8 +225,8 @@ function chkword(obj, maxByte) {
 
 function initMap() {
 	var centerLocation = {
-		lat : sb_lat,
-		lng : sb_lng
+		lat : lat,
+		lng : lng
 	};
 	console.log(centerLocation)
 
