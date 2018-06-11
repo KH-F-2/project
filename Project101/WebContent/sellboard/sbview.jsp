@@ -85,7 +85,7 @@
 					<div id="div_writer${boardBean.SB_NO}" class="div_writer">
 						<ul>
 							<li>
-								<a href="./sellerpage_main.map?writer=${boardBean.SB_WRITER}"><span>정보보기</span></a>
+								<a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}"><span>정보보기</span></a>
 							</li>               
 							<hr>         
 							<li>

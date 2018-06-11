@@ -23,6 +23,9 @@
 			</c:when>
 	
 			<c:otherwise>
+				<c:if test="${!empty receivedMessage }">
+					<a href="mypage.me?id=${id }">&#xe81b;</a>
+				</c:if>
 				<a href="mypage.me?id=${id }">${id }</a>
 				<a href="signout.me">Sign Out</a>
 			</c:otherwise>
