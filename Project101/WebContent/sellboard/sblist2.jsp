@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link href="/Project101/sellboard/css/sblist.css" rel="stylesheet" type="text/css">
@@ -13,7 +13,7 @@
 		$('#a_write').click(function() {
 			var id = <%=session.getAttribute("id")%>;
 			if (id == null) {
-				alert('�α��� �� �̿��Ͻ� �� �ֽ��ϴ�.');
+				alert('濡洹몄  댁⑺  듬.');
 				return false;
 			}
 		});
@@ -24,10 +24,10 @@
 <div id="mapControler">
 	<div id="emptyDiv">
 		<div id="chkBtnDiv">
-			<input type="button" id="checkCurrentPosition" value="������ġ���� ��ȸ">
+			<input type="button" id="checkCurrentPosition" value="ъ移 議고">
 		</div>
 		<div id="locationField">
-			<input id="autocomplete" placeholder="�˻��� ��Ҹ� �Է��ϼ���." type="text" />
+			<input id="autocomplete" placeholder="寃 μ瑜 �ν몄." type="text" />
 		</div>
 	</div>
 </div>
@@ -37,26 +37,30 @@
 
 <div class="search">
 	<select id="search_category">
-		<option selected="selected">��üī�װ���</option>
-		<option value="1">�Ƿ�/�м���ȭ</option>
-		<option value="2">���/����</option>
-		<option value="3">��ǰ/��Ȱ/���Ƶ�</option>
-		<option value="4">����/��Ȱ��ȭ</option>
-		<option value="5">����/������</option>
-		<option value="6">����/Ƽ��/����</option>
-		<option value="7">��Ÿ</option>
+		<option selected="selected">전체카테고리</option>
+		<option value="1">의류/패션잡화</option>
+		<option value="2">취미/레저</option>
+		<option value="3">식품/생활/유아동</option>
+		<option value="4">가구/생활잡화</option>
+		<option value="5">가전/디지털</option>
+		<option value="6">도서/티켓/쿠폰</option>
+		<option value="7">기타</option>
 	</select>
 	
 	<select id="search_sel">
-		<option value="title" selected="selected">����</option>
-		<option value="content">����</option>
-		<option value="hashtag">�±�</option>
-		<option value="title_content">����+����</option>
+		<option value="title" selected="selected">제목</option>
+		<option value="content">내용</option>
+		<option value="hashtag">태그</option>
+		<option value="title_content">제목+내용</option>
 	</select>
 	
 	<input type="text" name="search_input" id="search_input" placeholder="Search..">
 	
-	<button id="search_btn">�˻�</button>
+
+	<button id="search_btn">검색</button>
+</div>
+<div class="write">
+	<button type="button" id="write_btn" onclick="location.href='sbwriteview.sb'">湲곌린</button>
 </div>
 
 <div id="container">
@@ -66,11 +70,10 @@
 					<img src="${item.image_url }">
 					<p>${item.title }</p>
 				</a>
-				<p>${item.price }��</p>
+				<p>${item.price }원</p>
 				<p>${item.content }</p>
 			</div>
 		</c:forEach>
 </div>
 
 <div id="moveTop">&#xf139;</div>
-

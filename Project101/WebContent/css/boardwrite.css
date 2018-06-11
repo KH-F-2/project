@@ -89,7 +89,7 @@ input[type=text]{
 	font-weight: bold;
 }
 select{
-	height: 20px;
+	height: 25px;
 }
 textarea{
 	width: 100%;
@@ -160,7 +160,7 @@ textarea{
         height: 18px;
         vertical-align: middle;    /* img 아이콘 항상 세로정렬을 하기 위함 */
         margin: -5px 5px 0 0; 
-        background-image: url('../image/money.png');    /* svg 파일 적용 */
+        background-image: url('../image/unchecked.png');    /* svg 파일 적용 */
 }
 .board_type input[type=radio]:checked + label::before {    /* 가짜 체크박스 체크했을 때 */
         background-image: url('../image/checked.png');    /* 하위 브라우저용 img */

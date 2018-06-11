@@ -21,8 +21,8 @@ public class SellBoardCommentAddAction implements Action {
 		CommentBean commentBean = new CommentBean();
 		CommentDAO commentDAO = new CommentDAO();
 		
-		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("SB_NO"));
-		String CMT_BOARD_NAME = "SELL_BOARD";
+		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("NO"));
+		String CMT_BOARD_NAME = request.getParameter("board_name");
 		
 		commentBean.setCMT_SUBJECT_NO(CMT_SUBJECT_NO);
 		commentBean.setCMT_WRITER(session.getAttribute("id").toString());
@@ -34,13 +34,6 @@ public class SellBoardCommentAddAction implements Action {
 			System.out.println("SellBoardCommentAddAction fail!");
 			return null;
 		}
-		/*Date date=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
-		commentBean.setCOMMENT_DATE(sdf.format(date));
-		commentBean.setCOMMENT_NO(COMMENT_NO);*/
-		
-		//request.setAttribute("commentBean", commentBean);
 		
 		forward.setPath("sbview.sb?ajax=" + CMT_SUBJECT_NO);
 		forward.setRedirect(false);
