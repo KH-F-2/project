@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.dao.MemberDAO;
+import com.project101.dao.MessageDAO;
+import com.project101.dao.NoticeDao;
 
 public class SignInProcessAction implements Action {
 
@@ -27,6 +29,14 @@ public class SignInProcessAction implements Action {
 		if (result == 1) {
 			HttpSession session = request.getSession();
 			// 로그인 성공
+			
+			MessageDAO messageDAO = new MessageDAO();
+			int receivedMessage = messageDAO.getToListCount(id);
+			
+			if (receivedMessage != 0) {
+				session.setAttribute("receivedMessage", receivedMessage);
+			}
+			
 			session.setAttribute("id", id);
 		}
 		

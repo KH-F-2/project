@@ -8,6 +8,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.bean.SellBoardBean;
@@ -20,12 +23,13 @@ public class SellBoardListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-
+		
 		ActionForward forward = new ActionForward();
 
 		SellBoardDAO sellDAO = new SellBoardDAO();
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
-		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
+//		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
+		JSONArray boardBeanlist = new JSONArray();
 
 		String searchWord = boardPageBean.getSearchWord();
 		String searchItem = boardPageBean.getSearchItem();
@@ -35,7 +39,6 @@ public class SellBoardListAction implements Action {
 		
 		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
 		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
-
 		
 		if (request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -46,16 +49,17 @@ public class SellBoardListAction implements Action {
 			searchWord = request.getParameter("word");
 			searchItem = request.getParameter("item");
 		}
-
+		
 		if (!searchWord.equals("")) {
-			Map<String, Object> map = new HashMap<String, Object>();
 			
-			map = sellDAO.getSearchList(page, limit, searchWord, searchItem);
+			Map<String, Object> map = sellDAO.getSearchList(page, searchWord, searchItem, centerLat, centerLng);
+			
 			listcount = (int) map.get("listcount");
 			
-			boardBeanlist = (List<SellBoardBean>) map.get("boardBeanList");
+			boardBeanlist = (JSONArray) map.get("jsonArr");
 			boardPageBean.setSearchItem(searchItem);
 			boardPageBean.setSearchWord(searchWord);
+			
 		} else {
 			listcount = sellDAO.getListCount();
 			boardBeanlist = sellDAO.getBoardList(page, centerLat, centerLng);
@@ -71,15 +75,28 @@ public class SellBoardListAction implements Action {
 			endpage = maxpage;
 		}
 
-		boardPageBean.setBoardBeanList(boardBeanlist);
-		boardPageBean.setLimit(limit);
-		boardPageBean.setPage(page);
-		boardPageBean.setListcount(listcount);
-		boardPageBean.setMaxpage(maxpage);
-		boardPageBean.setStartpage(startpage);
-		boardPageBean.setEndpage(endpage);
+//		boardPageBean.setboardList(boardBeanlist);
+//		boardPageBean.setLimit(limit);
+//		boardPageBean.setPage(page);
+//		boardPageBean.setListcount(listcount);
+//		boardPageBean.setMaxpage(maxpage);
+//		boardPageBean.setStartpage(startpage);
+//		boardPageBean.setEndpage(endpage);
 		
-		request.setAttribute("boardPageBean", boardPageBean);
+//		System.out.println("here8");
+//		JSONObject jsonObj = new JSONObject();
+//		jsonObj.put("boardBeanlist", boardBeanlist);
+//		jsonObj.put("limit", limit);
+//		jsonObj.put("page", page);
+//		jsonObj.put("listcount", listcount);
+//		jsonObj.put("maxpage", maxpage);
+//		jsonObj.put("startpage", startpage);
+//		jsonObj.put("endpage", endpage);
+		
+		
+		request.setAttribute("boardBeanlist", boardBeanlist);
+		
+		request.setAttribute("listcount", listcount);
 		request.setAttribute("centerLat", Double.parseDouble(request.getParameter("centerLat")));
 		request.setAttribute("centerLng", Double.parseDouble(request.getParameter("centerLng")));
 		
