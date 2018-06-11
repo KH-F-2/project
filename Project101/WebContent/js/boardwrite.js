@@ -35,7 +35,11 @@
 		board_type = $('input[type="radio"]:checked').val();
 		if(board_type == 1){
 			$('#write_submit').attr('action', "./pbwriteAction.pb");
-		} else {
+		} else if(board_type == 2){
+			$('#write_submit').attr('action', "./sbwriteaction.sb");
+		} else if(board_type == 3){
+			$('#write_submit').attr('action', "./sbwriteaction.sb");
+		} else if(board_type == 4){
 			$('#write_submit').attr('action', "./sbwriteaction.sb");
 		}
 

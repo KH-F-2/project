@@ -19,6 +19,10 @@
         <link href="css/boardwrite.css" rel="stylesheet" type="text/css">
         <script>
 			$(function(){
+				for(let i = 0; i < $('#hashTag').val().split(" ").length; i++){
+					$('#tagSection').append('<div class="tag"><span>' + $('#hashTag').val().split(" ")[i] + '</span><a href="#" class="close"> X </a></div>');
+				}
+				
 				var cate = '${boardBean.SB_CATEGORY}';
 				$('.cate_option').each(function(){
 					if ($(this).text() == cate) {
@@ -90,6 +94,12 @@
 				</li>
 				
 				<li class="write_li">
+					<div class="board_type">
+						<input type="radio" id="purchase" name="iCheck" value="3" checked>
+							<label class="radio_label" id="radio1" for="purchase">구매</label>
+						<input type="radio" id="sell" name="iCheck" value="4">
+							<label class="radio_label" id="radio2" for="sell">판매</label>
+					</div>
 					<div class="title">
 						<img src="image/document.png" alt="document" class="write_img">
 						<input name="TITLE" type="text" size="50" maxlength="100" value="${boardBean.SB_TITLE}" placeholder="제목을 입력하세요">
@@ -100,13 +110,14 @@
 					<div id="tagSection">
 						<img src="image/hashtag.png" alt="hashtag" class="write_img">
 						<input type="text" id="inputTag" placeholder="hashtags">
-						<input type="hidden" id="hashTag" name="HASHTAG">
+						<input type="hidden" id="hashTag" name="HASHTAG" value="${boardBean.SB_HASHTAG}">
 					</div>
 					
 				</li>
 				
 				<li class="write_li">
 					<div class="category">
+						<img src="image/category.png" alt="category" class="write_img">
 						<select name="CATEGORY">
 							<option class="cate_option" value="0" selected>카테고리</option>
 						    <option class="cate_option" value="1">의류/잡화</option>
@@ -118,6 +129,7 @@
 						</select>
 					</div>
 					<div class="price">
+						<img src="image/money.png" alt="money" class="write_img">
 						<input name = "PRICE" type="text" size="50" maxlength="50" value="${boardBean.SB_PRICE}" placeholder="가격">
 					</div>
 				</li>

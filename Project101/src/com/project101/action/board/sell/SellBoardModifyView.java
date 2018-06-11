@@ -59,7 +59,7 @@ public class SellBoardModifyView implements Action {
 		request.setAttribute("imageBean", imageBean);
 		System.out.println(imageBean.getIMAGE_URL());
 
-		forward.setPath("template.jsp?page=/sellboard/sbmodify.jsp");
+		forward.setPath("template.jsp?page=/sellboard/boardmodify.jsp");
 		forward.setRedirect(false);
 
 		return forward;

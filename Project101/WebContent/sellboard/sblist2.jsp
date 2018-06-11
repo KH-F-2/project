@@ -13,7 +13,7 @@
 		$('#a_write').click(function() {
 			var id = <%=session.getAttribute("id")%>;
 			if (id == null) {
-				alert('·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.');
+				alert('ë¡œê·¸ì¸ í›„ ì´ìš©í•˜ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.');
 				return false;
 			}
 		});
@@ -30,10 +30,10 @@
 <div id="mapControler">
 	<div id="emptyDiv">
 		<div id="chkBtnDiv">
-			<input type="button" id="checkCurrentPosition" value="ÇöÀçÀ§Ä¡¿¡¼­ Á¶È¸">
+			<input type="button" id="checkCurrentPosition" value="í˜„ì¬ìœ„ì¹˜ì—ì„œ ì¡°íšŒ">
 		</div>
 		<div id="locationField">
-			<input id="autocomplete" placeholder="°Ë»öÇÒ Àå¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä." type="text" />
+			<input id="autocomplete" placeholder="ê²€ìƒ‰í•  ì¥ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”." type="text" />
 		</div>
 	</div>
 </div>
@@ -43,11 +43,11 @@
 
 <div class="search">
 	<select id="search_sel">
-		<option value="title" selected="selected">Á¦¸ñ</option>
-		<option value="content">³»¿ë</option>
-		<option value="title_content">Á¦¸ñ+³»¿ë</option>
+		<option value="title" selected="selected">ì œëª©</option>
+		<option value="content">ë‚´ìš©</option>
+		<option value="title_content">ì œëª©+ë‚´ìš©</option>
 	</select> <input type="text" name="search_input" placeholder="Search..">
-	<button id="search_btn">°Ë»ö</button>
+	<button id="search_btn">ê²€ìƒ‰</button>
 </div>
 
 <div id="container">
@@ -57,7 +57,7 @@
 					<img src="${item.IMAGE_URL }">
 					<p>${item.TITLE }</p>
 				</a>
-				<p>${item.PRICE }¿ø</p>
+				<p>${item.PRICE }ì›</p>
 				<p>${item.CONTENT }</p>
 			</div>
 		</c:forEach>

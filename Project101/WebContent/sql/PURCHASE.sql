@@ -17,7 +17,6 @@ CREATE TABLE PURCHASE_BOARD(
 
 SELECT * FROM PURCHASE_BOARD;
 
-<<<<<<< HEAD
 select * from IMAGE;
 drop table IMAGE;
 
@@ -30,16 +29,11 @@ UNION ALL
 SB_DATE DDATE, SB_CATEGORY CATEGORY, SB_HASHTAG HASHTAG, SB_STATE STATE from sell_board)))
 where rnum >= 1 and rnum <= 10 and CATEGORY = 2;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 insert into purchase_board values(1, '123', '123', '123', sysdate, 0, 0, 'zz', 37.572743, 126.981493, 100, 0);
 insert into purchase_board values(2, '456', '456', '456', sysdate, 0, 0, '2t3t', 37.570838, 126.986117, 4500, 0);
 insert into purchase_board values(3, '789', '789', '789', sysdate, 0, 0, 'kggg', 37.569827, 126.981386, 78900, 0);
 insert into purchase_board values(4, '1523', '545', '565', sysdate, 0, 0, '5fgg', 37.568253, 126.979380, 78900, 0);
 insert into purchase_board values(5, '1523', '4564', '8448', sysdate, 0, 0, 'kfd2g', 37.567318, 126.981729, 78900, 0);
-=======
->>>>>>> jusung
-=======
 
 
 select * from (
@@ -51,8 +45,6 @@ UNION ALL
 (select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT CONTENT, SB_PRICE PRICE, SB_READCOUNT READCOUNT,
  SB_CATEGORY CATEGORY, SB_HASHTAG HASHTAG, SB_STATE STATE, TO_CHAR(SB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, BOARD_NAME from sell_board inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')))
 where rnum >= 1 and rnum <= 5 and category = 0;
->>>>>>> younsik
-=======
 delete from purchase_board
 
 insert into purchase_board values(1, '123', '123', '123', sysdate, 0, 0, 'zz', 37.572743, 126.981493, 100, 0);
@@ -119,4 +111,3 @@ select * from (select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = I
 	where IMAGE.BOARD_NAME = 'SELL_BOARD') inner join COMMENTS on SB_NO = COMMENTS.CMT_SUBJECT_NO
 	where COMMENTS.CMT_BOARD_NAME = 'SELL_BOARD'
 
->>>>>>> origin/seungwoo

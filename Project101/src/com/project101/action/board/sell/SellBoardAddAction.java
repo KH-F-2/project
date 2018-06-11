@@ -54,10 +54,15 @@ public class SellBoardAddAction implements Action {
 		imageBean.setBOARD_NO(BOARD_NO);
 		imageBean.setIMAGE_URL(url);
 		
-		int result2 = imageDAO.imageInsert(imageBean, tableName);
-		if (result2 == 0) {
-			System.out.println("image insert fail!");
+		int result2 = 0;
+		if(result != 0) {
+			result2 = imageDAO.imageInsert(imageBean, tableName);
+
+			if (result2 == 0) {
+				System.out.println("image insert fail!");
+			}
 		}
+		
 
 		if (result == 1) {
 			out.println("<script> alert('게시판 등록 성공!'); location.href='./sbview.sb?num=" + BOARD_NO+ "';</script>");
