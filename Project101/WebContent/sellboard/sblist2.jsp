@@ -17,12 +17,6 @@
 				return false;
 			}
 		});
-		
-		$('#search_btn').click(function() {
-			var word = $('input[name=search_input').val();
-			var item = $('#search_sel').val();
-			location.href = './sbmain.sb?word=' + word + '&item=' + item;
-		});
 	});
 </script>
 
@@ -42,23 +36,38 @@
 
 
 <div class="search">
+	<select id="search_category">
+		<option selected="selected">전체카테고리</option>
+		<option value="1">의류/패션잡화</option>
+		<option value="2">취미/레저</option>
+		<option value="3">식품/생활/유아동</option>
+		<option value="4">가구/생활잡화</option>
+		<option value="5">가전/디지털</option>
+		<option value="6">도서/티켓/쿠폰</option>
+		<option value="7">기타</option>
+	</select>
+	
 	<select id="search_sel">
 		<option value="title" selected="selected">제목</option>
 		<option value="content">내용</option>
+		<option value="hashtag">태그</option>
 		<option value="title_content">제목+내용</option>
-	</select> <input type="text" name="search_input" placeholder="Search..">
+	</select>
+	
+	<input type="text" name="search_input" id="search_input" placeholder="Search..">
+	
 	<button id="search_btn">검색</button>
 </div>
 
 <div id="container">
-		<c:forEach var="item" items="${boardPageBean.boardBeanList }" begin="0" end="9">
+		<c:forEach var="item" items="${boardBeanlist }" begin="0" end="9">
 			<div class="content">
-				<a href="sbview.sb?num=${item.NUM }&boardname=${item.BOARD_NAME }">
-					<img src="${item.IMAGE_URL }">
-					<p>${item.TITLE }</p>
+				<a href="sbview.sb?num=${item.num }&boardname=${item.board_name }">
+					<img src="${item.image_url }">
+					<p>${item.title }</p>
 				</a>
-				<p>${item.PRICE }원</p>
-				<p>${item.CONTENT }</p>
+				<p>${item.price }원</p>
+				<p>${item.content }</p>
 			</div>
 		</c:forEach>
 </div>

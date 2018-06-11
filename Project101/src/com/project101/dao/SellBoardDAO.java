@@ -211,18 +211,18 @@ public class SellBoardDAO {
 
 			while (rset.next()) {
 				JSONObject obj = new JSONObject();
-				obj.put("NUM", rset.getInt("NUM"));
-				obj.put("WRITER", rset.getString("WRITER"));
-				obj.put("TITLE", rset.getString("TITLE"));
-				obj.put("CONTENT", rset.getString("content"));
-				obj.put("PRICE", rset.getInt("price"));
-				obj.put("READCOUNT", rset.getInt("READCOUNT"));
-				obj.put("DDATE", rset.getDate("DDATE").toString());
-				obj.put("DISTANCE", rset.getDouble("DISTANCE"));
-				obj.put("LAT", rset.getDouble("lat"));
-				obj.put("LNG", rset.getDouble("lng"));
-				obj.put("IMAGE_URL", rset.getString("IMAGE_URL"));
-				obj.put("BOARD_NAME", rset.getString("BOARD_NAME"));
+	            obj.put("num", rset.getInt("NUM"));
+	            obj.put("writer", rset.getString("WRITER"));
+	            obj.put("title", rset.getString("TITLE"));
+	            obj.put("content", rset.getString("CONTENT"));
+	            obj.put("price", rset.getInt("PRICE"));
+	            obj.put("readcount", rset.getInt("READCOUNT"));
+	            obj.put("date", rset.getDate("DDATE").toString());
+	            obj.put("lat", rset.getDouble("lat"));
+	            obj.put("lng", rset.getDouble("lng"));
+	            obj.put("distance", rset.getDouble("DISTANCE"));
+	            obj.put("image_url", rset.getString("IMAGE_URL"));
+	            obj.put("board_name", rset.getString("BOARD_NAME"));
 				
 				array.add(obj);
 			}
@@ -552,6 +552,114 @@ public class SellBoardDAO {
 		return result;
 	} // boardModify -------------
 
+  	public Map getSearchList(int page, String keyword, String item, double lat, double lng) {
+  		Map<String, Object> resultMap = new HashMap<String, Object>();
+  		JSONArray resultArr = new JSONArray();
+  		String contentStr = "%" + keyword + "%";
+		int startrow = (page - 1) * 20 + 1;
+		int endrow = startrow + 20 - 1;
+		int listcount = 0;
+
+  		try {
+			conn = ds.getConnection();
+			StringBuffer sb = new StringBuffer();
+			sb.append("select rownum rnum, NUM, WRITER, TITLE, content, price, READCOUNT, DDATE, category, hashtag, distance, lat, lng, IMAGE_URL, BOARD_NAME from "
+					+ "(select NUM, WRITER, TITLE, content, price, READCOUNT, DDATE, category, hashtag, distance, lat, lng, IMAGE_URL, BOARD_NAME from "
+					+ "(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT content, sb_price price, SB_READCOUNT READCOUNT, SB_DATE DDATE"
+					+ ", sb_category category, sb_hashtag hashtag, sqrt(power((?-SB_LAT),2) + power((?-SB_LNG),2)) distance, sb_lat lat, sb_lng lng, IMAGE_URL, BOARD_NAME from "
+					+ "(select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')) "
+					+ "UNION ALL "
+					+ "(select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, pb_content content, pb_price price, PB_READCOUNT READCOUNT, PB_DATE DDATE"
+					+ ", pb_category category, pb_hashtag hashtag, sqrt(power((?-PB_LAT),2) + power((?-PB_LNG),2)) distance, pb_lat lat, pb_lng lng, IMAGE_URL, BOARD_NAME from "
+					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD'))) where ");
+			
+			if (item.equals("title")) {
+				sb.append("title LIKE ? ");
+			} else if (item.equals("content")) {
+				sb.append("content LIKE ? ");
+			} else if (item.equals("hashtag")) {
+				sb.append("hashtag LIKE ? ");
+			} else {
+				sb.append("title LIKE ? OR content LIKE ? ");
+			}
+			sb.append("order by distance desc");
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setDouble(1, lat);
+			pstmt.setDouble(2, lng);
+			pstmt.setDouble(3, lat);
+			pstmt.setDouble(4, lng);
+			pstmt.setString(5, contentStr);
+			if (item.equals("title_content")) {
+				pstmt.setString(6, contentStr);
+			}
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				listcount++;
+			}
+			resultMap.put("listcount", listcount);
+			System.out.println("here : " + listcount);
+			rset.close();
+			pstmt.close();
+
+			sb.insert(0, "select * from (");
+			sb.append(") where rnum>=? and rnum<=? order by distance");
+
+			pstmt = conn.prepareStatement(sb.toString());
+			
+			pstmt.setDouble(1, lat);
+			pstmt.setDouble(2, lng);
+			pstmt.setDouble(3, lat);
+			pstmt.setDouble(4, lng);
+			pstmt.setString(5, contentStr);
+			
+			if (item.equals("title_content")) {
+				pstmt.setString(6, contentStr);
+				pstmt.setInt(7, startrow);
+				pstmt.setInt(8, endrow);
+			} else {
+				pstmt.setInt(6, startrow);
+				pstmt.setInt(7, endrow);
+			}
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				JSONObject jsonObj = new JSONObject();
+				jsonObj.put("num", rset.getInt("NUM"));
+				jsonObj.put("writer", rset.getString("WRITER"));
+				jsonObj.put("title", rset.getString("TITLE"));
+				jsonObj.put("content", rset.getString("CONTENT"));
+				jsonObj.put("price", rset.getInt("PRICE"));
+				jsonObj.put("readcount", rset.getInt("READCOUNT"));
+				jsonObj.put("date", rset.getDate("DDATE").toString());
+				jsonObj.put("lat", rset.getDouble("lat"));
+				jsonObj.put("lng", rset.getDouble("lng"));
+				jsonObj.put("distance", rset.getDouble("DISTANCE"));
+				jsonObj.put("image_url", rset.getString("IMAGE_URL"));
+				jsonObj.put("board_name", rset.getString("BOARD_NAME"));
+	            
+				resultArr.add(jsonObj);
+			}
+			resultMap.put("jsonArr", resultArr);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+				if (rset != null)
+					rset.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+  		
+  		return resultMap;
+  	}
+  
 	public Map<String, Object> getSearchList(int page, int limit, String content, String item) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<SellBoardBean> boardBeanList = new ArrayList<SellBoardBean>();
@@ -572,6 +680,8 @@ public class SellBoardDAO {
 				sb.append("SB_TITLE LIKE ? ");
 			} else if (item.equals("content")) {
 				sb.append("SB_CONTENT LIKE ? ");
+			} else if (item.equals("hashtag")) {
+				sb.append("SB_HASHTAG like ? ");
 			} else {
 				sb.append("SB_TITLE LIKE ? OR SB_CONTENT LIKE ? ");
 			}
