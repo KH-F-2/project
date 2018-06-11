@@ -86,13 +86,13 @@ $(document).ready(function(){
 			}
 		}); // ajax
 	});
-	
+
 	tagArr = $('#tagVal').val().split(' ');
 	
 	for (var i = 0; i < tagArr.length; i++) {
 		$('.hashtag').append('<a href="./sbmain.sb?word=' + tagArr[i].split('#')[1] + '&item=hashtag">' + tagArr[i] + '</a> ');
 	}
-   
+
 	
 });
 

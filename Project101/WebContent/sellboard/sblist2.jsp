@@ -13,7 +13,7 @@
 		$('#a_write').click(function() {
 			var id = <%=session.getAttribute("id")%>;
 			if (id == null) {
-				alert('로그인 후 이용하실 수 있습니다.');
+				alert('濡洹몄  댁⑺  듬.');
 				return false;
 			}
 		});
@@ -24,10 +24,10 @@
 <div id="mapControler">
 	<div id="emptyDiv">
 		<div id="chkBtnDiv">
-			<input type="button" id="checkCurrentPosition" value="현재위치에서 조회">
+			<input type="button" id="checkCurrentPosition" value="ъ移 議고">
 		</div>
 		<div id="locationField">
-			<input id="autocomplete" placeholder="검색할 장소를 입력하세요." type="text" />
+			<input id="autocomplete" placeholder="寃 μ瑜 �ν몄." type="text" />
 		</div>
 	</div>
 </div>
@@ -56,10 +56,11 @@
 	
 	<input type="text" name="search_input" id="search_input" placeholder="Search..">
 	
+
 	<button id="search_btn">검색</button>
 </div>
 <div class="write">
-	<button type="button" id="write_btn" onclick="location.href='sbwriteview.sb'">글쓰기</button>
+	<button type="button" id="write_btn" onclick="location.href='sbwriteview.sb'">湲곌린</button>
 </div>
 
 <div id="container">

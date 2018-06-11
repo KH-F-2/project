@@ -23,8 +23,8 @@ public class UpdatememberAction implements Action {
 		String post = request.getParameter("post");
 		String address = request.getParameter("address");
 		String detailaddress = request.getParameter("detailaddress");
-		double latitude = Double.parseDouble(request.getParameter("latitude"));
-		double longitude = Double.parseDouble(request.getParameter("longitude"));
+		double latitude = Double.parseDouble(request.getParameter("markerLat"));
+		double longitude = Double.parseDouble(request.getParameter("markerLng"));
 		
 		
 		Member m = new Member();
@@ -41,17 +41,17 @@ public class UpdatememberAction implements Action {
 		m.setLongitude(longitude);
 	
 		
-		response.setCharacterEncoding("text/html;charset=UTF-8");
+//		response.setCharacterEncoding("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		MemberDAO mdao = new MemberDAO();
 		int result = mdao.update(m);
 		out.println("<script>");
 		
 		if(result == 1 ) {
-			out.println("alert(' �쉶�썝 �젙蹂닿� �닔�젙�릺�뿀�뒿�땲�떎.') ;");
+			out.println("alert('정보가 수정되었습니다.') ;");
 			out.println("location.href='main.map'; ");
 		}else {
-			out.println("alert(' �떎�떆�엯�젰�빐二쇱꽭�슂 ' ); ");
+			out.println("alert('수정에 실패했습니다.' ); ");
 			out.println("history.back()");
 		}
 		out.println("</script>");
