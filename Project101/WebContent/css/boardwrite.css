@@ -18,6 +18,9 @@
   			-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+.category{
+	font-size:12px;
+}
 #map {
 	width: 100%;
 	height: 400px;
@@ -51,11 +54,11 @@ input[type=text]{
 }
 .title{
 	display: inline-block;
-	width: 80%;
+	width: 49%;
 }
 .board_type{
 	display: inline-block;
-	width: 135px;
+	width: 49%;
 }
 .category, .price{
 	display: inline-block;
@@ -103,8 +106,8 @@ textarea{
 	font-size: 17pt;
 }
 .write_btn{
-	background:#1AAB8A;
-	color:#fff;
+	background:black;
+	color:white;
 	border:none;
 	position:relative;
 	height:30px;
@@ -116,15 +119,15 @@ textarea{
 	outline:none;
 }
 #cancle_btn{
-	background: #D24D57;
+	background: black;
 }
 .write_btn:hover{
-  background:#fff;
-  color:#1AAB8A;
+  background:white;
+  color:black;
 }
 #cancle_btn:hover{
-	background: #fff;
-	color: #D24D57;
+	background: white;
+	color: black;
 }
 .write_btn:before, .write_btn:after{
   content:'';
@@ -133,11 +136,11 @@ textarea{
   right:0;
   height:2px;
   width:0;
-  background: #1AAB8A;
+  background: black;
   transition:400ms ease all;
 }
 #cancle_btn:before, #cancle_btn:after{
-	background: #D24D57;
+	background: black;
 }
 .write_btn:after{
   right:inherit;

@@ -6,7 +6,7 @@
 <!-- Google Map API -->
 <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
 
-<script src="./sellboard/js/sblist.js"></script>
+<script src="./js/sblist.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {

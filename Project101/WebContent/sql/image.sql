@@ -18,6 +18,8 @@ CREATE TABLE IMAGE(
 	IMAGE_URL VARCHAR2(1000)
 );
 
+select * from image;
+
 <<<<<<< HEAD
 select * from image;
 

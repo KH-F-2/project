@@ -2,7 +2,7 @@ DROP TABLE PURCHASE_BOARD;
 
 CREATE TABLE PURCHASE_BOARD(
 	PB_NO NUMBER,							/* 글번호 */
-	PB_WRITER VARCHAR2(100),					/* 작성자 */
+	PB_WRITER VARCHAR2(100),				/* 작성자 */
 	PB_TITLE VARCHAR2(500),					/* 제목 */
 	PB_CONTENT VARCHAR2(3000),				/* 내용 */
 	PB_PRICE NUMBER,						/* 가격*/

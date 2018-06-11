@@ -122,7 +122,7 @@ table {
 				</td>
 				<td>
 					<div>
-						<a href="./pbview.pb?CMT_SUBJECT_NO=${b.PB_NO }">
+						<a href="./pbview.pb?PB_NO=${b.PB_NO }">
 						<c:out value="${b.PB_TITLE }" /></a>
 					</div>
 				</td>

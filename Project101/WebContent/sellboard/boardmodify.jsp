@@ -15,7 +15,7 @@
         <!-- 지도 API -->
         <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap2&libraries=places'></script>
 
-        <script src="js/boardwrite.js"></script>
+        <script src="js/boardmodify.js"></script>
         <link href="css/boardwrite.css" rel="stylesheet" type="text/css">
         <script>
 			$(function(){

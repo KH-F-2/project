@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
-import com.project101.bean.ImageBean;
 import com.project101.dao.ImageDAO;
 import com.project101.dao.PurchaseBoardDAO;
 
@@ -17,7 +16,7 @@ public class PurchaseDeleteAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		//글번호와 작성자를 가져온다.
-		int num = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
+		int num = Integer.parseInt(request.getParameter("PB_NO"));
 		//로그인 연동 이후 수정
 		//String id = request.getParameter("PB_WRITER");
 		System.out.println("delete : " + num);

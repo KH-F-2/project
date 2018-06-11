@@ -19,7 +19,7 @@ public class CommentDeleteAction implements Action {
 		CommentDAO commentDAO = new CommentDAO();
 		
 		int cmt_no= Integer.parseInt(request.getParameter("CMT_NO"));
-		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
+		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("PB_NO"));
 		String board_name = request.getParameter("CMT_BOARD_NAME");
 		String url = request.getParameter("url");
 		
@@ -30,8 +30,10 @@ public class CommentDeleteAction implements Action {
 
 		ActionForward forward = new ActionForward();
 		
-		forward.setRedirect(false);
-		forward.setPath(url + CMT_SUBJECT_NO);
+		forward.setRedirect(true);
+		
+		forward.setPath(url  +CMT_SUBJECT_NO);
+
 		return forward;
 	}
 

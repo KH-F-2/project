@@ -30,7 +30,7 @@ public class CommentReplyAction implements Action {
 		String CMT_WRITER = session.getAttribute("id").toString();
 		String CMT_CONTENT = request.getParameter("CMT_CONTENT");
 		String url = request.getParameter("url");
-		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
+		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("PB_NO"));
 		/*
 		 	CMT_NO,DATE : 자동
 		 	SUBJECT_NO : 부모댓글과 같은 값
@@ -46,7 +46,8 @@ public class CommentReplyAction implements Action {
 			return null;
 		}
 
-		forward.setRedirect(false);
+		forward.setRedirect(true);
+		System.out.println("악"+url+CMT_SUBJECT_NO);
 		forward.setPath(url + CMT_SUBJECT_NO);
 		
 		return forward;
