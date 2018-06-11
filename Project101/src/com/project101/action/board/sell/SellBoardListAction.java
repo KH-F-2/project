@@ -1,5 +1,6 @@
 package com.project101.action.board.sell;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,8 +89,13 @@ public class SellBoardListAction implements Action {
 
 		forward.setRedirect(false);
 		if (request.getParameter("state") != null) {
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/json; charset=utf-8");
+			PrintWriter pw = response.getWriter();
 			
-			forward.setPath("./sellboard/ajaxcontainer.jsp");
+			pw.print(boardBeanlist);
+			
+			return null;
 		} else {
 			
 			forward.setPath("template.jsp?page=sellboard/sblist2.jsp");

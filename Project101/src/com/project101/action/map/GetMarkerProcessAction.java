@@ -21,21 +21,13 @@ public class GetMarkerProcessAction implements Action {
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter pw = response.getWriter();
 
-//		double startLat = Double.parseDouble(request.getParameter("startLat"));
-//		double startLng = Double.parseDouble(request.getParameter("startLng"));
-//		double endLat = Double.parseDouble(request.getParameter("endLat"));
-//		double endLng = Double.parseDouble(request.getParameter("endLng"));
-
 		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
 		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
 		
-//		MapDAO mapDAO = new MapDAO();
 		SellBoardDAO sellDAO = new SellBoardDAO();
 		
-//		JSONArray jsonArr = mapDAO.getMarkers(startLat, startLng, endLat, endLng);
 		JSONArray jsonArr = sellDAO.getBoardList(1, centerLat, centerLng);
 		System.out.println("getmarkerProcessACtion : " + jsonArr);
-       
 		
 		pw.print(jsonArr);
 		
