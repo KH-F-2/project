@@ -58,3 +58,9 @@
 	font-size: 12px;
 	margin-left: 10px;
 	}
+	
+#map {
+	width: 570px;
+	height: 250px;
+	margin-bottom: 50px;
+}

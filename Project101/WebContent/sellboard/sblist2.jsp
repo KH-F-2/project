@@ -62,7 +62,7 @@
 <div id="container">
 		<c:forEach var="item" items="${boardBeanlist }" begin="0" end="9">
 			<div class="content">
-				<a href="sbview.sb?num=${item.num }&boardname=${item.board_name }">
+				<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
 					<img src="${item.image_url }">
 					<p>${item.title }</p>
 				</a>
