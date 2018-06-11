@@ -1,4 +1,16 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+drop table image;
+=======
 DROP TABLE IMAGE
+>>>>>>> jusung
+=======
+DROP TABLE IMAGE
+>>>>>>> younsik
+=======
+DROP TABLE IMAGE;
+>>>>>>> origin/yeunju
 
 CREATE TABLE IMAGE(
 	BOARD_NO		NUMBER NOT NULL,
@@ -6,4 +18,24 @@ CREATE TABLE IMAGE(
 	IMAGE_URL VARCHAR2(1000)
 );
 
+<<<<<<< HEAD
 select * from image;
+
+insert into image values(3, 'PURCHASE_BOARD', 'hjifgoihkfiogjhiofgh');
+=======
+select sb_no from sell_board where sb_writer = 'admin'
+
+select image_url
+from image
+where board_no in(select sb_no from sell_board where sb_writer = 'admin')
+
+select * from member;
+select * from sell_board;
+
+select SB_TITLE, SB_TITLE, IMAGE_URL, SB_NO
+from image, sell_board
+where sb_no = board_no and sb_writer = 'admin';
+
+
+
+>>>>>>> origin/yeunju

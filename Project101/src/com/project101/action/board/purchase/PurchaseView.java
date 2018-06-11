@@ -73,8 +73,8 @@ public class PurchaseView implements Action {
 		}
 		System.out.println("넘어온 리플 페이지 = " + page);
 
-		int listCount = cmtDAO.getListCount(num);
-		cmtList = cmtDAO.getCmtList(num, page, limit);
+		int listCount = cmtDAO.getCommentListCount(num);
+		cmtList = cmtDAO.getCmtList(num, page, limit, tableName);
 
 		int maxPage = (listCount + limit - 1) / limit;
 		int startPage = ((page - 1) / 10) * 10 + 1;

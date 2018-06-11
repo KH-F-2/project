@@ -13,37 +13,26 @@ public class CommentDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		request.setCharacterEncoding("utf-8");
 
-		int cmtNum = Integer.parseInt(request.getParameter("CMT_NO"));
-		int num = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
-		String board_name = request.getParameter("CMT_BOARD_NAME");
-		String URL = request.getParameter("url");
+		CommentDAO commentDAO = new CommentDAO();
 		
-		int result;
-
-		CommentDAO cmtdao = new CommentDAO();
-
-		result = cmtdao.cmtDelete(cmtNum, board_name);
-
-		if (result == 1) {
-
-			response.setContentType("text/html;charset=utf-8");
-			PrintWriter out = response.getWriter();
-
-			out.println("<script>");
-			out.println("alert('댓글삭제 되었습니다')");
-			out.println("location.href='"+URL+num+"'");
-			out.println("</script>");
-			out.close();
-
-			System.out.println("댓글삭제 성공");
-		} else {
-
-			System.out.println("댓글삭제 실패");
+		int cmt_no= Integer.parseInt(request.getParameter("CMT_NO"));
+		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
+		String board_name = request.getParameter("CMT_BOARD_NAME");
+		String url = request.getParameter("url");
+		
+		int result = commentDAO.commentDelete(cmt_no, board_name);
+		if(result == 0) {
+			System.out.println("CommentDeleteAction.java : commentDelete fail");
 		}
-		return null;
 
-	
+		ActionForward forward = new ActionForward();
+		
+		forward.setRedirect(false);
+		forward.setPath(url + CMT_SUBJECT_NO);
+		return forward;
 	}
 
 }

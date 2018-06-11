@@ -31,8 +31,21 @@ public class FrontController extends HttpServlet {
 
 		try {
 
-			if (command.equals("/getmarkers.map")) {
+			if (command.equals("/main.map")) {
+				forward = new ActionForward();
+				forward.setRedirect(false);
+				forward.setPath("template.jsp");
+
+			} else if (command.equals("/getmarkers.map")) {
 				action = new GetMarkerProcessAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			} else if (command.equals("/getboardlist.map")) {
+				action = new GetBoardListUsingCurrentPositionProcessAction();
 				try {
 					forward = action.execute(request, response);
 				} catch (Exception e) {

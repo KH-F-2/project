@@ -563,51 +563,51 @@ public class PurchaseBoardDAO {
 	}
 
 	public JSONArray getSearchCategory(int page, int category) {
-		
+
 		JSONArray array = new JSONArray();
-	    int startrow = (page - 1) * 10 + 1;
-	    int endrow = startrow + 10 - 1;
-	    try {
-	    	conn = ds.getConnection();
-	    	
-	    	String sql = "select * from ("
-	    			+"select rownum rnum, NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, CATEGORY, HASHTAG, STATE, DDATE, IMAGE_URL, BOARD_NAME from("
-	    			+"select NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, CATEGORY, HASHTAG, STATE, DDATE, IMAGE_URL, BOARD_NAME from "
-	    			+"(select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, PB_CONTENT CONTENT, PB_PRICE PRICE, PB_READCOUNT READCOUNT, "
-	    			+" PB_CATEGORY CATEGORY, PB_HASHTAG HASHTAG, PB_STATE STATE, TO_CHAR(PB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, BOARD_NAME from purchase_board inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')"
-	    			+"UNION ALL "
-	    			+"(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT CONTENT, SB_PRICE PRICE, SB_READCOUNT READCOUNT, "
-	    			+" SB_CATEGORY CATEGORY, SB_HASHTAG HASHTAG, SB_STATE STATE, TO_CHAR(SB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, BOARD_NAME from sell_board inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')))"
-	    			+"where rnum >= ? and rnum <= ? and category = ?";
-	    	
-	    	pstmt=conn.prepareStatement(sql);
-	    	
-	    	pstmt.setInt(1, startrow);
-	    	pstmt.setInt(2, endrow);
-	    	pstmt.setInt(3, category);
-	    	
-	    	rset = pstmt.executeQuery();
-	    	
-	         while (rset.next()) {
-		            JSONObject obj = new JSONObject();
-		            obj.put("num", rset.getInt("NUM"));
-		            obj.put("writer", rset.getString("WRITER"));
-		            obj.put("title", rset.getString("TITLE"));
-		            obj.put("content", rset.getString("CONTENT"));
-		            obj.put("price", rset.getInt("PRICE"));
-		            obj.put("image_url", rset.getString("IMAGE_URL").split(" ")[0]);
-		            obj.put("board_name", rset.getString("BOARD_NAME"));
-		            obj.put("readcount", rset.getInt("READCOUNT"));
-		            obj.put("date", rset.getString("DDATE"));
-//		            obj.put("lat", rset.getDouble("lat"));
-//		            obj.put("lng", rset.getDouble("lng"));
-		            
-		            array.add(obj);
-	    
-	    } 
-	    } catch(Exception e) {
-	    	System.out.println("getSearchCategory 에러"+e);
-	    } finally {
+		int startrow = (page - 1) * 10 + 1;
+		int endrow = startrow + 10 - 1;
+		try {
+			conn = ds.getConnection();
+
+			String sql = "select * from ("
+					+ "select rownum rnum, NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, CATEGORY, HASHTAG, STATE, DDATE, IMAGE_URL, BOARD_NAME from("
+					+ "select NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, CATEGORY, HASHTAG, STATE, DDATE, IMAGE_URL, BOARD_NAME from "
+					+ "(select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, PB_CONTENT CONTENT, PB_PRICE PRICE, PB_READCOUNT READCOUNT, "
+					+ " PB_CATEGORY CATEGORY, PB_HASHTAG HASHTAG, PB_STATE STATE, TO_CHAR(PB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, BOARD_NAME from purchase_board inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')"
+					+ "UNION ALL "
+					+ "(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT CONTENT, SB_PRICE PRICE, SB_READCOUNT READCOUNT, "
+					+ " SB_CATEGORY CATEGORY, SB_HASHTAG HASHTAG, SB_STATE STATE, TO_CHAR(SB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, BOARD_NAME from sell_board inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')))"
+					+ "where rnum >= ? and rnum <= ? and category = ?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+			pstmt.setInt(3, category);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("num", rset.getInt("NUM"));
+				obj.put("writer", rset.getString("WRITER"));
+				obj.put("title", rset.getString("TITLE"));
+				obj.put("content", rset.getString("CONTENT"));
+				obj.put("price", rset.getInt("PRICE"));
+				obj.put("image_url", rset.getString("IMAGE_URL").split(" ")[0]);
+				obj.put("board_name", rset.getString("BOARD_NAME"));
+				obj.put("readcount", rset.getInt("READCOUNT"));
+				obj.put("date", rset.getString("DDATE"));
+				// obj.put("lat", rset.getDouble("lat"));
+				// obj.put("lng", rset.getDouble("lng"));
+
+				array.add(obj);
+
+			}
+		} catch (Exception e) {
+			System.out.println("getSearchCategory 에러" + e);
+		} finally {
 			if (rset != null) {
 				try {
 					rset.close();
@@ -629,10 +629,9 @@ public class PurchaseBoardDAO {
 					e.printStackTrace();
 				}
 			}
-		
+		}
+
 		return array;
-	
-	}
 	}
 	
 	public int getMaxCount() {

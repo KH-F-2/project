@@ -22,7 +22,7 @@
 	width: 100%;
 	height: 400px;
 }
-img{
+.write_img{
 	height: 20px;
 	width: 20px;
 	position: relative;
@@ -148,4 +148,21 @@ textarea{
 .write_btn:hover:before, .write_btn:hover:after{
   width:100%;
   transition:800ms ease all;
+}
+
+.board_type input[type=radio]{
+   display: none;
+}
+.board_type input[type=radio] + label::before{
+      content: ''; 
+        display: inline-block; 
+        width: 21px; 
+        height: 18px;
+        vertical-align: middle;    /* img 아이콘 항상 세로정렬을 하기 위함 */
+        margin: -5px 5px 0 0; 
+        background-image: url('../image/money.png');    /* svg 파일 적용 */
+}
+.board_type input[type=radio]:checked + label::before {    /* 가짜 체크박스 체크했을 때 */
+        background-image: url('../image/checked.png');    /* 하위 브라우저용 img */
+        background-position: 21px 0;
 }

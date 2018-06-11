@@ -24,6 +24,6 @@ $(document).ready(function () {
 	}).trigger('scroll');
 	
 	$('#header_fixed').click(function () {
-		location.href="main.me";
+		location.href="main.map";
 	});
 });

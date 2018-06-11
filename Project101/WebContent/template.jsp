@@ -16,7 +16,7 @@
 	<script>
 		$(document).ready(function () {
 			$('#navTitle').click(function () {
-				location.href = 'main.me';
+				location.href = 'main.map';
 			});
 		});
 	</script>
@@ -26,8 +26,8 @@
 <body>
 
 	<div class="ui left vertical menu sidebar">
-		<h1 id="navTitle">&#xe801;  우리지금만나</h1>
-		<h2>Category</h2>
+		<h1 id="navTitle">&#xe81d;  우리지금만나</h1>
+		<h2>&#xf114;  Category</h2>
 		<a class="item" href="./pbmain.pb">구매게시판</a>
 		<a class="item" href="./sbmain.sb">판매게시판</a>
 		<a class="item" href="./ebmain.eb">후기게시판</a>

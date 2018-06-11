@@ -32,6 +32,9 @@ public class SellBoardListAction implements Action {
 		int page = boardPageBean.getPage();
 		int limit = boardPageBean.getLimit();
 		int listcount = 0;
+		
+		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
+		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
 
 		
 		if (request.getParameter("page") != null) {
@@ -55,7 +58,7 @@ public class SellBoardListAction implements Action {
 			boardPageBean.setSearchWord(searchWord);
 		} else {
 			listcount = sellDAO.getListCount();
-			boardBeanlist = sellDAO.getBoardList(page, limit);
+			boardBeanlist = sellDAO.getBoardList(page, centerLat, centerLng);
 		}
 		System.out.println("listcount : " + listcount);
 
@@ -68,7 +71,7 @@ public class SellBoardListAction implements Action {
 			endpage = maxpage;
 		}
 
-		boardPageBean.setboardList(boardBeanlist);
+		boardPageBean.setBoardBeanList(boardBeanlist);
 		boardPageBean.setLimit(limit);
 		boardPageBean.setPage(page);
 		boardPageBean.setListcount(listcount);
@@ -77,9 +80,17 @@ public class SellBoardListAction implements Action {
 		boardPageBean.setEndpage(endpage);
 		
 		request.setAttribute("boardPageBean", boardPageBean);
+		request.setAttribute("centerLat", Double.parseDouble(request.getParameter("centerLat")));
+		request.setAttribute("centerLng", Double.parseDouble(request.getParameter("centerLng")));
 		
 		forward.setRedirect(false);
-		forward.setPath("template.jsp?page=sellboard/sblist.jsp");
+		if (request.getParameter("state") != null) {
+			
+			forward.setPath("./sellboard/ajaxcontainer.jsp");
+		} else {
+			
+			forward.setPath("template.jsp?page=sellboard/sblist2.jsp");
+		}
 
 		return forward;
 	}

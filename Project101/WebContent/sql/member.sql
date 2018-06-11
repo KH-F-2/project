@@ -1,16 +1,22 @@
 drop table member;
 
 create table member(
-	id varchar2(15),
-	pass varchar2(15),
-	name varchar2(15),
-	email varchar2(30),
-	tel varchar2(20),
-	address varchar2(300),
-	school varchar2(30),
-	major varchar2(30),
-	college varchar2(15),
+	id varchar2(100),
+	password varchar2(100),
+	nickname varchar2(100) unique,
+	email varchar2(200),
+	emailcheck varchar2(50),
+	phone varchar2(100),
+	post varchar2(50),
+	address varchar2(500),
+	detailaddress varchar2(500),
+	latitude number,
+	longitude number,
 	PRIMARY KEY(id)
 );
+<<<<<<< HEAD
+select * from MEMBER;
+=======
 
 select * from member;
+>>>>>>> younsik

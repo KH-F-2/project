@@ -6,10 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project101.action.Action;
-import com.project101.action.ActionForward;
-import com.project101.bean.CommentBean;
-import com.project101.dao.CommentDAO;
+import com.project101.action.*;
+import com.project101.bean.*;
+import com.project101.dao.*;
 
 public class CommentWriteAction implements Action {
 
@@ -33,16 +32,13 @@ public class CommentWriteAction implements Action {
 		cmtBean.setCMT_WRITER(session.getAttribute("id").toString()); //세션 값 등록
 		
 		
-		boolean result = cmtDAO.cmtInsert(cmtBean, board_name);
+		int result = cmtDAO.commentInsert(cmtBean, board_name);
 		
 		PrintWriter pw = response.getWriter();
-		
-		if(result) {
-		
+		if(result == 1) {
 			pw.print(1);
-		
 		} else {
-			pw.print(0);
+			pw.println(0);
 		}
 		pw.close();
 		

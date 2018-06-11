@@ -9,7 +9,7 @@
 
 <div id="header">
 	<div id="sec1">
-		<button id="menuBtn">&#xe800;</button>
+		<button id="menuBtn">&#xf008;</button>
 	</div>
 	
 	<div id="sec2">
@@ -23,6 +23,9 @@
 			</c:when>
 	
 			<c:otherwise>
+				<c:if test="${!empty receivedMessage }">
+					<a href="mypage.me?id=${id }">&#xe81b;</a>
+				</c:if>
 				<a href="mypage.me?id=${id }">${id }</a>
 				<a href="signout.me">Sign Out</a>
 			</c:otherwise>
