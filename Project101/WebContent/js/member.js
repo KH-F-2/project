@@ -204,12 +204,12 @@ $(document).ready(function() {
 		console.log($(this).val());
 		if ($(this).val() == '') {
 			$('.check').each(function () {
-				$(this).html('&#xe800;');
+				$(this).html('&#xe802;');
 				$(this).val('checked');
 			});
 		} else {
 			$('.check').each(function () {
-				$(this).html('&#xe801;');
+				$(this).html('&#xe803;');
 				$(this).val('');
 			});
 		}
@@ -217,10 +217,10 @@ $(document).ready(function() {
 	
 	$('.check.sub').click(function () {
 		if ($(this).val() == '') {
-			$(this).html('&#xe800;');
+			$(this).html('&#xe802;');
 			$(this).val('checked');
 		} else {
-			$(this).html('&#xe801;');
+			$(this).html('&#xe803;');
 			$(this).val('');
 		}
 	});
@@ -259,6 +259,7 @@ function initMap() {
 		var place = autocomplete.getPlace();
 		if (place.geometry) {
 			removeMarkers();
+			google.maps.event.removeListener(clickEvent);
 			clickEvent = map.addListener('click', function(event) {
 			    
 				placeMarker(event.latLng);
@@ -278,6 +279,7 @@ function placeMarker(location) {
 		map : map,
 		draggable: true,
 	});
+	markers.push(marker);
 	
 	map.setCenter(location);
 	$('#markerLat').val(location.lat());

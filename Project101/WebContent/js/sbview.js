@@ -1,5 +1,4 @@
 $(document).ready(function(){
-<<<<<<< HEAD
 	$("#comment_btn").click(function(){
 		var content=$('#comment_content').val();
 		
@@ -89,56 +88,6 @@ $(document).ready(function(){
 		}); // ajax
 	});
 	
-=======
-   $("#comment_btn").click(function(){
-      var content=$('#comment_content').val();
-      
-      $('#comment_content').val('');
-      $('#counter').html('0/300');
-      
-      var id=$('#SB_WRITER').val();
-      var SB_NO=$('#SB_NO').val();
-      var data={"id" : id, "content" : content, "SB_NO" : SB_NO};
-      $.ajax({
-         type : "POST",
-         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-         data : data,
-         url : "./sbcommentaddaction.sb",
-         success: function(data){
-            console.log(data.length);
-            $('.comment_view').empty().append(data);
-            if(data.length > 100) {
-               $('#comment_count').text($('#comment_count').text()*1+1);
-            }
-         },
-         error: function() {
-            alert("error");
-         }
-      }); // ajax
-   }); // click()
-   
-   $('#comment_content').click(function(){
-      if(id == null || id == ''){
-         alert('로그인 후 작성하실 수 있습니다.');
-         location.href='./signin.me';
-      }
-   });
-   $(document).on('click', '#comment_reply_content', function(){
-      if(id == null || id == ''){
-         alert('로그인 후 작성하실 수 있습니다.');
-         location.href='./signin.me';
-      }
-   });
-   
-   // 댓글 삭제버튼 CSS
-   $('.comment_li').each(function(){
-      var cmt_writer=$(this).attr('id');
-      
-      if(id != cmt_writer){
-         $('a[id="comment_delete"]').eq($(this).index()/2).css('display', 'none');
-      }
-   });
->>>>>>> origin/yeunju
 });
 
 // ajax로 불러온 댓글 삭제버튼 CSS 적용

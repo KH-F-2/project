@@ -78,7 +78,7 @@ public class FrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 
-			} else if (command.equals("/sellerpage_main.map")) {
+			} else if (command.equals("/sellerpage_main.me")) {
 				action = new SellerpageListAddAction();
 				try {
 					forward = action.execute(request, response);
