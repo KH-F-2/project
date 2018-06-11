@@ -32,14 +32,12 @@ public class SellBoardListAction implements Action {
 		SellBoardDAO sellDAO = new SellBoardDAO();
 		JSONArray arr = new JSONArray();
 
-		/*String searchWord = boardPageBean.getSearchWord();
-		String searchItem = boardPageBean.getSearchItem();*/
 		int page = boardPageBean.getPage();
 		int limit = boardPageBean.getLimit();
 		int listcount = 0;
 		
-		/*double centerLat = Double.parseDouble(request.getParameter("centerLat"));
-		double centerLng = Double.parseDouble(request.getParameter("centerLng"));*/
+		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
+		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
 
 		
 		if (request.getParameter("page") != null) {
@@ -47,28 +45,7 @@ public class SellBoardListAction implements Action {
 		}
 		System.out.println("넘어온 페이지 : " + page);
 
-		/*if (request.getParameter("word") != null) {
-			searchWord = request.getParameter("word");
-			searchItem = request.getParameter("item");
-		}
-
-		if (!searchWord.equals("")) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-			map = sellDAO.getSearchList(page, limit, searchWord, searchItem);
-			listcount = (int) map.get("listcount");
-			
-			boardBeanlist = (List<SellBoardBean>) map.get("boardBeanList");
-			boardPageBean.setSearchItem(searchItem);
-			boardPageBean.setSearchWord(searchWord);
-		} else {
-			listcount = sellDAO.getListCount();
-			boardBeanlist = sellDAO.getBoardList(page, centerLat, centerLng);
-		}
-		System.out.println("listcount : " + listcount);
-
-			boardBeanlist = sellDAO.getBoardList(page, limit);
-		}*/
+		
 		
 		arr = sellDAO.getBoardList(page, limit);
 		
@@ -80,16 +57,10 @@ public class SellBoardListAction implements Action {
 			endpage = maxpage;
 		}
 
-		/*boardPageBean.setLimit(limit);
-		boardPageBean.setPage(page);
-		boardPageBean.setListcount(listcount);
-		boardPageBean.setMaxpage(maxpage);
-		boardPageBean.setStartpage(startpage);
-		boardPageBean.setEndpage(endpage);*/
 
-
+		request.setAttribute("centerLat", centerLat);
+		request.setAttribute("centerLng", centerLng);
 		request.setAttribute("arr", arr);
- 		/*request.setAttribute("boardPageBean", boardPageBean);*/
 		
 		forward.setRedirect(false);
 		forward.setPath("template.jsp?page=sellboard/sblist2.jsp");

@@ -20,6 +20,30 @@
 		    			return false;
 		    		}
 		    	});
+		        
+		        
+	        	function initMap() {
+	        		var lat = ${centerLat};
+	        		var lng = ${centerLng};
+	        		var mak = {
+	        				lat : lat,
+	        				lng : lng
+	        		};
+	        		
+	        		map = new google.maps.Map(document.getElementById('map'), {
+	        			zoom : 14,
+	        			center : mak
+	        		});
+	        		
+	        		(function (){
+	        			marker = new google.maps.Marker({
+	        				position : mak,
+	        				map : map,
+	        				draggable: true,
+	        			});
+	        		})();
+	        		
+	        	}
         	});
         </script>
         <script src="js/sblist.js"></script>
@@ -38,7 +62,7 @@
 		<section class="content_section">
 			<c:forEach var="list" items="${arr}">
 				<div class="card">
-					<a class="card_a" href="./sbview.sb?num=${list.SB_NO }">
+					<a class="card_a" href="./sbview.sb?num=${list.SB_NO}&board_name=${list.BOARD_NAME}">
 						<div class="card_img">
 							<img class="content_img" src="${list.IMAGE_URL}">
 						</div>

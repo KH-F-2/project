@@ -20,7 +20,6 @@
         <script>
 			$(function(){
 				for(let i = 0; i < $('#hashTag').val().split(" ").length; i++){
-					console.log('몇번?'+i);
 					$('#tagSection').append('<div class="tag"><span>' + $('#hashTag').val().split(" ")[i] + '</span><a href="#" class="close"> X </a></div>');
 				}
 				
@@ -95,6 +94,12 @@
 				</li>
 				
 				<li class="write_li">
+					<div class="board_type">
+						<input type="radio" id="purchase" name="iCheck" value="3" checked>
+							<label class="radio_label" id="radio1" for="purchase">구매</label>
+						<input type="radio" id="sell" name="iCheck" value="4">
+							<label class="radio_label" id="radio2" for="sell">판매</label>
+					</div>
 					<div class="title">
 						<img src="image/document.png" alt="document" class="write_img">
 						<input name="TITLE" type="text" size="50" maxlength="100" value="${boardBean.SB_TITLE}" placeholder="제목을 입력하세요">
