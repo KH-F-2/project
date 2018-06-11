@@ -45,6 +45,10 @@
 <div class="clearfix">
 <button type="submit" class="submitbtn">정보수정 </button>
 <button type="reset" class="cancelbtn">다시작성</button>
+<br>
+
+<a href="msmessagetolist.ms" >받은 쪽지함</a>
+<a href="msmessagesendlist.ms" >보낸 쪽지함</a>
 </div>
 
 </form>

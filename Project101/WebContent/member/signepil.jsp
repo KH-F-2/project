@@ -297,8 +297,7 @@ input#upfile.photo {
 
 		<!-- 구매후기 작성 -->
 		<div class="textarea-wrap">
-			<span id="preNoteDefault" class="textarea" > 구매후기는
-				10자 이상 500자 이하로 입력해주세요.</span>
+			<span id="preNoteDefault" class="textarea" > 구매후기를 입력해주세요.</span>
 			<textarea id="textarea-review" class="textarea-review"
 				name="review_reason_text"></textarea>
 			<span class="byte">(0/500자)</span>

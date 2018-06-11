@@ -9,14 +9,16 @@ public class MessageBoardBean {
 	private Date MS_DATE; //보내는날짜
 	private String MS_TITLE;//제목
 	private String MS_CONTENT; //내용
+	private int MS_READCOUNT;//조회수
 	
-	public MessageBoardBean(int MS_NO, String MS_SEND, String MS_TO, Date MS_DATE, String MS_TITLE, String MS_CONTENT) {
+	public MessageBoardBean(int MS_NO, String MS_SEND, String MS_TO, Date MS_DATE, String MS_TITLE, String MS_CONTENT, int MS_READCOUNT) {
 		this.MS_NO = MS_NO;
 		this.MS_SEND = MS_SEND;
 		this.MS_TO = MS_TO;
 		this.MS_DATE = MS_DATE;
 		this.MS_TITLE = MS_TITLE;
 		this.MS_CONTENT = MS_CONTENT;
+		this.MS_READCOUNT = MS_READCOUNT;
 	}
 	public MessageBoardBean() {
 	}
@@ -55,6 +57,12 @@ public class MessageBoardBean {
 	}
 	public void setMS_CONTENT(String mS_CONTENT) {
 		MS_CONTENT = mS_CONTENT;
+	}
+	public int getMS_READCOUNT() {
+		return MS_READCOUNT;
+	}
+	public void setMS_READCOUNT(int mS_READCOUNT) {
+		MS_READCOUNT = mS_READCOUNT;
 	}
 	
 }

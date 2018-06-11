@@ -2,8 +2,38 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<style>
+	table{
+		width:60%;
+		border:1px solid #cdd2d2;
+		margin:0 auto;
+	}
+	thead{
+		font-size:22px;
+		background:#D5D5D5;
+	}
+	tbody{
+		font-size:18px;
+		border: 1px solid #cdd2d2;
+	}
+	.tr_move {
+		text-align: center;
+	}
+	tfoot{
+		font-size:18px;
+	}
+	a {
+		text-decoration:none
+	}
+	td {
+		border-bottom:1px solid #cdd2d2
+	}
+
+</style>
 <body>
-<h1>${id }이 받은 쪽지함</h1>
+<h1 style="text-align:center">
+	<img src="image/message.png" width="50px" height="50px">
+		"${id }"이 받은 쪽지함</h1>
 	<table border=1>
 			<thead>
 				<tr>
@@ -27,7 +57,7 @@
 					</tr>
 			</c:forEach>
 			
-	<tr class="h30 lime center btn">
+	<tr class="tr_move">
 		<td colspan="3">
 			<c:if test="${page <= 1 }">
 				이전&nbsp;
@@ -53,14 +83,6 @@
 			</c:if>
 	</tr>
 	</tbody>
-<%-- 	<c:if test="${listcount == 0 }">
-		<tr>
-			<td colspan="3">받은 쪽지함</td>
-			<td style="text-align: right">
-				<font size=2>받은 쪽지가 없습니다.</font>
-			</td>
-		</tr>
-	</c:if>	 --%>
 			<tfoot>
 				<tr>
 					<td colspan="3" style="text-align: right; font-size: 14pt;"><a
