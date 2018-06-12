@@ -23,6 +23,7 @@ public class MessageToDetailAction implements Action {
 		String id = session.getAttribute("id").toString();
 		
 		int MS_NO = Integer.parseInt(request.getParameter("num"));
+		msDAO.sendToCountUpdate(MS_NO);
 		msBoardBean = msDAO.getDetail(MS_NO);
 		
 		if(msBoardBean == null) {
