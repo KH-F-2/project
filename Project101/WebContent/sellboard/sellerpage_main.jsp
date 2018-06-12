@@ -10,10 +10,8 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	
 	<!-- Semantic UI Library -->
-	<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-	<script src="semantic/semantic.min.js"></script>
-	
+	<link href="css/seller_main.css" rel="stylesheet" type="text/css">
 	
 	<script>
 		$(document).on("click","#item1",(function(){
@@ -44,11 +42,8 @@
 					
 					$("#abc").empty().append(data);
 				}
-			})
-			
-			
-		}))
-		
+			})			
+		}))		
 $(document).ready(function() {
 	$("#item3").click(function() {
 		var writer = $('#writer').val();
@@ -66,11 +61,6 @@ $(document).ready(function() {
 });
 	
 	</script>
-	<style>
-		#content_box{
-			display : inline-block	
-		}
-	</style>
 </head>
 
 <body>
@@ -88,34 +78,34 @@ $(document).ready(function() {
 			<jsp:include page='header.jsp' />
 		</div>
 		
-		<div id="main_top">
+		<div class="main_top">
 		<span>"${writer}"회원님의 등록된 판매 게시글</span><br>
 		<input type="hidden" id="writer" value="${writer }">
 		</div>
-		
-		<div id = "list_category">
-			<a class = "item" id="item1" href = "#">앨범형</a>
-			<a class = "item" id="item2" href = "#">게시판형</a>
-			<a class = "item" id="item3" href = "#">후기보기</a>
-			<%-- signepilwriter.me?writer=${writer } --%>
+	
+	<div class="sell_map">
+		<h2>지도넣을위치 class="sell_map"</h2>	
+    </div>
+		<div class="tab st02">
+			<a class = "button " id="item1" href = "#">앨범형</a>
+			<a class = "button " id="item2" href = "#">게시판형</a>
+			<a class = "button " id="item3" href = "#">후기보기</a>
 		</div>
-	
-	<div id="abc">
-	
+	<ul id="abc" class="seller_ul">	
 	 <c:if test="${listcount != 0 }">
 			<c:forEach var="boardBean" items="${getimage }">
-				<div id="content_box">
-					<div class="content">
+				<li id="content_box" class="seller_li 1">
+					<div class="content" class="seller_li 2">
 						<img src="${boardBean.IMAGE_URL}">
 						<p>&nbsp;<a href="./sbview.sb?num=${boardBean.SB_NO }">
 								${boardBean.SB_TITLE}</a></p>
 						<span>${boardBean.SB_CONTENT}</span>
 					</div>
-				</div>	
+				</li>	
 			</c:forEach>
 	  </c:if>
 	
-	</div>
+	</ul>
 </body>
 
 </html>
