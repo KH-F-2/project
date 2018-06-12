@@ -362,16 +362,15 @@ public class MemberDAO {
 		int result = 0;
 		try {
 			conn = ds.getConnection();
-			String sql = "update member set password= ? , nickname= ? , phone= ? , post= ? , address = ? , subaddress = ? , latitude = ? , longitude = ? where id= ?  ";
+			String sql = "update member set phone= ? , post= ? , address = ? ,  detailaddress = ? , latitude = ? , longitude = ? where id= ?  ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  m.getNickname());
-			pstmt.setString(2, m.getPhone());
-			pstmt.setString(3, m.getPost());
-			pstmt.setString(4, m.getAddress());
-			pstmt.setString(5, m.getDetailaddress());
-			pstmt.setString(6, m.getId());
-			pstmt.setDouble(7, m.getLatitude());
-			pstmt.setDouble(8, m.getLongitude());
+			pstmt.setString(1, m.getPhone());
+			pstmt.setString(2, m.getPost());
+			pstmt.setString(3, m.getAddress());
+			pstmt.setString(4, m.getDetailaddress());
+			pstmt.setDouble(5, m.getLatitude());
+			pstmt.setDouble(6, m.getLongitude());
+			pstmt.setString(7, m.getId());
 			
 			result = pstmt.executeUpdate();
 		}catch(Exception e){

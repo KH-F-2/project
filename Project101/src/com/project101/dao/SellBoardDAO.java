@@ -188,11 +188,11 @@ public class SellBoardDAO {
 					+ "(select NUM, WRITER, TITLE, content, price, READCOUNT, DDATE, distance, lat, lng, IMAGE_URL, BOARD_NAME from " 
 					+ "(select SB_NO as NUM, SB_WRITER as WRITER, SB_TITLE as TITLE, SB_CONTENT content, sb_price price, SB_READCOUNT as READCOUNT, SB_DATE as DDATE, "
 					+ "sqrt(power((?-SB_LAT),2) + power((?-SB_LNG),2)) as distance, sb_lat lat, sb_lng lng, IMAGE_URL, BOARD_NAME from " 
-					+ "(select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD'))" 
+					+ "(select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')) " 
 					+ "UNION ALL (select PB_NO as NUM, PB_WRITER as WRITER, PB_TITLE as TITLE, pb_content content, pb_price price, PB_READCOUNT as READCOUNT, PB_DATE as DDATE, "
 					+ "sqrt(power((?-PB_LAT),2) + power((?-PB_LNG),2)) as distance, pb_lat lat, pb_lng lng, IMAGE_URL, BOARD_NAME from " 
-					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')))) "
-					+ "where rnum >= ? and rnum <= ? order by distance";
+					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')) order by distance)) "
+					+ "where rnum >= ? and rnum <= ?";
 			
 			/*String sql = "select * from " + "(select rownum rnum, SB_NO, SB_TITLE, "
 					+ "SB_READCOUNT, SB_DATE, SB_LAT, SB_LNG from " + "(select * from SELL_BOARD order by SB_NO desc)) "
@@ -221,7 +221,7 @@ public class SellBoardDAO {
 	            obj.put("lat", rset.getDouble("lat"));
 	            obj.put("lng", rset.getDouble("lng"));
 	            obj.put("distance", rset.getDouble("DISTANCE"));
-	            obj.put("image_url", rset.getString("IMAGE_URL"));
+	            obj.put("image_url", rset.getString("IMAGE_URL").split(" ")[0]);
 	            obj.put("board_name", rset.getString("BOARD_NAME"));
 				
 				array.add(obj);
@@ -441,18 +441,18 @@ public class SellBoardDAO {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				obj.put("SB_NO", rset.getInt("SB_NO"));
-				obj.put("SB_WRITER", rset.getString("SB_WRITER"));
-				obj.put("SB_TITLE", rset.getString("SB_TITLE"));
-				obj.put("SB_CONTENT", rset.getString("SB_CONTENT"));
-				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
-				obj.put("SB_DATE", rset.getDate("SB_DATE"));
-				obj.put("SB_READCOUNT", rset.getInt("SB_READCOUNT"));
-				obj.put("SB_LAT", rset.getDouble("SB_LAT"));
-				obj.put("SB_LNG", rset.getDouble("SB_LNG"));
-				obj.put("SB_STATE", rset.getInt("SB_STATE"));
-				obj.put("SB_CATEGORY", rset.getString("CATEGORY_NAME"));
-				obj.put("SB_HASHTAG", rset.getString("SB_HASHTAG"));
+				obj.put("NO", rset.getInt("SB_NO"));
+				obj.put("WRITER", rset.getString("SB_WRITER"));
+				obj.put("TITLE", rset.getString("SB_TITLE"));
+				obj.put("CONTENT", rset.getString("SB_CONTENT"));
+				obj.put("PRICE", rset.getInt("SB_PRICE"));
+				obj.put("DATE", rset.getDate("SB_DATE"));
+				obj.put("READCOUNT", rset.getInt("SB_READCOUNT"));
+				obj.put("LAT", rset.getDouble("SB_LAT"));
+				obj.put("LNG", rset.getDouble("SB_LNG"));
+				obj.put("STATE", rset.getInt("SB_STATE"));
+				obj.put("CATEGORY", rset.getString("CATEGORY_NAME"));
+				obj.put("HASHTAG", rset.getString("SB_HASHTAG"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -571,7 +571,7 @@ public class SellBoardDAO {
 					+ "UNION ALL "
 					+ "(select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, pb_content content, pb_price price, PB_READCOUNT READCOUNT, PB_DATE DDATE"
 					+ ", pb_category category, pb_hashtag hashtag, sqrt(power((?-PB_LAT),2) + power((?-PB_LNG),2)) distance, pb_lat lat, pb_lng lng, IMAGE_URL, BOARD_NAME from "
-					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD'))) where ");
+					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')) order by distance) where ");
 			
 			if (item.equals("title")) {
 				sb.append("title LIKE ? ");
@@ -582,23 +582,28 @@ public class SellBoardDAO {
 			} else {
 				sb.append("title LIKE ? OR content LIKE ? ");
 			}
-			sb.append("order by distance desc");
+//			sb.append("order by distance desc");
+			
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setDouble(1, lat);
 			pstmt.setDouble(2, lng);
 			pstmt.setDouble(3, lat);
 			pstmt.setDouble(4, lng);
 			pstmt.setString(5, contentStr);
+			
 			if (item.equals("title_content")) {
 				pstmt.setString(6, contentStr);
 			}
+			
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
 				listcount++;
 			}
+			
 			resultMap.put("listcount", listcount);
 			System.out.println("here : " + listcount);
+			
 			rset.close();
 			pstmt.close();
 
@@ -635,7 +640,7 @@ public class SellBoardDAO {
 				jsonObj.put("lat", rset.getDouble("lat"));
 				jsonObj.put("lng", rset.getDouble("lng"));
 				jsonObj.put("distance", rset.getDouble("DISTANCE"));
-				jsonObj.put("image_url", rset.getString("IMAGE_URL"));
+				jsonObj.put("image_url", rset.getString("IMAGE_URL").split(" ")[0]);
 				jsonObj.put("board_name", rset.getString("BOARD_NAME"));
 	            
 				resultArr.add(jsonObj);

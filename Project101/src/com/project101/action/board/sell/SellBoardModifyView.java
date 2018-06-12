@@ -12,6 +12,7 @@ import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.bean.ImageBean;
 import com.project101.dao.ImageDAO;
+import com.project101.dao.PurchaseBoardDAO;
 import com.project101.dao.SellBoardDAO;
 
 public class SellBoardModifyView implements Action {
@@ -23,15 +24,21 @@ public class SellBoardModifyView implements Action {
 		ActionForward forward = new ActionForward();
 		
 		SellBoardDAO sellDAO = new SellBoardDAO();
+		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
 		JSONObject boardBean = new JSONObject();
 		List<ImageBean> imageBeanList = new ArrayList<ImageBean>();
 		ImageDAO imageDAO = new ImageDAO();
 		ImageBean imageBean = new ImageBean();
 		
 		int num = Integer.parseInt(request.getParameter("num"));
-		String tableName = "SELL_BOARD";
+		String tableName = request.getParameter("board_name");
+		
+		if(tableName.equals("SELL_BOARD")) {
+			boardBean = sellDAO.getDetail(num);
+		}else {
+			boardBean = purchaseDAO.getDetail(num);
+		}
 
-		boardBean = sellDAO.getDetail(num);
 		
 		imageBean = imageDAO.getImage(num, tableName);
 		
@@ -59,7 +66,7 @@ public class SellBoardModifyView implements Action {
 		request.setAttribute("imageBean", imageBean);
 		System.out.println(imageBean.getIMAGE_URL());
 
-		forward.setPath("template.jsp?page=/sellboard/sbmodify.jsp");
+		forward.setPath("template.jsp?page=/sellboard/boardmodify.jsp");
 		forward.setRedirect(false);
 
 		return forward;

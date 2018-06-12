@@ -88,11 +88,6 @@ function initMap() {
 
 // 현재 위치에서 조회
 function checkCurrentPosition() {
-//	startLat = map.getBounds().getSouthWest().lat();
-//	startLng = map.getBounds().getSouthWest().lng();
-//	endLat = map.getBounds().getNorthEast().lat();
-//	endLng = map.getBounds().getNorthEast().lng();
-
 	centerLat = map.center.lat();
 	centerLng = map.center.lng();
 	console.log(centerLat);
@@ -151,6 +146,7 @@ function removeMarkers() {
 		markers[i].setMap(null);
 	}
 	markers = [];
+	infoContentArr = [];
 }
 
 // 시간 차 를 두고 마커 생성 & 이벤트 추가

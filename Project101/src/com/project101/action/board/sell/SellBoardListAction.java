@@ -1,5 +1,6 @@
 package com.project101.action.board.sell;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +29,11 @@ public class SellBoardListAction implements Action {
 
 		SellBoardDAO sellDAO = new SellBoardDAO();
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
-//		List<SellBoardBean> boardBeanlist = new ArrayList<SellBoardBean>();
 		JSONArray boardBeanlist = new JSONArray();
 
 		String searchWord = boardPageBean.getSearchWord();
 		String searchItem = boardPageBean.getSearchItem();
+
 		int page = boardPageBean.getPage();
 		int limit = boardPageBean.getLimit();
 		int listcount = 0;
@@ -67,6 +68,9 @@ public class SellBoardListAction implements Action {
 		System.out.println("listcount : " + listcount);
 
 		
+		
+
+		
 		int maxpage = (listcount + limit - 1) / limit;
 		int startpage = ((page - 1) / limit) * limit + 1;
 		int endpage = startpage + limit - 1;
@@ -74,24 +78,6 @@ public class SellBoardListAction implements Action {
 		if (endpage > maxpage) {
 			endpage = maxpage;
 		}
-
-//		boardPageBean.setboardList(boardBeanlist);
-//		boardPageBean.setLimit(limit);
-//		boardPageBean.setPage(page);
-//		boardPageBean.setListcount(listcount);
-//		boardPageBean.setMaxpage(maxpage);
-//		boardPageBean.setStartpage(startpage);
-//		boardPageBean.setEndpage(endpage);
-		
-//		System.out.println("here8");
-//		JSONObject jsonObj = new JSONObject();
-//		jsonObj.put("boardBeanlist", boardBeanlist);
-//		jsonObj.put("limit", limit);
-//		jsonObj.put("page", page);
-//		jsonObj.put("listcount", listcount);
-//		jsonObj.put("maxpage", maxpage);
-//		jsonObj.put("startpage", startpage);
-//		jsonObj.put("endpage", endpage);
 		
 		
 		request.setAttribute("boardBeanlist", boardBeanlist);
@@ -99,11 +85,17 @@ public class SellBoardListAction implements Action {
 		request.setAttribute("listcount", listcount);
 		request.setAttribute("centerLat", Double.parseDouble(request.getParameter("centerLat")));
 		request.setAttribute("centerLng", Double.parseDouble(request.getParameter("centerLng")));
-		
+
+
 		forward.setRedirect(false);
 		if (request.getParameter("state") != null) {
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/json; charset=utf-8");
+			PrintWriter pw = response.getWriter();
 			
-			forward.setPath("./sellboard/ajaxcontainer.jsp");
+			pw.print(boardBeanlist);
+			
+			return null;
 		} else {
 			
 			forward.setPath("template.jsp?page=sellboard/sblist2.jsp");

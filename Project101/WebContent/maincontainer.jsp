@@ -3,10 +3,10 @@
 
 <c:choose>
 	<c:when test="${!empty jsonArr }">
-		<h3 id="container-header">내 주변에 등록된 상품이 ${jsonArr.size() }개 이상 있습니다.</h3>
+		<h3 id="container-header">내 주변에 등록된 상품이 ${totalContents }개 이상 있습니다.</h3>
 		<c:forEach var="item" items="${jsonArr }" begin="0" end="9">
 			<div class="content">
-				<a href="sbview.sb?num=${item.num }">
+				<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
 					<img src="${item.image_url }">
 					<p>${item.title }</p>
 				</a>

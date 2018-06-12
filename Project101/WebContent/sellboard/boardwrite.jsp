@@ -62,14 +62,14 @@
 					<div class="category">
 						<img src="image/category.png" alt="category" class="write_img">
 						<select name="CATEGORY">
-							<option value="0" selected>카테고리</option>
-						    <option value="1">의류/패션잡화</option>
-						    <option value="2">취미/레저</option>
-						    <option value="3">식품/생활/유아동</option>
-						    <option value="4">가구/생활잡화</option>
-						    <option value="5">가전/디지털</option>
-						    <option value="6">도서/티켓/쿠폰</option>
-						    <option value="7">기타</option>
+							<option selected="selected">카테고리</option>
+							<option value="1">의류/패션잡화</option>
+							<option value="2">취미/레저</option>
+							<option value="3">식품/생활/유아동</option>
+							<option value="4">가구/생활잡화</option>
+							<option value="5">가전/디지털</option>
+							<option value="6">도서/티켓/쿠폰</option>
+							<option value="7">기타</option>
 						</select>
 					</div>
 					<div class="price">

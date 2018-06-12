@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:choose>
-	<c:when test="${!empty boardBeanlist }">
-		<c:forEach var="item" items="${boardBeanlist }" begin="0" end="9">
+	<c:when test="${!empty jsonArr }">
+		<c:forEach var="item" items="${jsonArr }" begin="0" end="9">
 			<div class="content">
-				<a href="sbview.sb?num=${item.num }">
+				<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
 					<img src="${item.image_url }">
 					<p>${item.title }</p>
 				</a>
