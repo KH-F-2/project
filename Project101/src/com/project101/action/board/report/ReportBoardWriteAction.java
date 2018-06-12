@@ -18,7 +18,7 @@ public class ReportBoardWriteAction implements Action {
 
 		ReportBoardDAO reportDao = new ReportBoardDAO();
 		ReportBoardBean boardBean = new ReportBoardBean();
-
+		System.out.println(request.getParameter("RB_WRITER"));
 		boardBean.setRB_WRITER(request.getParameter("RB_WRITER"));
 		boardBean.setRB_TITLE(request.getParameter("RB_TITLE"));
 		boardBean.setRB_CONTENT(request.getParameter("RB_CONTENT"));

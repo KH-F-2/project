@@ -77,7 +77,7 @@ public class CommentDAO {
 
 	}
 
-	public int commentInsert(CommentBean commentBean, String BOARD_NAME) {
+	public int commentInsert(CommentBean commentBean, String board_name) {
 		int num = 0;
 		try {
 			conn = ds.getConnection();
@@ -104,7 +104,7 @@ public class CommentDAO {
 			pstmt.setInt(5, num);
 			pstmt.setInt(6, 0);
 			pstmt.setInt(7, 0);
-			pstmt.setString(8, BOARD_NAME);
+			pstmt.setString(8, board_name);
 
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -174,9 +174,8 @@ public class CommentDAO {
 				commentBean.setCMT_RE_SEQ(rset.getInt("CMT_RE_SEQ"));
 				commentBean.setCMT_BOARD_NAME(rset.getString("CMT_BOARD_NAME"));
 				list.add(commentBean);
-				
 			}
-			
+			System.out.println("들간거"+list.size());
 			return list;
 
 		} catch (Exception e) {

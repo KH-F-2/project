@@ -122,6 +122,8 @@ public class ReportBoardDAO {
 				reportboard.setRB_TITLE(rs.getString("RB_TITLE"));
 				reportboard.setRB_CONTENT(rs.getString("RB_CONTENT"));
 				reportboard.setRB_PRICE(rs.getInt("RB_PRICE"));
+				reportboard.setRB_DATE(rs.getDate("RB_DATE"));
+				reportboard.setRB_READCOUNT(rs.getInt("RB_READCOUNT"));
 
 				return reportboard;
 			} else {

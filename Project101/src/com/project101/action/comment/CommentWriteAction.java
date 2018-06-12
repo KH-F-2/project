@@ -20,13 +20,15 @@ public class CommentWriteAction implements Action {
 		HttpSession session = request.getSession(); //세션 값 가져오기
 		
 	
-		int comment_boardNO = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
+		int comment_boardNO = Integer.parseInt(request.getParameter("PB_NO"));
 		
 		String comment_content = request.getParameter("CMT_CONTENT");
 		String board_name = request.getParameter("CMT_BOARD_NAME");
 		
 		cmtBean.setCMT_NO(cmtDAO.getSeq());			//댓글 번호
+		
 		cmtBean.setCMT_SUBJECT_NO(comment_boardNO);	//게시글 번호
+
 		cmtBean.setCMT_CONTENT(comment_content); 	//댓글 내용
 		
 		cmtBean.setCMT_WRITER(session.getAttribute("id").toString()); //세션 값 등록

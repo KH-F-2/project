@@ -22,7 +22,7 @@ public class MessageAddAction2 implements Action {
 		MessageBoardBean msBoardBean = new MessageBoardBean();
 		MessageDAO msDAO = new MessageDAO();
 		ActionForward forward = new ActionForward();
-		
+		String MS_CONTENT = request.getParameter("MS_CONTENT");
 		HttpSession session = request.getSession();
 		msBoardBean.setMS_SEND(session.getAttribute("id").toString());
 		System.out.println(request.getParameter("MS_NO"));
@@ -30,8 +30,7 @@ public class MessageAddAction2 implements Action {
 				request.getParameter("MS_TO"));
 		msBoardBean.setMS_TITLE(
 				request.getParameter("MS_TITLE"));
-		msBoardBean.setMS_CONTENT(
-				request.getParameter("MS_CONTENT"));		
+		msBoardBean.setMS_CONTENT(MS_CONTENT);
 		request.setAttribute("to", request.getParameter("MS_TO"));
 		int result = msDAO.msInsert2(msBoardBean);
 		

@@ -13,19 +13,19 @@
 			});
 			
 			$('#deleteBtn').click(function () {			// 삭제버튼
-				location.href="./pbdeleteAction.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }";
+				location.href="./pbdeleteAction.pb?PB_NO=${boardBean.PB_NO }";
 			});
 			$('#next').click(function(){				//다음페이지
-				location.href = "./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=" + ${page + 1};
+				location.href = "./pbview.pb?PB_NO=${boardBean.PB_NO }&page=" + ${page + 1};
 				//다음페이지 이동
 			});
 			$('#back').click(function(){				//이전페이지
-				location.href = "./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=" + ${page - 1};	
+				location.href = "./pbview.pb?PB_NO=${boardBean.PB_NO }&page=" + ${page - 1};	
 				//이전페이지 이동
 			});
 			
 			$('.cmtDeleteBtn').click(function () {			// 댓글삭제 버튼
-				location.href="./CommentDeleteAction.cmt?url=./pbview.pb?CMT_SUBJECT_NO=&CMT_SUBJECT_NO=${boardBean.PB_NO }&CMT_BOARD_NAME=purchaseboard&CMT_NO=" + $(this).val();
+				location.href="./CommentDeleteAction.cmt?url=./pbview.pb?PB_NO=&PB_NO=${boardBean.PB_NO }&CMT_BOARD_NAME=PURCHASE_BOARD&CMT_NO=" + $(this).val();
 			});
 			
 			$('#cmtInsertBtn').one("click" , function(){			// 댓글등록버튼
@@ -38,15 +38,16 @@
 						dataType : "json",
 						data : {
 								CMT_CONTENT : $("#comment_content").val(),
-								CMT_SUBJECT_NO : $("PB_NO").val()
+								CMT_SUBJECT_NO : $("PB_NO").val(),
+								CMT_BOARD_NAME : "PURCHASE_BOARD"
 								},
-								url : "./cmtwriteAction.cmt?CMT_SUBJECT_NO=${boardBean.PB_NO }&CMT_BOARD_NAME=purchaseboard",
+								url : "./cmtwriteAction.cmt?PB_NO=${boardBean.PB_NO }&CMT_BOARD_NAME=PURCHASE_BOARD",
 						success : function(data){
 							if (data == 1) {
 								if(${endPage}==0){
-									location.href='./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=1';  //등록시 마지막 페이지가 0일경우 1로 고정
+									location.href='./pbview.pb?PB_NO=${boardBean.PB_NO }&page=1';  //등록시 마지막 페이지가 0일경우 1로 고정
 								} else {	
-									location.href='./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=${endPage}';  //등록시 마지막 페이지로
+									location.href='./pbview.pb?PB_NO=${boardBean.PB_NO }&page=${endPage}';  //등록시 마지막 페이지로
 								}
 								
 							} else {
@@ -98,10 +99,10 @@
 								CMT_CONTENT : $("#rere_Comment").val(),
 								CMT_SUBJECT_NO : $("PB_NO").val()
 								},
-						url : "./CommentReplyAction.cmt?CMT_BOARD_NAME=purchaseboard&CMT_SUBJECT_NO=${boardBean.PB_NO }&CMT_NO="+$(this).val(),
+						url : "./CommentReplyAction.cmt?CMT_BOARD_NAME=PURCHASE_BOARD&PB_NO=${boardBean.PB_NO }&CMT_NO="+$(this).val(),
 						success : function(data){
 							if (data == 1) {
-								location.href='./pbview.pb?CMT_SUBJECT_NO=${boardBean.PB_NO }&page=${page}'; //등록시 원문글 페이지로
+								location.href='./pbview.pb?PB_NO=${boardBean.PB_NO }&page=${page}'; //등록시 원문글 페이지로
 							} else {
 								alert("실패" + data);
 							}
@@ -479,7 +480,7 @@
 					</c:if>
 
 					<c:if test="${a != page }">
-						<a href="./pbview.pb?CMT_SUBJECT_NO=${boardBean.num }&page=${a }">${a }</a>
+						<a href="./pbview.pb?PB_NO=${boardBean.PB_NO }&page=${a }">${a }</a>
 					</c:if>
 				</c:forEach>
 			
