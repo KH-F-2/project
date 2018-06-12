@@ -2,35 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<style>
-	table{
-	width:60%;
-	border:1px solid #cdd2d2;
-	margin:0 auto
-	}
-	thead{
-		font-size:22px;
-		background:#D5D5D5;
-	}
-	tbody{
-		font-size:18px;
-		border: 1px solid #cdd2d2;
-	}
-	.tr_move {
-		text-align: center;
-	}
-	tfoot{
-		font-size:18px;
-	}
-	a {
-		text-decoration:none
-	}
-	td {
-		border-bottom:1px solid #cdd2d2
-	}
-</style>
+<link href="./css/msdetail.css" rel="stylesheet">
 <body>
-	<h1 style="text-align:center">보낸 쪽지 읽기</h1>
+	<div id="ccc">
+		<div id="abc">
+			<img src="image/send.png" class="img">	
+			<h1>보낸 쪽지 읽기</h1>
+		</div>
+	</div>
 	<div>
 		<table border=1>
 			<thead>

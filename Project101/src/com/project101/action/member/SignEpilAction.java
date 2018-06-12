@@ -19,7 +19,7 @@ public class SignEpilAction implements Action {
       request.setCharacterEncoding("UTF-8");
 
       EpilDAO epDAO = new EpilDAO();
-      String name = request.getParameter("name");
+      String name = request.getParameter("writer");
       ArrayList<Epil> list = epDAO.getEpilList(name);
       request.setAttribute("list", list);
       

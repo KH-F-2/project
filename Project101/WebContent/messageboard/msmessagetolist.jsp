@@ -2,39 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<style>
-	table{
-		width:60%;
-		border:1px solid #cdd2d2;
-		margin:0 auto;
-	}
-	thead{
-		font-size:22px;
-		background:#D5D5D5;
-	}
-	tbody{
-		font-size:18px;
-		border: 1px solid #cdd2d2;
-	}
-	.tr_move {
-		text-align: center;
-	}
-	tfoot{
-		font-size:18px;
-	}
-	a {
-		text-decoration:none
-	}
-	td {
-		border-bottom:1px solid #cdd2d2
-	}
-
-</style>
+<link href="./css/mslist.css" rel="stylesheet">
 <body>
 <h1 style="text-align:center">
 	<img src="image/message.png" width="50px" height="50px">
-		"${id }"이 받은 쪽지함</h1>
-	<table border=1>
+		"${id }"님이 받은 쪽지함</h1>
+	<table>
 			<thead>
 				<tr>
 					<th width="22%">보낸사람</th>
@@ -86,8 +59,10 @@
 			<tfoot>
 				<tr>
 					<td colspan="3" style="text-align: right; font-size: 14pt;"><a
-						style="margin-right: 10px;" href="msmessagewrite2.ms" id="a_write">쪽지 쓰기</a>
-						<a href="mypage.me">마이페이지로 이동</a>
+						style="margin-right: 10px;" href="msmessagewrite2.ms" id="a_write">
+						<img src="image/pencil.png" width="30px" height="30px">
+						쪽지 쓰기</a>
+						<a href="mypage.me">마이페이지</a>
 					</td>
 				</tr>
 			</tfoot>
