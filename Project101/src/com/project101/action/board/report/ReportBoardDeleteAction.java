@@ -16,7 +16,7 @@ public class ReportBoardDeleteAction implements Action {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 	
-		int num = Integer.parseInt(request.getParameter("RB_NO"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		ReportBoardDAO reportDAO = new ReportBoardDAO();
 
 		int result = 0;

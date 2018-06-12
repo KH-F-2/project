@@ -12,15 +12,12 @@
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<style>
-		body{
-			text-align: center
-		}
-		table{
-			width:500px;height:400px;margin:0 auto;text-align:center
-		}
 		
+		table{
+			width:500px;height:400px;
+		}		
 		.epil_ul{
-			width: 70%;
+			font-size:20px;
 		}
 		.epil_ul .epil_li div{
 			display: inline-block;
@@ -29,15 +26,18 @@
 		.epil_ul .epil_li{
 			width: 100%;
 			height: 50px;
-			list-style:none;
-			
+			list-style:none;			
+		}
+		.epil_li{
+			padding: 17px 37px 20px 0;
+			border: 1px solid #cdd2d2;
 		}
 	</style>
 	</head>
 	
 	<body>
-	<h1>후기목록</h1>
-		<h2 style="text-align: center;">${writer }님의 후기</h2>
+	<h1 style="text-align:center;">후기목록</h1>
+		<h2 style="text-align: center;">"${writer }"님의 후기목록</h2>
 		<ul class="epil_ul">
 		
 			<c:forEach var="ep" items="${list}">
