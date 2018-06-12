@@ -9,7 +9,6 @@ public class ReportBoardBean {
 	private String RB_CONTENT;
 	private int RB_PRICE;
 	private int RB_NO;
-	private Date RB_BDATE;
 	private Date RB_DATE;
 	private int RB_READCOUNT;
 
@@ -51,14 +50,6 @@ public class ReportBoardBean {
 
 	public void setRB_NO(int rB_NO) {
 		RB_NO = rB_NO;
-	}
-
-	public Date getRB_BDATE() {
-		return RB_BDATE;
-	}
-
-	public void setRB_BDATE(Date rB_BDATE) {
-		RB_BDATE = rB_BDATE;
 	}
 
 	public Date getRB_DATE() {

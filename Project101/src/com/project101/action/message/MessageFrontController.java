@@ -65,8 +65,10 @@ public class MessageFrontController extends HttpServlet {
 				action = new MessageAddAction2();
 				forward = action.execute(request, response);
 			}
-		
-			
+			else if (command.equals("/msmessagedeleteaction.ms")) {
+				action = new MessageDeleteAction();
+				forward = action.execute(request, response);
+			}
 			
 			if(forward!=null) {
 				if(forward.isRedirect()) {

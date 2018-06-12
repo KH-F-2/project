@@ -36,15 +36,16 @@ public class MessageDAO {
 		try {
 			conn = ds.getConnection();
 			String sql = "insert into message " 
-					+ "(MS_NO, MS_SEND, MS_TO, MS_DATE, MS_TITLE, MS_CONTENT ) "
-					+ "values(?,?,?,sysdate,?,?)";
+					+ "(MS_NO, MS_SEND, MS_TO, MS_DATE, MS_TITLE, MS_CONTENT, MS_READCOUNT ) "
+					+ "values(?,?,?,sysdate,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			System.out.println("MS_NO" + msBoardBean.getMS_NO());
 			pstmt.setInt(1, msBoardBean.getMS_NO());
 			pstmt.setString(2, msBoardBean.getMS_SEND());
 			pstmt.setString(3, msBoardBean.getMS_TO());
 			pstmt.setString(4, msBoardBean.getMS_TITLE());
-			pstmt.setString(5, msBoardBean.getMS_CONTENT());			
+			pstmt.setString(5, msBoardBean.getMS_CONTENT());
+			pstmt.setInt(6, msBoardBean.getMS_READCOUNT());
 			
 			pstmt.executeUpdate();
 			
@@ -85,15 +86,16 @@ public class MessageDAO {
 			
 			
 			String sql = "insert into message " 
-					+ "(MS_NO, MS_SEND, MS_TO, MS_DATE, MS_TITLE, MS_CONTENT ) "
-					+ "values(?,?,?,sysdate,?,?)";
+					+ "(MS_NO, MS_SEND, MS_TO, MS_DATE, MS_TITLE, MS_CONTENT, MS_READCOUNT ) "
+					+ "values(?,?,?,sysdate,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
 			pstmt.setString(2, msBoardBean.getMS_SEND());
 			pstmt.setString(3, msBoardBean.getMS_TO());
 			pstmt.setString(4, msBoardBean.getMS_TITLE());
-			pstmt.setString(5, msBoardBean.getMS_CONTENT());			
+			pstmt.setString(5, msBoardBean.getMS_CONTENT());	
+			pstmt.setInt(6, msBoardBean.getMS_READCOUNT());
 			
 			pstmt.executeUpdate();
 			
@@ -183,8 +185,8 @@ public class MessageDAO {
 	public MessageBoardBean getDetail(int MS_NO) {
 		MessageBoardBean boardBean = new MessageBoardBean();
 		try {
-			String sql = "select * from message where MS_NO=?";
 			conn = ds.getConnection();
+			String sql = "select * from message where MS_NO=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, MS_NO);
 			rset = pstmt.executeQuery();
@@ -196,6 +198,7 @@ public class MessageDAO {
 				boardBean.setMS_DATE(rset.getDate("MS_DATE"));
 				boardBean.setMS_TITLE(rset.getString("MS_TITLE"));
 				boardBean.setMS_CONTENT(rset.getString("MS_CONTENT"));
+				boardBean.setMS_READCOUNT(rset.getInt("MS_READCOUNT"));
 			}
 			
 		}catch (Exception e ) {
@@ -231,7 +234,7 @@ public class MessageDAO {
 				"select * from " 
 				+ "(select rownum rnum,MS_NO ,MS_SEND , "
 				+ "MS_TO, MS_DATE, MS_TITLE, "
-				+ "MS_CONTENT"
+				+ "MS_CONTENT, MS_READCOUNT"
 				+ " from "
 				+		"(select * from message "
 				+		" order by MS_NO desc)) "
@@ -258,6 +261,7 @@ public class MessageDAO {
 				board.setMS_DATE(rset.getDate("MS_DATE"));
 				board.setMS_TITLE(rset.getString("MS_TITLE"));
 				board.setMS_CONTENT(rset.getString("MS_CONTENT"));
+				board.setMS_READCOUNT(rset.getInt("MS_READCOUNT"));
 				list.add(board);//값을 담은 객체를 리스트에 저장합니다.				
 			}
 			return list;//값을 담은 객체를 저장한 리스트를 호출한 곳으로 
@@ -363,5 +367,68 @@ public class MessageDAO {
 			}
 		}
 		return x;
+	}
+	
+	public void sendToCountUpdate(int mS_NO) {
+		try {
+			conn = ds.getConnection();
+			String sql = "update message set MS_READCOUNT = MS_READCOUNT+1 where MS_NO=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mS_NO);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("sendToCountUpdate 오류 : " + e);
+		} finally {
+			try {
+				if (rset != null)
+					rset.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	public boolean boardDelete(MessageBoardBean boardBean) {
+		try {
+			String sql = "delete from message where MS_SEND=?";
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardBean.getMS_SEND());
+
+			int result = pstmt.executeUpdate();
+
+			if (result == 0) {
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			System.out.println("boardDelete() 에러 :" + e);
+			e.printStackTrace();
+		} finally {
+			if (rset != null)
+				try {
+					rset.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return false;
 	}
 }
