@@ -22,7 +22,7 @@ public class ReportBoardView implements Action {
 
 		reportDao.setReadCountUpdate(num);
 		boardBean = reportDao.getDetail(num);
-
+		
 		request.setAttribute("boardbean", boardBean);
 
 		if (boardBean == null) {

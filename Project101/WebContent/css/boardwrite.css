@@ -18,6 +18,9 @@
   			-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+.category{
+	font-size:12px;
+}
 #map {
 	width: 100%;
 	height: 400px;
@@ -51,11 +54,11 @@ input[type=text]{
 }
 .title{
 	display: inline-block;
-	width: 80%;
+	width: 49%;
 }
 .board_type{
 	display: inline-block;
-	width: 135px;
+	width: 49%;
 }
 .category, .price{
 	display: inline-block;
@@ -89,7 +92,7 @@ input[type=text]{
 	font-weight: bold;
 }
 select{
-	height: 20px;
+	height: 25px;
 }
 textarea{
 	width: 100%;
@@ -103,8 +106,8 @@ textarea{
 	font-size: 17pt;
 }
 .write_btn{
-	background:#1AAB8A;
-	color:#fff;
+	background:black;
+	color:white;
 	border:none;
 	position:relative;
 	height:30px;
@@ -116,15 +119,15 @@ textarea{
 	outline:none;
 }
 #cancle_btn{
-	background: #D24D57;
+	background: black;
 }
 .write_btn:hover{
-  background:#fff;
-  color:#1AAB8A;
+  background:white;
+  color:black;
 }
 #cancle_btn:hover{
-	background: #fff;
-	color: #D24D57;
+	background: white;
+	color: black;
 }
 .write_btn:before, .write_btn:after{
   content:'';
@@ -133,11 +136,11 @@ textarea{
   right:0;
   height:2px;
   width:0;
-  background: #1AAB8A;
+  background: black;
   transition:400ms ease all;
 }
 #cancle_btn:before, #cancle_btn:after{
-	background: #D24D57;
+	background: black;
 }
 .write_btn:after{
   right:inherit;
@@ -160,7 +163,7 @@ textarea{
         height: 18px;
         vertical-align: middle;    /* img 아이콘 항상 세로정렬을 하기 위함 */
         margin: -5px 5px 0 0; 
-        background-image: url('../image/money.png');    /* svg 파일 적용 */
+        background-image: url('../image/unchecked.png');    /* svg 파일 적용 */
 }
 .board_type input[type=radio]:checked + label::before {    /* 가짜 체크박스 체크했을 때 */
         background-image: url('../image/checked.png');    /* 하위 브라우저용 img */

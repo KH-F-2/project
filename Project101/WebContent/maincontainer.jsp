@@ -3,19 +3,19 @@
 
 <c:choose>
 	<c:when test="${!empty jsonArr }">
-		<h3 id="container-header">내 주변에 등록된 상품이 ${jsonArr.size() }개 이상 있습니다.</h3>
+		<h3 id="container-header">내 주변에 등록된 상품이 ${totalContents }개 이상 있습니다.</h3>
 		<c:forEach var="item" items="${jsonArr }" begin="0" end="9">
 			<div class="content">
-				<a href="sbview.sb?num=${item.NUM }">
-					<img src="${item.IMAGE_URL }">
-					<p>${item.TITLE }</p>
+				<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
+					<img src="${item.image_url }">
+					<p>${item.title }</p>
 				</a>
-				<span>&#xf159; ${item.PRICE }원</span><br>
-				<span>${item.CONTENT }</span>
+				<span>&#xf159; ${item.price }원</span><br>
+				<span>${item.content }</span>
 				<div id="contentInfoSection">
 					<div class="contentInfo">&#xe80b; 0</div>
 					<div class="contentInfo">&#xe816; 0</div>
-					<div class="contentInfo">&#xe80d; ${item.READCOUNT }</div>
+					<div class="contentInfo">&#xe80d; ${item.readcount }</div>
 				</div>
 			</div>
 		</c:forEach>

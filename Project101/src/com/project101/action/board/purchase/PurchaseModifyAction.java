@@ -38,11 +38,10 @@ public class PurchaseModifyAction implements Action {
 		boardBean.setPB_LAT(Double.parseDouble(request.getParameter("markerLat")));  
 		boardBean.setPB_LNG(Double.parseDouble(request.getParameter("markerLng")));
 		
-		System.out.println("1");
 		result = purchaseDAO.purchaseModify(boardBean, num);
-		System.out.println("2");
-		result = imageDAO.imageModify(imageBean, tableName);
-		System.out.println("3");
+
+		imageDAO.imageModify(imageBean, tableName);
+	
 
 		//글쓴이 인지 확인하기 위해 저장된 번호와 작성자를 확인합니다.
 		//로그인 연동 이후 수정
@@ -52,7 +51,7 @@ public class PurchaseModifyAction implements Action {
 		  imageBean.setIMAGE_URL(request.getParameter("img_hidden"));
 		  System.out.println("gjgjgjgj"+request.getParameter("img_hidden"));
 		  imageDAO.imageModify(imageBean, tableName);
-		  System.out.println("4");
+		
 		
 		//수정에 실패한 경우
 		if(result == 0) {
@@ -63,7 +62,7 @@ public class PurchaseModifyAction implements Action {
 			System.out.println("게시판 수정 완료");
 		}
 		
-		forward.setRedirect(false);
+		forward.setRedirect(true);
 		//수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정함		
 		forward.setPath("./pbview.pb?PB_NO=" + boardBean.getPB_NO()); //경로설정 변경 해야됨.
     

@@ -21,11 +21,11 @@ $(document).ready(function() {
 				};
 
 				map.panTo(currentPosition);
-				checkCurrentPosition()
+				checkCurrentPosition();
 			});
-		} else {
-			checkCurrentPosition()
 		}
+		
+		checkCurrentPosition();
 		
 	}, 1000);
 
@@ -88,11 +88,6 @@ function initMap() {
 
 // 현재 위치에서 조회
 function checkCurrentPosition() {
-//	startLat = map.getBounds().getSouthWest().lat();
-//	startLng = map.getBounds().getSouthWest().lng();
-//	endLat = map.getBounds().getNorthEast().lat();
-//	endLng = map.getBounds().getNorthEast().lng();
-
 	centerLat = map.center.lat();
 	centerLng = map.center.lng();
 	console.log(centerLat);
@@ -123,12 +118,12 @@ function viewMarkers() {
 				getBoardListUsingCurrentPosition(json);
 
 				for (var i = 0; i < json.length; i++) {
-					var title = json[i].TITLE;
+					var title = json[i].title;
 					
-					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].NUM + '">' + title + '</a>'
-												+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].PRICE + '원</div>'
-												+ '<img src="' + json[i].IMAGE_URL + '" alt="./image/koala.jpg" height="115" width="83">'
-												+ '<p>' + json[i].CONTENT + '</p></div><div class="iw-bottom-gradient"></div></div>';
+					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '">' + title + '</a>'
+												+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
+												+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
+												+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';
 					
 					infoContentArr.push(infoContent);
 
@@ -151,6 +146,7 @@ function removeMarkers() {
 		markers[i].setMap(null);
 	}
 	markers = [];
+	infoContentArr = [];
 }
 
 // 시간 차 를 두고 마커 생성 & 이벤트 추가
@@ -158,10 +154,10 @@ function addMarkerWithTimeout(position, i, title) {
 	
 	window.setTimeout(function() {
 		
-		if (position.BOARD_NAME == 'SELL_BOARD') {
+		if (position.board_name == 'SELL_BOARD') {
 			console.log('sell');
 			markers.push(new google.maps.Marker({
-				position : new google.maps.LatLng(position.LAT, position.LNG),
+				position : new google.maps.LatLng(position.lat, position.lng),
 				animation : google.maps.Animation.DROP,
 				map: map,
 				label : {
@@ -171,13 +167,13 @@ function addMarkerWithTimeout(position, i, title) {
 				},
 				icon : {
 					labelOrigin : new google.maps.Point(11, 45),
-					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blueP.png',
+					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blueS.png',
 				}
 			}));
 		} else {
 			console.log('purchase');
 			markers.push(new google.maps.Marker({
-				position : new google.maps.LatLng(position.LAT, position.LNG),
+				position : new google.maps.LatLng(position.lat, position.lng),
 				animation : google.maps.Animation.DROP,
 				map: map,
 				label : {
@@ -187,7 +183,7 @@ function addMarkerWithTimeout(position, i, title) {
 				},
 				icon : {
 					labelOrigin : new google.maps.Point(11, 45),
-					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_redS.png',
+					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_redP.png',
 				}
 			}));
 		}

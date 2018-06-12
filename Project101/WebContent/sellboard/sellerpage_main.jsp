@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>판매게시판</title>
-	
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	
-	<!-- Semantic UI Library -->
-	<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-	<script src="semantic/semantic.min.js"></script>
 	<link href="css/seller_main.css" rel="stylesheet" type="text/css">
 	
 	<script>
@@ -63,9 +51,6 @@ $(document).ready(function() {
 });
 	
 	</script>
-</head>
-
-<body>
 
 	<div class="ui left vertical menu sidebar">
 		<h1 id="navTitle"><i>&#xe801;</i>  우리지금만나</h1>
@@ -108,6 +93,3 @@ $(document).ready(function() {
 	  </c:if>
 	
 	</ul>
-</body>
-
-</html>

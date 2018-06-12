@@ -1,3 +1,4 @@
+
 create table message(
 	MS_NO NUMBER,
 	MS_SEND VARCHAR2(50) not null, --작성자

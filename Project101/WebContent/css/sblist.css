@@ -19,7 +19,7 @@
 	position: relative;
 	width: 200px;
 	height: 300px;
-	margin: 20px 15px 0px 15px;
+	margin: 20px 25px 20px 25px;
 	display: inline-block;
 	border: 1px solid #cdd2d2;
 	border-radius: 10px;
@@ -42,7 +42,7 @@
 	min-height: 100%;
 }
 .card_content{
-	height: 70px;
+	height: 75px;
 	padding: 10px 5px 5px 10px;
 	border-bottom: 1px solid #cdd2d2;
 }
@@ -60,24 +60,31 @@
 }
 .content_span_title{
 	font-weight: bold;
-	font-size: 15pt;
+	font-size: 12pt;
 }
 
-.content_span_board{
+.content_span_sell{
 	margin-right: 3px;
+	font-size: 11pt;
 	color: #4183C4;
+}
+.content_span_purchase{
+	margin-right: 3px;
+	font-size: 11pt;
+	color: #c64054;
 }
 .content_span_price{
 	position: absolute;
 	bottom: 30px;
+	font-size: 10pt;
 	font-weight: bold;
 }
 .card_bottom{
-	height: 30px;
+	height: 25px;
 	text-align: center;
 }
 .bottom_span{
-	font-size: 0.82em;
+	font-size: 0.7em;
 	line-height: 2.3;
 	color: #101010;
 }
