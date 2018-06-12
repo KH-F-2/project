@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+#sticky {
+	width: 70%;
+	margin: 0 auto;
+	margin-bottom: 150px;
+}
+
+#sticky * {
+	box-sizing: border-box;
+	margin-bottom: 10px;
+}
+
+#form-title {
+	width: 50%;
+	margin: 0 auto;
+	font-size: 12px;
+	display: block;
+	margin-bottom: 50px;
+}
+
+#form-title h3 {
+	font-size: 25px;
+	margin: 42px 0 21px;
+	padding-bottom: 0;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+.form-row.subTitle {
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 600;
+	margin-bottom: 30px !important;
+}
+
+#sticky label {
+	display: inline-block;
+	width: 25%;
+	height: 35px;
+	color: #BDBDBD;
+}
+
+#sticky input[type='text'], input[type='password'] {
+	border-color: transparent;
+	box-shadow: none;
+	outline-style: none;
+	border: 0;
+	border-bottom: 1px solid black;
+	font-size: 17px;
+}
+
+.form-row {
+	display: block;
+	width: 50%;
+	margin: 0 auto;
+}
+.form-row.last-row input {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+.form-row.last-row h3 {
+	display: inline-block;
+}
+.form-row.last-row input:checked {
+	background-color: black;
+}
+.secondCol {
+	display: inline-block;
+	width: 74%;
+}
+.secondCol.halfLen input {
+	width: 245px;
+}
+.secondCol.fullLen input {
+	width: 400px;
+}
+.secondCol.triLen input {
+	width: 140px;
+}
+.secondCol.telLen input {
+	width: 295px;
+}
+
+#sticky input[type='button'] {
+	border-color: transparent;
+	box-shadow: none;
+	outline-style: none;
+	background-color: black;
+	color: white;
+	width: 145px;
+	height: 25px;
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+#sticky button {
+	border-color: transparent;
+	box-shadow: none;
+	outline-style: none;
+	background-color: black;
+	color: white;
+	width: 200px;
+	height: 50px;
+	font-size: 15px;
+	margin-right: 20px;
+	margin-top: 30px;
+}
+
+.prettydropdown {
+	outline: none;
+	font-size: 15px;
+	border: 0;
+}
+.prettydropdown > ul {
+	outline: none;
+}
+.prettydropdown > ul > li {
+	width: 70px;
+	height: 20px;
+	font-size: 15px;
+}
+
+#map {
+	width: 570px;
+	height: 250px;
+	margin-bottom: 50px;
+}
+#autocomplete {
+	width: 570px;
+}
+
+.last-row .check {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}

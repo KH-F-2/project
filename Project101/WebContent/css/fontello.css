@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?38692387');
-  src: url('../font/fontello.eot?38692387#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?38692387') format('woff2'),
-       url('../font/fontello.woff?38692387') format('woff'),
-       url('../font/fontello.ttf?38692387') format('truetype'),
-       url('../font/fontello.svg?38692387#fontello') format('svg');
+  src: url('../font/fontello.eot?84708132');
+  src: url('../font/fontello.eot?84708132#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?84708132') format('woff2'),
+       url('../font/fontello.woff?84708132') format('woff'),
+       url('../font/fontello.ttf?84708132') format('truetype'),
+       url('../font/fontello.svg?84708132#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?38692387#fontello') format('svg');
+    src: url('../font/fontello.svg?84708132#fontello') format('svg');
   }
 }
 */
@@ -55,6 +55,53 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.icon-list:before { content: '\e800'; } /* '' */
-.icon-users:before { content: '\e801'; } /* '' */
-.icon-shop:before { content: '\e835'; } /* '' */
+.icon-up-circle:before { content: '\e800'; } /* '' */
+.icon-group:before { content: '\e801'; } /* '' */
+.icon-check:before { content: '\e802'; } /* '' */
+.icon-check-empty:before { content: '\e803'; } /* '' */
+.icon-eye:before { content: '\e804'; } /* '' */
+.icon-comment:before { content: '\e805'; } /* '' */
+.icon-tag:before { content: '\e806'; } /* '' */
+.icon-plus-circled:before { content: '\e807'; } /* '' */
+.icon-bell:before { content: '\e808'; } /* '' */
+.icon-clock:before { content: '\e809'; } /* '' */
+.icon-pencil:before { content: '\e80a'; } /* '' */
+.icon-heart:before { content: '\e80b'; } /* '' */
+.icon-heart-filled:before { content: '\e80c'; } /* '' */
+.icon-eye-outline:before { content: '\e80d'; } /* '' */
+.icon-eye-1:before { content: '\e80e'; } /* '' */
+.icon-stopwatch:before { content: '\e80f'; } /* '' */
+.icon-warning:before { content: '\e810'; } /* '' */
+.icon-warning-empty:before { content: '\e811'; } /* '' */
+.icon-bell-1:before { content: '\e812'; } /* '' */
+.icon-location-1:before { content: '\e813'; } /* '' */
+.icon-folder:before { content: '\e814'; } /* '' */
+.icon-tag-1:before { content: '\e815'; } /* '' */
+.icon-comment-1:before { content: '\e816'; } /* '' */
+.icon-comment-inv:before { content: '\e817'; } /* '' */
+.icon-plus:before { content: '\e818'; } /* '' */
+.icon-adult:before { content: '\e819'; } /* '' */
+.icon-universal-access:before { content: '\e81a'; } /* '' */
+.icon-mail:before { content: '\e81b'; } /* '' */
+.icon-at:before { content: '\e81c'; } /* '' */
+.icon-user-pair:before { content: '\e81d'; } /* '' */
+.icon-megaphone:before { content: '\e81e'; } /* '' */
+.icon-th-list-1:before { content: '\e81f'; } /* '' */
+.icon-mail-1:before { content: '\e820'; } /* '' */
+.icon-heart-1:before { content: '\e821'; } /* '' */
+.icon-heart-empty:before { content: '\e822'; } /* '' */
+.icon-th:before { content: '\e823'; } /* '' */
+.icon-align-justify:before { content: '\e824'; } /* '' */
+.icon-search:before { content: '\e825'; } /* '' */
+.icon-search-1:before { content: '\e826'; } /* '' */
+.icon-bookmark:before { content: '\e827'; } /* '' */
+.icon-town-hall:before { content: '\e83c'; } /* '' */
+.icon-menu:before { content: '\f008'; } /* '' */
+.icon-th-list:before { content: '\f009'; } /* '' */
+.icon-location:before { content: '\f031'; } /* '' */
+.icon-mail-alt:before { content: '\f0e0'; } /* '' */
+.icon-doc-text:before { content: '\f0f6'; } /* '' */
+.icon-folder-empty:before { content: '\f114'; } /* '' */
+.icon-angle-circled-up:before { content: '\f139'; } /* '' */
+.icon-won:before { content: '\f159'; } /* '' */
+.icon-plus-squared-alt:before { content: '\f196'; } /* '' */
