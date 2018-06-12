@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link href="/Project101/sellboard/css/sblist.css" rel="stylesheet" type="text/css">
@@ -6,22 +6,16 @@
 <!-- Google Map API -->
 <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
 
-<script src="./sellboard/js/sblist.js"></script>
+<script src="./js/sblist.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#a_write').click(function() {
 			var id = <%=session.getAttribute("id")%>;
 			if (id == null) {
-				alert('·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.');
+				alert('ë¡œê·¸ì¸ í›„ ì´ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.');
 				return false;
 			}
-		});
-		
-		$('#search_btn').click(function() {
-			var word = $('input[name=search_input').val();
-			var item = $('#search_sel').val();
-			location.href = './sbmain.sb?word=' + word + '&item=' + item;
 		});
 	});
 </script>
@@ -30,10 +24,10 @@
 <div id="mapControler">
 	<div id="emptyDiv">
 		<div id="chkBtnDiv">
-			<input type="button" id="checkCurrentPosition" value="ÇöÀçÀ§Ä¡¿¡¼­ Á¶È¸">
+			<input type="button" id="checkCurrentPosition" value="í˜„ì¬ ìœ„ì¹˜ì—ì„œ ì¡°íšŒÂšÂŒ">
 		</div>
 		<div id="locationField">
-			<input id="autocomplete" placeholder="°Ë»öÇÒ Àå¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä." type="text" />
+			<input id="autocomplete" placeholder="ê²€ìƒ‰ í•  ì¥ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”" type="text" />
 		</div>
 	</div>
 </div>
@@ -42,26 +36,44 @@
 
 
 <div class="search">
+	<select id="search_category">
+		<option selected="selected">ì „ì²´ì¹´í…Œê³ ë¦¬</option>
+		<option value="1">ì˜ë¥˜/íŒ¨ì…˜ì¡í™”</option>
+		<option value="2">ì·¨ë¯¸/ë ˆì €</option>
+		<option value="3">ì‹í’ˆ/ìƒí™œ/ìœ ì•„ë™</option>
+		<option value="4">ê°€êµ¬/ìƒí™œì¡í™”</option>
+		<option value="5">ê°€ì „/ë””ì§€í„¸</option>
+		<option value="6">ë„ì„œ/í‹°ì¼“/ì¿ í°</option>
+		<option value="7">ê¸°íƒ€</option>
+	</select>
+	
 	<select id="search_sel">
-		<option value="title" selected="selected">Á¦¸ñ</option>
-		<option value="content">³»¿ë</option>
-		<option value="title_content">Á¦¸ñ+³»¿ë</option>
-	</select> <input type="text" name="search_input" placeholder="Search..">
-	<button id="search_btn">°Ë»ö</button>
+		<option value="title" selected="selected">ì œëª©</option>
+		<option value="content">ë‚´ìš©</option>
+		<option value="hashtag">íƒœê·¸</option>
+		<option value="title_content">ì œëª©+ë‚´ìš©</option>
+	</select>
+	
+	<input type="text" name="search_input" id="search_input" placeholder="Search..">
+	
+
+	<button id="search_btn">ê²€ìƒ‰</button>
+</div>
+<div class="write">
+	<button type="button" id="write_btn" onclick="location.href='sbwriteview.sb'">ê¸€ì“°ê¸°</button>
 </div>
 
 <div id="container">
-		<c:forEach var="item" items="${boardPageBean.boardBeanList }" begin="0" end="9">
+		<c:forEach var="item" items="${boardBeanlist }" begin="0" end="9">
 			<div class="content">
-				<a href="sbview.sb?num=${item.NUM }&boardname=${item.BOARD_NAME }">
-					<img src="${item.IMAGE_URL }">
-					<p>${item.TITLE }</p>
+				<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
+					<img src="${item.image_url }">
+					<p>${item.title }</p>
 				</a>
-				<p>${item.PRICE }¿ø</p>
-				<p>${item.CONTENT }</p>
+				<p>${item.price }ì›</p>
+				<p>${item.content }</p>
 			</div>
 		</c:forEach>
 </div>
 
 <div id="moveTop">&#xf139;</div>
-

@@ -15,11 +15,23 @@
         <!-- 지도 API -->
         <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap2&libraries=places'></script>
 
-        <script src="js/boardwrite.js"></script>
+        <script src="js/boardmodify.js"></script>
         <link href="css/boardwrite.css" rel="stylesheet" type="text/css">
         <script>
 			$(function(){
-				var cate = '${boardBean.SB_CATEGORY}';
+				for(let i = 0; i < $('#hashTag').val().split(" ").length; i++){
+					$('#tagSection').append('<div class="tag"><span>' + $('#hashTag').val().split(" ")[i] + '</span><a href="#" class="close"> X </a></div>');
+				}
+				
+				$('input[type=radio]').attr('disabled', 'disabled');
+				const name = '${imageBean.BOARD_NAME}';
+				if(name == 'SELL_BOARD'){
+					$('#sell').attr('checked', 'checked');
+				}else{
+					$('#purchase').attr('checked', 'checked');
+				}
+				
+				var cate = '${boardBean.CATEGORY}';
 				$('.cate_option').each(function(){
 					if ($(this).text() == cate) {
 						$(this).attr('selected', 'selected');
@@ -29,11 +41,11 @@
 			});
 			
 			function initMap2() {
-				var sb_lat = ${boardBean.SB_LAT};
-				var sb_lng = ${boardBean.SB_LNG};
+				var lat = ${boardBean.LAT};
+				var lng = ${boardBean.LNG};
 				var mak = {
-					lat : sb_lat,
-					lng : sb_lng
+					lat : lat,
+					lng : lng
 				};
 
 				map = new google.maps.Map(document.getElementById('map'), {
@@ -77,7 +89,7 @@
 	
 		<div class="header"><h1>게시판 수정</h1></div>
 		<form action="" method="post" id="write_submit">
-			<input type="hidden" name="SB_NO" value="${boardBean.SB_NO}">
+			<input type="hidden" name="NO" value="${boardBean.NO}">
 			<ul class="write_ul">
 			
 				<li class="write_li">
@@ -85,14 +97,20 @@
 						<input type="text" placeholder="검색할 장소를 입력하세요." id="autocomplete">
 					</div>
 					<div id="map"></div>
-					<input type="hidden" name="markerLat" id="markerLat" value="${boardBean.SB_LAT}">
-					<input type="hidden" name="markerLng" id="markerLng" value="${boardBean.SB_LNG}">
+					<input type="hidden" name="markerLat" id="markerLat" value="${boardBean.LAT}">
+					<input type="hidden" name="markerLng" id="markerLng" value="${boardBean.LNG}">
 				</li>
 				
 				<li class="write_li">
+					<div class="board_type">
+						<input type="radio" id="purchase" name="iCheck" value="3">
+							<label class="radio_label" id="radio1" for="purchase">구매</label>
+						<input type="radio" id="sell" name="iCheck" value="4">
+							<label class="radio_label" id="radio2" for="sell">판매</label>
+					</div>
 					<div class="title">
 						<img src="image/document.png" alt="document" class="write_img">
-						<input name="TITLE" type="text" size="50" maxlength="100" value="${boardBean.SB_TITLE}" placeholder="제목을 입력하세요">
+						<input name="TITLE" type="text" size="50" maxlength="100" value="${boardBean.TITLE}" placeholder="제목을 입력하세요">
 					</div>
 				</li>
 				
@@ -100,13 +118,14 @@
 					<div id="tagSection">
 						<img src="image/hashtag.png" alt="hashtag" class="write_img">
 						<input type="text" id="inputTag" placeholder="hashtags">
-						<input type="hidden" id="hashTag" name="HASHTAG">
+						<input type="hidden" id="hashTag" name="HASHTAG" value="${boardBean.HASHTAG}">
 					</div>
 					
 				</li>
 				
 				<li class="write_li">
 					<div class="category">
+						<img src="image/category.png" alt="category" class="write_img">
 						<select name="CATEGORY">
 							<option class="cate_option" value="0" selected>카테고리</option>
 						    <option class="cate_option" value="1">의류/잡화</option>
@@ -115,16 +134,18 @@
 						    <option class="cate_option" value="4">가구</option>
 						    <option class="cate_option" value="5">가전/디지털</option>
 						    <option class="cate_option" value="6">도서/쿠폰</option>
+						    <option class="cate_option" value="7">기타</option>
 						</select>
 					</div>
 					<div class="price">
-						<input name = "PRICE" type="text" size="50" maxlength="50" value="${boardBean.SB_PRICE}" placeholder="가격">
+						<img src="image/money.png" alt="money" class="write_img">
+						<input name = "PRICE" type="text" size="50" maxlength="50" value="${boardBean.PRICE}" placeholder="가격">
 					</div>
 				</li>
 				
 				<li class="write_li">
 					<div class="content">
-						<textarea name="CONTENT" cols="65" rows="15">${boardBean.SB_CONTENT}</textarea>
+						<textarea name="CONTENT" cols="65" rows="15">${boardBean.CONTENT}</textarea>
 					</div>
 				</li>
 				

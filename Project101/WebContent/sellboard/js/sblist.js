@@ -1,40 +1,12 @@
-$(window).load(function () {
-	var docHeight = $(document).height();
-	var winHeight = $(window).height();
-	console.log(docHeight);
-	console.log(winHeight);
-	console.log(docHeight - winHeight);
-	var page = 1;
-	
-	$(window).scroll(function () {
-		console.log($(window).scrollTop());
-		if ($(window).scrollTop() == (docHeight - winHeight)) {
-			++page;
-			console.log('바닥');
+var page = 1;
+var centerLat = location.search.split('&')[0].split('=')[1] * 1.0;
+var centerLng = location.search.split('&')[1].split('=')[1] * 1.0;
+var word;
+var item;
 
-			$.ajax({
-				type: 'post',
-				data: {
-					'page' : page,
-					'centerLat' : location.search.split('&')[0].split('=')[1],
-					'centerLng' : location.search.split('&')[1].split('=')[1],
-					'state' : 'ajax',
-				},
-				url: './sbmain.sb',
-				headers: {
-					"cache-control": "no-cache",
-					"pragma": "no-cache"
-				},
-				success: function (json) {
-					console.log('ajax 실행');
-					$('#container').append(json);
-				},
-				error: function () {
-					console.log('error');
-				}
-			});
-		}
-	});
+$(window).load(function () {
+	
+	$(window).scroll(infiniteScroll); 
 	
 	$('#checkCurrentPosition').click(function () {
 		checkCurrentPosition();
@@ -51,7 +23,113 @@ $(window).load(function () {
 		}, 500);
 	});
 	
+	$('#search_input').keyup(function() {
+		page = 1;
+		word = $('input[name=search_input').val();
+		item = $('#search_sel').val();
+		
+		$.ajax({
+			type: 'post',
+			data: {
+				'page' : page,
+				'centerLat' : centerLat,
+				'centerLng' : centerLng,
+				'word' : word,
+				'item' : item,
+				'state' : 'ajax',
+			},
+			url: './sbmain.sb',
+			headers: {
+				"cache-control": "no-cache",
+				"pragma": "no-cache"
+			},
+			beforeSend : function () {
+				infoContentArr = [];
+				removeMarkers();
+			},
+			success: function (json) {
+				
+				console.log('비었자나자나');
+				if (json.length != 0) {
+					getBoardListUsingCurrentPosition(json);
+					
+					for (var i = 0; i < json.length; i++) {
+						var title = json[i].title;
+						
+						var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '">' + title + '</a>'
+						+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
+						+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
+						+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';
+						
+						infoContentArr.push(infoContent);
+						
+						addMarkerWithTimeout(json[i], i, title);
+					}
+				}
+			},
+			error: function () {
+				console.log('error');
+			}
+		});
+	});
+	
+	
 });
+
+var prevJsonLen;
+
+function infiniteScroll() {
+	var docHeight = $(document).height();
+	var winHeight = $(window).height();
+	console.log($(window).scrollTop());
+	if ($(window).scrollTop() == (docHeight - winHeight)) {
+		++page;
+		console.log('바닥');
+
+		$.ajax({
+			type: 'post',
+			data: {
+				'page' : page,
+				'centerLat' : centerLat,
+				'centerLng' : centerLng,
+				'word' : word,
+				'item' : item,
+				'state' : 'ajax',
+			},
+			url: './sbmain.sb',
+			headers: {
+				"cache-control": "no-cache",
+				"pragma": "no-cache"
+			},
+			beforeSend : function() {
+				prevJsonLen = markers.length;
+			},
+			success: function (json) {
+				
+				if (json.length != 0) {
+					
+					getInfiniteBoardList(json);
+					
+					for (var i = 0; i < json.length; i++) {
+						var title = json[i].title;
+						
+						var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '">' + title + '</a>'
+						+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
+						+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
+						+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';
+						
+						infoContentArr.push(infoContent);
+						
+						addMarkerWithTimeout(json[i], i + prevJsonLen, title);
+					}
+				}
+			},
+			error: function () {
+				console.log('error');
+			}
+		});
+	}
+}
 
 
 //맵 필드 변수 설정
@@ -60,16 +138,11 @@ var markers = [];
 var infoContentArr = [];
 var infoWindowArr = [];
 
-var startLat = null;
-var startLng = null;
-var endLat = null;
-var endLng = null;
-
 //맵 초기화 함수
 function initMap() {
 	var receivedCenter = {
-		lat : location.search.split('&')[0].split('=')[1] * 1.0,
-		lng : location.search.split('&')[1].split('=')[1] * 1.0
+		lat : centerLat,
+		lng : centerLng
 	};
 
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -86,13 +159,13 @@ function initMap() {
 		if (place.geometry) {
 			map.panTo(place.geometry.location);
 			map.setZoom(17);
+			checkCurrentPosition();
 		} else {
 			document.getElementById('autocomplete').placeholder = 'Enter a city';
 		}
 	});
 
 	checkCurrentPosition();
-
 
 }
 
@@ -103,6 +176,7 @@ function checkCurrentPosition() {
 	console.log(centerLat);
 	console.log(centerLng);
 
+	infoContentArr = [];
 	viewMarkers();
 }
 
@@ -128,12 +202,12 @@ function viewMarkers() {
 				getBoardListUsingCurrentPosition(json);
 
 				for (var i = 0; i < json.length; i++) {
-					var title = json[i].TITLE;
+					var title = json[i].title;
 					
-					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].NUM + '">' + title + '</a>'
-												+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].PRICE + '원</div>'
-												+ '<img src="' + json[i].IMAGE_URL + '" alt="./image/koala.jpg" height="115" width="83">'
-												+ '<p>' + json[i].CONTENT + '</p></div><div class="iw-bottom-gradient"></div></div>';
+					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '">' + title + '</a>'
+												+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
+												+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
+												+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';
 					
 					infoContentArr.push(infoContent);
 
@@ -161,10 +235,10 @@ function removeMarkers() {
 // 시간 차 를 두고 마커 생성 & 이벤트 추가
 function addMarkerWithTimeout(position, i, title) {
 	window.setTimeout(function() {
-		if (position.BOARD_NAME == 'SELL_BOARD') {
+		if (position.board_name == 'SELL_BOARD') {
 			console.log('sell');
 			markers.push(new google.maps.Marker({
-				position : new google.maps.LatLng(position.LAT, position.LNG),
+				position : new google.maps.LatLng(position.lat, position.lng),
 				animation : google.maps.Animation.DROP,
 				map: map,
 				label : {
@@ -174,13 +248,13 @@ function addMarkerWithTimeout(position, i, title) {
 				},
 				icon : {
 					labelOrigin : new google.maps.Point(11, 45),
-					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blueP.png',
+					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blueS.png',
 				}
 			}));
 		} else {
 			console.log('purchase');
 			markers.push(new google.maps.Marker({
-				position : new google.maps.LatLng(position.LAT, position.LNG),
+				position : new google.maps.LatLng(position.lat, position.lng),
 				animation : google.maps.Animation.DROP,
 				map: map,
 				label : {
@@ -190,7 +264,7 @@ function addMarkerWithTimeout(position, i, title) {
 				},
 				icon : {
 					labelOrigin : new google.maps.Point(11, 45),
-					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_redS.png',
+					url : 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_redP.png',
 				}
 			}));
 		}
@@ -232,6 +306,7 @@ function addMarkerWithTimeout(position, i, title) {
 }
 
 function getBoardListUsingCurrentPosition(json) {
+	console.log('여기서 받아줘요 : ' + json);
 	$.ajax({
 		type: "post",
 		data: {
@@ -246,6 +321,28 @@ function getBoardListUsingCurrentPosition(json) {
 		success: function (data) {
 			console.log('here1');
 			$("#container").empty().prepend(data);
+		},
+		error: function () {
+			alert("에러");
+		}
+	});
+}
+
+function getInfiniteBoardList(json) {
+	$.ajax({
+		type: "post",
+		data: {
+			"json" : JSON.stringify(json),
+			'state' : 'infinite'
+		},
+		url: "./getboardlist.map",
+		cache: false,
+		headers: {
+			"cache-control": "no-cache",
+			"pragma": "no-cache"
+		},
+		success: function (data) {
+			$("#container").append(data);
 		},
 		error: function () {
 			alert("에러");

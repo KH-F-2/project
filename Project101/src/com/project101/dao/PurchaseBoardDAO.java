@@ -170,9 +170,10 @@ public class PurchaseBoardDAO {
 	}
 
 	// 상세보기
-	public PurchaseBoardBean getDetail(int num) {
-		PurchaseBoardBean boardBean = null;
-		String sql = "select * from purchase_board where PB_NO=?";
+	public JSONObject getDetail(int num) {
+		JSONObject obj = new JSONObject();
+		String sql = "select * from purchase_board inner join CATEGORY "
+				+ "ON PURCHASE_BOARD.PB_CATEGORY = CATEGORY.CATEGORY_ID where PURCHASE_BOARD.PB_NO=?";
 		
 		try {
 			conn = ds.getConnection();
@@ -183,23 +184,22 @@ public class PurchaseBoardDAO {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				boardBean = new PurchaseBoardBean();
-				boardBean.setPB_NO(rset.getInt("PB_NO"));
-				boardBean.setPB_WRITER(rset.getString("PB_WRITER"));
-				boardBean.setPB_TITLE(rset.getString("PB_TITLE"));
-				boardBean.setPB_CONTENT(rset.getString("PB_CONTENT"));
-				boardBean.setPB_DATE(rset.getDate("PB_DATE"));
-				boardBean.setPB_CATEGORY(rset.getInt("PB_CATEGORY"));
-				boardBean.setPB_HASHTAG(rset.getString("PB_HASHTAG"));
-				boardBean.setPB_LAT(rset.getDouble("PB_LAT"));
-				boardBean.setPB_LNG(rset.getDouble("PB_LNG"));
-				boardBean.setPB_PRICE(rset.getInt("PB_PRICE"));
-				boardBean.setPB_STATE(rset.getInt("PB_STATE"));
-				//readcount 를 제외한 모든 값 추출
+				obj.put("NO", rset.getInt("PB_NO"));
+				obj.put("WRITER", rset.getString("PB_WRITER"));
+				obj.put("TITLE", rset.getString("PB_TITLE"));
+				obj.put("CONTENT", rset.getString("PB_CONTENT"));
+				obj.put("DATE", rset.getDate("PB_DATE"));
+				obj.put("CATEGORY", rset.getString("CATEGORY_NAME"));
+				obj.put("HASHTAG", rset.getString("PB_HASHTAG"));
+				obj.put("LAT", rset.getDouble("PB_LAT"));
+				obj.put("LNG", rset.getDouble("PB_LNG"));
+				obj.put("PRICE", rset.getInt("PB_PRICE"));
+				obj.put("STATE", rset.getInt("PB_STATE"));
+				obj.put("READCOUNT", rset.getInt("PB_READCOUNT"));
 				
 			}
 			
-			return boardBean;
+			return obj;
 			
 		} catch (Exception e) {
 			System.out.println("getDetailAction 에러 :" + e);
@@ -574,11 +574,15 @@ public class PurchaseBoardDAO {
 					+ "select rownum rnum, NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, CATEGORY, HASHTAG, STATE, DDATE, IMAGE_URL, BOARD_NAME from("
 					+ "select NUM, WRITER, TITLE, CONTENT, PRICE, READCOUNT, CATEGORY, HASHTAG, STATE, DDATE, IMAGE_URL, BOARD_NAME from "
 					+ "(select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, PB_CONTENT CONTENT, PB_PRICE PRICE, PB_READCOUNT READCOUNT, "
-					+ " PB_CATEGORY CATEGORY, PB_HASHTAG HASHTAG, PB_STATE STATE, TO_CHAR(PB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, BOARD_NAME from purchase_board inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')"
+					+ " PB_CATEGORY CATEGORY, PB_HASHTAG HASHTAG, PB_STATE STATE, TO_CHAR(PB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, "
+					+ "BOARD_NAME from purchase_board inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')"
 					+ "UNION ALL "
 					+ "(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT CONTENT, SB_PRICE PRICE, SB_READCOUNT READCOUNT, "
-					+ " SB_CATEGORY CATEGORY, SB_HASHTAG HASHTAG, SB_STATE STATE, TO_CHAR(SB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, BOARD_NAME from sell_board inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')))"
+					+ " SB_CATEGORY CATEGORY, SB_HASHTAG HASHTAG, SB_STATE STATE, TO_CHAR(SB_DATE, 'YYYY-MM-DD HH24:MI') DDATE, IMAGE_URL, "
+					+ "BOARD_NAME from sell_board inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')))"
 					+ "where rnum >= ? and rnum <= ? and category = ?";
+			
+		
 
 			pstmt = conn.prepareStatement(sql);
 

@@ -25,7 +25,7 @@ public class PurchaseView implements Action {
 		
 
 		// 글번호 파라미터 값을 num변수에 저장합니다.
-		int num = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
+		int num = Integer.parseInt(request.getParameter("PB_NO"));
 		// 내용을 확인할 글의 조회수를 증가시킵니다.
 		purchaseDAO.setReadCountUpdate(num);
 		// 글의 내용을 DAO에서 읽은 후 얻은 결과를 buydata 객체에 저장합니다.
@@ -68,7 +68,6 @@ public class PurchaseView implements Action {
 		int limit = 10;
 
 		if (request.getParameter("page") != null) {
-
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		System.out.println("넘어온 리플 페이지 = " + page);
