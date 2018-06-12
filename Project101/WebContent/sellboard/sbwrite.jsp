@@ -1,5 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Insert title here</title>
+
+
+<!-- Google Map API -->
+<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
 
 <!-- 달력 API -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -7,6 +16,9 @@
 
 <!-- 이미지 업로드 API -->
 <script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
+
+<script src="js/sbwrite.js"></script>
+<link href="css/sbwrite.css" rel="stylesheet" type="text/css">
 
 <script src="/Project101/sellboard/js/sbwrite.js"></script>
 <link href="/Project101/sellboard/css/sbwrite.css" rel="stylesheet" type="text/css">
@@ -48,6 +60,17 @@
 		</tr>
 		<tr>
 			<td>
+				<div>태그</div>
+			</td>
+			<td>
+				<div id="tagSection">
+					<input type="text" id="inputTag">
+					<input type="hidden" id="hashTag" name="hashTag">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<div>
 					<input type="hidden" role="uploadcare-uploader" name="image" data-images-only="true" data-multiple="true" />
 				</div>
@@ -55,6 +78,17 @@
 			<td>
 				<div id="showImage"></div>
 				<input type="hidden" id="img_hidden" name="img_hidden" value="">
+			</td>
+		</tr>
+		<tr>
+			<td>거래 위치</td>
+			<td>
+				<div id="locationField">
+					<input type="text" placeholder="검색할 장소를 입력하세요." id="autocomplete">
+				</div>
+				<div id="map"></div>
+				<input type="hidden" name="markerLat" id="markerLat">
+				<input type="hidden" name="markerLng" id="markerLng">
 			</td>
 		</tr>
 		<tr class="center">

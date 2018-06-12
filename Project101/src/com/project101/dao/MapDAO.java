@@ -3,7 +3,6 @@ package com.project101.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -23,9 +22,8 @@ public class MapDAO {
 	public MapDAO() {
 		try {
 			Context init = new InitialContext();
-			ds = 
-			(DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
-		}catch(Exception ex) {
+			ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
+		} catch (Exception ex) {
 			System.out.println("DB  : " + ex);
 			return;
 		}
@@ -33,16 +31,23 @@ public class MapDAO {
 
 	public JSONArray getMarkers(double startLat, double startLng, double endLat, double endLng) {
 		JSONArray array = new JSONArray();
+
 		try {
 			conn = ds.getConnection();
-			String sql = "select * from sell_board where SB_LAT between ? and ?";
+			
+			String sql = "select sb_no, sb_writer, sb_date, sb_title, sb_content, sb_price, sb_date, sb_readcount, sb_lat, sb_lng"
+					+ ", sqrt(power((? - sb_lat), 2) + power((? - sb_lng), 2)) as distance"
+					+ " from (select * from sell_board where SB_LAT between ? and ?) where SB_LNG between ? and ?"
+					+ " order by distance";
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setDouble(1, startLat);
-			pstmt.setDouble(2, endLat);
-//			pstmt.setDouble(3, startLng);
-//			pstmt.setDouble(4, endLng);
-
+			pstmt.setDouble(1, (endLat + startLat) / 2);
+			pstmt.setDouble(2, (endLng + startLng) / 2);
+			pstmt.setDouble(3, startLat);
+			pstmt.setDouble(4, endLat);
+			pstmt.setDouble(5, startLng);
+			pstmt.setDouble(6, endLng);
+			
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -55,6 +60,7 @@ public class MapDAO {
 				obj.put("SB_PRICE", rset.getInt("SB_PRICE"));
 				obj.put("lat", rset.getDouble("SB_LAT"));
 				obj.put("lng", rset.getDouble("SB_LNG"));
+				obj.put("distance", rset.getDouble("distance"));
 				
 				array.add(obj);
 			}
@@ -62,12 +68,15 @@ public class MapDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (pstmt != null)
+				if (pstmt != null) {
 					pstmt.close();
-				if (conn != null)
-					conn.close();
-				if (rset != null)
+				}
+				if (rset != null) {
 					rset.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

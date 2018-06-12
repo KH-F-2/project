@@ -14,6 +14,8 @@ import javax.sql.DataSource;
 import com.project101.bean.Member;
 import com.project101.bean.SellBoardBean;
 
+
+
 public class MemberDAO {
 
 	DataSource ds;
@@ -146,6 +148,7 @@ public class MemberDAO {
 	         }
 	         
 	      } catch(Exception e) {
+	    	  result = 0;
 	         e.printStackTrace();
 	      } finally{
 	          if(rset!=null)
@@ -171,7 +174,7 @@ public class MemberDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into member  values(?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			String sql = "insert into member (id, email, password, nickname, phone, post, address, detailaddress, latitude, longitude) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, m.getId());
@@ -209,6 +212,7 @@ public class MemberDAO {
 		
 		return result;
 	}
+
 	public List<SellBoardBean> getBoardList(int page, int limit, String SB_WRITER) {
 		List<SellBoardBean> list=new ArrayList<SellBoardBean>();
 		int startrow=(page-1)*limit+1;
@@ -263,8 +267,7 @@ public class MemberDAO {
 			if(rset.next()) {
 				sellboard.setSB_NO(rset.getInt("SB_NO"));
 				sellboard.setSB_WRITER(rset.getString("SB_WRITER"));
-				sellboard.setSB_PDATE(rset.getDate("SB_PDATE"));
-				sellboard.setSB_MDATE(rset.getDate("SB_MDATE"));
+				sellboard.setSB_DATE(rset.getDate("SB_PDATE"));
 				sellboard.setSB_TITLE(rset.getString("SB_TITLE"));
 				sellboard.setSB_CONTENT(rset.getString("SB_CONTENT"));
 				sellboard.setSB_PRICE(rset.getInt("SB_PRICE"));
@@ -359,16 +362,15 @@ public class MemberDAO {
 		int result = 0;
 		try {
 			conn = ds.getConnection();
-			String sql = "update member set password= ? , nickname= ? , phone= ? , post= ? , address = ? , subaddress = ? , latitude = ? , longitude = ? where id= ?  ";
+			String sql = "update member set phone= ? , post= ? , address = ? ,  detailaddress = ? , latitude = ? , longitude = ? where id= ?  ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,  m.getNickname());
-			pstmt.setString(2, m.getPhone());
-			pstmt.setString(3, m.getPost());
-			pstmt.setString(4, m.getAddress());
-			pstmt.setString(5, m.getDetailaddress());
-			pstmt.setString(6, m.getId());
-			pstmt.setDouble(7, m.getLatitude());
-			pstmt.setDouble(8, m.getLongitude());
+			pstmt.setString(1, m.getPhone());
+			pstmt.setString(2, m.getPost());
+			pstmt.setString(3, m.getAddress());
+			pstmt.setString(4, m.getDetailaddress());
+			pstmt.setDouble(5, m.getLatitude());
+			pstmt.setDouble(6, m.getLongitude());
+			pstmt.setString(7, m.getId());
 			
 			result = pstmt.executeUpdate();
 		}catch(Exception e){
@@ -433,6 +435,7 @@ public class MemberDAO {
 	         }
 	         
 	      } catch(Exception e) {
+	    	  result = 0;
 	         e.printStackTrace();
 	      } finally{
 	          if(rset!=null)

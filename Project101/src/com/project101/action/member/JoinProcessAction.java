@@ -56,7 +56,7 @@ public class JoinProcessAction implements Action {
 		MemberDAO mdao = new MemberDAO();
 		
 		int result = mdao.insert(m);
-		System.out.println(result);
+		System.out.println("가입 결과 : " + result);
 		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -68,8 +68,8 @@ public class JoinProcessAction implements Action {
 			session.setAttribute("authNum", authNum);
 			
 			out.println("alert('성공');");
-			out.println("location.href='main.me';");
-		}else if(result== 0) {
+			out.println("location.href='./main.map'");
+		}else if(result == 0) {
 			out.println("alert('실패');");
 			out.println("history.back()");
 		}

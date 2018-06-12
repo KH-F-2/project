@@ -75,11 +75,8 @@ public class TradeDAO {
 
 	//글 목록 보기
 	public List<Trade> getBoardList(int page, int limit, String id) {
-		//page:페이지
-				//limit : 페이지 당 목록의 수
-				//board_re_ref desc, board_re_seq asc에 의해 정렬한 것을
-				//조건절에 맞는 rnum의 범위만큼 가져오는 쿼리문 입니다.
-				
+
+		
 				String sql = 
 						"select * from " 
 						+ "(select rownum rnum,tr_num ,tr_category, "
@@ -193,10 +190,7 @@ public class TradeDAO {
 	}
 
 	public List<Trade> getBoardAdminList(int page, int limit, String id) {
-		//page:페이지
-		//limit : 페이지 당 목록의 수
-		//board_re_ref desc, board_re_seq asc에 의해 정렬한 것을
-		//조건절에 맞는 rnum의 범위만큼 가져오는 쿼리문 입니다.
+		
 		String sql = 
 				"select * from " 
 				+ "(select rownum rnum,tr_num ,tr_category, "

@@ -2,9 +2,12 @@ package com.project101.action.board.sell;
 
 import java.io.IOException;
 
-import javax.servlet.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
@@ -37,7 +40,7 @@ public class SellBoardFrontController extends HttpServlet {
 			else if(command.equals("/sbwriteview.sb")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
-				forward.setPath("template.jsp?page=/sellboard/sbwrite.jsp");
+				forward.setPath("template.jsp?page=/sellboard/boardwrite.jsp");
 			}
 			else if(command.equals("/sbwriteaction.sb")) {
 				action = new SellBoardAddAction();
@@ -63,7 +66,11 @@ public class SellBoardFrontController extends HttpServlet {
 				action = new SellBoardCommentAddAction();
 				forward = action.execute(request, response);
 			}
-				
+			else if(command.equals("/sbtradeaction.sb")) {
+				action = new SellBoardTradeAction();
+				forward = action.execute(request, response);
+			}
+			
 			
 			if(forward!=null) {
 				if(forward.isRedirect()) {

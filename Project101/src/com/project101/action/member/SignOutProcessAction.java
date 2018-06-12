@@ -18,7 +18,7 @@ public class SignOutProcessAction implements Action {
 		session.invalidate();
 	
 		PrintWriter pw = response.getWriter();
-		pw.println("<script>document.location.href='main.me';</script>");
+		pw.println("<script>document.location.href='main.map';</script>");
 		pw.close();
 
 		return null;

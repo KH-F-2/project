@@ -71,7 +71,7 @@
 								});
 								$('#password').focus();
 							} else {
-								location.href = "./main.me";
+								location.href = "./main.map";
 							}
 						}
 					});

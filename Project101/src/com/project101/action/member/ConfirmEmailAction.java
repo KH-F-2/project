@@ -32,7 +32,7 @@ public class ConfirmEmailAction implements Action {
 			System.out.println("인증 결과 : " + result);
 			session.removeAttribute("authNum");
 			
-			forward.setPath("main.me");
+			forward.setPath("main.map");
 			forward.setRedirect(false);
 			
 			return forward;

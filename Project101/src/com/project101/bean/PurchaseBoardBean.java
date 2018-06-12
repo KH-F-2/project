@@ -3,141 +3,119 @@ package com.project101.bean;
 import java.util.Date;
 
 public class PurchaseBoardBean {
-	private String id;
-	private String password;
-	private String writer;
-	private int age;
-	private String gender;
-	private String email;
-	private String content;
-	private String title;
-	private int num;
-	private String subject;
-	private String file;
-	private Date date;
-	private int readcount;
-
+	private int PB_NO;
+	private String PB_WRITER;
+	private String PB_TITLE;
+	private String PB_CONTENT;
+	private Date PB_DATE;
+	private int PB_READCOUNT;
+	private int PB_CATEGORY;
+	private String PB_HASHTAG;
+	private double PB_LAT;
+	private double PB_LNG;
+	private int PB_PRICE;
+	private int PB_STATE;
+	
 	public PurchaseBoardBean() {
-		
-	}
 	
-	public PurchaseBoardBean(String id, String password, String writer, int age, String gender, 
-      String email, String content, String title, int num, String subject, String file, Date date, int readcount) {
-		this.id = id;
-		this.password = password;
-		this.writer = writer;
-		this.age = age;
-		this.gender = gender;
-		this.email = email;
-		this.content= content;
-		this.title = title;
-		this.num = num;
-		this.subject = subject;
-		this.file = file;
-		this.date = date;
-		this.readcount = readcount;
 	}
 
-	public String getId() {
-		return id;
+	public int getPB_NO() {
+		return PB_NO;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setPB_NO(int pB_NO) {
+		PB_NO = pB_NO;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPB_WRITER() {
+		return PB_WRITER;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPB_WRITER(String pB_WRITER) {
+		PB_WRITER = pB_WRITER;
 	}
 
-	public String getwriter() {
-		return writer;
+	public String getPB_TITLE() {
+		return PB_TITLE;
 	}
 
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setPB_TITLE(String pB_TITLE) {
+		PB_TITLE = pB_TITLE;
 	}
 
-	public int getAge() {
-		return age;
+	public String getPB_CONTENT() {
+		return PB_CONTENT;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setPB_CONTENT(String pB_CONTENT) {
+		PB_CONTENT = pB_CONTENT;
 	}
 
-	public String getGender() {
-		return gender;
+	public Date getPB_DATE() {
+		return PB_DATE;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setPB_DATE(Date pB_DATE) {
+		PB_DATE = pB_DATE;
 	}
 
-	public String getEmail() {
-		return email;
+	public int getPB_READCOUNT() {
+		return PB_READCOUNT;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getContent() {
-		return content;
+	public void setPB_READCOUNT(int pB_READCOUNT) {
+		PB_READCOUNT = pB_READCOUNT;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public String getTitle() {
-		return title;
+	public int getPB_CATEGORY() {
+		return PB_CATEGORY;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setPB_CATEGORY(int pB_CATEGORY) {
+		PB_CATEGORY = pB_CATEGORY;
 	}
+
+	public String getPB_HASHTAG() {
+		return PB_HASHTAG;
+	}
+
+	public void setPB_HASHTAG(String pB_HASHTAG) {
+		PB_HASHTAG = pB_HASHTAG;
+	}
+
+	public double getPB_LAT() {
+		return PB_LAT;
+	}
+
+	public void setPB_LAT(double pB_LAT) {
+		PB_LAT = pB_LAT;
+	}
+
+	public double getPB_LNG() {
+		return PB_LNG;
+	}
+
+	public void setPB_LNG(double pB_LNG) {
+		PB_LNG = pB_LNG;
+	}
+
+	public int getPB_PRICE() {
+		return PB_PRICE;
+	}
+
+	public void setPB_PRICE(int pB_PRICE) {
+		PB_PRICE = pB_PRICE;
+	}
+
+	public int getPB_STATE() {
+		return PB_STATE;
+	}
+
+	public void setPB_STATE(int pB_STATE) {
+		PB_STATE = pB_STATE;
+	}
+
 	
-	public int getNum() {
-		return num;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
-	}
-	
-	public String getSubject() {
-		return subject;
-	}
-	
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public int getreadcount() {
-		return readcount;
-	}
-
-	public void setreadcount(int readcount) {
-		this.readcount = readcount;
-	}
 }
 
