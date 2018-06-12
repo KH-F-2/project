@@ -24,7 +24,7 @@ public class CommentController extends javax.servlet.http.HttpServlet {
 		ActionForward forward = null;
 		Action action = null;
 
-		if (command.equals("/cmtwritea.cmt")) {
+		if (command.equals("/cmtwriteAction.cmt")) {
 			action = new CommentWriteAction();// 다형성에 의한 업캐스팅
 			try {
 				forward = action.execute(request, response);
@@ -32,7 +32,7 @@ public class CommentController extends javax.servlet.http.HttpServlet {
 				e.printStackTrace();
 			}
 
-		}else if (command.equals("/cmtdelete.cmt")) {
+		}else if (command.equals("/CommentDeleteAction.cmt")) {
 			action = new CommentDeleteAction();// 다형성에 의한 업캐스팅
 			try {
 				forward = action.execute(request, response);

@@ -24,7 +24,7 @@
 		</script>
 	</head>
 	<body>	
-		<div class="header"><h1>게시판 글쓰기</h1></div>
+		<div class="header"><h1>거래 등록페이지</h1></div>
 		<form action="" method="post" id="write_submit">
 			<ul class="write_ul">
 				

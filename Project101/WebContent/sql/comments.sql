@@ -19,17 +19,10 @@ drop sequence comment_seq;
 
 
 select * from (select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_CONTENT, 
-					TO_CHAR(CMT_DATE, 'YYYY-MM-DD HH24:MI:SS') as CMT_DATE, CMT_RE_REF, CMT_RE_LEV, 
-					CMT_RE_SEQ, CMT_BOARD_NAME FROM (SELECT * FROM COMMENTS 
-					where CMT_SUBJECT_NO = 2 AND CMT_BOARD_NAME = 'SELL_BOARD' 
-					order by CMT_NO asc, CMT_RE_REF desc, CMT_RE_SEQ asc)) 
-					where rnum >= 1 and rnum <= 10
+TO_CHAR(CMT_DATE, 'YYYY-MM-DD HH24:MI:SS') as CMT_DATE, CMT_RE_REF, CMT_RE_LEV, 
+CMT_RE_SEQ, CMT_BOARD_NAME FROM (SELECT * FROM COMMENTS where CMT_SUBJECT_NO = 5 AND CMT_BOARD_NAME = 'purchaseboard' 
+order by CMT_RE_REF desc, CMT_RE_SEQ asc)) where rnum >= 1 and rnum <= 10
 					
-select * from (select rownum rnum, CMT_NO, CMT_SUBJECT_NO, CMT_WRITER, CMT_CONTENT, 
-					TO_CHAR(CMT_DATE, 'YYYY-MM-DD HH24:MI:SS') as CMT_DATE, CMT_RE_REF, CMT_RE_LEV, 
-					CMT_RE_SEQ, CMT_BOARD_NAME FROM (SELECT * FROM COMMENTS 
-					where CMT_SUBJECT_NO = 2 AND CMT_BOARD_NAME = 'SELL_BOARD' 
-					order by CMT_RE_REF asc, CMT_NO asc, CMT_RE_SEQ desc, CMT_RE_LEV asc)) 
-					where rnum >= 1 and rnum <= 10
+
 					
 delete from COMMENTS where CMT_SUBJECT_NO>3 and CMT_BOARD_NAME='SELL_BOARD'

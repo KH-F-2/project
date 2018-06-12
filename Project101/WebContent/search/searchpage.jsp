@@ -5,14 +5,23 @@
 
 <html>
 <head>
-<!-- 지도 API -->
-<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
+
+
+<script>
+$(document).ready(function(){
+	$('#write_btn').click(function(){
+		location.href = "./sbwriteview.sb";
+		});
+	});
+		
+</script>
 <style>
 	#map{
 	   width: 80%; 
 	   height: 400px; 
 	   margin: 0 auto; 
 	   margin-top: 20px;
+	   background: red;
 	}
 	.write{
 	   width: 80%;
@@ -108,9 +117,9 @@
 	}
 	
 	.write_btn {
-	   background-color: #c47135;
+	   background-color: white;
 	   border: none;
-	   color: #ffffff;
+	   color: black;
 	   cursor: pointer;
 	   display: inline-block;
 	   line-height: 1em;
@@ -135,7 +144,7 @@
 	   width: 24px;
 	}
 	.write_btn:before {
-	   border-color: #c47135;
+	   border-color: black;
 	   border-right-width: 2px;
 	   border-top-width: 2px;
 	   right: -5px;
@@ -143,13 +152,14 @@
 	}
 	.write_btn:after {
 	   border-bottom-width: 2px;
-	   border-color: #c47135;
+	   border-color: black;
 	   border-left-width: 2px;
 	   bottom: -5px;
 	   left: -5px;
 	}
 	.write_btn:hover, .write_btn.hover {
-	   background-color: #c47135;
+	   background-color: black;
+	   color:white;
 	}
 	.write_btn:hover:before, .write_btn.hover:before,
 	.write_btn:hover:after, .write_btn.hover:after {
@@ -167,18 +177,20 @@
       <div id="map">지도~</div>
       
       <div class="write">
-         <button type="button" class="write_btn" onclick="">글쓰기</button>
+         <button type="button" id="write_btn" class="write_btn">거래 등록</button>
       </div>
       <section class="content_section">
          <c:forEach var="list" items="${requestScope.categoryList}">
             <div class="card">
+            
+            
             <!-- 사진 링크 이동 if문 -->
             	<c:if test="${list.board_name eq 'SELL_BOARD'}">
-               		<a class="card_a" href="./sbview.sb?num=${list.num }">
+               		<a class="card_a" href="./sbview.sb?num=${list.num }"></a>
                	</c:if>
                	<!-- 판매글 이동 주소값 설정 -->
                	<c:if test="${list.board_name eq 'PURCHASE_BOARD'}">
-               		<a class="card_a" href="./pbview.pb?CMT_SUBJECT_NO=${list.num }">
+               		<a class="card_a" href="./pbview.pb?PB_NO=${list.num }&"></a>
                	</c:if>
                	
                   <div class="card_img">

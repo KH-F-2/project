@@ -1,8 +1,5 @@
 package com.project101.action.board.purchase;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,8 +8,7 @@ import org.json.simple.JSONArray;
 
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
-import com.project101.bean.ImageBean;
-import com.project101.dao.ImageDAO;
+
 import com.project101.dao.PurchaseBoardDAO;
 
 public class PurchaseSearchAction implements Action {
@@ -22,10 +18,12 @@ public class PurchaseSearchAction implements Action {
 		
 		JSONArray categoryList = new JSONArray();
 		int category = Integer.parseInt(request.getParameter("category"));
+		double centerLat = Double.parseDouble(request.getParameter("centerLat"));
+		double centerLng = Double.parseDouble(request.getParameter("centerLng"));
 		PurchaseBoardDAO purchaseDAO = new PurchaseBoardDAO();
 	
 		
-		int num = 1;
+		
 		int page = 1;
 		categoryList = purchaseDAO.getSearchCategory(page, category);
 		
@@ -37,7 +35,7 @@ public class PurchaseSearchAction implements Action {
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
 		
-		forward.setPath("template.jsp?page=./search/searchpage.jsp");
+		forward.setPath("template.jsp?page=./sellboard/sblist2.jsp");
 		return forward;
 		
 	}
