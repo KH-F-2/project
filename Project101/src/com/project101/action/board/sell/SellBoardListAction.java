@@ -31,6 +31,7 @@ public class SellBoardListAction implements Action {
 		SellBoardPageBean boardPageBean = new SellBoardPageBean();
 		JSONArray boardBeanlist = new JSONArray();
 
+		int category = 0;
 		String searchWord = boardPageBean.getSearchWord();
 		String searchItem = boardPageBean.getSearchItem();
 
@@ -47,13 +48,14 @@ public class SellBoardListAction implements Action {
 		System.out.println("넘어온 페이지 : " + page);
 
 		if (request.getParameter("word") != null) {
+			category = Integer.parseInt(request.getParameter("category"));
 			searchWord = request.getParameter("word");
 			searchItem = request.getParameter("item");
 		}
 		
 		if (!searchWord.equals("")) {
 			
-			Map<String, Object> map = sellDAO.getSearchList(page, searchWord, searchItem, centerLat, centerLng);
+			Map<String, Object> map = sellDAO.getSearchList(page, category, searchWord, searchItem, centerLat, centerLng);
 			
 			listcount = (int) map.get("listcount");
 			
@@ -62,8 +64,19 @@ public class SellBoardListAction implements Action {
 			boardPageBean.setSearchWord(searchWord);
 			
 		} else {
-			listcount = sellDAO.getListCount();
-			boardBeanlist = sellDAO.getBoardList(page, centerLat, centerLng);
+			
+			if (category != 0) {
+				Map<String, Object> map = sellDAO.getSearchList(page, category, searchWord, searchItem, centerLat, centerLng);
+				
+				listcount = (int) map.get("listcount");
+				
+				boardBeanlist = (JSONArray) map.get("jsonArr");
+				boardPageBean.setSearchItem(searchItem);
+				boardPageBean.setSearchWord(searchWord);
+			} else {				
+				listcount = sellDAO.getListCount();
+				boardBeanlist = sellDAO.getBoardList(page, centerLat, centerLng);
+			}
 		}
 		System.out.println("listcount : " + listcount);
 

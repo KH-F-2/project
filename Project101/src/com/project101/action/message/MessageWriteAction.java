@@ -24,7 +24,7 @@ public class MessageWriteAction implements Action {
 		request.setAttribute("num", num);
 		request.setAttribute("writer", writer);
 		
-		forward.setPath("./messageboard/msmessagewrite.jsp");
+		forward.setPath("template.jsp?page=./messageboard/msmessagewrite.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

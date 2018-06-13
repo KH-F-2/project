@@ -28,10 +28,6 @@
 	<div class="ui left vertical menu sidebar">
 		<h1 id="navTitle">&#xe81d;  우리지금만나</h1>
 		<h2>&#xf114;  Category</h2>
-		<a class="item" href="./pbmain.pb">구매게시판</a>
-		<a class="item" href="./sbmain.sb">판매게시판</a>
-		<a class="item" href="./ebmain.eb">후기게시판</a>
-		<a class="item" href="./rbmain.rb">신고게시판</a>
 		<a class="item" href="./pbsearchAction.pb?category=0">의류/패션잡화</a>
 		<a class="item" href="./pbsearchAction.pb?category=1">가구/생황잡화</a>
 		<a class="item" href="./pbsearchAction.pb?category=2">전자기기/게임</a>
@@ -39,6 +35,7 @@
 		<a class="item" href="./pbsearchAction.pb?category=4">오토바이/차량용품</a>
 		<a class="item" href="./pbsearchAction.pb?category=5">취미/레저</a>
 		<a class="item" href="./pbsearchAction.pb?category=6">기타</a>
+		<a class="item" href="./rbmain.rb">신고하기</a>
 	</div>
 
 	

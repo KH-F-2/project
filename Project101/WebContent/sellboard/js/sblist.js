@@ -1,6 +1,7 @@
 var page = 1;
 var centerLat = location.search.split('&')[0].split('=')[1] * 1.0;
 var centerLng = location.search.split('&')[1].split('=')[1] * 1.0;
+var category;
 var word;
 var item;
 
@@ -24,57 +25,66 @@ $(window).load(function () {
 	});
 	
 	$('#search_input').keyup(function() {
-		page = 1;
-		word = $('input[name=search_input').val();
-		item = $('#search_sel').val();
-		
-		$.ajax({
-			type: 'post',
-			data: {
-				'page' : page,
-				'centerLat' : centerLat,
-				'centerLng' : centerLng,
-				'word' : word,
-				'item' : item,
-				'state' : 'ajax',
-			},
-			url: './sbmain.sb',
-			headers: {
-				"cache-control": "no-cache",
-				"pragma": "no-cache"
-			},
-			beforeSend : function () {
-				infoContentArr = [];
-				removeMarkers();
-			},
-			success: function (json) {
-				
-				console.log('비었자나자나');
-				if (json.length != 0) {
-					getBoardListUsingCurrentPosition(json);
-					
-					for (var i = 0; i < json.length; i++) {
-						var title = json[i].title;
-						
-						var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '">' + title + '</a>'
-						+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
-						+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
-						+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';
-						
-						infoContentArr.push(infoContent);
-						
-						addMarkerWithTimeout(json[i], i, title);
-					}
-				}
-			},
-			error: function () {
-				console.log('error');
-			}
-		});
+		searchFunction();
+	});
+	
+	$('#search_category').change(function () {
+		searchFunction();
 	});
 	
 	
 });
+
+function searchFunction() {
+	page = 1;
+	word = $('input[name=search_input').val();
+	item = $('#search_sel').val();
+	category = $('#search_category').val();
+	
+	$.ajax({
+		type: 'post',
+		data: {
+			'page' : page,
+			'centerLat' : centerLat,
+			'centerLng' : centerLng,
+			'category' : category,
+			'word' : word,
+			'item' : item,
+			'state' : 'ajax',
+		},
+		url: './sbmain.sb',
+		headers: {
+			"cache-control": "no-cache",
+			"pragma": "no-cache"
+		},
+		beforeSend : function () {
+			infoContentArr = [];
+			removeMarkers();
+		},
+		success: function (json) {
+			
+			if (json.length != 0) {
+				getBoardListUsingCurrentPosition(json);
+				
+				for (var i = 0; i < json.length; i++) {
+					var title = json[i].title;
+					
+					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '&board_name=' + json[i].board_name + '">' + title + '</a>'
+					+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
+					+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
+					+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';
+					
+					infoContentArr.push(infoContent);
+					
+					addMarkerWithTimeout(json[i], i, title);
+				}
+			}
+		},
+		error: function () {
+			console.log('error');
+		}
+	});
+}
 
 var prevJsonLen;
 
@@ -92,6 +102,7 @@ function infiniteScroll() {
 				'page' : page,
 				'centerLat' : centerLat,
 				'centerLng' : centerLng,
+				'category' : category,
 				'word' : word,
 				'item' : item,
 				'state' : 'ajax',
@@ -113,7 +124,7 @@ function infiniteScroll() {
 					for (var i = 0; i < json.length; i++) {
 						var title = json[i].title;
 						
-						var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '">' + title + '</a>'
+						var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '&board_name=' + json[i].board_name + '">' + title + '</a>'
 						+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
 						+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
 						+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';
@@ -122,6 +133,8 @@ function infiniteScroll() {
 						
 						addMarkerWithTimeout(json[i], i + prevJsonLen, title);
 					}
+				} else {
+					page--;
 				}
 			},
 			error: function () {
@@ -204,7 +217,7 @@ function viewMarkers() {
 				for (var i = 0; i < json.length; i++) {
 					var title = json[i].title;
 					
-					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '">' + title + '</a>'
+					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '&board_name=' + json[i].board_name + '">' + title + '</a>'
 												+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
 												+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
 												+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';

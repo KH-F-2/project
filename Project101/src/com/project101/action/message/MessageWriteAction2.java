@@ -19,7 +19,7 @@ public class MessageWriteAction2 implements Action {
 		HttpSession session=request.getSession();
 		String id = session.getAttribute("id").toString();
 		request.setAttribute("id", id);
-		forward.setPath("./messageboard/msmessagewrite2.jsp");
+		forward.setPath("template.jsp?page=./messageboard/msmessagewrite2.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

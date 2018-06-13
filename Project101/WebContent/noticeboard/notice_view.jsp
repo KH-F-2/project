@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<c:forEach var="notice" items="${noticeCategory}">
+<c:forEach var="notice" items="${list}">
 	<details>
 		<summary>
 			<b>Q.</b> <b>${notice.notice_Q}</b>

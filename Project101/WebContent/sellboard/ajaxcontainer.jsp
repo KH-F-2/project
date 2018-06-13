@@ -3,7 +3,7 @@
 
 <c:choose>
 	<c:when test="${!empty jsonArr }">
-		<c:forEach var="item" items="${jsonArr }" begin="0" end="9">
+		<c:forEach var="item" items="${jsonArr }">
 			<div class="content">
 				<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
 					<img src="${item.image_url }">

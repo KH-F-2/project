@@ -51,7 +51,11 @@ public class FrontController extends HttpServlet {
 				forward.setPath("template.jsp?page=/member/signup.jsp");
 
 			} else if (command.equals("/mypage.me")) {
-				action = new MemberinfoAction();
+				action = new MypageAction();
+				forward = action.execute(request, response);
+
+			}  else if (command.equals("/modifyinfo.me")) {
+				action = new ModifyInfoAction();
 				forward = action.execute(request, response);
 
 			} else if (command.equals("/joinProcess.me")) {
@@ -107,7 +111,7 @@ public class FrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 			} else if (command.equals("/mypage.me")) {
-				action = new MemberinfoAction();
+				action = new ModifyInfoAction();
 				try {
 					forward = action.execute(request, response);
 

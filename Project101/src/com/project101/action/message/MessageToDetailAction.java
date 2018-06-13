@@ -34,7 +34,7 @@ public class MessageToDetailAction implements Action {
 		request.setAttribute("ms", msBoardBean);
 		
 		forward.setRedirect(false);
-		forward.setPath("./messageboard/msmessagetodetail.jsp");
+		forward.setPath("template.jsp?page=./messageboard/msmessagetodetail.jsp");
 		
 		return forward;
 	}

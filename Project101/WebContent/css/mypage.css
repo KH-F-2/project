@@ -1,66 +1,118 @@
 @charset "UTF-8";
 
-#memberinfo{
-	width:450px;
+#mysec1 {
+	width: 100%;
+	height: 200px;
+	margin-top: 50px;
+}
+
+#sec1container {
+	width: 70%;
+	height: 100%;
 	margin: 0 auto;
 }
-#memberinfo *{
-	box-sizing: border-box;
-	margin-bottom: 10px;
+
+#sec1container #sec1col1 {
+	height: 100%;
+	width : 20%;
+	font-size: 150px;
+	display: inline-block;
+	float: left;
+	margin-left: 100px;
+}
+
+#sec1container #sec1col2 {
+	height: 100%;
+	width: 45%;
+	display: inline-block;
+	float: left;
+}
+
+#sec1container #sec1col2 hr {
+	width: 70%;
+	display: inline-block;
+	text-align: left;
+}
+#sec1container #sec1col3 {
+	height: 100%;
+	width: 20%;
+	display: inline-block;
+	float: left;
+}
+
+#sec1col2 span {
+	font-size: 30px;
+	display: inline-block;
 	
 }
 
-#memberinfo h1 {
-	font-size: 18px;
-	margin: 42px 0 21px;
-	padding-bottom: 0;
-	text-transform: uppercase;
-	font-weight: 600;
-	display: block;
+#mysec2 {
+	width: 100%;
+	height: 300px;
 }
 
 
-#memberinfo input[type='text'], input[type='password'] {
-	border-color: transparent;
-	box-shadow: none;
-	outline-style: none;
-	border: 0;
-	border-bottom: 1px solid black;
-}
-#memberinfo b {
-	display:inline-block;
-	width: 25%;
-	height: 35px;
-	color: lightgray;
+#mysec3 {
+	width: 100%;
+	height: 700px;
 }
 
-#memberinfo  button[type='submit'], button[type='reset'] {
-	border-color: transparent;
-	box-shadow: none;
-	outline-style: none;
-	background-color: black;
-	color: white;
+#mysec3 #sec3container {
+	width: 70%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.content {
+	display: inline-block;
 	width: 200px;
-	height: 30px;
-	font-size: 12px;
-	margin-left: 10px;
+	height: 280px;
+	margin: 0 15px 50px 15px;
+	text-align: left;
 }
 
-#memberinfo input[type='button']{
+.content img {
+	display: block;
+	width: 100%;
+	height: 200px;
+	margin-bottom: 10px;
+}
 
-	border-color: transparent;
-	box-shadow: none;
-	outline-style: none;
-	background-color: black;
-	color: white;
-	width: 145px;
-	height: 25px;
+.content p {
+	font-weight: bold;
+	font-size: 15px;
+	display: inline-block;
+	width: 190px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.content a {
+	color: black;
+}
+
+.content span {
+	font-size: 11px;
+	display: inline-block;
+	width: 190px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#contentInfoSection {
+	display: block;
+	width: 100%;
+}
+
+.contentInfo {
+	display: inline-block;
+	width: 30%;
+	color: #BDBDBD;
 	font-size: 12px;
-	margin-left: 10px;
-	}
-	
-#map {
-	width: 570px;
-	height: 250px;
-	margin-bottom: 50px;
+}
+
+#pagingArea a {
+	cursor: pointer;
 }

@@ -1,11 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <script src="/test/js/reportboard.js"></script>
 <style>
 nav {
@@ -65,41 +59,43 @@ textarea {
 	resize: none;
 }
 </style>
-</head>
-<body>
-	<form action="./rbwriteaction.rb" method="post">
-		<table>
-			<tr>
-				<th colspan="2">신고게시판</th>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td><input name="RB_WRITER" type="text" size="50"
-					maxlength="100"></td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td><input name="RB_TITLE" type="text" size="50"
-					maxlength="100"></td>
-			</tr>
-			<tr>
-				<td>가격</td>
-				<td><input name="RB_PRICE" type="text" size="50"
-					maxlength="100"></td>
-			</tr>
 
-			<tr>
-				<td>
-					<div>내용</div>
-				</td>
-				<td><textarea name="RB_CONTENT" id="board_content" cols="65"
-						rows="15"></textarea></td>
-			</tr>
-			<tr class="center">
-				<td colspan="2"><input type=submit value="등록"> <input
-					type=reset value="취소" onclick="history.go(-1)">
-			</tr>
-		</table>
-	</form>
-</body>
-</html>
+<form action="./rbwriteaction.rb" method="post">
+	<table>
+		<tr>
+			<th colspan="2">신고게시판</th>
+		</tr>
+		<tr>
+			<td>작성자</td>
+			<td>
+				<input name="RB_WRITER" type="text" size="50" maxlength="100">
+			</td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td>
+				<input name="RB_TITLE" type="text" size="50" maxlength="100">
+			</td>
+		</tr>
+		<tr>
+			<td>가격</td>
+			<td>
+				<input name="RB_PRICE" type="text" size="50" maxlength="100">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div>내용</div>
+			</td>
+			<td>
+				<textarea name="RB_CONTENT" id="board_content" cols="65" rows="15"></textarea>
+			</td>
+		</tr>
+		<tr class="center">
+			<td colspan="2">
+				<input type=submit value="등록">
+				<input type=reset value="취소" onclick="history.go(-1)">
+			</td>
+		</tr>
+	</table>
+</form>

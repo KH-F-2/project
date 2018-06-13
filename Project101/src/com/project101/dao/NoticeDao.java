@@ -35,7 +35,7 @@ public class NoticeDao {
 		try {
 			
 			con = ds.getConnection();
-			String sql = "select * from notice where notice_category = ?";
+			String sql = "select * from notice where notice_no = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, notice_category);
 			

@@ -67,7 +67,7 @@ public class MessageToListAction implements Action {
 		
 		forward.setRedirect(false);
 		
-		forward.setPath("./messageboard/msmessagetolist.jsp");	
+		forward.setPath("template.jsp?page=./messageboard/msmessagetolist.jsp");	
 		return forward;
 	}
 }

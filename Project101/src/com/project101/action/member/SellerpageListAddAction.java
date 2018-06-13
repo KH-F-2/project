@@ -19,7 +19,6 @@ public class SellerpageListAddAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		
         
 		SellBoardDAO sellerdao = new SellBoardDAO();
 		

@@ -37,7 +37,7 @@
 
 <div class="search">
 	<select id="search_category">
-		<option selected="selected">전체카테고리</option>
+		<option value="0" selected="selected">전체카테고리</option>
 		<option value="1">의류/패션잡화</option>
 		<option value="2">취미/레저</option>
 		<option value="3">식품/생활/유아동</option>
@@ -59,12 +59,13 @@
 
 	<button id="search_btn">검색</button>
 </div>
+
 <div class="write">
 	<button type="button" id="write_btn" onclick="location.href='sbwriteview.sb'">글쓰기</button>
 </div>
 
 <div id="container">
-		<c:forEach var="item" items="${boardBeanlist }" begin="0" end="9">
+		<c:forEach var="item" items="${boardBeanlist }">
 			<div class="content">
 				<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
 					<img src="${item.image_url }">

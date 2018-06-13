@@ -1,165 +1,85 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link href="./css/mypage.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/mypage.css">
+<script src="./js/mypage.js"></script>
 
-<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD7mtT6-3PmOJs9HEjXxrBwKryFLPGffU&callback=initMap&libraries=places'></script>
+<div id="mysec1">
+	<div id="sec1container">
+		<div id="sec1col1">&#xe81a;</div>
+		<div id="sec1col2">
+			<span id="id">아이디 : ${member.id }</span><br>
+			<hr><br>
+			<span id="nickname">닉네임 : ${member.nickname }</span><br>
+			<hr><br>
+			<span id="email">이메일 : ${member.email }</span>
+		</div>
+		<div id="sec1col3">
+			<input type="button" id="modifyinfo" value="&#xe80a; 정보수정">
+			<input type="button" id="message" value="&#xe820; 메세지함">
+			<input type="button" id="servicecenter" value="&#xe812; 고객센터">
+			<input type="button" id="withdrawal" value="&#xe83c; 회원탈퇴">
+		</div>
+	</div>
+</div>
 
-<script>
-	$(document).ready(function(){
-		$(function() {
-			$("#postcodify_search_button").postcodifyPopUp();
-		});
+<div id="mysec2">
+	<div id="sec2container">
+		<h2>내가 좋아요한 글</h2>
 		
-		$(".cancelbtn").click(function(){
-			location.href="main.map"
-		});
 		
-		$('#checkRetry').click(function () {
-			var email = $('#email').val();
-			
-			
-		});
-		
-	});
-	
+	</div>
+</div>
 
-	var map;
-	var markers = [];
-
-	var startLat = null;
-	var startLng = null;
-	var endLat = null;
-	var endLng = null;
-
-	//맵 초기화 함수
-	function initMap() {
-		 registedPosition = {
-			lat : $('#markerLat').val() * 1.0,
-			lng : $('#markerLng').val() * 1.0
-		};
-		
-		map = new google.maps.Map(document.getElementById('map'), {
-			zoom : 14,
-			center : registedPosition
-		});
-
-		clickEvent = map.addListener('click', function(event) {
-		    
-			placeMarker(event.latLng);
-		});
-		
-		placeMarker(registedPosition);
-
-		// 검색 자동 완성 기능 구현
-		autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
-
-		autocomplete.addListener('place_changed', function() {
-			var place = autocomplete.getPlace();
-			if (place.geometry) {
-				removeMarkers();
-				google.maps.event.removeListener(clickEvent);
-				clickEvent = map.addListener('click', function(event) {
-				    
-					placeMarker(event.latLng);
-				});
-				map.panTo(place.geometry.location);
-				map.setZoom(15);
-			} else {
-				document.getElementById('autocomplete').placeholder = 'Enter a city';
-			}
-		});
-		
-	}
-
-	function placeMarker(location) {
-		marker = new google.maps.Marker({
-			position : location,
-			map : map,
-			draggable: true,
-		});
-		markers.push(marker);
-		
-		map.setCenter(location);
-		$('#markerLat').val(location.lat);
-		$('#markerLng').val(location.lng);
-		
-		addDragEvent(marker);
-		google.maps.event.removeListener(clickEvent);
-	}
-
-	function addDragEvent(marker) {
-		marker.addListener('dragend', function (event) {
-			map.setCenter(event.latLng);
-			$('#markerLat').val(event.latLng.lat());
-			$('#markerLng').val(event.latLng.lng());
-		});
-	}
-
-	//마커 제거 함수
-	function removeMarkers() {
-		console.log('삭제');
-		for (var i = 0; i < markers.length; i++) {
-			markers[i].setMap(null);
-		}
-		markers = [];
-	}
-</script>
-
-
-<c:set var="m"	value="${memberinfo }"/>
-
-<div id = "memberinfo">	
-	<h1>회원 정보수정</h1>
-		
-	<form name="joinform" action="Updatemember.me" method="post">
-		<b>ID</b>
-		<input type="text" name="id" value="${m.id }" readonly><br>
-		
-		<b>비밀번호</b>
-		<input type="password" name="password" value="${m.password}" ><br>
-		
-		<b>닉네임</b>
-		<input type="text" name ="nickname" value="${m.nickname }" readonly><br>
-		
-		<b>Email</b>
-		<input type="text" id="email" name="email" value="${m.email}" readonly><br> 
-		
-		<b>EmailCheck</b>
+<div id="mysec3">
+	<h2>내가 작성한 글</h2>
+	<div id="sec3container">
 		<c:choose>
-			<c:when test="${m.emailcheck == 'checked'}">
-				<input type="text" name="emailcheck" value="인증완료" readonly><br> 
+			<c:when test="${!empty jsonArr }">
+				<c:forEach var="item" items="${jsonArr }">
+					<div class="content">
+						<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
+							<img src="${item.image_url }">
+							<p>${item.title }</p>
+						</a>
+						<span>&#xf159; ${item.price }원</span>
+						<span>${item.content }</span>
+						<div id="contentInfoSection">
+							<div class="contentInfo">&#xe80b; 0</div>
+							<div class="contentInfo">&#xe816; 0</div>
+							<div class="contentInfo">&#xe80d; ${item.readcount }</div>
+						</div>
+					</div>
+				</c:forEach>
 			</c:when>
+			
 			<c:otherwise>
-				<input type="text" name="emailcheck" value="미인증" readonly><br>
-				<input type="button" name="checkRetry" id="checkRetry" value="인증메일 다시받기">
+				<h2>아직 작성한 글이 없습니다.</h2>
+				<button type="button" id="write_btn" onclick="location.href='sbwriteview.sb'">글쓰기</button>
 			</c:otherwise>
 		</c:choose>
 		
-		<b>연락처</b>
-		<input type="text" name="phone" value="${m.phone }"><br>
-		
-		<b>우편번호</b>
-		<input type="text" name="post" class="postcodify_postcode5" value="${m.post }">
-		<input type="button" id="postcodify_search_button" value="검색"><br>
-		
-		<b>주소</b>
-		<input type="text" name="address"  size=40 class="postcodify_address" value="${m.address }"><br>
-		
-		<b>상세주소</b>
-		<input type="text" name="detailaddress" size=40 value="${m.detailaddress}"><br><br>
-		
-		<input id="autocomplete" placeholder="검색할 장소를 입력하세요." type="text" />
-		<div id="map"></div>
-		<input type="hidden" id="markerLat" name="markerLat" value="${m.latitude }"><br>
-		<input type="hidden" id="markerLng" name="markerLng" value="${m.longitude }"><br>
-		
-		<div class="clearfix">
-			<button type="submit" class="submitbtn">정보수정 </button>
-			<button type="reset" class="cancelbtn">다시작성</button>
-		</div>
+		<div id="pagingArea">
+			<input type="hidden" id="currPage" value="${page }">
+			<c:if test="${page <= 1 }">이전&nbsp;</c:if>
+			<c:if test="${page > 1 }">
+				<a>이전</a>
+			</c:if>
 	
-	</form>
-</div>	
+			<c:forEach var="pageNum" begin="${startPage }" end="${endPage }">
+				<c:if test="${pageNum == page }">
+					${pageNum }
+				</c:if>
+				<c:if test="${pageNum != page }">
+					<a>${pageNum }</a>
+				</c:if>
+			</c:forEach>
+	
+			<c:if test="${page >= maxPage }">&nbsp;다음</c:if>
+			<c:if test="${page < maxPage }">
+				<a>다음</a>
+			</c:if>
+		</div>
+	</div>
 
+</div>

@@ -64,7 +64,7 @@ function initMap() {
 	};
 
 	map = new google.maps.Map(document.getElementById('map'), {
-		zoom : 14,
+		zoom : 15,
 		center : seoulCityhall
 	});
 
@@ -120,7 +120,7 @@ function viewMarkers() {
 				for (var i = 0; i < json.length; i++) {
 					var title = json[i].title;
 					
-					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '">' + title + '</a>'
+					var infoContent = '<div id="iw-container"><div class="iw-title"><a href="sbview.sb?num=' + json[i].num + '&board_name=' + json[i].board_name + '">' + title + '</a>'
 												+ '</div><div class="iw-content"><div class="iw-subTitle">' + json[i].price + '원</div>'
 												+ '<img src="' + json[i].image_url + '" alt="./image/koala.jpg" height="115" width="83">'
 												+ '<p>' + json[i].content + '</p></div><div class="iw-bottom-gradient"></div></div>';

@@ -39,7 +39,7 @@ public class MessageAddAction implements Action {
 		request.setAttribute("to", request.getParameter("MS_TO"));
 		request.setAttribute("result", result);
 		forward.setRedirect(true);
-		forward.setPath("./msmessagesendlist.ms?to="+MS_TO);
+		forward.setPath("template.jsp?page=./msmessagesendlist.ms?to="+MS_TO);
 		
 		return forward;
 	}

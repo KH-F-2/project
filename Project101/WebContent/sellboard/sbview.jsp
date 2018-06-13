@@ -50,7 +50,7 @@
 						[${boardBean.CATEGORY}]
 					</div>
 					<div class="hashtag">
-						<input type="hidden" id="tagVal" value="${boardBean.SB_HASHTAG }">
+						<input type="hidden" id="tagVal" value="${boardBean.HASHTAG }">
 					</div>
 					<%-- <div class="hashtag">
 						${boardBean.HASHTAG}
@@ -141,7 +141,10 @@
 				</li>
 				<li class="btn_li">
 					<c:if test="${boardBean.board_name eq 'SELL_BOARD'}">
-						<button type="button" id="trade">구매 신청</button>
+						<a href="./msmessagewrite.ms?num=${boardBean.NO}&writer=${boardBean.WRITER }">
+							<!-- <span>쪽지보내기</span> -->
+							<button type="button" id="trade">구매 신청</button>
+						</a>
 					</c:if>
 				</li>
 				
@@ -162,6 +165,8 @@
 								<img src="image/delete.png">
 							</a> &nbsp;
 						</c:if>
+						<input type="hidden" id="centerLat" value="${boardBean.LAT }">
+						<input type="hidden" id="centerLng" value="${boardBean.LNG }">
 						<a href="<c:url value='/sbmain.sb?centerLat=${boardBean.LAT}&centerLng=${boardBean.LNG}'/>">
 							<img src="image/list.png">
 						</a>

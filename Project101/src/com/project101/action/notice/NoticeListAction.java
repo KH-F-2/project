@@ -11,23 +11,23 @@ import com.project101.action.ActionForward;
 import com.project101.bean.NoticeBean;
 import com.project101.dao.NoticeDao;
 
-
-
-public class listAddAction implements Action {
-
-	
+public class NoticeListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		NoticeDao noticedao = new NoticeDao();
+		ActionForward forward = new ActionForward();
+		NoticeDao noticeDAO = new NoticeDao();
 		List<NoticeBean> list = new ArrayList<NoticeBean>();
+		
 		int no = Integer.parseInt(request.getParameter("notice_category"));
-		list = noticedao.getBoardList(no);
+		
+		list = noticeDAO.getBoardList(no);
+		
 		request.setAttribute("list", list);
 		
-		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
 		forward.setPath("/noticeboard/notice_view.jsp");
+
 		return forward;
 	}
 

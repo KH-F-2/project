@@ -65,32 +65,35 @@ $(document).ready(function(){
 	});
 	
 	// 구매신청 버튼
-	$('#trade').click(function(){
-		var data = $('#NO').val();
-		var name = $('#WRITER').val();
-		$.ajax({
-			type : "POST",
-			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-			data : {"NO" : data},
-			url : "./sbtradeaction.sb",
-			success: function(data){
-				alert(data);
-				console.log(data.length);
-				// 판매완료되었습니다 가 뜰시 후기작성으로 이동
-				if(data.length < 13){
-					location.href = "./signepil.me?writer="+name;
-				}
-			},
-			error: function() {
-				alert("error");
-			}
-		}); // ajax
-	});
+//	$('#trade').click(function(){
+//		var data = $('#NO').val();
+//		var name = $('#WRITER').val();
+//		$.ajax({
+//			type : "POST",
+//			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+//			data : {"NO" : data},
+//			url : "./sbtradeaction.sb",
+//			success: function(data){
+//				alert(data);
+//				console.log(data.length);
+//				// 판매완료되었습니다 가 뜰시 후기작성으로 이동
+//				if(data.length < 13){
+//					location.href = "./signepil.me?writer="+name;
+//				}
+//			},
+//			error: function() {
+//				alert("error");
+//			}
+//		}); // ajax
+//	});
 
-	tagArr = $('#tagVal').val().split(' ');
+	var tagArr = $('#tagVal').val().split(' ');
+	var centerLat = $('#centerLat').val();
+	var centerLng = $('#centerLng').val();
 	
 	for (var i = 0; i < tagArr.length; i++) {
-		$('.hashtag').append('<a href="./sbmain.sb?word=' + tagArr[i].split('#')[1] + '&item=hashtag">' + tagArr[i] + '</a> ');
+		$('.hashtag').append('<a href="./sbmain.sb?word=' + tagArr[i].split('#')[1] + '&item=hashtag&page=1&category=0'
+				+ '&centerLat=' + centerLat + '&centerLng=' + centerLng + '">' + tagArr[i] + '</a> ');
 	}
 
 	

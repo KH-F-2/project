@@ -63,7 +63,7 @@ public class MessageSendListAction implements Action {
 		
 		forward.setRedirect(false);
 		
-		forward.setPath("./messageboard/msmessagesendlist.jsp");	
+		forward.setPath("template.jsp?page=./messageboard/msmessagesendlist.jsp");	
 		return forward;
 	}
 }

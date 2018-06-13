@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.project101.bean.ImageBean;
 import com.project101.bean.SellBoardBean;
 
 public class SellBoardDAO {
@@ -178,8 +177,8 @@ public class SellBoardDAO {
 
 	public JSONArray getBoardList(int page, double lat, double lng) {
 		JSONArray array = new JSONArray();
-		int startrow = (page - 1) * 10 + 1;
-		int endrow = startrow + 10 - 1;
+		int startrow = (page - 1) * 20 + 1;
+		int endrow = startrow + 20 - 1;
 		
 		try {
 			conn = ds.getConnection();
@@ -552,7 +551,7 @@ public class SellBoardDAO {
 		return result;
 	} // boardModify -------------
 
-  	public Map getSearchList(int page, String keyword, String item, double lat, double lng) {
+  	public Map getSearchList(int page, int category, String keyword, String item, double lat, double lng) {
   		Map<String, Object> resultMap = new HashMap<String, Object>();
   		JSONArray resultArr = new JSONArray();
   		String contentStr = "%" + keyword + "%";
@@ -573,26 +572,43 @@ public class SellBoardDAO {
 					+ ", pb_category category, pb_hashtag hashtag, sqrt(power((?-PB_LAT),2) + power((?-PB_LNG),2)) distance, pb_lat lat, pb_lng lng, IMAGE_URL, BOARD_NAME from "
 					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD')) order by distance) where ");
 			
-			if (item.equals("title")) {
-				sb.append("title LIKE ? ");
-			} else if (item.equals("content")) {
-				sb.append("content LIKE ? ");
-			} else if (item.equals("hashtag")) {
-				sb.append("hashtag LIKE ? ");
+			if (!keyword.equals("")) {
+				if (item.equals("title")) {
+					sb.append("title LIKE ? ");
+				} else if (item.equals("content")) {
+					sb.append("content LIKE ? ");
+				} else if (item.equals("hashtag")) {
+					sb.append("hashtag LIKE ? ");
+				} else {
+					sb.append("title LIKE ? OR content LIKE ? ");
+				}
+				
+				if (category != 0) {				
+					sb.append("and category=? ");
+				}
 			} else {
-				sb.append("title LIKE ? OR content LIKE ? ");
+				sb.append("category=? ");
 			}
-//			sb.append("order by distance desc");
 			
 			pstmt = conn.prepareStatement(sb.toString());
 			pstmt.setDouble(1, lat);
 			pstmt.setDouble(2, lng);
 			pstmt.setDouble(3, lat);
 			pstmt.setDouble(4, lng);
-			pstmt.setString(5, contentStr);
 			
-			if (item.equals("title_content")) {
-				pstmt.setString(6, contentStr);
+			if (!keyword.equals("")) {
+				pstmt.setString(5, contentStr);
+
+				if (category != 0) {
+					if (item.equals("title_content")) {
+						pstmt.setString(6, contentStr);
+						pstmt.setInt(7, category);				
+					} else {	
+						pstmt.setInt(6, category);
+					}				
+				}
+			} else {
+				pstmt.setInt(5, category);
 			}
 			
 			rset = pstmt.executeQuery();
@@ -616,16 +632,30 @@ public class SellBoardDAO {
 			pstmt.setDouble(2, lng);
 			pstmt.setDouble(3, lat);
 			pstmt.setDouble(4, lng);
-			pstmt.setString(5, contentStr);
 			
-			if (item.equals("title_content")) {
-				pstmt.setString(6, contentStr);
-				pstmt.setInt(7, startrow);
-				pstmt.setInt(8, endrow);
+			if (!keyword.equals("")) {
+				pstmt.setString(5, contentStr);
+				if (category != 0) {
+					if (item.equals("title_content")) {
+						pstmt.setString(6, contentStr);
+						pstmt.setInt(7, category);
+						pstmt.setInt(8, startrow);
+						pstmt.setInt(9, endrow);
+					} else {
+						pstmt.setInt(6, category);
+						pstmt.setInt(7, startrow);
+						pstmt.setInt(8, endrow);
+					}
+				} else {
+					pstmt.setInt(6, startrow);
+					pstmt.setInt(7, endrow);
+				}				
 			} else {
+				pstmt.setInt(5, category);
 				pstmt.setInt(6, startrow);
 				pstmt.setInt(7, endrow);
 			}
+			
 			rset = pstmt.executeQuery();
 			
 			while (rset.next()) {
@@ -637,6 +667,8 @@ public class SellBoardDAO {
 				jsonObj.put("price", rset.getInt("PRICE"));
 				jsonObj.put("readcount", rset.getInt("READCOUNT"));
 				jsonObj.put("date", rset.getDate("DDATE").toString());
+				jsonObj.put("category", rset.getInt("category"));
+				jsonObj.put("hashtag", rset.getString("hashtag"));
 				jsonObj.put("lat", rset.getDouble("lat"));
 				jsonObj.put("lng", rset.getDouble("lng"));
 				jsonObj.put("distance", rset.getDouble("DISTANCE"));
@@ -845,5 +877,86 @@ public class SellBoardDAO {
 	      
 	      return result;
 	   }
+
+	public Map<String, Object> getMyList(String id, int page) {
+		Map<String, Object> resultMap = new HashMap<>();
+  		JSONArray jsonArr = new JSONArray();
+		int startrow = (page - 1) * 10 + 1;
+		int endrow = startrow + 10 - 1;
+		int listCount = 0;
+		
+  		try {
+			conn = ds.getConnection();
+			StringBuffer sb = new StringBuffer();
+			sb.append("select rownum rnum, NUM, WRITER, TITLE, content, price, READCOUNT, DDATE, category, hashtag, lat, lng, IMAGE_URL, BOARD_NAME from "
+					+ "(select NUM, WRITER, TITLE, content, price, READCOUNT, DDATE, category, hashtag, lat, lng, IMAGE_URL, BOARD_NAME from "
+					+ "(select SB_NO NUM, SB_WRITER WRITER, SB_TITLE TITLE, SB_CONTENT content, sb_price price, SB_READCOUNT READCOUNT, SB_DATE DDATE"
+					+ ", sb_category category, sb_hashtag hashtag, sb_lat lat, sb_lng lng, IMAGE_URL, BOARD_NAME from "
+					+ "(select * from SELL_BOARD inner join IMAGE on SELL_BOARD.SB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'SELL_BOARD')) "
+					+ "UNION ALL "
+					+ "(select PB_NO NUM, PB_WRITER WRITER, PB_TITLE TITLE, pb_content content, pb_price price, PB_READCOUNT READCOUNT, PB_DATE DDATE"
+					+ ", pb_category category, pb_hashtag hashtag, pb_lat lat, pb_lng lng, IMAGE_URL, BOARD_NAME from "
+					+ "(select * from PURCHASE_BOARD inner join IMAGE on PURCHASE_BOARD.PB_NO = IMAGE.BOARD_NO where IMAGE.BOARD_NAME = 'PURCHASE_BOARD'))) where  writer=? order by ddate");
+			
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, id);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				listCount++;
+			}
+			
+			rset.close();
+			pstmt.close();
+			
+			sb.insert(0, "select * from (");
+			sb.append(") where rnum>=? and rnum<=?");
+			
+			pstmt = conn.prepareStatement(sb.toString());
+			pstmt.setString(1, id);
+			pstmt.setInt(2, startrow);
+			pstmt.setInt(3, endrow);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				JSONObject jsonObj = new JSONObject();
+				jsonObj.put("num", rset.getInt("NUM"));
+				jsonObj.put("writer", rset.getString("WRITER"));
+				jsonObj.put("title", rset.getString("TITLE"));
+				jsonObj.put("content", rset.getString("CONTENT"));
+				jsonObj.put("price", rset.getInt("PRICE"));
+				jsonObj.put("readcount", rset.getInt("READCOUNT"));
+				jsonObj.put("date", rset.getDate("DDATE").toString());
+				jsonObj.put("category", rset.getInt("category"));
+				jsonObj.put("hashtag", rset.getString("hashtag"));
+				jsonObj.put("lat", rset.getDouble("lat"));
+				jsonObj.put("lng", rset.getDouble("lng"));
+				jsonObj.put("image_url", rset.getString("IMAGE_URL").split(" ")[0]);
+				jsonObj.put("board_name", rset.getString("BOARD_NAME"));
+	            
+				jsonArr.add(jsonObj);
+			}
+			resultMap.put("listCount", listCount);
+			resultMap.put("jsonArr", jsonArr);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+				if (rset != null)
+					rset.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+  		
+  		return resultMap;
+	}
 
 	}
