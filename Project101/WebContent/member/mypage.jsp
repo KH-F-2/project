@@ -31,10 +31,10 @@
 			<c:when test="${!empty interestArr }">
 				<c:forEach var="item" items="${interestArr }">
 					<div class="content">
-						<input type="hidden" class="content_num" value="${item.num }">
+						<input type="hidden" class="content_num" value="${item.content_num }">
 						<input type="hidden" class="board_name" value="${item.board_name }">
 						
-						<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
+						<a href="sbview.sb?num=${item.content_num }&board_name=${item.board_name }">
 							<img src="${item.image_url }">
 							<p>${item.title }</p>
 						</a>
