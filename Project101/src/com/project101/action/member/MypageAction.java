@@ -13,6 +13,7 @@ import org.json.simple.JSONArray;
 import com.project101.action.Action;
 import com.project101.action.ActionForward;
 import com.project101.bean.Member;
+import com.project101.dao.InterestDAO;
 import com.project101.dao.MemberDAO;
 import com.project101.dao.SellBoardDAO;
 
@@ -50,8 +51,14 @@ public class MypageAction implements Action {
 			endPage = maxPage;
 		}
 		
+		InterestDAO interestDAO = new InterestDAO();
+		JSONArray interestArr = (JSONArray) interestDAO.getBoardlist(id);
+		
+		
 		request.setAttribute("member", member);
 
+		request.setAttribute("interestArr", interestArr);
+		
 		request.setAttribute("jsonArr", jsonArr);
 		request.setAttribute("page", page);
 		request.setAttribute("maxPage", maxPage);

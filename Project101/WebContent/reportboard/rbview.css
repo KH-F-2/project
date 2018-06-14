@@ -1,0 +1,76 @@
+.rbview_ul{
+   margin: 0 auto;
+   width: 70%;
+   font-family: "fontello";
+   border: solid 1px #cdd2d2;
+   border-radius: 10px;
+   padding: 0;
+   min-height: 800px;
+   position: relative;
+}
+.rbview_li{
+   list-style: none;
+   width: 100%;
+   padding: 10px 30px;
+   border-bottom: 1px solid #cdd2d2;
+}
+.rbview_li_last{
+   list-style: none;
+   width: 100%;
+   padding: 10px 30px;
+}
+
+.rbview_li div{
+   -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+.title{
+   width: 75%;
+   font-weight: bold;
+   font-size: 21pt;
+   text-align: left;
+   line-height: 1.5;
+   display: inline-block;
+   float: left;
+}
+.date{
+   width: 25%;
+   text-align: right;
+   color: gray;
+   font-size: 10pt;
+   display: inline-block;
+   clear: left;
+}
+
+
+.writer{
+   margin-top: 10px;
+   font-weight: bold;
+   font-size: 16pt;
+   height: 25px;
+}
+.a_writer{
+	color: black;
+}
+.price{
+   display: inline-block;
+   color: #007ee6;
+   font-weight: bold;
+}
+.btn_li{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.content{
+	margin-top: 2em;
+}
+.menu_bar{
+   text-align: right;
+   width: 70%;
+   margin: 0 auto;
+}

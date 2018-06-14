@@ -1,4 +1,35 @@
 $(document).ready(function(){
+
+	$('#interestBtn').click(function () {
+		var content_num = $('#board_no').val();
+		var board_name = $('#board_name').val();
+		
+		$.ajax({
+	         type : "POST",
+	         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+	         data : {
+	        	'content_num' : content_num,
+	        	'board_name' : board_name
+	         },
+	         url : "./interestadd.me",
+	         success: function(result){
+
+	        	 if (result == 5) {
+	        		 alert('찜은 최대 5개 까지만 등록 가능합니다.\nMypage 에서 다른 찜을 삭제 후 추가하세요.!');
+				} else if (result == 1) {
+					alert('찜 등록 완료!');
+				} else {
+					alert('찜 등록 실패했습니다.');
+				}
+	         },
+	         error: function() {
+	            alert("error");
+	         }
+	      }); // ajax
+		
+	});
+	
+	
 	$("#comment_btn").click(function(){
 	      var content=$('#comment_content').val();
 	      
@@ -6,7 +37,8 @@ $(document).ready(function(){
 	      $('#counter').html('0/300');
 	      
 	      var id=$('#WRITER').val();
-	      var NO=$('#NO').val();
+	      var NO=$('#board_no').val();
+	      var board_name = $('#board_name').val();
 	      var data={"id" : id, "content" : content, "NO" : NO, "board_name" : board_name};
 	      $.ajax({
 	         type : "POST",
@@ -14,7 +46,6 @@ $(document).ready(function(){
 	         data : data,
 	         url : "./sbcommentaddaction.sb",
 	         success: function(data){
-	            console.log(data.length);
 	            $('.comment_view').empty().append(data);
 	            if(data.length > 100) {
 	               $('#comment_count').text($('#comment_count').text()*1+1);
@@ -121,7 +152,8 @@ $(document).ajaxSuccess(function(){
 
 function commentDelete(CMT_NO){
    ans=confirm("삭제하시겠습니까?");
-   var NO=$('#NO').val();
+   var NO=$('#board_no').val();
+   var board_name = $('#board_name').val();
       if(ans){
          $.ajax({
          type : "POST",
@@ -130,7 +162,6 @@ function commentDelete(CMT_NO){
             "CMT_BOARD_NAME" : board_name},
          url : "./cmtdelete.cmt",
          success: function(data){
-            console.log(data.length)
             $('.comment_view').empty().append(data);
             if(data.length > 5){
                $('#comment_count').text($('#comment_count').text()*1-1);
@@ -152,7 +183,6 @@ function replyView(CMT_NO){
       data : {"CMT_NO" : CMT_NO},
       url : "./sellboard/sbcommentreply.jsp",
       success: function(data){
-         console.log(data);
          $('.reply').empty();
          $('.reply').css("display", "none");
          $('.r'+CMT_NO).append(data);
@@ -166,7 +196,8 @@ function replyView(CMT_NO){
 
 function commentReply(CMT_NO){
    var content=$('#comment_reply_content').val();
-   var NO=$('#NO').val();
+   var NO=$('#board_no').val();
+   var board_name = $('#board_name').val();
    var data={"CMT_CONTENT" : content, "CMT_SUBJECT_NO" : NO, "CMT_BOARD_NAME" : board_name, 
             "CMT_NO" : CMT_NO, "url" : "sbview.sb?ajax="};
    

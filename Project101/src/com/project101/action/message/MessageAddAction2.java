@@ -26,16 +26,14 @@ public class MessageAddAction2 implements Action {
 		HttpSession session = request.getSession();
 		msBoardBean.setMS_SEND(session.getAttribute("id").toString());
 		System.out.println(request.getParameter("MS_NO"));
-		msBoardBean.setMS_TO(
-				request.getParameter("MS_TO"));
-		msBoardBean.setMS_TITLE(
-				request.getParameter("MS_TITLE"));
-		msBoardBean.setMS_CONTENT(
-				request.getParameter("MS_CONTENT"));		
+		msBoardBean.setMS_TO(request.getParameter("MS_TO"));
+		msBoardBean.setMS_TITLE(request.getParameter("MS_TITLE"));
+		msBoardBean.setMS_CONTENT(request.getParameter("MS_CONTENT"));		
 		request.setAttribute("to", request.getParameter("MS_TO"));
 		int result = msDAO.msInsert2(msBoardBean);
 		
 		request.setAttribute("result", result);
+		
 		forward.setRedirect(true);
 		forward.setPath("template.jsp?page=./msmessagesendlist.ms");
 		

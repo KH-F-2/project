@@ -30,7 +30,7 @@ public class ReportBoardView implements Action {
 		} else {
 			System.out.println("상세보기 성공!");
 			forward.setRedirect(false);
-			forward.setPath("reportboard/rb_view.jsp");
+			forward.setPath("template.jsp?page=reportboard/rb_view.jsp");
 		}
 
 		return forward;

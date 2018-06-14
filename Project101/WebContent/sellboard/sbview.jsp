@@ -150,6 +150,7 @@
 					</div>
 				</li>
 				<li class="btn_li">
+					<button type="button" id="interestBtn"> &#xe80b; 찜 </button>
 					<c:if test="${boardBean.board_name eq 'SELL_BOARD'}">
 						<a href="./msmessagewrite.ms?num=${boardBean.NO}&writer=${boardBean.WRITER }">
 							<!-- <span>쪽지보내기</span> -->
@@ -163,23 +164,17 @@
 			
 			
 			
-			
+			<br>
 			<div class="menu_bar">
 				<ul>
 					<li>
 						<c:if test="${id=='admin'||id==boardBean.WRITER}">
-					    	<a href="<c:url value='/sbmodifyview.sb?num=${boardBean.NO}&board_name=${boardBean.board_name}'/>">
-								<img src="image/update.png">
-							</a> &nbsp;
-							<a href="javascript:deleteConfirm()">
-								<img src="image/delete.png">
-							</a> &nbsp;
+							<button type="button" id="write_btn" onclick="location.href='./sbmodifyview.sb?num=${boardBean.NO}&board_name=${boardBean.board_name}'">수정</button>
+							<button type="button" id="delete_btn" onclick="deleteConfirm()">삭제</button>
 						</c:if>
 						<input type="hidden" id="centerLat" value="${boardBean.LAT }">
 						<input type="hidden" id="centerLng" value="${boardBean.LNG }">
-						<a href="<c:url value='/sbmain.sb?centerLat=${boardBean.LAT}&centerLng=${boardBean.LNG}'/>">
-							<img src="image/list.png">
-						</a>
+						<button type="button" id="lost_btn" onclick="location.href='./sbmain.sb?centerLat=${boardBean.LAT}&centerLng=${boardBean.LNG}'">목록</button>
 					</li>
 				</ul>
 			</div>

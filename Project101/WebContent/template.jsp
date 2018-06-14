@@ -13,13 +13,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="css/template.css">
 	
-	<script>
-		$(document).ready(function () {
-			$('#navTitle').click(function () {
-				location.href = 'main.map';
-			});
-		});
-	</script>
+	<script src="js/template.js"></script>
 
 </head>
 
@@ -28,16 +22,15 @@
 	<div class="ui left vertical menu sidebar">
 		<h1 id="navTitle">&#xe81d;  우리지금만나</h1>
 		<h2>&#xf114;  Category</h2>
-		<a class="item" href="./pbsearchAction.pb?category=0">의류/패션잡화</a>
-		<a class="item" href="./pbsearchAction.pb?category=1">가구/생황잡화</a>
-		<a class="item" href="./pbsearchAction.pb?category=2">전자기기/게임</a>
-		<a class="item" href="./pbsearchAction.pb?category=3">도서/티켓/쿠폰</a>
-		<a class="item" href="./pbsearchAction.pb?category=4">오토바이/차량용품</a>
-		<a class="item" href="./pbsearchAction.pb?category=5">취미/레저</a>
-		<a class="item" href="./pbsearchAction.pb?category=6">기타</a>
-		<a class="item" href="./rbmain.rb">신고하기</a>
+		<button class="item" id="category0" value="0"> 의류/패션잡화</button>
+		<button class="item" id="category1" value="1"> 가구/생황잡화</button>
+		<button class="item" id="category2" value="2"> 전자기기/게임</button>
+		<button class="item" id="category3" value="3"> 도서/티켓/쿠폰</button>
+		<button class="item" id="category4" value="4"> 오토바이/차량용품</button>
+		<button class="item" id="category5" value="5"> 취미/레저</button>
+		<button class="item" id="category6" value="6"> 기타</button>
+		<button class="item" id="reportBtn" value="report"> 신고하기</button>
 	</div>
-
 	
 	
 	<div class="pusher">

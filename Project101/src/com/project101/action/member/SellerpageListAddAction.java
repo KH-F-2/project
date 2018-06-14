@@ -63,7 +63,7 @@ public class SellerpageListAddAction implements Action {
         //request.setAttribute("listCount", listCount);
         request.setAttribute("list", list);
         System.out.println("list : " + list);
-        list = sellerdao.getBoardList(page,limit,writer);
+        list = sellerdao.getBoardList(page, limit, writer);
         request.setAttribute("list", list);
         
         
@@ -81,7 +81,7 @@ public class SellerpageListAddAction implements Action {
 	    //String getimageurl = dao.geturl();
 		ArrayList<SellBoardBean> getimage = new ArrayList<SellBoardBean>();
 		javax.servlet.http.HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
+		String id = (String) session.getAttribute("id");
 		getimage = sellerdao.getimage(writer);
 		request.setAttribute("getimage", getimage);
 		forward.setRedirect(false);

@@ -166,3 +166,18 @@ textarea{
         background-image: url('../image/checked.png');    /* 하위 브라우저용 img */
         background-position: 21px 0;
 }
+
+.uploadcare--widget__button_type_open{
+	background: white;
+    color: black;
+    border: 1px solid black;
+    font-weight: bold;
+}
+.uploadcare--widget__button_type_open:hover{
+	color: white;
+	background-color: black;
+}
+.category select{
+	border: 1px solid black;
+	
+}
