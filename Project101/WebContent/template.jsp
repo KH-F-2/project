@@ -23,7 +23,7 @@
 		<h1 id="navTitle">&#xe81d;  우리지금만나</h1>
 		<h2>&#xf114;  Category</h2>
 		<button class="item" id="category0" value="0"> 의류/패션잡화</button>
-		<button class="item" id="category1" value="1"> 가구/생황잡화</button>
+		<button class="item" id="category1" value="1"> 가구/생활잡화</button>
 		<button class="item" id="category2" value="2"> 전자기기/게임</button>
 		<button class="item" id="category3" value="3"> 도서/티켓/쿠폰</button>
 		<button class="item" id="category4" value="4"> 오토바이/차량용품</button>

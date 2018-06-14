@@ -23,8 +23,8 @@ public class InterestDeleteAction implements Action {
 
 		InterestDAO interestDAO = new InterestDAO();
 		
-		int content_num = Integer.parseInt(request.getParameter("content_num"));
-		String board_name = request.getParameter("board_name");
+		int content_num = Integer.parseInt(request.getParameter("content_num").trim());
+		String board_name = request.getParameter("board_name").trim();
 
 		result = interestDAO.deleteInterest(content_num, board_name);
 

@@ -150,7 +150,7 @@
 					</div>
 				</li>
 				<li class="btn_li">
-					<button type="button" id="interestBtn"> &#xe80b; 찜 </button>
+					<button type="button" id="interestInsert"> &#xe80b; 찜 </button>
 					<c:if test="${boardBean.board_name eq 'SELL_BOARD'}">
 						<a href="./msmessagewrite.ms?num=${boardBean.NO}&writer=${boardBean.WRITER }">
 							<!-- <span>쪽지보내기</span> -->

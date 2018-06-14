@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-	$('#interestBtn').click(function () {
+	$(document).on('click', '#interestInsert', function () {
+		var thisBtn = $(this);
 		var content_num = $('#board_no').val();
 		var board_name = $('#board_name').val();
 		
@@ -18,6 +19,8 @@ $(document).ready(function(){
 	        		 alert('찜은 최대 5개 까지만 등록 가능합니다.\nMypage 에서 다른 찜을 삭제 후 추가하세요.!');
 				} else if (result == 1) {
 					alert('찜 등록 완료!');
+					thisBtn.parent().prepend('<input type="button" id="interestDelete" value="찜 취소">');
+					thisBtn.remove();
 				} else {
 					alert('찜 등록 실패했습니다.');
 				}
@@ -29,6 +32,35 @@ $(document).ready(function(){
 		
 	});
 	
+	$(document).on('click', '#interestDelete', function () {
+		var thisBtn = $(this);
+		var content_num = $('#board_no').val();
+		var board_name = $('#board_name').val();
+		
+		$.ajax({
+	         type : "POST",
+	         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+	         data : {
+	        	'content_num' : content_num,
+	        	'board_name' : board_name
+	         },
+	         url : "./interestdelete.me",
+	         success: function(result){
+
+	        	 if (result == 1) {
+	        		 alert('삭제되었습니다.');
+	        		 thisBtn.parent().prepend('<button type="button" id="interestInsert"> &#xe80b; 찜 </button>');
+					thisBtn.remove();
+				} else {
+					alert('찜 삭제 실패했습니다.');
+				}
+	         },
+	         error: function() {
+	            alert("error");
+	         }
+	      }); // ajax
+		
+	});
 	
 	$("#comment_btn").click(function(){
 	      var content=$('#comment_content').val();

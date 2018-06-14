@@ -51,7 +51,17 @@ public class FrontController extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			} else if (command.equals("/category.map")) {
+				action = new ChangeCategoryAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+			
+			
+			
 
 			if (forward != null) {
 				if (forward.isRedirect()) {

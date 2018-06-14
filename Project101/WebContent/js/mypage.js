@@ -1,9 +1,10 @@
 $(document).ready(function () {
 	
 	$('.interestDelete').click(function () {
+		var thisBtn = $(this);
 		var content_num = $(this).siblings('.content_num').val();
 		var board_name = $(this).siblings('.board_name').val();
-
+		
 		$.ajax({
 	         type : "POST",
 	         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -16,6 +17,7 @@ $(document).ready(function () {
 
 	        	 if (result == 1) {
 	        		 alert('삭제되었습니다.');
+	        		 thisBtn.parent().remove();
 				} else {
 					alert('찜 삭제 실패했습니다.');
 				}
