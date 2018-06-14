@@ -16,7 +16,7 @@
 		</div>
 		<div id="sec1col3">
 			<input type="button" id="modifyinfo" value="&#xe80a; 정보수정">
-			<input type="button" id="message" value="&#xe820; 메세지함">
+			<input type="button" id="message" value="&#xe81b; 메세지함">
 			<input type="button" id="servicecenter" value="&#xe812; 고객센터">
 			<input type="button" id="withdrawal" value="&#xe83c; 회원탈퇴">
 		</div>

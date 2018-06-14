@@ -22,12 +22,10 @@ public class ReportBoardModifyAction implements Action {
 
 		ReportBoardDAO reportDao = new ReportBoardDAO();
 		ReportBoardBean boardBean = new ReportBoardBean();
-		HttpSession session = request.getSession();
 
 		boardBean.setRB_NO(num);
 		boardBean.setRB_TITLE(request.getParameter("RB_TITLE"));
 		boardBean.setRB_CONTENT(request.getParameter("RB_CONTENT"));
-		boardBean.setRB_PRICE(Integer.parseInt(request.getParameter("RB_PRICE").toString()));
 
 		System.out.println("rb_content===" + boardBean.getRB_CONTENT());
 		int result = reportDao.boardModify(boardBean);

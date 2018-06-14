@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<script src="/test/js/reportboard.js"></script>
+<script src="./js/reportboard.js"></script>
 <style>
 nav {
 	height: 40px;
@@ -66,21 +66,22 @@ textarea {
 			<th colspan="2">신고게시판</th>
 		</tr>
 		<tr>
-			<td>작성자</td>
+			<td>신고 대상</td>
 			<td>
-				<input name="RB_WRITER" type="text" size="50" maxlength="100">
+				<input name="rb_rp_id" type="text" value="${writer }">
+			</td>
+		</tr>
+		<tr>
+			<td>신고 글 번호</td>
+			<td>
+				<input name="rb_rp_no" type="text" value="${board_no }">
+				<input name="rb_rp_board_name" type="hidden" value="${board_name }">
 			</td>
 		</tr>
 		<tr>
 			<td>제목</td>
 			<td>
-				<input name="RB_TITLE" type="text" size="50" maxlength="100">
-			</td>
-		</tr>
-		<tr>
-			<td>가격</td>
-			<td>
-				<input name="RB_PRICE" type="text" size="50" maxlength="100">
+				<input name="rb_title" type="text" size="50" maxlength="100">
 			</td>
 		</tr>
 		<tr>
@@ -88,7 +89,7 @@ textarea {
 				<div>내용</div>
 			</td>
 			<td>
-				<textarea name="RB_CONTENT" id="board_content" cols="65" rows="15"></textarea>
+				<textarea name="rb_content" id="board_content" cols="65" rows="15"></textarea>
 			</td>
 		</tr>
 		<tr class="center">

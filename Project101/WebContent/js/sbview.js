@@ -95,6 +95,14 @@ $(document).ready(function(){
 		$('.hashtag').append('<a href="./sbmain.sb?word=' + tagArr[i].split('#')[1] + '&item=hashtag&page=1&category=0'
 				+ '&centerLat=' + centerLat + '&centerLng=' + centerLng + '">' + tagArr[i] + '</a> ');
 	}
+	
+	$('#report').click(function () {
+		var writer = $('#writerid').val();
+		var board_no = $('#board_no').val();
+		var board_name = $('#board_name').val();
+		
+		location.href = 'rbwrite.rb?writer=' + writer + '&board_no=' + board_no + '&board_name=' + board_name;
+	});
 
 	
 });

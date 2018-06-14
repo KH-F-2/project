@@ -69,8 +69,15 @@ textarea {
 			<th colspan="2">신고게시판 - 수정</th>
 		</tr>
 		<tr>
-			<td>작성자</td>
-			<td>${boardBean.RB_WRITER}</td>
+			<td>신고 대상</td>
+			<td><input name="rb_rp_id" type="text" value="${boardBean.RB_RP_ID }" readonly>
+			</td>
+		</tr>
+		<tr>
+			<td>신고 글 번호</td>
+			<td><input name="rb_rp_no" type="text" value="${boardBean.RB_RP_NO }" readonly>
+				<input name="rb_rp_board_name" type="hidden" value="${boardBean.RB_RP_BOARD_NAME }">
+			</td>
 		</tr>
 		<tr>
 			<td>제목</td>
@@ -78,13 +85,6 @@ textarea {
 				<input name="RB_TITLE" type="text" size="50" maxlength="100" value="${boardBean.RB_TITLE}">
 			</td>
 		</tr>
-		<tr>
-			<td>가격</td>
-			<td>
-				<input name="RB_PRICE" type="text" size="50" maxlength="100" value="${boardBean.RB_PRICE}">
-			</td>
-		</tr>
-
 		<tr>
 			<td>
 				<div>내용</div>

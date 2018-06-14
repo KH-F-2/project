@@ -37,9 +37,8 @@ public class ReportBoardFrontController extends HttpServlet {
 				forward = action.execute(request, response);
 
 			} else if (command.equals("/rbwrite.rb")) {
-				forward = new ActionForward();
-				forward.setRedirect(false);
-				forward.setPath("template.jsp?page=/reportboard/rb_write.jsp");
+				action = new ReportBoardWriteView();
+				forward = action.execute(request, response);
 
 			} else if (command.equals("/rbwriteaction.rb")) {
 				action = new ReportBoardWriteAction();

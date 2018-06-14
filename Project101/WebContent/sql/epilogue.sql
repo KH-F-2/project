@@ -8,6 +8,7 @@ CREATE TABLE EPILOGUE_BOARD(
 	SB_READCOUNT		NUMBER,
 	PRIMARY KEY(SB_NO)
 );
+
 select * from member;
 --컬럼수정
 alter table member modify(SB_FILE varchar2(50),file varchar2(50));

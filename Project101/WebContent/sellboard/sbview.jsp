@@ -37,10 +37,19 @@
 			
 				<li class="sbview_li 1">
 					<div class="title">
-						${boardBean.TITLE}
+						<input type="hidden" id="board_name" value="${boardBean.board_name }">
+						<c:choose>
+							<c:when test="${boardBean.board_name eq 'SELL_BOARD' }">
+								[판매] ${boardBean.TITLE}
+							</c:when>
+							<c:otherwise>
+								[구매] ${boardBean.TITLE}
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="date">
-						글번호 ${boardBean.NO}<input type="hidden" id="NO" value="${boardBean.NO}"><br>
+						글번호 ${boardBean.NO}
+						<input type="hidden" id="board_no" value="${boardBean.NO}"><br>
 						등록 ${boardBean.DATE}
 					</div>
 				</li>
@@ -52,29 +61,30 @@
 					<div class="hashtag">
 						<input type="hidden" id="tagVal" value="${boardBean.HASHTAG }">
 					</div>
-					<%-- <div class="hashtag">
-						${boardBean.HASHTAG}
-					</div> --%>
 					
 					<div class="writer">
-						<%-- <a href="./sellerpage_main.me?writer=${boardBean.SB_WRITER}">${boardBean.SB_WRITER}</a> --%>
 						<a href="#" class="a_writer" id="${boardBean.NO}">${boardBean.WRITER}</a>
-						<input type="hidden" id="WRITER" value="${boardBean.WRITER}">
+						<input type="hidden" id="writerid" value="${boardBean.WRITER}">
 					</div>
 					
 					<div id="div_writer${boardBean.NO}" class="div_writer">
 						<ul>
 							<li>
-								<a href="./sellerpage_main.me?writer=${boardBean.WRITER}"><span>정보보기</span></a>
+								<a href="./sellerpage_main.me?writer=${boardBean.WRITER}">
+									<span>정보보기</span>
+								</a>
 							</li>               
-							<hr>         
+							<hr>
 							<li>
-								<a href="./msmessagewrite.ms?num=${boardBean.NO}
-									&writer=${boardBean.WRITER }">
-								<span>쪽지보내기</span>
+								<a href="./msmessagewrite.ms?num=${boardBean.NO} &writer=${boardBean.WRITER }">
+									<span>쪽지보내기</span>
 								</a>
 							</li>
 						</ul>
+					</div>
+					
+					<div id="reportSection">
+						<button id="report">&#xe81e; 신고하기</button>
 					</div>
 					
 					<div class="price">${boardBean.PRICE } 원</div>

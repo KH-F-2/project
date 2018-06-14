@@ -17,14 +17,16 @@ public class ReportBoardWriteAction implements Action {
 		PrintWriter out = response.getWriter();
 
 		ReportBoardDAO reportDao = new ReportBoardDAO();
-		ReportBoardBean boardBean = new ReportBoardBean();
+		HttpSession session = request.getSession();
+		
+		String rb_rp_id = request.getParameter("rb_rp_id");
+		int rb_rp_no = Integer.parseInt(request.getParameter("rb_rp_no"));
+		String rb_rp_board_name = request.getParameter("rb_rp_board_name");
+		String rb_writer = (String) session.getAttribute("id");
+		String rb_title = request.getParameter("rb_title");
+		String rb_content = request.getParameter("rb_content");
 
-		boardBean.setRB_WRITER(request.getParameter("RB_WRITER"));
-		boardBean.setRB_TITLE(request.getParameter("RB_TITLE"));
-		boardBean.setRB_CONTENT(request.getParameter("RB_CONTENT"));
-		boardBean.setRB_PRICE(Integer.parseInt(request.getParameter("RB_PRICE")));
-
-		int result = reportDao.boardInsert(boardBean);
+		int result = reportDao.boardInsert(rb_rp_id, rb_rp_no, rb_rp_board_name, rb_writer, rb_title, rb_content);
 		
 		if (result == 1) {
 			out.println("<script> alert('게시판 등록 성공!'); location.href='./rbmain.rb';</script>");

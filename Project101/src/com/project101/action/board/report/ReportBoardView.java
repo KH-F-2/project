@@ -20,7 +20,6 @@ public class ReportBoardView implements Action {
 
 		int num = Integer.parseInt(request.getParameter("RB_NO"));
 
-		reportDao.setReadCountUpdate(num);
 		boardBean = reportDao.getDetail(num);
 
 		request.setAttribute("boardbean", boardBean);

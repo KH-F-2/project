@@ -77,35 +77,6 @@ public class ReportBoardDAO {
 		return 0;
 	}
 
-	public void setReadCountUpdate(int num) {
-
-		try {
-
-			con = ds.getConnection();
-			String sql = "update REPORT_BOARD set RB_READCOUNT=RB_READCOUNT+1 where RB_NO=? ";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
 	public ReportBoardBean getDetail(int num) {
 		ReportBoardBean reportboard = new ReportBoardBean();
 		try {
@@ -117,12 +88,15 @@ public class ReportBoardDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				reportboard.setRB_NO(rs.getInt("RB_NO"));
-				reportboard.setRB_WRITER(rs.getString("RB_WRITER"));
-				reportboard.setRB_TITLE(rs.getString("RB_TITLE"));
-				reportboard.setRB_CONTENT(rs.getString("RB_CONTENT"));
-				reportboard.setRB_PRICE(rs.getInt("RB_PRICE"));
-
+				reportboard.setRB_NO(rs.getInt(1));
+				reportboard.setRB_RP_ID(rs.getString(2));
+				reportboard.setRB_RP_NO(rs.getInt(3));
+				reportboard.setRB_RP_BOARD_NAME(rs.getString(4));
+				reportboard.setRB_WRITER(rs.getString(5));
+				reportboard.setRB_TITLE(rs.getString(6));
+				reportboard.setRB_CONTENT(rs.getString(7));
+				reportboard.setRB_DATE(rs.getDate(8));
+				
 				return reportboard;
 			} else {
 				return null;
@@ -147,52 +121,6 @@ public class ReportBoardDAO {
 		}
 
 		return null;
-	}
-
-	public int boardInsert(ReportBoardBean reportboard) {
-		int num = 0;
-		String sql = "";
-		try {
-			con = ds.getConnection();
-			sql = "select max(RB_NO) from REPORT_BOARD";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			if (rs.next())
-				num = rs.getInt(1) + 1;
-			else {
-				num = 1;
-			}
-			rs.close();
-			pstmt.close();
-
-			sql = "insert into REPORT_BOARD " + "values(?, ?, ?, ?, ?, sysdate,0 ) ";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.setString(2, reportboard.getRB_WRITER());
-			pstmt.setString(3, reportboard.getRB_TITLE());
-			pstmt.setString(4, reportboard.getRB_CONTENT());
-			pstmt.setInt(5, reportboard.getRB_PRICE());
-			result = pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
 	}
 
 	public int getListCount() {
@@ -232,7 +160,7 @@ public class ReportBoardDAO {
 		int endrow = startrow + limit - 1;
 		try {
 			con = ds.getConnection();
-			String sql = "select * from " + "(select rownum rnum, RB_NO, RB_WRITER, RB_TITLE, RB_DATE, RB_READCOUNT "
+			String sql = "select * from " + "(select rownum rnum, rb_no, rb_rp_id, rb_rp_no, rb_rp_board_name, rb_writer, rb_title, rb_content, rb_date "
 					+ "from (select * from REPORT_BOARD order by RB_NO desc)) " + "where rnum>=? and rnum<=? ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startrow);
@@ -242,11 +170,14 @@ public class ReportBoardDAO {
 
 			while (rs.next()) {
 				ReportBoardBean reportboard = new ReportBoardBean();
-				reportboard.setRB_NO(rs.getInt("RB_NO"));
-				reportboard.setRB_WRITER(rs.getString("RB_WRITER"));
-				reportboard.setRB_TITLE(rs.getString("RB_TITLE"));
-				reportboard.setRB_DATE(rs.getDate("RB_DATE"));
-				reportboard.setRB_READCOUNT(rs.getInt("RB_READCOUNT"));
+				reportboard.setRB_NO(rs.getInt("rb_no"));
+				reportboard.setRB_RP_ID(rs.getString("rb_rp_id"));
+				reportboard.setRB_RP_NO(rs.getInt("rb_rp_no"));
+				reportboard.setRB_RP_BOARD_NAME(rs.getString("rb_rp_board_name"));
+				reportboard.setRB_WRITER(rs.getString("rb_writer"));
+				reportboard.setRB_TITLE(rs.getString("rb_title"));
+				reportboard.setRB_CONTENT(rs.getString("rb_content"));
+				reportboard.setRB_DATE(rs.getDate("rb_date"));
 
 				list.add(reportboard);
 			}
@@ -274,15 +205,17 @@ public class ReportBoardDAO {
 	}
 
 	public int boardModify(ReportBoardBean reportboard) {
-		String sql = "update REPORT_BOARD " + "set RB_TITLE=?, RB_PRICE=?, RB_CONTENT=? " + "where RB_NO=?";
+		String sql = "update REPORT_BOARD set RB_TITLE=?, RB_CONTENT=? where RB_NO=?";
+		
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, reportboard.getRB_TITLE());
-			pstmt.setInt(2, reportboard.getRB_PRICE());
-			pstmt.setString(3, reportboard.getRB_CONTENT());
-			pstmt.setInt(4, reportboard.getRB_NO());
+			pstmt.setString(2, reportboard.getRB_CONTENT());
+			pstmt.setInt(3, reportboard.getRB_NO());
+			
 			result = pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			System.out.println("boardmodify() 에러 :" + e);
 			e.printStackTrace();
@@ -306,6 +239,58 @@ public class ReportBoardDAO {
 					ex.printStackTrace();
 				}
 		}
+		return result;
+	}
+
+	public int boardInsert(String rb_rp_id, int rb_rp_no, String rb_rp_board_name, String rb_writer, String rb_title, String rb_content) {
+		int num = 0;
+		String sql = "";
+		
+		try {
+			con = ds.getConnection();
+			sql = "select max(RB_NO) from REPORT_BOARD";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			if (rs.next())
+				num = rs.getInt(1) + 1;
+			else {
+				num = 1;
+			}
+			rs.close();
+			pstmt.close();
+
+			sql = "insert into REPORT_BOARD " + "values(?, ?, ?, ?, ?, ?, ?, sysdate) ";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			pstmt.setString(2, rb_rp_id);
+			pstmt.setInt(3, rb_rp_no);
+			pstmt.setString(4, rb_rp_board_name);
+			pstmt.setString(5, rb_writer);
+			pstmt.setString(6, rb_title);
+			pstmt.setString(7, rb_content);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		return result;
 	}
 
