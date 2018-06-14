@@ -18,7 +18,7 @@ public class MessageWriteAction implements Action {
 		
 		HttpSession session=request.getSession();
 		String id = session.getAttribute("id").toString();
-		int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("num").trim());
 		String writer = request.getParameter("writer");
 		request.setAttribute("id", id);
 		request.setAttribute("num", num);

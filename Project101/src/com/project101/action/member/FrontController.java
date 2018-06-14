@@ -82,14 +82,7 @@ public class FrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 
-			} else if (command.equals("/sellerpage_main.me")) {
-				action = new SellerpageListAddAction();
-				try {
-					forward = action.execute(request, response);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else if (command.equals("/find.me")) {
+			}  else if (command.equals("/find.me")) {
 				forward = new ActionForward();
 				forward.setRedirect(false);
 				forward.setPath("/member/find.jsp");
@@ -143,12 +136,21 @@ public class FrontController extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			} else if (command.equals("/sellerpage_main.me")) {
+				action = new SellerpageListAddAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			} else if (command.equals("/sellerpage_main_ajax.me")) {
 				action = new SellerpageWriterAction();
 				forward = action.execute(request, response);
+				
 			} else if (command.equals("/sellerpage_main2_ajax.me")) {
 				action = new SellerpageWriterAction2();
 				forward = action.execute(request, response);
+				
 			} else if (command.equals("/signepil.me")) {
 				action = new SignEpilAction();
 				try {
@@ -159,13 +161,26 @@ public class FrontController extends HttpServlet {
 			} else if (command.equals("/signaddaction.me")) {
 				action = new SignEpilAddAction();
 				forward = action.execute(request, response);
+				
 			} else if (command.equals("/signepilwriter.me")) {
 				action = new SignEpilWriterAction();
 				forward = action.execute(request, response);
+				
 			} else if (command.equals("/signepilcontent.me")) {
 				action = new SignEpilContentAction();
 				forward = action.execute(request, response);
+				
+			} else if (command.equals("/interestadd.me")) {
+				action = new InterestAddAction();
+				forward = action.execute(request, response);
+				
+			} else if (command.equals("/interestdelete.me")) {
+				action = new InterestDeleteAction();
+				forward = action.execute(request, response);
 			}
+			
+			
+			
 
 			if (forward != null) {
 				if (forward.isRedirect()) {

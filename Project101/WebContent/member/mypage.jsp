@@ -25,14 +25,40 @@
 
 <div id="mysec2">
 	<div id="sec2container">
-		<h2>내가 좋아요한 글</h2>
+		<h2>내가 찜 한 글</h2>
 		
-		
+		<c:choose>
+			<c:when test="${!empty interestArr }">
+				<c:forEach var="item" items="${interestArr }">
+					<div class="content">
+						<input type="hidden" class="content_num" value="${item.num }">
+						<input type="hidden" class="board_name" value="${item.board_name }">
+						
+						<a href="sbview.sb?num=${item.num }&board_name=${item.board_name }">
+							<img src="${item.image_url }">
+							<p>${item.title }</p>
+						</a>
+						<span>&#xf159; ${item.price }원</span>
+						<span>${item.content }</span>
+						<div id="contentInfoSection">
+							<div class="contentInfo">&#xe80b; 0</div>
+							<div class="contentInfo">&#xe816; 0</div>
+							<div class="contentInfo">&#xe80d; ${item.readcount }</div>
+						</div>
+						<input type="button" class="interestDelete" value="찜 취소">
+					</div>
+				</c:forEach>
+			</c:when>
+			
+			<c:otherwise>
+				<h2>아직 찜 한 글이 없습니다.</h2>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>
 
 <div id="mysec3">
-	<h2>내가 작성한 글</h2>
+	<h2>내가 작성 한 글</h2>
 	<div id="sec3container">
 		<c:choose>
 			<c:when test="${!empty jsonArr }">

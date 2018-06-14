@@ -30,7 +30,7 @@
 								<c:set var="num" value="${num-1 }"/>
 							</td>
 							<td width="50%" align="left">
-								&nbsp;<a href="./sbview.sb?num=${board.SB_NO }">
+								&nbsp;<a href="./sbview.sb?num=${board.SB_NO }&board_name=SELL_BOARD">
 									${board.SB_TITLE }
 								</a>
 							</td>

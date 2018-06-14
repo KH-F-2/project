@@ -58,6 +58,7 @@
    font-weight: bold;
    font-size: 16pt;
    height: 25px;
+   width: 49%;
 }
 .a_writer{
 	color: black;
@@ -475,4 +476,26 @@ a.animated-button.victoria-one:after {
 .div_writer li a:hover {
 	background-color:#f4f4f4 !important;
 }
-
+#reportSection{
+	text-align: right;
+	width: 100%;
+}
+#report{
+	background-color: white;
+	color: black;
+	border: 1px black solid;
+}
+#report:hover{
+	background-color: black;
+	color: white;
+}
+.menu_bar button{
+	background-color: white;
+	color: black;
+	border: 1px black solid;
+	border-radius: 3px;
+}
+.menu_bar button:hover{
+	background-color: black;
+	color: white;
+}

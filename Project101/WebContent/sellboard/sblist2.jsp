@@ -24,7 +24,7 @@
 <div id="mapControler">
 	<div id="emptyDiv">
 		<div id="chkBtnDiv">
-			<input type="button" id="checkCurrentPosition" value="현재 위치에서 조회">
+			<input type="button" id="checkCurrentPosition" value="현재 위치에서 조회">
 		</div>
 		<div id="locationField">
 			<input id="autocomplete" placeholder="검색 할 장소를 입력하세요" type="text" />

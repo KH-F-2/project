@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script src="/test/js/sellboard.js"></script>
+<link href="./css/boardwrite.css" rel="stylesheet" type="text/css">
+<script src="./reportboard/rbwrite.js"></script>
 
 <style>
+		.write_li {
+			box-sizing: border-box;
+		}
+		</style>
+		
+<!-- <style>
 nav {
 	height: 40px;
 	background: #e5ffff
@@ -60,9 +67,9 @@ tr>td:nth-child(2n) {
 textarea {
 	resize: none;
 }
-</style>
+</style> -->
 
-<form action="./rbmodifyaction.rb" method="post">
+<%-- <form action="./rbmodifyaction.rb" method="post">
 	<input type="hidden" name="RB_NO" value="${boardBean.RB_NO}">
 	<table>
 		<tr>
@@ -102,4 +109,53 @@ textarea {
 			</td>
 		</tr>
 	</table>
-</form>
+</form> --%>
+
+
+<form action="./rbmodifyaction.rb" method="post" id="write_submit">
+	<input type="hidden" value="${boardBean.RB_NO }" name="RB_NO">
+	<ul class="write_ul">
+		
+		<li class="write_li">
+			<div class="title">
+				<img src="image/document.png" alt="document" class="write_img">
+				<input name="RB_TITLE" type="text" size="50" maxlength="100" value="${boardBean.RB_TITLE}">
+			</div>
+		</li>
+		
+		<li class="write_li">
+			<div class="recipient">
+				<img src="image/document.png" alt="document" class="write_img">
+				<input name="rb_rp_id" type="text" value="${boardBean.RB_RP_ID }" readonly>
+			</div>
+		</li>
+		
+		<li class="write_li">
+			
+			<div class="price">
+				<img src="image/money.png" alt="money" class="write_img">
+				<input name="rb_rp_no" type="text" value="${boardBean.RB_RP_NO }" readonly>
+				<input name="rb_rp_board_name" type="hidden" value="${boardBean.RB_RP_BOARD_NAME }">
+			</div>
+		</li>
+		
+		<li class="write_li">
+			<div class="content">
+				<textarea name="RB_CONTENT" id="board_content" cols="65" rows="15">
+					${boardBean.RB_CONTENT}
+				</textarea>
+			</div>
+		</li>
+		
+	
+		
+		<li class="btn_li">
+			<div>
+				<button type="submit" id="submit_btn" class="write_btn">등록</button>
+				<button type="reset" id="cancle_btn" class="write_btn" onclick='history.go(-1)'>취소</button>
+			</div>
+		</li>
+		
+	</ul>
+	
+</form>	

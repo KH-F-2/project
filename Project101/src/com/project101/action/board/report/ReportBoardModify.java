@@ -34,7 +34,7 @@ public class ReportBoardModify implements Action {
 		request.setAttribute("boardBean", boardBean);
 		forward.setRedirect(false);
 
-		forward.setPath("/reportboard/rb_modify.jsp");
+		forward.setPath("template.jsp?page=/reportboard/rb_modify.jsp");
 		return forward;
 	}
 

@@ -7,7 +7,7 @@
 				<div id="content_box">
 					<div class="content">
 						<img src="${boardBean.IMAGE_URL}">
-						<p>&nbsp;<a href="./sbview.sb?num=${boardBean.SB_NO }">
+						<p>&nbsp;<a href="./sbview.sb?num=${boardBean.SB_NO }&board_name=SELL_BOARD">
 								${boardBean.SB_TITLE}</a></p>
 						<span>${boardBean.SB_CONTENT}</span>
 					</div>

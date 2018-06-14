@@ -220,3 +220,30 @@
 	background-color: black;
 	color: white;
 }
+.search{
+	width: 100%;
+	text-align: right;
+	height: 27px;
+	margin-top: 5px;
+	padding-right: 10px;
+}
+.search select{
+	height: 100%;
+	border: 1px black solid;
+	border-radius: 3px;
+}
+#search_input{
+	height: 100%;
+	border: 1px black solid;
+	border-radius: 3px;
+}
+#search_btn{
+	background-color: white;
+	color: black;
+	border: 1px black solid;
+	border-radius: 3px;
+}
+#search_btn:hover{
+	background-color: black;
+	color: white;
+}
