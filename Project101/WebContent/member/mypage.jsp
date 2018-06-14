@@ -25,7 +25,7 @@
 
 <div id="mysec2">
 	<div id="sec2container">
-		<h2>내가 찜 한 글</h2>
+		<p style="text-align:left; margin-left:100px">내가 찜 한 글</p>
 		
 		<c:choose>
 			<c:when test="${!empty interestArr }">
@@ -46,6 +46,7 @@
 							<div class="contentInfo">&#xe80d; ${item.readcount }</div>
 						</div>
 						<input type="button" class="interestDelete" value="찜 취소">
+						<input type="button" class="interestEpil" value="후기작성" onclick="interestEpil(${item.num}, '${item.board_name}')">
 					</div>
 				</c:forEach>
 			</c:when>
@@ -58,8 +59,8 @@
 </div>
 
 <div id="mysec3">
-	<h2>내가 작성 한 글</h2>
 	<div id="sec3container">
+	<p style="text-align:left; margin-left:100px">내가 작성 한 글</p>
 		<c:choose>
 			<c:when test="${!empty jsonArr }">
 				<c:forEach var="item" items="${jsonArr }">

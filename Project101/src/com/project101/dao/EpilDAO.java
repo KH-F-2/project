@@ -122,4 +122,44 @@ public class EpilDAO {
 	
 	return null;
 	}
+	
+	public String getEpilName(int num, String board_name) {
+		String sql = "";
+		String name = "";
+		try {
+			conn = ds.getConnection();
+			
+			if(board_name.equals("SELL_BOARD")) {
+				sql = "select SB_WRITER from SELL_BOARD where SB_NO=?";
+			} else {
+				sql = "select PB_WRITER from PURCHASE_BOARD where PB_NO=?";
+			}
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				name = rset.getString(1);
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally{
+			try {
+				if (pstmt!=null) {
+					pstmt.close();
+				}
+				if (conn!=null) {
+					conn.close();
+				}
+				if (rset!=null) {
+					rset.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
+	return name;
+	}
 }

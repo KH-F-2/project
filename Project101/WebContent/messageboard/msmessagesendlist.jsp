@@ -59,8 +59,8 @@
 				<tr>
 					<td colspan="3" style="text-align: right;"><a
 						style="margin-right: 10px;" href="msmessagewrite2.ms" id="a_write">
-							<img src="image/pencil.png" width="30px" height="30px">쪽지 쓰기
-						</a>
+							<img src="image/pencil.png" width="30px" height="30px">쪽지 쓰기</a>
+					<a href="./msmessagetolist.ms">받은쪽지함</a>
 					<a href="mypage.me?id=${id }">마이페이지</a>
 					</td>
 				</tr>

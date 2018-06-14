@@ -1,7 +1,5 @@
 package com.project101.bean;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,15 +16,16 @@ public class SignEpilAction implements Action {
 		request.setCharacterEncoding("UTF-8");
 
 		EpilDAO epDAO = new EpilDAO();
-		String name = request.getParameter("name");
-		ArrayList<Epil> list = epDAO.getEpilList(name);
-		request.setAttribute("list", list);
-		
-		request.setAttribute("name", name);
+		int num = Integer.parseInt(request.getParameter("num"));
+	    String board_name = request.getParameter("board_name");
+	      
+	    String name = epDAO.getEpilName(num, board_name);
+	      
+	    request.setAttribute("name", name);
 
-		forward.setPath("./member/signepil.jsp");
-		forward.setRedirect(false);
-		return forward;
+	    forward.setPath("./member/signepil.jsp");
+	    forward.setRedirect(false);
+	    return forward;
 
 	}
 }

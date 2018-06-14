@@ -36,7 +36,7 @@ public class SignEpilAddAction implements Action {
 		int result = epDAO.epInsert(epBoardBean);
 		
 		if(result == 1 ) {
-			out.println("<script> alert('후기 작성 완료'); location.href='signepilwriter.me?name=" + name + "';</script>");
+			out.println("<script> alert('후기 작성 완료'); location.href='mypage.me?id=" + name + "';</script>");
 		}else {
 			out.println("<script> alert('후기 작성 실패'); history.back()';</script>");
 		}

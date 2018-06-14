@@ -67,5 +67,7 @@ $(document).ready(function () {
 	$('#servicecenter').click(function () {
 		location.href = 'noticemain.nt';
 	});
-	
 });
+function interestEpil(num, board_name){
+	location.href="signepil.me?num="+num+"&board_name="+board_name;
+}
