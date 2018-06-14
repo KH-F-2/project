@@ -51,6 +51,8 @@
 
 .layer-review.review-write {
 	width: 510px;
+	margin: 0 auto;
+    margin-top: 150px;
 }
 
 .layer-review {
@@ -239,10 +241,17 @@ div {
 
 .layer-review .button-wrap .button-register {
 	background-position: 0 -36px;
+	background-color: #E4E4E4;
+	border-radius: 5px;	
 }
 
 .layer-review .button-wrap .button-cancel {
 	background-position: 0 -108px;
+	background-color: #E4E4E4;
+	border-radius: 5px;	
+}
+.layer-review .button-wrap .button-cancel:hover,.layer-review .button-wrap .button-register:hover {
+	background-color: white;
 }
 
 .layer-review .score-star a {
@@ -273,6 +282,9 @@ input#upfile.photo {
 	height: 24px;
 	background: white
 }
+[name=EP_NAME]{
+	border: none;
+}
 </style>
 <body>
 	<div class="layer-review review-write" style="">
@@ -297,11 +309,10 @@ input#upfile.photo {
 
 		<!-- 구매후기 작성 -->
 		<div class="textarea-wrap">
-			<span id="preNoteDefault" class="textarea" > 구매후기는
-				10자 이상 500자 이하로 입력해주세요.</span>
+			<span id="preNoteDefault" class="textarea" >
+				구매 후기를 입력해주세요.</span>
 			<textarea id="textarea-review" class="textarea-review"
 				name="review_reason_text"></textarea>
-			<span class="byte">(0/500자)</span>
 		</div>
 
 		<div class="button-wrap">

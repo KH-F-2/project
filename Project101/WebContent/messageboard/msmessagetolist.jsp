@@ -58,10 +58,11 @@
 	</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="3" style="text-align: right; font-size: 14pt;"><a
-						style="margin-right: 10px;" href="msmessagewrite2.ms" id="a_write">
+					<td colspan="3" style="text-align: right; font-size: 14pt;">
+					<a style="margin-right: 10px;" href="msmessagewrite2.ms" id="a_write">
 						<img src="image/pencil.png" width="30px" height="30px">
 						쪽지 쓰기</a>
+						<a href="./msmessagesendlist.ms">보낸쪽지함</a>
 						<a href="mypage.me">마이페이지</a>
 					</td>
 				</tr>

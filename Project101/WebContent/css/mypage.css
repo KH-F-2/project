@@ -116,3 +116,33 @@
 #pagingArea a {
 	cursor: pointer;
 }
+#mysec2 {
+	width:100%;
+	height:400px;
+}
+#sec2container {
+    margin: 0 auto;
+    width: 70%;
+    text-align: center;
+}
+p {	
+	font-size:20px;
+	font-weight: bold;
+}
+input#modifyinfo, input#message, input#servicecenter, input#withdrawal {
+	background-color: #E4E4E4;
+	border-radius: 5px
+}
+input#modifyinfo:hover, input#message:hover, input#servicecenter:hover, input#withdrawal:hover{
+	background-color: white;
+}
+#pagingArea {
+	font-size:20px;
+}
+input.interestDelete, input.interestEpil {
+	background-color: #E4E4E4;
+	border-radius: 5px;	
+}
+input.interestDelete:hover, input.interestEpil:hover {
+	background-color: white;
+}
