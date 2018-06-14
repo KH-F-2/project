@@ -29,7 +29,7 @@ public class CommentReplyAction implements Action {
 		String CMT_WRITER = session.getAttribute("id").toString();
 		String CMT_CONTENT = request.getParameter("CMT_CONTENT");
 		String url = request.getParameter("url");
-		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("PB_NO"));
+		int CMT_SUBJECT_NO = Integer.parseInt(request.getParameter("CMT_SUBJECT_NO"));
 		/*
 		 	CMT_NO,DATE : 자동
 		 	SUBJECT_NO : 부모댓글과 같은 값
