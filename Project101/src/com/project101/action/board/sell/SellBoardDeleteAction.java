@@ -31,7 +31,6 @@ public class SellBoardDeleteAction implements Action{
 		String BOARD_NAME = request.getParameter("board_name");
 		
 		int result = 0;
-		String tableName = "";
 		
 		if(BOARD_NAME.equals("SELL_BOARD")) {
 			result = sellDAO.boardDelete(num); 
@@ -41,7 +40,7 @@ public class SellBoardDeleteAction implements Action{
 		
 		
 		if (result >= 1) {
-			imageDAO.imageDelete(num, tableName);
+			imageDAO.imageDelete(num, BOARD_NAME);
 			commentDAO.commentDelete(num, BOARD_NAME);
 			out.println("<script>alert('삭제되었습니다.');location = './sbmain.sb?centerLat=" + LAT + "&centerLng=" + LNG + "';</script>");
 		}

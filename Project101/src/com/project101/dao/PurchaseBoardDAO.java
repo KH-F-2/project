@@ -649,7 +649,7 @@ public class PurchaseBoardDAO {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				num = rset.getInt(1); // 최대값보다 1만큼 큰 값 지정
+				num = rset.getInt(1) + 1; // 최대값보다 1만큼 큰 값 지정
 			} else {
 				num = 1;
 			}

@@ -8,57 +8,50 @@
 	<title>판매게시판</title>
 	
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	
-	<!-- Semantic UI Library -->
+
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<link href="css/seller_main.css" rel="stylesheet" type="text/css">
 	
 	<script>
-		$(document).on("click","#item1",(function(){
+		//판매자 페이지로서 ajax를 활용하여 게시글이 보여지는 형태는 2가지이다. 
+		$(document).on("click","#item1",(function(){	//앨범형을 클릭했을 시 
 			var writer = $('#writer').val();
-			
 			$.ajax({
-				type:"POST",
-				url : "sellerpage_main_ajax.me?writer="+writer,
-				data : {"writer" : writer},
-				success : function(data) {
-					
-					
-					$("#abc").empty().append(data);
-				}
+				type:"POST",  //type은 post 지정
+				url : "sellerpage_main_ajax.me?writer="+writer,	//대상 url -> 작성자(writer)를 클릭했을 때 그 작성자를 가지고 넘어간다. 
+				data : {"writer" : writer},	//요청 매개변수 지정
+				success : function(data) {	//success 성공 이벤트 핸들러 
+					$("#abc").empty().append(data);	//success를 하게 되면 그전 데이터는 비워주고 게시글 형태에 맞게 다시 데이터를 넣는다.
+				}									 
 			})
-			
 			return false;
 		}))
 		
-		$(document).on("click","#item2",(function(){
+		$(document).on("click","#item2",(function(){	//게시판형을 클릭했을 시
 			var writer = $('#writer').val();
 			$.ajax({
 				type:"POST",
 				url : "sellerpage_main2_ajax.me?writer="+writer,
 				data : {"writer" : writer},
 				success : function(data) {
-					
-					
 					$("#abc").empty().append(data);
 				}
 			})			
 		}))		
-$(document).ready(function() {
-	$("#item3").click(function() {
-		var writer = $('#writer').val();
-		$.ajax({
-			type : "POST",
-			url : "signepilcontent.me?writer="+writer,
-			data : {"state" : "ajax"},
-			success : function(data) {
-				$("#abc").empty().html(data);									
-			}			
-		})
-		return false;
-		
-	});
-});
+		$(document).ready(function() {
+			$("#item3").click(function() {
+				var writer = $('#writer').val();
+				$.ajax({
+					type : "POST",
+					url : "signepilcontent.me?writer="+writer,
+					data : {"state" : "ajax"},
+					success : function(data) {
+						$("#abc").empty().html(data);									
+					}			
+				})
+				return false;
+			});
+		});
 	
 	</script>
 </head>
