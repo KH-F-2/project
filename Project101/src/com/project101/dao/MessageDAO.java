@@ -234,8 +234,8 @@ public class MessageDAO {
 				+ "MS_CONTENT"
 				+ " from "
 				+		"(select * from message "
-				+		" order by MS_NO desc)) "
-				+	"where MS_TO=? and rnum>=? and rnum<=? ";
+				+		"where MS_TO=? order by MS_NO desc)) "
+				+	" where rnum>=? and rnum<=? ";
 		
 		List<MessageBoardBean> list = new ArrayList<MessageBoardBean>();
 							//한 페이지당 10개씩 목록인 경우			1page,2page,3page,...
