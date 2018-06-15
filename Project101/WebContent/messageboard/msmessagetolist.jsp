@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
 <link href="./css/mslist.css" rel="stylesheet">
-<body>
 <h1 style="text-align:center">
 	<img src="image/message.png" width="50px" height="50px">
 		"${id }"님이 받은 쪽지함</h1>
@@ -68,4 +67,3 @@
 				</tr>
 			</tfoot>
 </table>
-</body>

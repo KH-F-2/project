@@ -225,5 +225,50 @@ public class InterestDAO {
 		return result;
 	}
 	
+	public int totalInterest(int content_num, String board_name) {
+		int result = 0; 
+
+		try {
+			String sql = "select count(num) from interest where content_num=? and board_name=?";
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, content_num);
+			pstmt.setString(2, board_name);
+
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+
+		} catch (Exception e) {
+			System.out.println("SellBoardDAO - boardDelete() 에러 :" + e);
+			e.printStackTrace();
+		} finally {
+			if (rset != null)
+				try {
+					rset.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		
+		return result;
+		
+	}
+	
 	
 }

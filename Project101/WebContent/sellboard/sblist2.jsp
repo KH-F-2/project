@@ -56,13 +56,14 @@
 	
 	<input type="text" name="search_input" id="search_input" placeholder="Search..">
 	
-
 	<button id="search_btn">검색</button>
+	
+	
+	<div class="write">
+		<button type="button" id="write_btn" onclick="location.href='sbwriteview.sb'">글쓰기</button>
+	</div>
 </div>
 
-<div class="write">
-	<button type="button" id="write_btn" onclick="location.href='sbwriteview.sb'">글쓰기</button>
-</div>
 
 <div id="container">
 		<c:forEach var="item" items="${boardBeanlist }">

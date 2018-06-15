@@ -4,109 +4,49 @@
 <script src="./js/reportboard.js"></script>
 
 <style type="text/css">
-     body{
-        line-height:2em;        
-        font-family:"맑은 고딕";
-}
-    ul, li{ 
-        list-style:none;
-        text-align:center;
-        padding:0;
-        margin:0;
-}
-
-    #mainWrapper{
-        width: 800px;
-        margin: 0 auto; /*가운데 정렬*/
-    }
-
-    #mainWrapper > ul > li:first-child {
-        text-align: center;
-        font-size:14pt;
-        height:40px;
-        vertical-align:middle;
-        line-height:30px;
-}
-
-    #ulTable {margin-top:10px;}
-    
-
-    #ulTable > li:first-child > ul > li {
-        background-color:#c9c9c9;
-        font-weight:bold;
-        text-align:center;
-}
-
-    #ulTable > li > ul {
-        clear:both;
-        padding:0px auto;
-        position:relative;
-        min-width:40px;
-}
-    #ulTable > li > ul > li { 
-        float:left;
-        font-size:10pt;
-        border-bottom:1px solid silver;
-        vertical-align:baseline;
-}    
-
-    #ulTable > li > ul > li:first-child               {width:10%;} /*No 열 크기*/
-    #ulTable > li > ul > li:first-child +li           {width:45%;} /*제목 열 크기*/
-    #ulTable > li > ul > li:first-child +li+li        {width:20%;} /*작성일 열 크기*/
-    #ulTable > li > ul > li:first-child +li+li+li     {width:15%;} /*작성자 열 크기*/
-    #ulTable > li > ul > li:first-child +li+li+li+li{width:10%;} /*조회수 열 크기*/
-
-    #divPaging {
-          clear:both; 
-        margin:0 auto; 
-        width:220px; 
-        height:50px;
-}
-
-    #divPaging > div {
-        float:left;
-        width: 30px;
-        margin:0 auto;
-        text-align:center;
-}
-
-    #liSearchOption {clear:both;}
-    #liSearchOption > div {
-        margin:0 auto; 
-        margin-top: 30px; 
-        width:auto; 
-        height:100px; 
-
-}
-
-    .left {
-        text-align : left;
-} 
-	th{
-		 border: 1px solid silver;
-		 background-color: silver;
-		 color: white;
-		 
-	}
-	td{
-		 border: 1px solid silver;
-		 text-align: center;
-	}
-	.gray{
-		background-color: gray;
-	}
 	table{
-		border-radius:10px;
+		width:50%;
+		border:1px solid #cdd2d2;
+		margin:0 auto;
+		border-collapse: collapse;
+		box-shadow: 0 0 13px rgba(33,33,33,0.2)
 	}
-
+	tbody>tr:first-child{
+		font-size:22px;
+		background:#D5D5D5;
+		text-align: center;
+	}
+	tbody{
+		font-size:18px;
+		border: 1px solid #cdd2d2;
+	}
+	tfoot{
+		font-size:18px;
+	}
+	a {
+		text-decoration:none
+	}
+	td {
+		border-bottom:1px solid #cdd2d2
+	}
+	a:hover {
+		background-color:#FFF2E6		
+	}
+	tr.h30.lime.center.btn{
+		text-align: center;
+	}
+	h1{
+		text-align: center;
+		font-size: 25pt;
+		margin: 10px 0px;
+		text-shadow: 0 0 10px rgba(55,33,33,0.5)
+	}
 </style>
+
+<h1>신고 게시판</h1>
 
 <table>
 	<c:if test="${listcount>=1}">
-		<tr>
-			<th colspan="3">신고 게시판 - list</th>
-			<th colspan="1">글 개수 : ${listcount }</th>
-		</tr>
 		<tr>
 			<th width="10%"><div>번호</div></th>
 			<th width="20%"><div>신고 대상</div></th>
@@ -172,6 +112,7 @@
 	</c:if>
 	<tr>
 		<td colspan="4" style="text-align: right; font-size: 14pt;">
+			<img src="image/pencil.png" width="30px" height="30px">
 			<a style="margin-right: 10px;" href="./rbwrite.rb">[글쓰기]</a>
 		</td>
 	</tr>

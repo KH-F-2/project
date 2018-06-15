@@ -7,7 +7,7 @@ $(document).ready(function() {
 		var value = $(this).val();
 		
 		if (value != 'report') {
-			location.href = 'category.map?page=1&centerLat=' + centerLat + '&centerLng=' + centerLng + '&category=' + value;
+			location.href = 'category.map?page=1&centerLat=' + centerLat + '&centerLng=' + centerLng + '&category=' + value + '&word=&item=';
 		}
 		
 	});

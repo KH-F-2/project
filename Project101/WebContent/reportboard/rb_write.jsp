@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<script src="./js/reportboard.js"></script>
-<style>
+<link href="./css/boardwrite.css" rel="stylesheet" type="text/css">
+<%-- <style>
 nav {
 	height: 40px;
 	background: #e5ffff
@@ -99,4 +99,73 @@ textarea {
 			</td>
 		</tr>
 	</table>
-</form>
+</form> --%>
+<style>
+	.write_li {
+		box-sizing: border-box;
+	}
+	.rb_1,.rb_2, .rb_3, .rb_4, .rb_5, .rb_6{
+		display: inline-block;
+	}
+	.rb_1, .rb_3, .rb_5{
+		width: 15%;
+		border-right: 1px soild #eeeeee;
+		font-weight: bold;
+	}
+	.rb_2, .rb_4, .rb_6{
+		width: 79%;
+	}
+</style>
+	
+
+
+<form action="./rbwriteaction.rb" method="post" id="write_submit">
+	<input type="hidden" value="${boardBean.RB_NO }" name="RB_NO">
+	<ul class="write_ul">
+		
+		<li class="write_li">
+			<div class="rb_1">
+				제목
+			</div>
+			<div class="rb_2">
+				<input name="rb_title" type="text" size="50" maxlength="100">
+			</div>
+		</li>
+		
+		<li class="write_li">
+			<div class="rb_3">
+				신고 대상
+			</div>
+			<div class="rb_4">
+				<input name="rb_rp_id" type="text" value="${writer }">
+			</div>
+		</li>
+		
+		<li class="write_li">
+			<div class="rb_5">
+				신고 글 번호
+			</div>
+			<div class="rb_6">
+				<input name="rb_rp_no" type="text" value="${board_no }">
+				<input name="rb_rp_board_name" type="hidden" value="${board_name }">
+			</div>
+		</li>
+		
+		<li class="write_li">
+			<div class="content">
+				<textarea name="rb_content" id="board_content" cols="65" rows="15"></textarea>
+			</div>
+		</li>
+		
+	
+		
+		<li class="btn_li">
+			<div>
+				<input type=submit id="submit_btn" class="write_btn" value="등록">
+				<input type=reset id="cancle_btn" class="write_btn" value="취소" onclick="history.go(-1)">
+			</div>
+		</li>
+		
+	</ul>
+	
+</form>	

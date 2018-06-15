@@ -5,6 +5,7 @@
 	border: solid 1px #cdd2d2;
 	border-radius: 10px;
 	padding: 0;
+	margin-bottom: 50px;
 }
 .write_li{
 	list-style: none;
@@ -171,11 +172,16 @@ textarea{
 	background: white;
     color: black;
     border: 1px solid black;
-    font-weight: bold;
+	font-weight: bold;
+    font-size: 10pt;
+    transition: 600ms ease all;
 }
 .uploadcare--widget__button_type_open:hover{
 	color: white;
 	background-color: black;
+	border: 1px solid white;
+	font-size: 10pt;
+    transition: 600ms ease all;
 }
 .category select{
 	border: 1px solid black;

@@ -69,7 +69,6 @@
 			   margin-top: 10px;
 			   font-weight: bold;
 			   font-size: 16pt;
-			   height: 25px;
 			}
 			.a_writer{
 				color: black;
