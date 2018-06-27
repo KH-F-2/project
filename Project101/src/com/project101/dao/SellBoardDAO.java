@@ -581,7 +581,7 @@ public class SellBoardDAO {
 					sb.append("hashtag LIKE ? ");
 				} else {
 					sb.append("title LIKE ? OR content LIKE ? ");
-				}
+				} 
 				
 				if (category != 0) {				
 					sb.append("and category=? ");
